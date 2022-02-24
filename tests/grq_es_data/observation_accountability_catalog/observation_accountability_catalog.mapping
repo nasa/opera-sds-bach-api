@@ -1,0 +1,263 @@
+{
+  "observation_accountability_catalog": {
+    "mappings": {
+      "properties": {
+        "L0A_L_RRST_ids": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L0B_L_CRSD_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L0B_L_HST_DRT_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L0B_L_RRSD_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L0B_job_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L0B_status": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "begin_time": {
+          "type": "date"
+        },
+        "created_at": {
+          "type": "date"
+        },
+        "datatake-expired-state-config_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake-state-config": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake-state-config_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake-urgent_response_expired-state-config_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake-urgent_response_state-config_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "end_time": {
+          "type": "date"
+        },
+        "header": {
+          "type": "object"
+        },
+        "in_cop_catalog": {
+          "type": "boolean"
+        },
+        "input_dataset_not_found": {
+          "type": "boolean"
+        },
+        "l0a_l_rrst_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_crsd_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_crsd_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_hst_drt_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_hst_drt_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_rrsd_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_rrsd_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l1_l_rslc_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l1_l_rslc_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gcov_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gcov_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gslc_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gslc_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "last_modified": {
+          "type": "date"
+        },
+        "observation_ids": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "processing_type": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "ref_end_datetime_iso": {
+          "type": "date"
+        },
+        "ref_start_datetime_iso": {
+          "type": "date"
+        },
+        "refrec_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "state-config_force_submit": {
+          "type": "boolean"
+        },
+        "state-config_is_complete": {
+          "type": "boolean"
+        },
+        "state-config_status": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "job_specs": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1617129986526",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "job_specs",
+        "refresh_interval": "5s",
+        "uuid": "r0qvBeCqTUmR2pKkkvGA-Q",
+        "version": {
+          "created": "7010199"
+        }
+      }
+    }
+  }
+}

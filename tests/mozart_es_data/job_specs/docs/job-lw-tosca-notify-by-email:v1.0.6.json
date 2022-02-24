@@ -1,0 +1,35 @@
+{
+    "command": "/home/ops/lightweight-jobs/notify_by_email.sh",
+    "container": "container-hysds_lightweight-jobs:v1.0.6",
+    "disk_usage": "3GB",
+    "id": "job-lw-tosca-notify-by-email:v1.0.6",
+    "job-version": "v1.0.6",
+    "params": [
+        {
+            "destination": "context",
+            "name": "id"
+        },
+        {
+            "destination": "context",
+            "name": "url"
+        },
+        {
+            "destination": "context",
+            "name": "emails"
+        },
+        {
+            "destination": "context",
+            "name": "name"
+        },
+        {
+            "destination": "context",
+            "name": "component"
+        }
+    ],
+    "required_queues": [
+        "system-jobs-queue"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 86400,
+    "time_limit": 86700
+}

@@ -1,0 +1,16 @@
+{
+  "cop_catalog": {
+    "settings": {
+      "index": {
+        "creation_date": "1626408121702",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "cop_catalog",
+        "uuid": "8DL0XVlATwKhXsQppxF0WQ",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

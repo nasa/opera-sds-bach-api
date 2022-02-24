@@ -1,0 +1,16 @@
+{
+    "creation_time": "2019-11-12T16:30:00Z",
+    "enabled": true,
+    "job_spec": "job-SCIFLO_Time_Extractor:develop",
+    "job_type": "hysds-io-SCIFLO_Time_Extractor:develop",
+    "kwargs": "{\n  \"processing_type\": \"forward\"\n}",
+    "modified_time": "2019-11-12T17:25:56Z",
+    "passthru_query": false,
+    "priority": 0,
+    "query_all": false,
+    "query_string": "{\n \"bool\": {\n \"must\": [\n {\n \"term\": {\n \"dataset.keyword\": \"L0A_L_RRST_PP\"\n }\n }\n ]\n }\n }",
+    "queue": "nisar-job_worker-sciflo-time_extractor",
+    "rule_name": "trigger-SCIFLO_Time_Extractor",
+    "username": "hysdsops",
+    "workflow": "hysds-io-SCIFLO_Time_Extractor:develop"
+}

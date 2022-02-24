@@ -1,0 +1,44 @@
+{
+    "@timestamp": "2021-07-16T04:45:15.056507951Z",
+    "browse_urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/Observation_Accountability_Report/2022/01/01/oad_NASA_2022-001T00:00:00_2025-001T00:00:00",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/browse/Observation_Accountability_Report/2022/01/01/oad_NASA_2022-001T00:00:00_2025-001T00:00:00"
+    ],
+    "creation_timestamp": "2021-07-16T04:45:02.033",
+    "dataset": "Observation_Accountability_Report",
+    "dataset_level": "Report",
+    "dataset_type": "Observation_Accountability_Report",
+    "endtime": "2025-01-01T00:00:00.000000Z",
+    "id": "oad_NASA_2022-001T00:00:00_2025-001T00:00:00",
+    "images": [],
+    "ipath": "hysds::data/Observation_Accountability_Report",
+    "metadata": {
+        "ContentType": "NASA",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/44/timer-ObservationAccountabilityReport-20220101T000000_20250101T000000-20210716T044142.391844Z/output/oad_NASA_2022-001T00:00:00_2025-001T00:00:00",
+        "FileName": "oad_NASA_2022-001T00:00:00_2025-001T00:00:00.xml",
+        "FileSize": 8040,
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:45:02.031788Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "Observation_Accountability_Report",
+        "ValidityEndDateTime": "2025-01-01T00:00:00.000000Z",
+        "ValidityStartDateTime": "2022-01-01T00:00:00.000000Z",
+        "ValidityStartDay": "01",
+        "ValidityStartMonth": "01",
+        "ValidityStartYear": 2022,
+        "id": "oad_NASA_2022-001T00:00:00_2025-001T00:00:00"
+    },
+    "objectid": "oad_NASA_2022-001T00:00:00_2025-001T00:00:00",
+    "prov": {
+        "wasGeneratedBy": "task_id:699a5257-65fd-4292-a62c-7adebc4f4441"
+    },
+    "starttime": "2022-01-01T00:00:00.000000Z",
+    "system_version": "1",
+    "temporal_span": 1096,
+    "urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/reports/Observation_Accountability_Report/2022/01/01/oad_NASA_2022-001T00:00:00_2025-001T00:00:00",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/reports/Observation_Accountability_Report/2022/01/01/oad_NASA_2022-001T00:00:00_2025-001T00:00:00"
+    ],
+    "version": "1"
+}

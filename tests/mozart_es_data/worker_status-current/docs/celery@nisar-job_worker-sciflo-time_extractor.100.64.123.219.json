@@ -1,0 +1,30 @@
+{
+    "@timestamp": "2021-03-30T19:37:49.340Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-sciflo-time_extractor.100.64.123.219",
+    "event": {
+        "active": 0,
+        "clock": 206,
+        "freq": 60.0,
+        "hostname": "celery@nisar-job_worker-sciflo-time_extractor.100.64.123.219",
+        "loadavg": [
+            0.61,
+            0.29,
+            0.3
+        ],
+        "pid": 114,
+        "processed": 1,
+        "sw_ident": "py-celery",
+        "sw_sys": "Linux",
+        "sw_ver": "4.4.7",
+        "type": "worker-offline",
+        "utcoffset": 0
+    },
+    "local_received": "1617133069",
+    "resource": "worker",
+    "status": "worker-offline",
+    "tags": [],
+    "timestamp": "1617133069",
+    "type": "nisar-job_worker-sciflo-time_extractor",
+    "uuid": []
+}

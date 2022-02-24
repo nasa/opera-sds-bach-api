@@ -1,0 +1,16 @@
+{
+  "rost_catalog": {
+    "settings": {
+      "index": {
+        "creation_date": "1626408123701",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "rost_catalog",
+        "uuid": "QpQmEYhNTDegB6vY-v_Z_Q",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

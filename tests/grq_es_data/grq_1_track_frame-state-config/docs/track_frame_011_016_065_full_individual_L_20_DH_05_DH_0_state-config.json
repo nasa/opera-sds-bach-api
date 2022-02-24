@@ -1,0 +1,411 @@
+{
+    "@timestamp": "2021-07-16T04:14:52.208801440Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            74.86266890007502,
+            46.43488213284297
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "12",
+            "admin1_name": "Karaganda",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "BXH",
+                "Balkhash",
+                "Balqash",
+                "Pribalkhash",
+                "Pribalkhashstroy",
+                "\u0411\u0430\u043b\u0445\u0430\u0448"
+            ],
+            "asciiname": "Balqash",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "372",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1525798",
+            "latitude": 46.84806,
+            "location": {
+                "lat": 46.84806,
+                "lon": 74.995
+            },
+            "longitude": 74.995,
+            "modification_date": "2017-03-17",
+            "name": "Balqash",
+            "population": 81364,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "12",
+            "admin1_name": "Karaganda",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Priozersk",
+                "\u041f\u0440\u0438\u043e\u0437\u0435\u0440\u0441\u043a"
+            ],
+            "asciiname": "Priozersk",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "358",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "7536148",
+            "latitude": 46.03106,
+            "location": {
+                "lat": 46.03106,
+                "lon": 73.70247
+            },
+            "longitude": 73.70247,
+            "modification_date": "2018-02-17",
+            "name": "Priozersk",
+            "population": 13457,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "12",
+            "admin1_name": "Karaganda",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Saryshagan",
+                "Saryshaghan"
+            ],
+            "asciiname": "Saryshaghan",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "349",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1519563",
+            "latitude": 46.11917,
+            "location": {
+                "lat": 46.11917,
+                "lon": 73.61917
+            },
+            "longitude": 73.61917,
+            "modification_date": "2012-01-17",
+            "name": "Saryshaghan",
+            "population": 4365,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "12",
+            "admin1_name": "Karaganda",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Ozernoye",
+                "Oz\u00ebrnoye",
+                "Rybtrest",
+                "Shashubay",
+                "Shash\u016bbay"
+            ],
+            "asciiname": "Shashubay",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "341",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1537253",
+            "latitude": 46.81694,
+            "location": {
+                "lat": 46.81694,
+                "lon": 75.04028
+            },
+            "longitude": 75.04028,
+            "modification_date": "2013-06-05",
+            "name": "Shash\u016bbay",
+            "population": 3563,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "00",
+            "admin1_name": null,
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [],
+            "asciiname": "Karabas",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "340",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1523470",
+            "latitude": 46.53333,
+            "location": {
+                "lat": 46.53333,
+                "lon": 76.2
+            },
+            "longitude": 76.2,
+            "modification_date": "2006-01-17",
+            "name": "Karabas",
+            "population": 2672,
+            "timezone": "Asia/Almaty"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-07-16T04:14:49.603591Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:34:58.690087Z",
+    "id": "track_frame_011_016_065_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        73.85456538415707,
+                        47.82492360379858
+                    ],
+                    [
+                        73.87816654196813,
+                        47.81924491288058
+                    ],
+                    [
+                        74.87196319455997,
+                        47.57456069664727
+                    ],
+                    [
+                        75.46683415971322,
+                        47.4228438420073
+                    ],
+                    [
+                        76.95529383290462,
+                        47.02566447433065
+                    ],
+                    [
+                        76.66377327621376,
+                        46.52832679288645
+                    ],
+                    [
+                        76.37759132015601,
+                        46.03023481654385
+                    ],
+                    [
+                        76.0965755530973,
+                        45.53141304014264
+                    ],
+                    [
+                        75.82056053646606,
+                        45.03188495162857
+                    ],
+                    [
+                        74.37847682895841,
+                        45.41478383057589
+                    ],
+                    [
+                        73.80272957224796,
+                        45.56117198599625
+                    ],
+                    [
+                        72.84160321880768,
+                        45.79743647411726
+                    ],
+                    [
+                        72.81878867789466,
+                        45.80292254834659
+                    ],
+                    [
+                        73.07084892724825,
+                        46.30925685886411
+                    ],
+                    [
+                        73.32739306841046,
+                        46.81504739929314
+                    ],
+                    [
+                        73.58857744690441,
+                        47.32027597953317
+                    ],
+                    [
+                        73.85456538415707,
+                        47.82492360379858
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 11,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 65,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            73.85456538415707,
+                            47.82492360379858
+                        ],
+                        [
+                            73.87816654196813,
+                            47.81924491288058
+                        ],
+                        [
+                            74.87196319455997,
+                            47.57456069664727
+                        ],
+                        [
+                            75.46683415971322,
+                            47.4228438420073
+                        ],
+                        [
+                            76.95529383290462,
+                            47.02566447433065
+                        ],
+                        [
+                            76.66377327621376,
+                            46.52832679288645
+                        ],
+                        [
+                            76.37759132015601,
+                            46.03023481654385
+                        ],
+                        [
+                            76.0965755530973,
+                            45.53141304014264
+                        ],
+                        [
+                            75.82056053646606,
+                            45.03188495162857
+                        ],
+                        [
+                            74.37847682895841,
+                            45.41478383057589
+                        ],
+                        [
+                            73.80272957224796,
+                            45.56117198599625
+                        ],
+                        [
+                            72.84160321880768,
+                            45.79743647411726
+                        ],
+                        [
+                            72.81878867789466,
+                            45.80292254834659
+                        ],
+                        [
+                            73.07084892724825,
+                            46.30925685886411
+                        ],
+                        [
+                            73.32739306841046,
+                            46.81504739929314
+                        ],
+                        [
+                            73.58857744690441,
+                            47.32027597953317
+                        ],
+                        [
+                            73.85456538415707,
+                            47.82492360379858
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "expiration_time": "2021-07-16T16:14:49.602559Z",
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:34:58.690087Z",
+        "processing_start_time": "2022-01-08T08:34:23.612576Z",
+        "track_frame_begin_time": "2022-01-08T08:34:23.612576Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 11,
+            "endAX": 2202.6834230422974,
+            "endCY": 92098.69010901451,
+            "endET": 694404496.4126064,
+            "end_time_utc": "2022-01-08T08:34:58.690087Z",
+            "epsg": 32643,
+            "fractionLand": 1.0,
+            "frame": 65,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 1029.0,
+            "meanTopo": 360.0,
+            "medianTopo": 398.6112365722656,
+            "minTopo": 282.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 757111.8746199403,
+            "satelliteLat": 48.00057449276056,
+            "satelliteLon": 67.69970592223231,
+            "startAX": 2167.6059116125107,
+            "startCY": 92063.61259758472,
+            "startET": 694404461.3350949,
+            "start_time_utc": "2022-01-08T08:34:23.612576Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1055120.667572672,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 890932.9792205482,
+            "track": 16,
+            "velocityAlongTrack": 7564.382101030825,
+            "velocityVertical": -15.300315972529745
+        },
+        "track_frame_end_time": "2022-01-08T08:34:58.690087Z"
+    },
+    "objectid": "track_frame_011_016_065_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:80c73bf8-78cc-4070-bf98-386551dbc411"
+    },
+    "starttime": "2022-01-08T08:34:23.612576Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

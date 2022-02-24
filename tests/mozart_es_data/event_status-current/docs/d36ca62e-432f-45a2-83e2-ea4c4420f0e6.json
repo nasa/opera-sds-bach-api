@@ -1,0 +1,11 @@
+{
+    "@timestamp": "2021-03-30T19:34:52.968Z",
+    "@version": "1",
+    "event": {},
+    "hostname": "nisar-100-64-122-25.jpl.nasa.gov",
+    "resource": "event",
+    "status": "shutdown",
+    "tags": [],
+    "type": "harikiri",
+    "uuid": "d36ca62e-432f-45a2-83e2-ea4c4420f0e6"
+}

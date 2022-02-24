@@ -1,0 +1,21 @@
+{
+    "@description": "",
+    "@index": "26",
+    "close_file": "1",
+    "command_length": "12",
+    "downlink_station": "0",
+    "end_time_iso": "2022-01-08T09:04:56.493919",
+    "header": {},
+    "number_of_pulses": "634193",
+    "opcode": "4352",
+    "playback_urgency": "0",
+    "rangelines_to_skip_div_16": "0",
+    "rc_id": "137",
+    "record_update_time": "2021-07-16T04:06:00.460092Z",
+    "refrec_id": "00-1b-0100-26",
+    "rost_id": "id_00-1b-0100_orost-2022008-c001-d08-v01",
+    "start_time": "3315644932080.0005",
+    "start_time_iso": "2022-01-08T08:59:24.493884",
+    "table_id": "00-1b-0100",
+    "trm_ramp": "0"
+}

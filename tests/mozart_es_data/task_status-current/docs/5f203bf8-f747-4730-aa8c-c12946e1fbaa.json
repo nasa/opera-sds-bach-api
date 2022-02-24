@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:31:42.714Z",
+    "@version": "1",
+    "celery_hostname": "celery@user_rules_trigger.00.nisar-100-64-122-74.jpl.nasa.gov",
+    "event": {
+        "clock": 800,
+        "hostname": "celery@user_rules_trigger.00.nisar-100-64-122-74.jpl.nasa.gov",
+        "pid": 19800,
+        "result": "'http://100.64.122.74:8085/tasks'",
+        "runtime": 0.06572540200068033,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "5f203bf8-f747-4730-aa8c-c12946e1fbaa"
+    },
+    "local_received": "1617132702",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617132702",
+    "type": "user_rules_trigger",
+    "uuid": "5f203bf8-f747-4730-aa8c-c12946e1fbaa"
+}

@@ -1,0 +1,456 @@
+{
+    "@timestamp": "2021-07-16T04:15:19.063872462Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            66.33098021881861,
+            24.761766103245364
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": "1174870",
+            "admin2_name": "Kar\u0101chi District",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Carachi",
+                "KHI",
+                "Karaaji",
+                "Karaces",
+                "Karachi",
+                "Karachi - krachy",
+                "Karachi - \u0643\u0631\u0627\u0686\u0649",
+                "Karachy",
+                "Karaci",
+                "Karacio",
+                "Karacis",
+                "Karacsi",
+                "Karaczi",
+                "Karanchi",
+                "Karatschi",
+                "Karatsi",
+                "Karatsji",
+                "Karatxi",
+                "Kara\u00e7i",
+                "Kara\u0109io",
+                "Kara\u010di",
+                "Kara\u010dis",
+                "Kara\u010d\u0117s",
+                "Karochi",
+                "Kar\u00e1\u010di",
+                "Kar\u00e1\u010d\u00ed",
+                "Kar\u00e2chi",
+                "Kar\u0101chi",
+                "Kar\u0101\u010di",
+                "Keraci",
+                "Kera\u00e7\u00ee",
+                "Kurrachee",
+                "Kurrachi",
+                "K\u0259ra\u00e7i",
+                "ka la qi",
+                "ka ra ci",
+                "kalachi",
+                "karaaci",
+                "karacci",
+                "karachi",
+                "karachy",
+                "karaci",
+                "karatshy",
+                "ke la chi",
+                "krachy",
+                "kratshy",
+                "pechs",
+                "qr\u02bczy",
+                "\u039a\u03b1\u03c1\u03ac\u03c4\u03c3\u03b9",
+                "\u041a\u0430\u0440\u0430\u0447\u0438",
+                "\u041a\u0430\u0440\u0430\u0447\u044b",
+                "\u041a\u0430\u0440\u0430\u0447\u0456",
+                "\u053f\u0561\u0580\u0561\u0579\u056b",
+                "\u05e7\u05d0\u05e8\u05d0\u05d8\u05e9\u05d9",
+                "\u05e7\u05e8\u05d0\u05e6\u05d9",
+                "\u0643\u0627\u0631\u0627\u062a\u0634\u0649",
+                "\u0643\u0627\u0631\u0627\u0686\u0649",
+                "\u0643\u0631\u0627\u062a\u0634\u064a",
+                "\u06a9\u0631\u0627\u0686\u06cc",
+                "\u06a9\u0631\u0627\u0686\u06cd",
+                "\u06a9\u064e\u0631\u0672\u0686\u06cc",
+                "\u06a9\u06d5\u0631\u0627\u0686\u06cc",
+                "\u06aa\u0631\u0627\u0686\u064a",
+                "\u0786\u07a6\u0783\u07a7\u0797\u07a9",
+                "\u0915\u0930\u093e\u091a\u0940",
+                "\u0995\u09b0\u09be\u099a\u09c0",
+                "\u0995\u09f0\u09be\u099a\u09c0",
+                "\u0a15\u0a30\u0a3e\u0a1a\u0a40",
+                "\u0a95\u0ab0\u0abe\u0a9a\u0ac0",
+                "\u0b15\u0b30\u0b3e\u0b1a\u0b40",
+                "\u0b95\u0bb0\u0bbe\u0b9a\u0bcd\u0b9a\u0bbf",
+                "\u0c15\u0c30\u0c3e\u0c1a\u0c40",
+                "\u0c95\u0cb0\u0cbe\u0c9a\u0cbf",
+                "\u0d15\u0d31\u0d3e\u0d1a\u0d4d\u0d1a\u0d3f",
+                "\u0e01\u0e32\u0e23\u0e32\u0e08\u0e35",
+                "\u0f40\u0f0b\u0f62\u0f0b\u0f46\u0f72",
+                "\u1000\u101b\u102c\u1001\u103b\u102d\u1019\u103c\u102d\u102f\u1037",
+                "\u10d9\u10d0\u10e0\u10d0\u10e9\u10d8",
+                "\u12a8\u122b\u127a",
+                "\u30ab\u30e9\u30c1",
+                "\u30ab\u30e9\u30fc\u30c1\u30fc",
+                "\u5361\u62c9\u5947",
+                "\u5580\u62c9\u86a9",
+                "\uce74\ub77c\uce58"
+            ],
+            "asciiname": "Karachi",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "8",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA",
+            "geonameid": "1174872",
+            "latitude": 24.8608,
+            "location": {
+                "lat": 24.8608,
+                "lon": 67.0104
+            },
+            "longitude": 67.0104,
+            "modification_date": "2019-09-05",
+            "name": "Karachi",
+            "population": 11624219,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Malir Cantonment"
+            ],
+            "asciiname": "Malir Cantonment",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "52",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLX",
+            "geonameid": "1171305",
+            "latitude": 24.94343,
+            "location": {
+                "lat": 24.94343,
+                "lon": 67.20591
+            },
+            "longitude": 67.20591,
+            "modification_date": "2018-02-06",
+            "name": "Malir Cantonment",
+            "population": 300000,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Garho",
+                "Gharo"
+            ],
+            "asciiname": "Gharo",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "5",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1178587",
+            "latitude": 24.74182,
+            "location": {
+                "lat": 24.74182,
+                "lon": 67.58534
+            },
+            "longitude": 67.58534,
+            "modification_date": "2018-02-06",
+            "name": "Gharo",
+            "population": 19524,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "02",
+            "admin1_name": "Balochistan",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Gadani"
+            ],
+            "asciiname": "Gadani",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "9",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1179185",
+            "latitude": 25.11879,
+            "location": {
+                "lat": 25.11879,
+                "lon": 66.73219
+            },
+            "longitude": 66.73219,
+            "modification_date": "2018-11-06",
+            "name": "Gadani",
+            "population": 13427,
+            "timezone": "Asia/Karachi"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-07-16T04:15:18.298437Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:41:10.054312Z",
+    "id": "track_frame_011_016_076_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        65.43972529394493,
+                        26.07327997953719
+                    ],
+                    [
+                        65.45775510989692,
+                        26.06897083895263
+                    ],
+                    [
+                        66.21932130038846,
+                        25.88460790300605
+                    ],
+                    [
+                        66.67745049937147,
+                        25.77149128093863
+                    ],
+                    [
+                        67.831544952056,
+                        25.47916580133136
+                    ],
+                    [
+                        67.67256241580552,
+                        24.9707669574607
+                    ],
+                    [
+                        67.51515981587609,
+                        24.46215044817735
+                    ],
+                    [
+                        67.35930002744625,
+                        23.95332196848987
+                    ],
+                    [
+                        67.20494698947677,
+                        23.44428707982066
+                    ],
+                    [
+                        66.06793671817016,
+                        23.73037015678992
+                    ],
+                    [
+                        65.61675079835844,
+                        23.84123861564245
+                    ],
+                    [
+                        64.86692409429018,
+                        24.02215341404851
+                    ],
+                    [
+                        64.84917514689074,
+                        24.02638529582174
+                    ],
+                    [
+                        64.99488435616387,
+                        24.53835381441783
+                    ],
+                    [
+                        65.14185710825176,
+                        25.05016199882832
+                    ],
+                    [
+                        65.29012617689295,
+                        25.56180552686991
+                    ],
+                    [
+                        65.43972529394493,
+                        26.07327997953719
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 11,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 76,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            65.43972529394493,
+                            26.07327997953719
+                        ],
+                        [
+                            65.45775510989692,
+                            26.06897083895263
+                        ],
+                        [
+                            66.21932130038846,
+                            25.88460790300605
+                        ],
+                        [
+                            66.67745049937147,
+                            25.77149128093863
+                        ],
+                        [
+                            67.831544952056,
+                            25.47916580133136
+                        ],
+                        [
+                            67.67256241580552,
+                            24.9707669574607
+                        ],
+                        [
+                            67.51515981587609,
+                            24.46215044817735
+                        ],
+                        [
+                            67.35930002744625,
+                            23.95332196848987
+                        ],
+                        [
+                            67.20494698947677,
+                            23.44428707982066
+                        ],
+                        [
+                            66.06793671817016,
+                            23.73037015678992
+                        ],
+                        [
+                            65.61675079835844,
+                            23.84123861564245
+                        ],
+                        [
+                            64.86692409429018,
+                            24.02215341404851
+                        ],
+                        [
+                            64.84917514689074,
+                            24.02638529582174
+                        ],
+                        [
+                            64.99488435616387,
+                            24.53835381441783
+                        ],
+                        [
+                            65.14185710825176,
+                            25.05016199882832
+                        ],
+                        [
+                            65.29012617689295,
+                            25.56180552686991
+                        ],
+                        [
+                            65.43972529394493,
+                            26.07327997953719
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "expiration_time": "2021-07-16T16:15:18.296966Z",
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001.h5"
+        ],
+        "is_complete": false,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:41:10.054312Z",
+        "processing_start_time": "2022-01-08T08:40:35.473140Z",
+        "track_frame_begin_time": "2022-01-08T08:40:35.473140Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 11,
+            "endAX": 2574.047647714615,
+            "endCY": 92470.05433368683,
+            "endET": 694404867.776831,
+            "end_time_utc": "2022-01-08T08:41:10.054312Z",
+            "epsg": 32641,
+            "fractionLand": 0.3311173408089708,
+            "frame": 76,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 1448.0,
+            "meanTopo": 0.0,
+            "medianTopo": 49.9135627746582,
+            "minTopo": 0.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 753155.3473088676,
+            "satelliteLat": 26.000181016101283,
+            "satelliteLon": 60.86824990163293,
+            "startAX": 2539.4664764404297,
+            "startCY": 92435.47316241264,
+            "startET": 694404833.1956598,
+            "start_time_utc": "2022-01-08T08:40:35.473140Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1049242.814537316,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 886329.7620331417,
+            "track": 16,
+            "velocityAlongTrack": 7570.389051434368,
+            "velocityVertical": -9.019723279320159
+        },
+        "track_frame_end_time": "2022-01-08T08:41:10.054312Z"
+    },
+    "objectid": "track_frame_011_016_076_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:a785a5e8-6562-4953-a557-c7a3b962a04d"
+    },
+    "starttime": "2022-01-08T08:40:35.473140Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

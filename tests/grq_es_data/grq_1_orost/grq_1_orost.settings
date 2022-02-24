@@ -1,0 +1,29 @@
+{
+  "grq_1_orost": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1626408321004",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_1_orost",
+        "refresh_interval": "5s",
+        "uuid": "MPm_uT-3Q5epL10PMb8S5w",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

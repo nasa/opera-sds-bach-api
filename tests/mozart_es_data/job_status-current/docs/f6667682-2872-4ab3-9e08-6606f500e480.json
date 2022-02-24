@@ -1,0 +1,592 @@
+{
+    "@timestamp": "2021-03-30T19:49:59.511Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-rcv_cnm_notify.100.64.123.15",
+    "context": {
+        "_command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+        "_disk_usage": "1GB",
+        "_prov": {
+            "wasGeneratedBy": "task_id:51e618f5-0ad5-4609-bca0-314a6cf92d0b"
+        },
+        "cnm_message": {
+            "collection": "L0B_L_RRSD",
+            "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+            "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+            "product": {
+                "files": [
+                    {
+                        "checksum": "12345abcde",
+                        "checksumType": "md5",
+                        "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                        "size": 1234,
+                        "type": "data",
+                        "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                    }
+                ],
+                "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+            },
+            "receivedTime": "2021-03-30T19:46:08.701362Z",
+            "response": {
+                "ingestionMetadata": {
+                    "catalogId": "C1234208438-NISAR-TEST",
+                    "catalogUrl": "http://some/cmr/url"
+                },
+                "status": "SUCCESS"
+            },
+            "submissionTime": "2021-03-30T19:46:08.701085Z",
+            "version": "1.5"
+        },
+        "container_image_id": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+        "container_image_name": "container-iems-sds_cnm_product_delivery:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+        "container_mappings": {},
+        "container_specification": {
+            "digest": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+            "id": "container-iems-sds_cnm_product_delivery:develop",
+            "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+            "version": "develop"
+        },
+        "job_priority": 5,
+        "job_specification": {
+            "command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+            "container": "container-iems-sds_cnm_product_delivery:develop",
+            "disk_usage": "1GB",
+            "id": "job-process_cnm_response:develop",
+            "job-version": "develop",
+            "params": [
+                {
+                    "destination": "context",
+                    "name": "cnm_message",
+                    "value": {
+                        "collection": "L0B_L_RRSD",
+                        "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                        "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+                        "product": {
+                            "files": [
+                                {
+                                    "checksum": "12345abcde",
+                                    "checksumType": "md5",
+                                    "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                                    "size": 1234,
+                                    "type": "data",
+                                    "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                                }
+                            ],
+                            "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                        },
+                        "receivedTime": "2021-03-30T19:46:08.701362Z",
+                        "response": {
+                            "ingestionMetadata": {
+                                "catalogId": "C1234208438-NISAR-TEST",
+                                "catalogUrl": "http://some/cmr/url"
+                            },
+                            "status": "SUCCESS"
+                        },
+                        "submissionTime": "2021-03-30T19:46:08.701085Z",
+                        "version": "1.5"
+                    }
+                },
+                {
+                    "destination": "context",
+                    "name": "product_tagging",
+                    "value": true
+                }
+            ],
+            "post": [
+                "hysds.utils.triage"
+            ],
+            "resource": "jobspec",
+            "soft_time_limit": 900,
+            "time_limit": 960
+        },
+        "localize_urls": [],
+        "product_tagging": true,
+        "runtime_options": {},
+        "tag": "daac_response"
+    },
+    "dedup": false,
+    "job": {
+        "command": {
+            "arguments": [],
+            "env": [],
+            "options": [],
+            "path": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh"
+        },
+        "container_image_id": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+        "container_image_name": "container-iems-sds_cnm_product_delivery:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+        "container_mappings": {
+            "/home/ops/verdi/etc/celeryconfig.py": "celeryconfig.py",
+            "/home/ops/verdi/etc/datasets.json": "datasets.json"
+        },
+        "context": {
+            "_command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+            "_disk_usage": "1GB",
+            "_prov": {
+                "wasGeneratedBy": "task_id:51e618f5-0ad5-4609-bca0-314a6cf92d0b"
+            },
+            "cnm_message": {
+                "collection": "L0B_L_RRSD",
+                "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+                "product": {
+                    "files": [
+                        {
+                            "checksum": "12345abcde",
+                            "checksumType": "md5",
+                            "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                            "size": 1234,
+                            "type": "data",
+                            "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                        }
+                    ],
+                    "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                },
+                "receivedTime": "2021-03-30T19:46:08.701362Z",
+                "response": {
+                    "ingestionMetadata": {
+                        "catalogId": "C1234208438-NISAR-TEST",
+                        "catalogUrl": "http://some/cmr/url"
+                    },
+                    "status": "SUCCESS"
+                },
+                "submissionTime": "2021-03-30T19:46:08.701085Z",
+                "version": "1.5"
+            },
+            "container_image_id": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+            "container_image_name": "container-iems-sds_cnm_product_delivery:develop",
+            "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+            "container_mappings": {},
+            "container_specification": {
+                "digest": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+                "id": "container-iems-sds_cnm_product_delivery:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+                "version": "develop"
+            },
+            "job_priority": 5,
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+                "container": "container-iems-sds_cnm_product_delivery:develop",
+                "disk_usage": "1GB",
+                "id": "job-process_cnm_response:develop",
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "context",
+                        "name": "cnm_message",
+                        "value": {
+                            "collection": "L0B_L_RRSD",
+                            "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                            "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+                            "product": {
+                                "files": [
+                                    {
+                                        "checksum": "12345abcde",
+                                        "checksumType": "md5",
+                                        "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                                        "size": 1234,
+                                        "type": "data",
+                                        "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                                    }
+                                ],
+                                "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                            },
+                            "receivedTime": "2021-03-30T19:46:08.701362Z",
+                            "response": {
+                                "ingestionMetadata": {
+                                    "catalogId": "C1234208438-NISAR-TEST",
+                                    "catalogUrl": "http://some/cmr/url"
+                                },
+                                "status": "SUCCESS"
+                            },
+                            "submissionTime": "2021-03-30T19:46:08.701085Z",
+                            "version": "1.5"
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "product_tagging",
+                        "value": true
+                    }
+                ],
+                "post": [
+                    "hysds.utils.triage"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 900,
+                "time_limit": 960
+            },
+            "localize_urls": [],
+            "product_tagging": true,
+            "runtime_options": {},
+            "tag": "daac_response"
+        },
+        "delivery_info": {
+            "exchange": "",
+            "priority": 5,
+            "redelivered": false,
+            "routing_key": "nisar-job_worker-rcv_cnm_notify"
+        },
+        "job_id": "job-process_cnm_response__develop-20210330T194609.919148Z",
+        "job_info": {
+            "cmd_duration": 5.051528,
+            "cmd_end": "2021-03-30T19:49:59.429252Z",
+            "cmd_start": "2021-03-30T19:49:54.377724Z",
+            "context_file": "/data/work/jobs/2021/03/30/19/48/job-process_cnm_response__develop-20210330T194609.919148Z/_context.json",
+            "datasets_cfg_file": "/home/ops/verdi/etc/datasets.json",
+            "dedup": false,
+            "duration": 77.110917,
+            "execute_node": "100.64.123.15",
+            "facts": {
+                "architecture": "x86_64",
+                "domain": "jpl.nasa.gov",
+                "ec2_instance_id": "i-02d933111078326e1",
+                "ec2_instance_type": "t2.medium",
+                "ec2_placement_availability_zone": "us-west-2b",
+                "fqdn": "100.64.123.15",
+                "hardwaremodel": "x86_64",
+                "hostname": "verdi",
+                "hysds_execute_node": "100.64.123.15",
+                "hysds_public_ip": "100.64.123.15",
+                "ipaddress": "172.18.0.2",
+                "ipaddress_eth0": "100.64.123.15",
+                "is_virtual": true,
+                "memoryfree": "2.64 GB",
+                "memorysize": "3.70 GB",
+                "operatingsystem": "CentOS",
+                "operatingsystemrelease": "7.9.2009",
+                "osfamily": "RedHat",
+                "physicalprocessorcount": 1,
+                "processorcount": 2,
+                "swapfree": "0.00 MB",
+                "swapsize": "0.00 MB",
+                "uptime": "0:01 hours",
+                "virtual": "docker"
+            },
+            "id": "job-process_cnm_response__develop-20210330T194609.919148Z",
+            "job_dir": "/data/work/jobs/2021/03/30/19/48/job-process_cnm_response__develop-20210330T194609.919148Z",
+            "job_payload": {
+                "job_type": "job:job-process_cnm_response:develop",
+                "payload_task_id": "f6667682-2872-4ab3-9e08-6606f500e480"
+            },
+            "job_queue": "nisar-job_worker-rcv_cnm_notify",
+            "job_url": "http://100.64.123.15:8085/jobs/2021/03/30/19/48/job-process_cnm_response__develop-20210330T194609.919148Z",
+            "metrics": {
+                "inputs_localized": [],
+                "job_dir_size": 25112,
+                "products_staged": [],
+                "usage_stats": [
+                    {
+                        "cgroups": {
+                            "blkio_stats": {
+                                "io_service_bytes_recursive": [
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Read",
+                                        "value": 119980032
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Write",
+                                        "value": 18791424
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Sync",
+                                        "value": 18791424
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Async",
+                                        "value": 119980032
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Total",
+                                        "value": 138771456
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Read"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Write"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Sync"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Async"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Total"
+                                    }
+                                ],
+                                "io_serviced_recursive": [
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Read",
+                                        "value": 3795
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Write",
+                                        "value": 1245
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Sync",
+                                        "value": 1245
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Async",
+                                        "value": 3795
+                                    },
+                                    {
+                                        "major": 202,
+                                        "minor": 80,
+                                        "op": "Total",
+                                        "value": 5040
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Read"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Write"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Sync"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Async"
+                                    },
+                                    {
+                                        "major": 202,
+                                        "op": "Total"
+                                    }
+                                ]
+                            },
+                            "cpu_stats": {
+                                "cpu_usage": {
+                                    "percpu_usage": [
+                                        779118354,
+                                        335831713
+                                    ],
+                                    "total_usage": 1114950067,
+                                    "usage_in_kernelmode": 320000000,
+                                    "usage_in_usermode": 720000000
+                                },
+                                "throttling_data": {}
+                            },
+                            "hugetlb_stats": {
+                                "2MB": {
+                                    "failcnt": 0
+                                }
+                            },
+                            "memory_stats": {
+                                "cache": 135438336,
+                                "kernel_tcp_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "kernel_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "stats": {
+                                    "active_anon": 888832,
+                                    "active_file": 6295552,
+                                    "cache": 135438336,
+                                    "hierarchical_memory_limit": 9223372036854771712,
+                                    "hierarchical_memsw_limit": 9223372036854771712,
+                                    "inactive_anon": 0,
+                                    "inactive_file": 129142784,
+                                    "mapped_file": 1384448,
+                                    "pgfault": 48305,
+                                    "pgmajfault": 103,
+                                    "pgpgin": 53524,
+                                    "pgpgout": 20237,
+                                    "rss": 905216,
+                                    "rss_huge": 0,
+                                    "swap": 0,
+                                    "total_active_anon": 888832,
+                                    "total_active_file": 6295552,
+                                    "total_cache": 135438336,
+                                    "total_inactive_anon": 0,
+                                    "total_inactive_file": 129142784,
+                                    "total_mapped_file": 1384448,
+                                    "total_pgfault": 0,
+                                    "total_pgmajfault": 0,
+                                    "total_pgpgin": 0,
+                                    "total_pgpgout": 0,
+                                    "total_rss": 905216,
+                                    "total_rss_huge": 0,
+                                    "total_swap": 0,
+                                    "total_unevictable": 0,
+                                    "unevictable": 0
+                                },
+                                "swap_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 181612544,
+                                    "usage": 136478720
+                                },
+                                "usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 181612544,
+                                    "usage": 136478720
+                                }
+                            },
+                            "pids_stats": {
+                                "current": 8
+                            }
+                        },
+                        "sys_cpu_time": 132012000,
+                        "user_cpu_time": 568164000,
+                        "wall_time": 1100430817
+                    }
+                ]
+            },
+            "payload_hash": "4a21829fbbc741b14ac8c3b3fae18664",
+            "pid": 233,
+            "public_ip": "100.64.123.15",
+            "soft_time_limit": 900,
+            "status": 0,
+            "stderr": "",
+            "stdout": "",
+            "time_end": "2021-03-30T19:49:59.505789Z",
+            "time_limit": 1200,
+            "time_queued": "2021-03-30T19:46:09.919161Z",
+            "time_start": "2021-03-30T19:48:42.394872Z"
+        },
+        "localize_urls": [],
+        "name": "job-process_cnm_response__develop-20210330T194609.919148Z",
+        "params": {
+            "_command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+            "_disk_usage": "1GB",
+            "cnm_message": {
+                "collection": "L0B_L_RRSD",
+                "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+                "product": {
+                    "files": [
+                        {
+                            "checksum": "12345abcde",
+                            "checksumType": "md5",
+                            "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                            "size": 1234,
+                            "type": "data",
+                            "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                        }
+                    ],
+                    "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                },
+                "receivedTime": "2021-03-30T19:46:08.701362Z",
+                "response": {
+                    "ingestionMetadata": {
+                        "catalogId": "C1234208438-NISAR-TEST",
+                        "catalogUrl": "http://some/cmr/url"
+                    },
+                    "status": "SUCCESS"
+                },
+                "submissionTime": "2021-03-30T19:46:08.701085Z",
+                "version": "1.5"
+            },
+            "container_specification": {
+                "digest": "sha256:9c29c62d419d2a34602aba5e268ab949dd824b07bd701b3fa612102eae0ecb7b",
+                "id": "container-iems-sds_cnm_product_delivery:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_cnm_product_delivery:develop.tar.gz",
+                "version": "develop"
+            },
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/update_es.sh",
+                "container": "container-iems-sds_cnm_product_delivery:develop",
+                "disk_usage": "1GB",
+                "id": "job-process_cnm_response:develop",
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "context",
+                        "name": "cnm_message",
+                        "value": {
+                            "collection": "L0B_L_RRSD",
+                            "identifier": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                            "processCompleteTime": "2021-03-30T19:46:08.701394Z",
+                            "product": {
+                                "files": [
+                                    {
+                                        "checksum": "12345abcde",
+                                        "checksumType": "md5",
+                                        "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001",
+                                        "size": 1234,
+                                        "type": "data",
+                                        "uri": "http://some/daac/url/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                                    }
+                                ],
+                                "name": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T085536_20220108T085548_D00001_M_001"
+                            },
+                            "receivedTime": "2021-03-30T19:46:08.701362Z",
+                            "response": {
+                                "ingestionMetadata": {
+                                    "catalogId": "C1234208438-NISAR-TEST",
+                                    "catalogUrl": "http://some/cmr/url"
+                                },
+                                "status": "SUCCESS"
+                            },
+                            "submissionTime": "2021-03-30T19:46:08.701085Z",
+                            "version": "1.5"
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "product_tagging",
+                        "value": true
+                    }
+                ],
+                "post": [
+                    "hysds.utils.triage"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 900,
+                "time_limit": 960
+            },
+            "localize_urls": [],
+            "product_tagging": true,
+            "tag": "daac_response"
+        },
+        "priority": 5,
+        "runtime_options": {},
+        "tag": "daac_response",
+        "task_id": "51e618f5-0ad5-4609-bca0-314a6cf92d0b",
+        "type": "job-process_cnm_response:develop"
+    },
+    "job_id": "job-process_cnm_response__develop-20210330T194609.919148Z",
+    "payload_hash": "4a21829fbbc741b14ac8c3b3fae18664",
+    "payload_id": "f6667682-2872-4ab3-9e08-6606f500e480",
+    "resource": "job",
+    "status": "job-completed",
+    "tags": [
+        "daac_response"
+    ],
+    "type": "job-process_cnm_response:develop",
+    "uuid": "51e618f5-0ad5-4609-bca0-314a6cf92d0b"
+}

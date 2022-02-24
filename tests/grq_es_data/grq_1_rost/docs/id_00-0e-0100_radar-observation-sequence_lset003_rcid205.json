@@ -1,0 +1,101 @@
+{
+    "@timestamp": "2021-03-30T19:18:04.428993Z",
+    "browse_urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/ROST/id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/ROST/id_00-0e-0100_radar-observation-sequence_lset003_rcid205"
+    ],
+    "creation_timestamp": "2021-03-30T19:17:55.131",
+    "dataset": "ROST",
+    "dataset_level": "NA",
+    "dataset_type": "ROST",
+    "id": "id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+    "images": [],
+    "ipath": "hysds::data/ROST",
+    "metadata": {
+        "FileLocation": "/data/work/jobs/2021/03/30/19/17/ingest-staged-id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml-20210330T191737.391244Z/output/id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+        "FileName": "id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml",
+        "FileSize": 1921,
+        "ISL_urls": [
+            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml"
+        ],
+        "Kind": 14,
+        "LSET": 3,
+        "Lambda_trigger_time": "2021-03-30T19:17:37.094099Z",
+        "ProductReceivedDay": "30",
+        "ProductReceivedMonth": "03",
+        "ProductReceivedTime": "2021-03-30T19:17:55.126200Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "ROST",
+        "RCID": 205,
+        "S3_event_record": {
+            "awsRegion": "us-west-2",
+            "eventName": "ObjectCreated:Put",
+            "eventSource": "aws:s3",
+            "eventTime": "2021-03-30T19:17:30.457Z",
+            "eventVersion": "2.1",
+            "requestParameters": {
+                "sourceIPAddress": "100.64.122.95"
+            },
+            "responseElements": {
+                "x-amz-id-2": "1lQnBANxlcAj13qUXYDHLKC/x/v+pPmFVdJ/btrsafQihReIbCU1vhnfaOI5ZxXIJO3h7HyQyT9vNY0Hus5yc4yhkwEOX3xg",
+                "x-amz-request-id": "TD2TDXG7GNSWKWJK"
+            },
+            "s3": {
+                "bucket": {
+                    "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                    "name": "nisar-dev-isl-fwd-bporeh",
+                    "ownerIdentity": {
+                        "principalId": "AWZVWFO1088SI"
+                    }
+                },
+                "configurationId": "sqs_event",
+                "object": {
+                    "eTag": "1850b326534f0b9c20c687b20017269e",
+                    "key": "gds/id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml",
+                    "sequencer": "006063794D2EE51016",
+                    "size": 1921
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "userIdentity": {
+                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+            }
+        },
+        "SQS_record": {
+            "attributes": {
+                "ApproximateFirstReceiveTimestamp": "1617131853953",
+                "ApproximateReceiveCount": "1",
+                "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                "SentTimestamp": "1617131853946"
+            },
+            "awsRegion": "us-west-2",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:30.457Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"TD2TDXG7GNSWKWJK\",\"x-amz-id-2\":\"1lQnBANxlcAj13qUXYDHLKC/x/v+pPmFVdJ/btrsafQihReIbCU1vhnfaOI5ZxXIJO3h7HyQyT9vNY0Hus5yc4yhkwEOX3xg\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml\",\"size\":1921,\"eTag\":\"1850b326534f0b9c20c687b20017269e\",\"sequencer\":\"006063794D2EE51016\"}}}]}",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+            "md5OfBody": "471b658c2627ef49150ac95f942a9e6a",
+            "messageAttributes": {},
+            "messageId": "dc2c5869-21e9-40d9-9b6f-792e688588ae",
+            "receiptHandle": "AQEBATtLLIOk+naxnD+gEbzw+bQIbQogtJ1DUQozjGz7IAjxWNqk1+I1GoKopYuLMhCnEts8Mb8iwmerEhSqXOXXpY7JbjkrUqNpkkgTO6AljmIP+LMnGXWfNRhSNEu3BaZHKx99md2YuaQqhj+f5J+R4nxSk/kcmp9fmiDya9tHhH0O9bEC0XzuhroM2ipMXdq+mojMVFnuq84d+3ouftar+Kx2aP5nmPcUW4wafK/4JWEEU2eRPkB7VcNZG2KUVwXqCx80jc8WU5/6EJyF0Sk9SS4gts89uHcUNjmGg5YZO8GDl8U5leJqu/lbbeV9ZpLsQZKbICd7VQo56PbMKfCQRZsfKg0fzpKQl+aI31i5MQMIoMj5HgNGPTt+RMevOg5Q/Vkeiyl2Jf+HvBw4eJzJSKKx44AuWlg3iQKiUJUtsBw="
+        },
+        "Type": 0,
+        "Variant": 100,
+        "id": "id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+        "restaged": false,
+        "tags": [
+            "ISL"
+        ]
+    },
+    "objectid": "id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-0e-0100_radar-observation-sequence_lset003_rcid205.xml"
+        ],
+        "wasGeneratedBy": "task_id:02363815-e800-4dc0-a096-6299898ac4f2"
+    },
+    "system_version": "1",
+    "urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/ROST/id_00-0e-0100_radar-observation-sequence_lset003_rcid205",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/ROST/id_00-0e-0100_radar-observation-sequence_lset003_rcid205"
+    ],
+    "version": "1"
+}

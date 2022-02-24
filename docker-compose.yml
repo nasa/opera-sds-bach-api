@@ -1,0 +1,9 @@
+version: '2.2'
+services:
+  grq_es:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    container_name: grq-container-bach-api
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200

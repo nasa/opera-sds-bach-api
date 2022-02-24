@@ -1,0 +1,15 @@
+{
+    "creation_time": "2021-03-22T19:06:12Z",
+    "enabled": true,
+    "job_type": "hysds-io-SCIFLO_INSAR:develop",
+    "kwargs": "{}",
+    "modified_time": "2021-03-23T17:05:33Z",
+    "passthru_query": false,
+    "priority": 0,
+    "query_all": false,
+    "query_string": "{\n \"bool\": {\n \"must\": [\n {\n \"term\": {\n \"dataset.keyword\": \"network_pair-state-config\"\n }\n }\n ]\n }\n }",
+    "queue": "nisar-job_worker-sciflo-insar",
+    "rule_name": "trigger-SCIFLO_INSAR",
+    "username": "hysdsops",
+    "workflow": "hysds-io-SCIFLO_INSAR:develop"
+}

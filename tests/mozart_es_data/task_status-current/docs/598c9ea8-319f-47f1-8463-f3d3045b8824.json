@@ -1,0 +1,31 @@
+{
+    "@timestamp": "2021-03-30T19:22:19.738Z",
+    "@version": "1",
+    "celery_hostname": "gen20150@nisar-100-64-122-74.jpl.nasa.gov",
+    "event": {
+        "args": "({'type': 'user_rules_trigger', 'function': 'hysds_commons.job_utils.submit_mozart_job', 'args': [{...}, {...}], 'kwargs': {'job_name': 'purge_ISL:develop-NISAR_S198_SGS_WG5_M00_P00115_R96_C97_G81_2022_008_09_03_16_000000000.vc29', 'component': 'grq'}},)",
+        "clock": 8259,
+        "eta": null,
+        "exchange": "",
+        "expires": null,
+        "hostname": "gen20150@nisar-100-64-122-74.jpl.nasa.gov",
+        "kwargs": "{}",
+        "name": "hysds.task_worker.run_task",
+        "parent_id": "9d730e8e-8ea0-4163-8c81-0e4c236ddbf5",
+        "pid": 20150,
+        "queue": "user_rules_trigger",
+        "retries": 0,
+        "root_id": "1bfec7be-ee01-47ef-a04a-8856ff854620",
+        "routing_key": "user_rules_trigger",
+        "type": "task-sent",
+        "utcoffset": 0,
+        "uuid": "598c9ea8-319f-47f1-8463-f3d3045b8824"
+    },
+    "local_received": "1617132139",
+    "resource": "task",
+    "status": "task-sent",
+    "tags": [],
+    "timestamp": "1617132139",
+    "type": "user_rules_trigger",
+    "uuid": "598c9ea8-319f-47f1-8463-f3d3045b8824"
+}

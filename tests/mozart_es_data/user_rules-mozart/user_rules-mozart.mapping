@@ -1,0 +1,75 @@
+{
+  "user_rules-mozart": {
+    "mappings": {
+      "properties": {
+        "creation_time": {
+          "type": "date"
+        },
+        "disk_usage": {
+          "type": "keyword"
+        },
+        "enabled": {
+          "null_value": true,
+          "type": "boolean"
+        },
+        "job_spec": {
+          "type": "keyword"
+        },
+        "job_type": {
+          "type": "keyword"
+        },
+        "kwargs": {
+          "type": "text"
+        },
+        "modification_time": {
+          "type": "date"
+        },
+        "modified_time": {
+          "type": "date"
+        },
+        "passthru_query": {
+          "type": "boolean"
+        },
+        "priority": {
+          "type": "long"
+        },
+        "query_all": {
+          "type": "boolean"
+        },
+        "query_string": {
+          "type": "text"
+        },
+        "queue": {
+          "type": "text"
+        },
+        "resource": {
+          "type": "keyword"
+        },
+        "rule_name": {
+          "type": "keyword"
+        },
+        "soft_time_limit": {
+          "type": "long"
+        },
+        "status": {
+          "type": "keyword"
+        },
+        "tags": {
+          "type": "keyword"
+        },
+        "time_limit": {
+          "type": "long"
+        },
+        "type": {
+          "type": "keyword"
+        },
+        "username": {
+          "type": "keyword"
+        },
+        "workflow": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

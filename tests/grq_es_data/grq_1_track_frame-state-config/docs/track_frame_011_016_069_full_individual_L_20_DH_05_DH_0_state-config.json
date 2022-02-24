@@ -1,0 +1,426 @@
+{
+    "@timestamp": "2021-07-16T04:14:53.477508363Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            71.15986108826606,
+            38.593705648816176
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "02",
+            "admin1_name": "Khatlon",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kulab",
+                "Kuljab",
+                "Kulob",
+                "Kulyab",
+                "K\u016dlob",
+                "TJU",
+                "\u041a\u0443\u043b\u044f\u0431",
+                "\u041a\u04ef\u043b\u043e\u0431"
+            ],
+            "asciiname": "Kulob",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "TJ",
+            "country_name": "Tajikistan",
+            "dem": "609",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA2",
+            "geonameid": "1221194",
+            "latitude": 37.91459,
+            "location": {
+                "lat": 37.91459,
+                "lon": 69.78454
+            },
+            "longitude": 69.78454,
+            "modification_date": "2017-02-05",
+            "name": "K\u016dlob",
+            "population": 78786,
+            "timezone": "Asia/Dushanbe"
+        },
+        {
+            "admin1_code": "01",
+            "admin1_name": "Gorno-Badakhshan",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Khorog",
+                "Khorug",
+                "Khorugh",
+                "\u0425\u043e\u0440\u043e\u0433",
+                "\u0425\u043e\u0440\u0443\u0493"
+            ],
+            "asciiname": "Khorugh",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "TJ",
+            "country_name": "Tajikistan",
+            "dem": "2089",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA",
+            "geonameid": "1221328",
+            "latitude": 37.48974,
+            "location": {
+                "lat": 37.48974,
+                "lon": 71.55304
+            },
+            "longitude": 71.55304,
+            "modification_date": "2012-02-28",
+            "name": "Khorugh",
+            "population": 30000,
+            "timezone": "Asia/Dushanbe"
+        },
+        {
+            "admin1_code": "02",
+            "admin1_name": "Khatlon",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Leningrad",
+                "Leningradskiy",
+                "Mu'minobod",
+                "Muminabad",
+                "Muminobod",
+                "Mumynabad",
+                "Muuminobod",
+                "M\u016dminobod",
+                "M\u016d\u2019minobod",
+                "\u041c\u04ef\u043c\u0438\u043d\u043e\u0431\u043e\u0434",
+                "\u041c\u04ef\u044a\u043c\u0438\u043d\u043e\u0431\u043e\u0434"
+            ],
+            "asciiname": "Mu'minobod",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "TJ",
+            "country_name": "Tajikistan",
+            "dem": "1247",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA2",
+            "geonameid": "1221091",
+            "latitude": 38.10714,
+            "location": {
+                "lat": 38.10714,
+                "lon": 70.03213
+            },
+            "longitude": 70.03213,
+            "modification_date": "2012-06-05",
+            "name": "M\u016d\u2019minobod",
+            "population": 11955,
+            "timezone": "Asia/Dushanbe"
+        },
+        {
+            "admin1_code": "RR",
+            "admin1_name": "Republican Subordination",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Garm",
+                "Gharm",
+                "Rasht",
+                "\u0420\u0430\u0448\u0442"
+            ],
+            "asciiname": "Rasht",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "TJ",
+            "country_name": "Tajikistan",
+            "dem": "1371",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA2",
+            "geonameid": "1221740",
+            "latitude": 39.02871,
+            "location": {
+                "lat": 39.02871,
+                "lon": 70.37446
+            },
+            "longitude": 70.37446,
+            "modification_date": "2016-11-22",
+            "name": "Rasht",
+            "population": 10771,
+            "timezone": "Asia/Dushanbe"
+        },
+        {
+            "admin1_code": "RR",
+            "admin1_name": "Republican Subordination",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Obigarm"
+            ],
+            "asciiname": "Obigarm",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "TJ",
+            "country_name": "Tajikistan",
+            "dem": "1358",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1220888",
+            "latitude": 38.71731,
+            "location": {
+                "lat": 38.71731,
+                "lon": 69.70885
+            },
+            "longitude": 69.70885,
+            "modification_date": "2016-11-22",
+            "name": "Obigarm",
+            "population": 10035,
+            "timezone": "Asia/Dushanbe"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-07-16T04:14:49.962362Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:37:14.342090Z",
+    "id": "track_frame_011_016_069_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        70.19937678681735,
+                        39.94748127868598
+                    ],
+                    [
+                        70.2202884967546,
+                        39.94245512868253
+                    ],
+                    [
+                        71.10219991469351,
+                        39.72636504685593
+                    ],
+                    [
+                        71.63140090092632,
+                        39.59281041712433
+                    ],
+                    [
+                        72.96000218623716,
+                        39.24452337708769
+                    ],
+                    [
+                        72.73648748399609,
+                        38.74140094175988
+                    ],
+                    [
+                        72.51623276351705,
+                        38.23781786784526
+                    ],
+                    [
+                        72.29914577369759,
+                        37.73378716972847
+                    ],
+                    [
+                        72.08513755077388,
+                        37.22932140928397
+                    ],
+                    [
+                        70.78961489608997,
+                        37.56747259192214
+                    ],
+                    [
+                        70.27392420232388,
+                        37.69729355916131
+                    ],
+                    [
+                        69.41493585575972,
+                        37.90754575469206
+                    ],
+                    [
+                        69.39457376137032,
+                        37.91243930711413
+                    ],
+                    [
+                        69.5916481783438,
+                        38.42171277927066
+                    ],
+                    [
+                        69.79141839174,
+                        38.93065071215216
+                    ],
+                    [
+                        69.99396626407395,
+                        39.43924352263396
+                    ],
+                    [
+                        70.19937678681735,
+                        39.94748127868598
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 11,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 69,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            70.19937678681735,
+                            39.94748127868598
+                        ],
+                        [
+                            70.2202884967546,
+                            39.94245512868253
+                        ],
+                        [
+                            71.10219991469351,
+                            39.72636504685593
+                        ],
+                        [
+                            71.63140090092632,
+                            39.59281041712433
+                        ],
+                        [
+                            72.96000218623716,
+                            39.24452337708769
+                        ],
+                        [
+                            72.73648748399609,
+                            38.74140094175988
+                        ],
+                        [
+                            72.51623276351705,
+                            38.23781786784526
+                        ],
+                        [
+                            72.29914577369759,
+                            37.73378716972847
+                        ],
+                        [
+                            72.08513755077388,
+                            37.22932140928397
+                        ],
+                        [
+                            70.78961489608997,
+                            37.56747259192214
+                        ],
+                        [
+                            70.27392420232388,
+                            37.69729355916131
+                        ],
+                        [
+                            69.41493585575972,
+                            37.90754575469206
+                        ],
+                        [
+                            69.39457376137032,
+                            37.91243930711413
+                        ],
+                        [
+                            69.5916481783438,
+                            38.42171277927066
+                        ],
+                        [
+                            69.79141839174,
+                            38.93065071215216
+                        ],
+                        [
+                            69.99396626407395,
+                            39.43924352263396
+                        ],
+                        [
+                            70.19937678681735,
+                            39.94748127868598
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "expiration_time": "2021-07-16T16:14:49.961325Z",
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00001_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:37:14.342090Z",
+        "processing_start_time": "2022-01-08T08:36:39.513464Z",
+        "track_frame_begin_time": "2022-01-08T08:36:39.513464Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 11,
+            "endAX": 2338.3354264497757,
+            "endCY": 92234.34211242199,
+            "endET": 694404632.0646098,
+            "end_time_utc": "2022-01-08T08:37:14.342090Z",
+            "epsg": 32642,
+            "fractionLand": 1.0,
+            "frame": 69,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 7138.0,
+            "meanTopo": 3388.0,
+            "medianTopo": 3297.95703125,
+            "minTopo": 486.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 755435.1663851999,
+            "satelliteLat": 40.00036470579643,
+            "satelliteLon": 64.82385489824914,
+            "startAX": 2303.506800055504,
+            "startCY": 92199.51348602772,
+            "startET": 694404597.2359834,
+            "start_time_utc": "2022-01-08T08:36:39.513464Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1052663.8386911412,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 888950.8217559874,
+            "track": 16,
+            "velocityAlongTrack": 7566.858339545703,
+            "velocityVertical": -14.333421320760092
+        },
+        "track_frame_end_time": "2022-01-08T08:37:14.342090Z"
+    },
+    "objectid": "track_frame_011_016_069_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:80c73bf8-78cc-4070-bf98-386551dbc411"
+    },
+    "starttime": "2022-01-08T08:36:39.513464Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

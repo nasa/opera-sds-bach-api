@@ -1,0 +1,101 @@
+{
+    "@timestamp": "2021-07-16T04:05:20.852170914Z",
+    "browse_urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/TIURDROP/2021/04/12/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/TIURDROP/2021/04/12/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis"
+    ],
+    "creation_timestamp": "2021-07-16T04:05:10.897",
+    "dataset": "TIURDROP",
+    "dataset_level": "NA",
+    "dataset_type": "TIURDROP",
+    "id": "TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+    "images": [],
+    "ipath": "hysds::data/TIURDROP",
+    "metadata": {
+        "ExecutionDateTime": "2021-04-12T00:00:00.000000Z",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/05/ingest-staged-TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml-20210716T040505.420154Z/output/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+        "FileName": "TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml",
+        "FileSize": 9853,
+        "ISL_urls": [
+            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml"
+        ],
+        "Lambda_trigger_time": "2021-07-16T04:05:05.185735Z",
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:05:10.894159Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "TIURDROP",
+        "S3_event_record": {
+            "awsRegion": "us-west-2",
+            "eventName": "ObjectCreated:Put",
+            "eventSource": "aws:s3",
+            "eventTime": "2021-07-16T04:04:56.841Z",
+            "eventVersion": "2.1",
+            "requestParameters": {
+                "sourceIPAddress": "100.64.122.209"
+            },
+            "responseElements": {
+                "x-amz-id-2": "eYRHxAWOW3rIOCGgTY3QrftvFXkpXy3UYlHCWvFeQAgPSnvokv2XhjwvR8m4J/VSSYNgIYfTeXFzWvdSyBiSYn1HPDb6HeuU",
+                "x-amz-request-id": "HC1766AY3DDY2XFE"
+            },
+            "s3": {
+                "bucket": {
+                    "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                    "name": "nisar-dev-isl-fwd-bporeh",
+                    "ownerIdentity": {
+                        "principalId": "AWZVWFO1088SI"
+                    }
+                },
+                "configurationId": "sqs_event",
+                "object": {
+                    "eTag": "7c19c1025a77b383ca5f6208d3fbf00a",
+                    "key": "gds/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml",
+                    "sequencer": "0060F105702C28F4DF",
+                    "size": 9853
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "userIdentity": {
+                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1"
+            }
+        },
+        "SQS_record": {
+            "attributes": {
+                "ApproximateFirstReceiveTimestamp": "1626408305095",
+                "ApproximateReceiveCount": "1",
+                "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                "SentTimestamp": "1626408305090"
+            },
+            "awsRegion": "us-west-2",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-07-16T04:04:56.841Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.209\"},\"responseElements\":{\"x-amz-request-id\":\"HC1766AY3DDY2XFE\",\"x-amz-id-2\":\"eYRHxAWOW3rIOCGgTY3QrftvFXkpXy3UYlHCWvFeQAgPSnvokv2XhjwvR8m4J/VSSYNgIYfTeXFzWvdSyBiSYn1HPDb6HeuU\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml\",\"size\":9853,\"eTag\":\"7c19c1025a77b383ca5f6208d3fbf00a\",\"sequencer\":\"0060F105702C28F4DF\"}}}]}",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-354-isl-queue",
+            "md5OfBody": "3cb0517d7192f0b8494d14efc53aa63d",
+            "messageAttributes": {},
+            "messageId": "26443373-9d33-4a17-bc70-09072799c51d",
+            "receiptHandle": "AQEBfsO+oKtea6wwXsaSnU9/BgBK2JVFIWVkfgHCs+OMdOqpaor6C5Ql1qT9pcHR4VGIS0TO/gr0EGBj5LyUkM4Ph72TqUUSUBpGqd0VsYg8wND9Z2B7FiwfbdrhnHQ0Tgo74+mKjaW7D3PXr7a5tBySvnyz5PAEOX2ZWm8nm8bZyp5AHjmkLqfxE1o8DfAdnQ3b78OI+4coWyf01EY/+WRA0YGCTepIlvSGsURf6TLfeQSMotyWMQMplvVWECzUVT5/WVlt/5IYy7tHczw8douUfiX+vJtL85XMA0vOgwobFTvlhWllekSByXFLagy4SA4eKSsUP6nNb7mpjLzqcN5kaEkpO6ynpLAwukAs1rQxDy/Z5O+I0Mp6vTm8kFFKkBpD7KPuuPqYqd81ln+DSpdPAAuWAXNn7/VdY7K13OFg9Fs="
+        },
+        "VersionID": 0,
+        "event_desc": "TIM_nicc_usda_cloudvault_e2023-016_c2021-105",
+        "event_type": "fire",
+        "id": "TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+        "restaged": false,
+        "tags": [
+            "ISL"
+        ]
+    },
+    "objectid": "TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis.xml"
+        ],
+        "wasGeneratedBy": "task_id:a27d514d-f843-43fd-b222-9fe588533749"
+    },
+    "starttime": "2021-04-12T00:00:00.000000Z",
+    "system_version": "0",
+    "urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/TIURDROP/2021/04/12/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/TIURDROP/2021/04/12/TIURDROP_UR_event_fire_2021_04_12T00_00_00_000Z_TIM_nicc_usda_cloudvault_e2023-016_c2021-105_v000.xml.xopsis"
+    ],
+    "version": "0"
+}

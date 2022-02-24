@@ -1,0 +1,44 @@
+{
+    "@timestamp": "2021-07-16T04:11:36.897955194Z",
+    "browse_urls": [],
+    "creation_time": "2021-07-16T04:11:33.721825Z",
+    "dataset": "datatake-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "datatake-state-config",
+    "endtime": "2022-01-08T08:51:36.000000Z",
+    "id": "dtid_2022008084732_state-config",
+    "images": [],
+    "ipath": "hysds::data/datatake-state-config",
+    "metadata": {
+        "datatake_begin_time": "2022-01-08T08:47:32.000000Z",
+        "datatake_end_time": "2022-01-08T08:51:36.000000Z",
+        "datatake_id": "dtid_2022008084732",
+        "expiration_time": "2021-07-16T04:12:33.718329Z",
+        "force_submit": false,
+        "found_l0a_rrsts": [
+            "NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+            "NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0a_rrst_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001"
+        ],
+        "observation_ids": [
+            "oid_2022008084732",
+            "oid_2022008084852",
+            "oid_2022008084956"
+        ],
+        "submitted_by_timer": null
+    },
+    "objectid": "dtid_2022008084732_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:93aaa976-f3fd-4c8c-b0af-759369d9f155"
+    },
+    "starttime": "2022-01-08T08:47:32.000000Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

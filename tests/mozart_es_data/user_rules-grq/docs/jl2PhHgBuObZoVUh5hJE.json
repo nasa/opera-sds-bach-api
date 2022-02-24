@@ -1,0 +1,16 @@
+{
+    "creation_time": "2020-01-10T10:30:00Z",
+    "enabled": true,
+    "job_spec": "job-PGE_ROST:develop",
+    "job_type": "hysds-io-PGE_ROST:develop",
+    "kwargs": "{}",
+    "modified_time": "2020-01-10T11:25:56Z",
+    "passthru_query": false,
+    "priority": 0,
+    "query_all": false,
+    "query_string": "{\n \"bool\": {\n \"must\": [\n {\n \"term\": {\n \"dataset.keyword\": \"ROST\"\n }\n }\n ]\n }\n }",
+    "queue": "nisar-job_worker-small",
+    "rule_name": "trigger-PGE_ROST",
+    "username": "hysdsops",
+    "workflow": "hysds-io-PGE_ROST:develop"
+}

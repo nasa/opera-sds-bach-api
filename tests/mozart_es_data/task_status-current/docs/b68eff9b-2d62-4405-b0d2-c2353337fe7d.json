@@ -1,0 +1,29 @@
+{
+    "@timestamp": "2021-03-30T19:25:55.748Z",
+    "@version": "1",
+    "celery_hostname": "celery@user_rules_trigger.00.nisar-100-64-122-74.jpl.nasa.gov",
+    "event": {
+        "args": "({'type': 'user_rules_trigger', 'function': 'hysds_commons.job_utils.submit_mozart_job', 'args': [{...}, {...}], 'kwargs': {'job_name': 'SCIFLO_Time_Extractor:develop-NISAR_L0_RRST_PP_VC24_20220108T082536_20220108T090316_D00001_001', 'component': 'grq'}},)",
+        "clock": 651,
+        "eta": null,
+        "expires": null,
+        "hostname": "celery@user_rules_trigger.00.nisar-100-64-122-74.jpl.nasa.gov",
+        "kwargs": "{}",
+        "name": "hysds.task_worker.run_task",
+        "parent_id": "e078f07f-6646-433f-8d47-b2932cc10f12",
+        "pid": 19800,
+        "retries": 0,
+        "root_id": "8586c0e2-e1e1-41d2-92cc-acaf28ea3ea1",
+        "state": "RECEIVED",
+        "type": "task-received",
+        "utcoffset": 0,
+        "uuid": "b68eff9b-2d62-4405-b0d2-c2353337fe7d"
+    },
+    "local_received": "1617132355",
+    "resource": "task",
+    "status": "task-received",
+    "tags": [],
+    "timestamp": "1617132355",
+    "type": "user_rules_trigger",
+    "uuid": "b68eff9b-2d62-4405-b0d2-c2353337fe7d"
+}

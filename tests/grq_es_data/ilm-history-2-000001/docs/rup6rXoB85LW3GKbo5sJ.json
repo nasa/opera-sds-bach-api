@@ -1,0 +1,17 @@
+{
+    "@timestamp": 1626408130342,
+    "index": ".slm-history-2-000001",
+    "index_age": 129842,
+    "policy": "slm-history-ilm-policy",
+    "state": {
+        "action": "unfollow",
+        "action_time": "1626408000605",
+        "creation_date": "1626408000500",
+        "phase": "hot",
+        "phase_definition": "{\"policy\":\"slm-history-ilm-policy\",\"phase_definition\":{\"min_age\":\"0ms\",\"actions\":{\"rollover\":{\"max_size\":\"50gb\",\"max_age\":\"30d\"}}},\"version\":1,\"modified_date_in_millis\":1613597613264}",
+        "phase_time": "1626408000605",
+        "step": "close-follower-index",
+        "step_time": "1626408130316"
+    },
+    "success": true
+}

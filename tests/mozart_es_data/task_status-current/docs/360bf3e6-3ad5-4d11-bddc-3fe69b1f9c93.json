@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:19:11.343Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-small.100.64.123.183",
+    "event": {
+        "clock": 150,
+        "hostname": "celery@nisar-job_worker-small.100.64.123.183",
+        "pid": 113,
+        "result": "{'uuid': '360bf3e6-3ad5-4d11-bddc-3fe69b1f9c93', 'job_id': 'purge_ISL__develop-id_00-01-0100_radar-observation-sequence_lset003_rcid192-20210330T191821.179436Z', 'payload_id': '20b2c60c-8f50-4ebd-a0dd-16451d6cfee2', 'payload_hash': '22f34deb1508d9d34dd29dac2add4d5a', 'dedup': True, 'status': 'job-completed', 'job_url': 'http://100.64.123.183:8085/jobs/2021/03/30/19/19/purge_ISL__develop-id_00-01-0100_radar-observation-sequence_lset003_rcid192-20210330T191821.179436Z', 'celery_hostname': 'celery@nisar-job_worker-small.100.64.123.183'}",
+        "runtime": 4.566225041999928,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "360bf3e6-3ad5-4d11-bddc-3fe69b1f9c93"
+    },
+    "local_received": "1617131951",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617131951",
+    "type": "nisar-job_worker-small",
+    "uuid": "360bf3e6-3ad5-4d11-bddc-3fe69b1f9c93"
+}

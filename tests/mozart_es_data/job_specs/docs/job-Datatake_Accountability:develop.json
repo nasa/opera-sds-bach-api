@@ -1,0 +1,35 @@
+{
+    "command": "/home/ops/verdi/ops/nisar-pcm/Datatake_Accountability/eval_datatake.sh",
+    "container": "container-iems-sds_nisar-pcm:develop",
+    "disk_usage": "20GB",
+    "id": "job-Datatake_Accountability:develop",
+    "imported_worker_files": {
+        "$HOME/.aws": "/home/ops/.aws",
+        "$HOME/.netrc": "/home/ops/.netrc",
+        "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+    },
+    "job-version": "develop",
+    "params": [
+        {
+            "destination": "context",
+            "name": "product_paths"
+        },
+        {
+            "destination": "context",
+            "name": "product_metadata"
+        },
+        {
+            "destination": "context",
+            "name": "dataset_type"
+        }
+    ],
+    "post": [
+        "hysds.utils.triage"
+    ],
+    "recommended-queues": [
+        "nisar-job_worker-datatake-acct"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 1080,
+    "time_limit": 1200
+}

@@ -1,0 +1,31 @@
+{
+    "command": "/home/ops/lightweight-jobs/purge.sh",
+    "container": "container-hysds_lightweight-jobs:v1.0.6",
+    "disk_usage": "3GB",
+    "id": "job-lw-tosca-purge:v1.0.6",
+    "imported_worker_files": {
+        "$HOME/.aws": "/home/ops/.aws",
+        "$HOME/.azure": "/home/ops/.azure"
+    },
+    "job-version": "v1.0.6",
+    "params": [
+        {
+            "destination": "context",
+            "name": "query"
+        },
+        {
+            "destination": "context",
+            "name": "component"
+        },
+        {
+            "destination": "context",
+            "name": "operation"
+        }
+    ],
+    "required_queues": [
+        "system-jobs-queue"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 86400,
+    "time_limit": 86700
+}

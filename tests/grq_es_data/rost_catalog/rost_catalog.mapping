@@ -1,0 +1,113 @@
+{
+  "rost_catalog": {
+    "mappings": {
+      "properties": {
+        "@description": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "@index": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "close_file": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "command_length": {
+          "type": "integer"
+        },
+        "downlink_station": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "end_time_iso": {
+          "type": "date"
+        },
+        "header": {
+          "type": "object"
+        },
+        "number_of_pulses": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "opcode": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "playback_urgency": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "rangelines_to_skip_div_16": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "rc_id": {
+          "type": "text"
+        },
+        "record_update_time": {
+          "type": "date"
+        },
+        "refrec_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "rost_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "start_time": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "start_time_iso": {
+          "type": "date"
+        },
+        "table_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "trm_ramp": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        }
+      }
+    }
+  }
+}

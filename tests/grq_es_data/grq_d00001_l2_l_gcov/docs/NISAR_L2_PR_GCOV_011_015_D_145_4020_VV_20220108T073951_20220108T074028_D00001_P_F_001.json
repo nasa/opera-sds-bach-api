@@ -1,0 +1,473 @@
+{
+    "@timestamp": "2021-07-16T04:26:55.071948565Z",
+    "browse_urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/L2_L_GCOV/2022/01/08/NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/browse/L2_L_GCOV/2022/01/08/NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001"
+    ],
+    "center": {
+        "coordinates": [
+            -102.33830506649896,
+            -65.42979090112277
+        ],
+        "type": "point"
+    },
+    "city": [],
+    "continent": "Antarctica",
+    "creation_timestamp": "2021-07-16T04:26:18.252",
+    "daac_CNM_S_status": "success",
+    "daac_CNM_S_timestamp": "2021-07-16T04:26:55.046584Z",
+    "dataset": "L2_L_GCOV",
+    "dataset_level": "L2",
+    "dataset_type": "L2_L_GCOV",
+    "endtime": "2022-01-08T07:40:28.207951Z",
+    "id": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+    "images": [],
+    "ipath": "hysds::data/L2_L_GCOV",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        -99.04971863988442,
+                        -66.25630813621738
+                    ],
+                    [
+                        -99.09145121670304,
+                        -66.26022144800564
+                    ],
+                    [
+                        -100.8691515686409,
+                        -66.41549024666737
+                    ],
+                    [
+                        -101.9521400783508,
+                        -66.49930088932246
+                    ],
+                    [
+                        -104.722280501977,
+                        -66.67751278755614
+                    ],
+                    [
+                        -104.9039141666416,
+                        -66.14291388174178
+                    ],
+                    [
+                        -105.0809331018763,
+                        -65.60817226309531
+                    ],
+                    [
+                        -105.2536404541439,
+                        -65.0732920015435
+                    ],
+                    [
+                        -105.4223142284286,
+                        -64.53827678053685
+                    ],
+                    [
+                        -102.8707194267381,
+                        -64.36482547734364
+                    ],
+                    [
+                        -101.8718143771054,
+                        -64.28414735332728
+                    ],
+                    [
+                        -100.2300831689288,
+                        -64.13556977489155
+                    ],
+                    [
+                        -100.1915088740827,
+                        -64.13183667270636
+                    ],
+                    [
+                        -99.91939097832677,
+                        -64.66354954393728
+                    ],
+                    [
+                        -99.63876691112432,
+                        -65.19487955444927
+                    ],
+                    [
+                        -99.34907842647782,
+                        -65.72580644911042
+                    ],
+                    [
+                        -99.04971863988442,
+                        -66.25630813621738
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "Bounding_Polygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            -99.04971863988442,
+                            -66.25630813621738
+                        ],
+                        [
+                            -99.09145121670304,
+                            -66.26022144800564
+                        ],
+                        [
+                            -100.8691515686409,
+                            -66.41549024666737
+                        ],
+                        [
+                            -101.9521400783508,
+                            -66.49930088932246
+                        ],
+                        [
+                            -104.722280501977,
+                            -66.67751278755614
+                        ],
+                        [
+                            -104.9039141666416,
+                            -66.14291388174178
+                        ],
+                        [
+                            -105.0809331018763,
+                            -65.60817226309531
+                        ],
+                        [
+                            -105.2536404541439,
+                            -65.0732920015435
+                        ],
+                        [
+                            -105.4223142284286,
+                            -64.53827678053685
+                        ],
+                        [
+                            -102.8707194267381,
+                            -64.36482547734364
+                        ],
+                        [
+                            -101.8718143771054,
+                            -64.28414735332728
+                        ],
+                        [
+                            -100.2300831689288,
+                            -64.13556977489155
+                        ],
+                        [
+                            -100.1915088740827,
+                            -64.13183667270636
+                        ],
+                        [
+                            -99.91939097832677,
+                            -64.66354954393728
+                        ],
+                        [
+                            -99.63876691112432,
+                            -65.19487955444927
+                        ],
+                        [
+                            -99.34907842647782,
+                            -65.72580644911042
+                        ],
+                        [
+                            -99.04971863988442,
+                            -66.25630813621738
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "CompositeReleaseID": "D00001",
+        "CoverageIndicator": "F",
+        "CycleNumber": 11,
+        "Direction": "D",
+        "Fidelity": "P",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/output/datasets/NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+        "FileName": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5",
+        "FileSize": 1024,
+        "FrameNumber": 145,
+        "GranuleName": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_P_F",
+        "Input_Files": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L1_L_RSLC/2022/01/08/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5"
+        ],
+        "OrbitDirection": "Descending",
+        "OrbitDirectionLetter": "D",
+        "PCMRetrievalID": "NISAR_L2_PR_GCOV_011_015_D_145_P",
+        "PGE_Name": "GCOV_L_PGE",
+        "PGE_Version": "R1.1.0",
+        "Polarization": "VV",
+        "ProcessingType": "PR",
+        "ProductAccuracy": "P",
+        "ProductCounter": 1,
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:26:18.249308Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "L2_L_GCOV",
+        "Production_DateTime": "2021-07-16T04:26:15.179163Z",
+        "RadarProcessingMode": 4020,
+        "RadarStartDateTime": "2022-01-08T07:39:51.697081Z",
+        "RadarStopDateTime": "2022-01-08T07:40:28.207951Z",
+        "RelativeOrbitNumber": 15,
+        "SAS_Version": "ISCE3 v0.2.0-dev",
+        "TrackFrame": 145,
+        "id": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+        "lineage": [
+            "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5",
+            "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/dem.vrt"
+        ],
+        "runconfig": {
+            "DebugLevelGroup": {
+                "DebugSwitch": false
+            },
+            "DebugPath": "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z",
+            "DynamicAncillaryFileGroup": {
+                "DEMFile": "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/dem.vrt"
+            },
+            "Geometry": {
+                "CycleNumber": 11,
+                "FrameNumber": 145,
+                "OrbitDirection": "Descending",
+                "RelativeOrbitNumber": 15
+            },
+            "InputFilePath": {
+                "L1_L_RSLC": [
+                    "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5"
+                ]
+            },
+            "PGENameGroup": {
+                "PGEName": "GCOV_L_PGE"
+            },
+            "PrimaryExecutable": {
+                "CompositeReleaseID": "D00001",
+                "MissionId": "NISAR",
+                "ProcessingType": "PR",
+                "ProductAccuracy": "P",
+                "ProductType": "GCOV"
+            },
+            "ProductPath": "/data/work/jobs/2021/07/16/04/25/SCIFLO_GCOV__develop-NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001-20210716T042418.999434Z/output",
+            "ProductPathGroup": {
+                "ProductCounter": 1,
+                "ProductPath": "output",
+                "SASOutputFile": "output/gcov.h5",
+                "ScratchPath": "scratch"
+            },
+            "QA": {
+                "quality": false,
+                "validate": false
+            },
+            "base_name": {
+                "L2_L_GCOV": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001"
+            },
+            "localize": [
+                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L1_L_RSLC/2022/01/08/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5"
+            ],
+            "mock_metadata": {
+                "L2_L_GCOV": {
+                    "Bounding_Polygon": {
+                        "coordinates": [
+                            [
+                                [
+                                    [
+                                        -99.04971863988442,
+                                        -66.25630813621738
+                                    ],
+                                    [
+                                        -99.09145121670304,
+                                        -66.26022144800564
+                                    ],
+                                    [
+                                        -100.8691515686409,
+                                        -66.41549024666737
+                                    ],
+                                    [
+                                        -101.9521400783508,
+                                        -66.49930088932246
+                                    ],
+                                    [
+                                        -104.722280501977,
+                                        -66.67751278755614
+                                    ],
+                                    [
+                                        -104.9039141666416,
+                                        -66.14291388174178
+                                    ],
+                                    [
+                                        -105.0809331018763,
+                                        -65.60817226309531
+                                    ],
+                                    [
+                                        -105.2536404541439,
+                                        -65.0732920015435
+                                    ],
+                                    [
+                                        -105.4223142284286,
+                                        -64.53827678053685
+                                    ],
+                                    [
+                                        -102.8707194267381,
+                                        -64.36482547734364
+                                    ],
+                                    [
+                                        -101.8718143771054,
+                                        -64.28414735332728
+                                    ],
+                                    [
+                                        -100.2300831689288,
+                                        -64.13556977489155
+                                    ],
+                                    [
+                                        -100.1915088740827,
+                                        -64.13183667270636
+                                    ],
+                                    [
+                                        -99.91939097832677,
+                                        -64.66354954393728
+                                    ],
+                                    [
+                                        -99.63876691112432,
+                                        -65.19487955444927
+                                    ],
+                                    [
+                                        -99.34907842647782,
+                                        -65.72580644911042
+                                    ],
+                                    [
+                                        -99.04971863988442,
+                                        -66.25630813621738
+                                    ]
+                                ]
+                            ]
+                        ],
+                        "type": "MultiPolygon"
+                    },
+                    "CompositeReleaseID": "D00001",
+                    "CycleNumber": 11,
+                    "FrameNumber": 145,
+                    "Input_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L1_L_RSLC/2022/01/08/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001/NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001.h5"
+                    ],
+                    "OrbitDirection": "Descending",
+                    "OrbitDirectionLetter": "D",
+                    "PGE_Name": "GCOV_L_PGE",
+                    "PGE_Version": "R1.1.0",
+                    "ProcessingType": "PR",
+                    "ProductAccuracy": "P",
+                    "ProductCounter": 1,
+                    "Production_DateTime": "2021-07-16T04:26:15.179163Z",
+                    "RadarStartDateTime": "2022-01-08T07:39:51.697081Z",
+                    "RadarStopDateTime": "2022-01-08T07:40:28.207951Z",
+                    "RelativeOrbitNumber": 15,
+                    "SAS_Version": "ISCE3 v0.2.0-dev"
+                }
+            },
+            "name": "NISAR_GCOV_RUNCONFIG",
+            "pge_job_name": "NISAR_L1_PR_RSLC_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+            "processing": {
+                "dem_download": {
+                    "bottom_right": {
+                        "x": null,
+                        "y": null
+                    },
+                    "source": "None",
+                    "top_left": {
+                        "x": null,
+                        "y": null
+                    }
+                },
+                "dem_margin": null,
+                "geocode": {
+                    "abs_rad_cal": 1.7805416195551516e-05,
+                    "algorithm_type": "area_projection",
+                    "bottom_right": {
+                        "x_abs": null,
+                        "y_abs": null
+                    },
+                    "clip_max": null,
+                    "clip_min": null,
+                    "geogrid_upsampling": 1,
+                    "memory_mode": "auto",
+                    "outputEPSG": null,
+                    "output_posting": {
+                        "A": {
+                            "x_posting": null,
+                            "y_posting": null
+                        },
+                        "B": {
+                            "x_posting": null,
+                            "y_posting": null
+                        }
+                    },
+                    "save_nlooks": true,
+                    "save_rtc": true,
+                    "top_left": {
+                        "x_abs": null,
+                        "y_abs": null
+                    },
+                    "upsample_radargrid": null,
+                    "x_snap": null,
+                    "y_snap": null
+                },
+                "input_subset": {
+                    "fullcovariance": "False",
+                    "list_of_frequencies": {
+                        "A": null
+                    }
+                },
+                "noise_correction": {
+                    "apply_correction": false,
+                    "correction_type": "None"
+                },
+                "pre_process": {
+                    "azimuth_looks": 1,
+                    "range_looks": 1
+                },
+                "radar_grid_cubes": {
+                    "bottom_right": {
+                        "x_abs": null,
+                        "y_abs": null
+                    },
+                    "heights": null,
+                    "outputEPSG": null,
+                    "output_posting": {
+                        "x_posting": null,
+                        "y_posting": null
+                    },
+                    "top_left": {
+                        "x_abs": null,
+                        "y_abs": null
+                    },
+                    "x_snap": null,
+                    "y_snap": null
+                },
+                "rtc": {
+                    "algorithm_type": "area_projection",
+                    "input_terrain_radiometry": "beta0",
+                    "output_type": "gamma0",
+                    "rtc_min_value_db": -30
+                }
+            },
+            "simulate_outputs": true,
+            "worker": {
+                "gpu_enable": false,
+                "internet_access": false
+            }
+        },
+        "tags": [
+            "PGE"
+        ]
+    },
+    "objectid": "NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+    "prov": {
+        "wasGeneratedBy": "task_id:ae3e3e9d-9c02-43be-b831-a8a238403eed"
+    },
+    "starttime": "2022-01-08T07:39:51.697081Z",
+    "system_version": "d00001",
+    "temporal_span": 0,
+    "urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/L2_L_GCOV/2022/01/08/NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L2_L_GCOV/2022/01/08/NISAR_L2_PR_GCOV_011_015_D_145_4020_VV_20220108T073951_20220108T074028_D00001_P_F_001"
+    ],
+    "version": "d00001"
+}

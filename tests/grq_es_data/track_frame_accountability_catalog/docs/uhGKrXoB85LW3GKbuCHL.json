@@ -1,0 +1,29 @@
+{
+    "L0B_L_RRSD_ids": [
+        "NISAR_L0_PR_RRSD_001_001_D_137S_20220108T085928_20220108T090500_D00001_M_001"
+    ],
+    "L1_L_RSLC_id": "NISAR_L1_PR_RSLC_011_016_D_111_4020_VV_20220108T090010_20220108T090045_D00001_P_F_001",
+    "L1_L_RSLC_job_id": "f9c0bd44-25f5-402f-b9fb-8c3f67adc580",
+    "L1_L_RSLC_status": "job-completed",
+    "L2_L_GCOV_id": "NISAR_L2_PR_GCOV_011_016_D_111_4020_VV_20220108T090010_20220108T090045_D00001_P_F_001",
+    "L2_L_GCOV_job_id": "6ebbb90a-cf60-41f4-8a7b-8a34bb40a4a0",
+    "L2_L_GCOV_status": "job-completed",
+    "L2_L_GSLC_id": "NISAR_L2_PR_GSLC_001_001_D_150_4020_VV_20220108T090010_20220108T090045_D00001_M_F_001",
+    "L2_L_GSLC_job_id": "e197f2ce-3441-4ac6-9178-3c8153fef8b7",
+    "L2_L_GSLC_status": "job-completed",
+    "beam_name": "L_40_DH_05_DH",
+    "begin_time": "2022-01-08T09:00:10.785231Z",
+    "created_at": "2021-07-16T04:19:47.530402Z",
+    "data_source": "individual",
+    "end_time": "2022-01-08T09:00:45.836149Z",
+    "frame_coverage": "full",
+    "last_modified": "2021-07-16T04:33:05.604860Z",
+    "processing_begin_time": "2022-01-08T09:00:10.785231Z",
+    "processing_end_time": "2022-01-08T09:00:45.836149Z",
+    "refrec_id": "",
+    "track_frame-state-config_id": "track_frame_011_016_111_full_individual_L_40_DH_05_DH_0_state-config",
+    "track_frame_force_submit": false,
+    "track_frame_id": "track_frame_011_016_111_full_individual_L_40_DH_05_DH_0",
+    "track_frame_is_complete": true,
+    "track_frame_is_urgent": false
+}

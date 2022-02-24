@@ -1,0 +1,29 @@
+{
+  "grq_1_ldf-state-config": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1626408476163",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_1_ldf-state-config",
+        "refresh_interval": "5s",
+        "uuid": "r9yaQrPyRaK4-dK8EEBTcQ",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

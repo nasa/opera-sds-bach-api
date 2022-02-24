@@ -1,0 +1,27 @@
+{
+    "command": "python /home/ops/lightweight-jobs/purge.py",
+    "container": "container-hysds_lightweight-jobs:v1.0.6",
+    "disk_usage": "3GB",
+    "id": "job-lw-mozart-revoke:v1.0.6",
+    "job-version": "v1.0.6",
+    "params": [
+        {
+            "destination": "context",
+            "name": "query"
+        },
+        {
+            "destination": "context",
+            "name": "component"
+        },
+        {
+            "destination": "context",
+            "name": "operation"
+        }
+    ],
+    "required_queues": [
+        "system-jobs-queue"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 86400,
+    "time_limit": 86700
+}

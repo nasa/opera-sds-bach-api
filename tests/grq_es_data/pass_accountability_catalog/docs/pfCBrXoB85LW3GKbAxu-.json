@@ -1,0 +1,22 @@
+{
+    "L0A_L_RRST_PP_id": "NISAR_L0_RRST_PP_VC24_20220108T090316_20220108T090326_D00001_001",
+    "L0A_L_RRST_PP_job_id": "9c001d20-5408-4a9c-be4a-7b17c8bb6906",
+    "L0A_L_RRST_PP_status": "job-completed",
+    "L0A_L_RRST_id": "NISAR_L0_RRST_VC24_20220108T090316_20220108T090326_D00001_001",
+    "L0A_L_RRST_job_id": "4ab900ca-b756-4aaf-9fc1-db35dccac2d7",
+    "L0A_L_RRST_status": "job-completed",
+    "created_at": "2021-07-16T04:09:11.355834Z",
+    "expected_nens": 2,
+    "found_rrsts": [
+        "NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_16_000000000.vc24",
+        "NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_26_000000000.vc24"
+    ],
+    "header": {},
+    "last_modified": "2021-07-16T04:11:22.813382Z",
+    "ldf-state-config_id": "PA_NISAR_2022_008_09_30_59_vc24_state-config",
+    "ldf-state-config_status": "job-completed",
+    "ldf_id": "PA_NISAR_2022_008_09_30_59.ldf",
+    "missing_rrsts": [],
+    "refrec_id": "",
+    "vcid": "vc24"
+}

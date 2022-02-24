@@ -1,0 +1,41 @@
+{
+    "component": "figaro",
+    "enable_dedup": false,
+    "id": "hysds-io-lw-mozart-retry:v1.0.6",
+    "job-specification": "job-lw-mozart-retry:v1.0.6",
+    "job-version": "v1.0.6",
+    "label": "Retry Jobs/Tasks",
+    "params": [
+        {
+            "from": "dataset_jpath:_source.job.job_info.id",
+            "name": "retry_job_id",
+            "type": "text"
+        },
+        {
+            "from": "dataset_jpath:_type",
+            "name": "type",
+            "type": "text"
+        },
+        {
+            "default": "10",
+            "from": "submitter",
+            "lambda": "lambda x: int(x)",
+            "name": "retry_count_max",
+            "type": "text"
+        },
+        {
+            "default": "0",
+            "enumerables": [
+                "-1",
+                "0",
+                "+1"
+            ],
+            "from": "submitter",
+            "lambda": "lambda x: int(x)",
+            "name": "job_priority_increment",
+            "type": "enum"
+        }
+    ],
+    "resource": "hysds-io-specification",
+    "submission_type": "individual"
+}

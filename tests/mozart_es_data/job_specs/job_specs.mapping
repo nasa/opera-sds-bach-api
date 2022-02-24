@@ -1,0 +1,352 @@
+{
+  "job_specs": {
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "strings": {
+            "mapping": {
+              "copy_to": "text_fields",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "match": "*",
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "_timestamp": {
+          "store": true,
+          "type": "date"
+        },
+        "command": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "container": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "dependency_images": {
+          "properties": {
+            "container_image_name": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "container_image_url": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "container_mappings": {
+              "properties": {
+                "$HOME/": {
+                  "properties": {
+                    "aws": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "netrc": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "runtime_options": {
+              "properties": {
+                "gpus": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
+        "disable_post_builtins": {
+          "type": "boolean"
+        },
+        "disk_usage": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "imported_worker_files": {
+          "properties": {
+            "$HOME/": {
+              "properties": {
+                "aws": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "azure": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "netrc": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            },
+            "$HOME/verdi/etc/settings": {
+              "properties": {
+                "yaml": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            }
+          }
+        },
+        "job-version": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "params": {
+          "properties": {
+            "destination": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "name": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "post": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "recommended-queues": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "required_queues": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "resource": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "runtime_options": {
+          "properties": {
+            "gpus": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "soft_time_limit": {
+          "type": "long"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "time_limit": {
+          "type": "long"
+        }
+      }
+    }
+  }
+}

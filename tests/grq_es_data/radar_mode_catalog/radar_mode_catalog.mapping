@@ -1,0 +1,142 @@
+{
+  "radar_mode_catalog": {
+    "mappings": {
+      "properties": {
+        "ac_table_variant": {
+          "type": "integer"
+        },
+        "base_pri": {
+          "type": "integer"
+        },
+        "bcal": {
+          "type": "boolean"
+        },
+        "bcal_interval": {
+          "type": "integer"
+        },
+        "bfpq_bypass": {
+          "type": "boolean"
+        },
+        "bfpq_imant": {
+          "type": "integer"
+        },
+        "boresight_angle": {
+          "type": "integer"
+        },
+        "cde": {
+          "type": "boolean"
+        },
+        "chirp_id_h": {
+          "type": "long"
+        },
+        "chirp_id_v": {
+          "type": "long"
+        },
+        "chrip_id_h": {
+          "type": "integer"
+        },
+        "chrip_id_v": {
+          "type": "integer"
+        },
+        "ctdelay": {
+          "type": "integer"
+        },
+        "filter_bypass": {
+          "type": "boolean"
+        },
+        "gap_mitigation": {
+          "type": "boolean"
+        },
+        "hcal": {
+          "type": "boolean"
+        },
+        "header_only": {
+          "type": "boolean"
+        },
+        "lcal_interval": {
+          "type": "integer"
+        },
+        "pde": {
+          "type": "boolean"
+        },
+        "polarization": {
+          "type": "integer"
+        },
+        "post_take": {
+          "type": "boolean"
+        },
+        "pre_take": {
+          "type": "boolean"
+        },
+        "prf_table_kind": {
+          "type": "integer"
+        },
+        "rc_id": {
+          "type": "integer"
+        },
+        "rcal": {
+          "type": "boolean"
+        },
+        "re_h": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "re_v": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "samples_per_swath": {
+          "type": "integer"
+        },
+        "start_swath_angle": {
+          "type": "integer"
+        },
+        "ta_table_variant": {
+          "type": "integer"
+        },
+        "table_metadata": {
+          "properties": {
+            "chirp_parameter_link": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "type": "text"
+            },
+            "fpga_build": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "type": "text"
+            },
+            "tablet_version": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "type": "text"
+            }
+          },
+          "type": "nested"
+        },
+        "te_h": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "te_v": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+    "component": "tosca",
+    "enable_dedup": false,
+    "id": "hysds-io-lw-tosca-wget-glob:v1.0.6",
+    "job-specification": "job-lw-tosca-wget-glob:v1.0.6",
+    "job-version": "v1.0.6",
+    "label": "Wget Script Glob Select via E-mail",
+    "params": [
+        {
+            "from": "passthrough",
+            "name": "query",
+            "type": "text"
+        },
+        {
+            "from": "submitter",
+            "name": "emails",
+            "type": "text"
+        },
+        {
+            "default": "*final*",
+            "from": "submitter",
+            "name": "include_glob",
+            "placeholder": "A comma seperated list of globs to download",
+            "type": "text"
+        },
+        {
+            "default": "*tiles*",
+            "from": "submitter",
+            "name": "exclude_glob",
+            "optional": true,
+            "placeholder": "(Optional) A comma seperated list of globs to exclude from included list",
+            "type": "text"
+        },
+        {
+            "from": "passthrough",
+            "name": "name",
+            "type": "text"
+        }
+    ],
+    "resource": "hysds-io-specification",
+    "submission_type": "individual"
+}

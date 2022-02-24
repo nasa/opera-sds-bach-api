@@ -1,0 +1,26 @@
+{
+    "allowed_accounts": [
+        "ops"
+    ],
+    "enable_dedup": true,
+    "id": "hysds-io-process_cnm_response:develop",
+    "job-specification": "job-process_cnm_response:develop",
+    "job-version": "develop",
+    "label": "Update Dataset with DAAC Delivery Metadata",
+    "params": [
+        {
+            "from": "submitter",
+            "name": "cnm_message",
+            "placeholder": "CNM Response Message from DAAC",
+            "type": "text"
+        },
+        {
+            "from": "submitter",
+            "name": "product_tagging",
+            "placeholder": "specifies if product should be tagged as delivered",
+            "type": "boolean"
+        }
+    ],
+    "resource": "hysds-io-specification",
+    "submission_type": "individual"
+}

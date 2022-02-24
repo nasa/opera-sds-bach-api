@@ -1,0 +1,70 @@
+{
+    "allowed_accounts": [
+        "ops"
+    ],
+    "disable_post_builtins": true,
+    "enable_dedup": true,
+    "id": "hysds-io-SCIFLO_RSLC:develop",
+    "job-specification": "job-SCIFLO_RSLC:develop",
+    "job-version": "develop",
+    "label": "SCIFLO_RSLC",
+    "params": [
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: list(filter(lambda x: x.startswith('s3://'), ds['metadata']['l0b_rrsd_product_paths']))",
+            "name": "product_paths"
+        },
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: { 'metadata': ds['metadata'] }",
+            "name": "product_metadata"
+        },
+        {
+            "from": "dataset_jpath:_id",
+            "name": "input_dataset_id",
+            "type": "text"
+        },
+        {
+            "from": "dataset_jpath:_source.dataset",
+            "name": "dataset_type",
+            "type": "text"
+        },
+        {
+            "from": "value",
+            "name": "module_path",
+            "type": "text",
+            "value": "/home/ops/verdi/ops/nisar-pcm"
+        },
+        {
+            "from": "value",
+            "name": "accountability_module_path",
+            "type": "text",
+            "value": "nisar_chimera.accountability"
+        },
+        {
+            "from": "value",
+            "name": "accountability_class",
+            "type": "text",
+            "value": "NisarAccountability"
+        },
+        {
+            "from": "value",
+            "name": "es_index",
+            "type": "text",
+            "value": "observation"
+        },
+        {
+            "from": "value",
+            "name": "wf_dir",
+            "type": "text",
+            "value": "/home/ops/verdi/ops/nisar-pcm/nisar_chimera/wf_xml"
+        },
+        {
+            "from": "value",
+            "name": "purpose",
+            "type": "text",
+            "value": "RSLC"
+        }
+    ],
+    "resource": "hysds-io-specification"
+}

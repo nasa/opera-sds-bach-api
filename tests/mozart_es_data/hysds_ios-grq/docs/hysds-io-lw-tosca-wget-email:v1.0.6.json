@@ -1,0 +1,27 @@
+{
+    "component": "tosca",
+    "enable_dedup": false,
+    "id": "hysds-io-lw-tosca-wget-email:v1.0.6",
+    "job-specification": "job-lw-tosca-wget-email:v1.0.6",
+    "job-version": "v1.0.6",
+    "label": "Wget Script via E-mail",
+    "params": [
+        {
+            "from": "passthrough",
+            "name": "query",
+            "type": "text"
+        },
+        {
+            "from": "submitter",
+            "name": "emails",
+            "type": "text"
+        },
+        {
+            "from": "passthrough",
+            "name": "name",
+            "type": "text"
+        }
+    ],
+    "resource": "hysds-io-specification",
+    "submission_type": "individual"
+}

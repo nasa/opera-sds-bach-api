@@ -1,0 +1,39 @@
+{
+    "@timestamp": "2021-07-16T04:09:12.071061057Z",
+    "browse_urls": [],
+    "creation_time": "2021-07-16T04:09:11.353140Z",
+    "dataset": "ldf-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "ldf-state-config",
+    "id": "PA_NISAR_2022_008_09_30_59_vc24_state-config",
+    "images": [],
+    "ipath": "hysds::data/ldf-state-config",
+    "metadata": {
+        "expiration_time": "2021-07-16T04:10:11.351198Z",
+        "force_submit": false,
+        "found_rrsts": [
+            "NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_16_000000000.vc24",
+            "NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_26_000000000.vc24"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "ldf_name": "PA_NISAR_2022_008_09_30_59.ldf",
+        "missing_rrsts": [],
+        "rrst_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_16_000000000.vc24",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_PA_AS4_M00_P00115_R48_C49_G81_2022_008_09_03_26_000000000.vc24"
+        ],
+        "vcid": "vc24"
+    },
+    "objectid": "PA_NISAR_2022_008_09_30_59_vc24_state-config",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/LDF/2022/008/PA_NISAR_2022_008_09_30_59_LDF"
+        ],
+        "wasGeneratedBy": "task_id:475f3634-65f6-4b58-940e-33201ef3123e"
+    },
+    "starttime": "2022-01-08T09:30:59.000000Z",
+    "system_version": "1",
+    "urls": [],
+    "version": "1"
+}

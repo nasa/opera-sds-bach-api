@@ -1,0 +1,29 @@
+{
+  "grq_v1.0_hello_world": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1626408185469",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_v1.0_hello_world",
+        "refresh_interval": "5s",
+        "uuid": "Ldx6jbHJSHS_USkeOHpP3A",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

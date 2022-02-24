@@ -1,0 +1,55 @@
+{
+    "command": "/home/ops/verdi/ops/CNM_product_delivery/product_delivery/scripts/send_notify_msg.sh",
+    "container": "container-iems-sds_cnm_product_delivery:develop",
+    "disk_usage": "10GB",
+    "id": "job-send_notify_msg:develop",
+    "imported_worker_files": {
+        "$HOME/.aws": "/home/ops/.aws",
+        "$HOME/.netrc": "/home/ops/.netrc"
+    },
+    "job-version": "develop",
+    "params": [
+        {
+            "destination": "context",
+            "name": "dataset_path"
+        },
+        {
+            "destination": "context",
+            "name": "dataset_metadata"
+        },
+        {
+            "destination": "localize",
+            "name": "localize_dataset"
+        },
+        {
+            "destination": "context",
+            "name": "staged_data_types"
+        },
+        {
+            "destination": "context",
+            "name": "provider_name"
+        },
+        {
+            "destination": "context",
+            "name": "checksum_type"
+        },
+        {
+            "destination": "context",
+            "name": "publisher_arn"
+        },
+        {
+            "destination": "context",
+            "name": "kinesis_role_arn"
+        },
+        {
+            "destination": "context",
+            "name": "sqs_queue_url"
+        }
+    ],
+    "post": [
+        "hysds.utils.triage"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 900,
+    "time_limit": 960
+}

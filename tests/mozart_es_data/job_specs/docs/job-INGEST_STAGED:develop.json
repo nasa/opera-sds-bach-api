@@ -1,0 +1,48 @@
+{
+    "command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh",
+    "container": "container-iems-sds_nisar-pcm:develop",
+    "disk_usage": "10GB",
+    "id": "job-INGEST_STAGED:develop",
+    "imported_worker_files": {
+        "$HOME/.aws": "/home/ops/.aws",
+        "$HOME/.netrc": "/home/ops/.netrc",
+        "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+    },
+    "job-version": "develop",
+    "params": [
+        {
+            "destination": "positional",
+            "name": "id"
+        },
+        {
+            "destination": "context",
+            "name": "data_url"
+        },
+        {
+            "destination": "localize",
+            "name": "data_url"
+        },
+        {
+            "destination": "positional",
+            "name": "data_file"
+        },
+        {
+            "destination": "context",
+            "name": "prod_met"
+        },
+        {
+            "destination": "context",
+            "name": "checksum"
+        },
+        {
+            "destination": "context",
+            "name": "checksum_type"
+        }
+    ],
+    "recommended-queues": [
+        "factotum-job_worker-small"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 1800,
+    "time_limit": 1860
+}

@@ -1,0 +1,114 @@
+{
+    "@timestamp": "2021-07-16T04:05:21.644735317Z",
+    "browse_urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/OROST/2023/01/16/id_00-1a-0100_orost-2023016-c001-d16-v01",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/OROST/2023/01/16/id_00-1a-0100_orost-2023016-c001-d16-v01"
+    ],
+    "creation_timestamp": "2021-07-16T04:05:12.083",
+    "dataset": "OROST",
+    "dataset_level": "NA",
+    "dataset_type": "OROST",
+    "endtime": "2023-01-16T23:59:59.999999Z",
+    "id": "id_00-1a-0100_orost-2023016-c001-d16-v01",
+    "images": [],
+    "ipath": "hysds::data/OROST",
+    "metadata": {
+        "CycleDay": 16,
+        "CycleNumber": 1,
+        "Day": "16",
+        "FileCorrelationId": "2023016-c001-d16",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/05/ingest-staged-id_00-1a-0100_orost-2023016-c001-d16-v01.xml-20210716T040506.672260Z/output/id_00-1a-0100_orost-2023016-c001-d16-v01",
+        "FileName": "id_00-1a-0100_orost-2023016-c001-d16-v01.xml",
+        "FileSize": 2917,
+        "ISL_urls": [
+            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-1a-0100_orost-2023016-c001-d16-v01.xml"
+        ],
+        "Kind": 26,
+        "Lambda_trigger_time": "2021-07-16T04:05:06.454666Z",
+        "Month": "01",
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:05:12.081209Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "OROST",
+        "S3_event_record": {
+            "awsRegion": "us-west-2",
+            "eventName": "ObjectCreated:Put",
+            "eventSource": "aws:s3",
+            "eventTime": "2021-07-16T04:04:58.047Z",
+            "eventVersion": "2.1",
+            "requestParameters": {
+                "sourceIPAddress": "100.64.122.209"
+            },
+            "responseElements": {
+                "x-amz-id-2": "O++uYfcG5rjmYG6rdlA8LOYZnJOExmkjhhiur+CbXlg2MXv0jvjfVdTVLaSkkKD4FwdZ+IxfSVzWH+2M7y0USYxyFd/RGUAt",
+                "x-amz-request-id": "BPJ622X7FVC860GF"
+            },
+            "s3": {
+                "bucket": {
+                    "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                    "name": "nisar-dev-isl-fwd-bporeh",
+                    "ownerIdentity": {
+                        "principalId": "AWZVWFO1088SI"
+                    }
+                },
+                "configurationId": "sqs_event",
+                "object": {
+                    "eTag": "2009daa0b43f07a4ed2e99677de56bcd",
+                    "key": "gds/id_00-1a-0100_orost-2023016-c001-d16-v01.xml",
+                    "sequencer": "0060F10571642F6AC0",
+                    "size": 2917
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "userIdentity": {
+                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1"
+            }
+        },
+        "SQS_record": {
+            "attributes": {
+                "ApproximateFirstReceiveTimestamp": "1626408306349",
+                "ApproximateReceiveCount": "1",
+                "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                "SentTimestamp": "1626408306348"
+            },
+            "awsRegion": "us-west-2",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-07-16T04:04:58.047Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.209\"},\"responseElements\":{\"x-amz-request-id\":\"BPJ622X7FVC860GF\",\"x-amz-id-2\":\"O++uYfcG5rjmYG6rdlA8LOYZnJOExmkjhhiur+CbXlg2MXv0jvjfVdTVLaSkkKD4FwdZ+IxfSVzWH+2M7y0USYxyFd/RGUAt\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-1a-0100_orost-2023016-c001-d16-v01.xml\",\"size\":2917,\"eTag\":\"2009daa0b43f07a4ed2e99677de56bcd\",\"sequencer\":\"0060F10571642F6AC0\"}}}]}",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-354-isl-queue",
+            "md5OfBody": "5befe9ff1000f1a76709017846666269",
+            "messageAttributes": {},
+            "messageId": "28befc0c-548b-427d-94b4-47f1fa0731ec",
+            "receiptHandle": "AQEBR5VnTkM65R9VZoJsN1fCQcD1UXkLgHvUL0ki8MnXaXdOgX7AJMyuBLrgcFiuxg4DP3mOYvHgTs7Gpb7VzrGhVSElyRbagRHhT5jbOYVLre8V64TQW75+2ImnR+RB8IZTwiebQUPwfzHc/THhgXDguK19fwYHpOEOW1pD4XguqvLkntbrKuhfQzNQHzWG+L/3fvxJiFEYWYycSqfOtIMHLbAM6f03qThiPQiuTmA0G1xrHApvB1gm6srjao+52uTYfs6L7ouCs3Mo93fLDGSR4pxuw/G5XyfnQWuTqtLPltH2tFTilL/2Jbfp8VV8MUAAQbWXrx1nmev1eE45It83xYWe9LWFy1Nn2H8fnOG+BpLNslkmgmnuozrnyjBrjTCw70UEZ1v91PmZqkqRF8UfCpJR2G94/hS8GSEClurhcF0="
+        },
+        "ValidityDate": "2023-01-16",
+        "ValidityEndDateTime": "2023-01-16T23:59:59.999999Z",
+        "ValidityStartDateTime": "2023-01-16T00:00:00.000000Z",
+        "Variant": 100,
+        "VersionID": 1,
+        "Year": "2023",
+        "cycle": "1",
+        "file_correlation_id": "2023016-c001-d16",
+        "id": "id_00-1a-0100_orost-2023016-c001-d16-v01",
+        "restaged": false,
+        "tags": [
+            "ISL"
+        ],
+        "validity": "2023-01-16"
+    },
+    "objectid": "id_00-1a-0100_orost-2023016-c001-d16-v01",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-1a-0100_orost-2023016-c001-d16-v01.xml"
+        ],
+        "wasGeneratedBy": "task_id:e1890a88-06b2-4405-8016-7fa8ecf9b79d"
+    },
+    "starttime": "2023-01-16T00:00:00.000000Z",
+    "system_version": "1",
+    "temporal_span": 1,
+    "urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/OROST/2023/01/16/id_00-1a-0100_orost-2023016-c001-d16-v01",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/OROST/2023/01/16/id_00-1a-0100_orost-2023016-c001-d16-v01"
+    ],
+    "version": "1"
+}

@@ -1,0 +1,109 @@
+{
+    "@timestamp": "2021-07-16T04:05:35.776322236Z",
+    "browse_urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/MOE/2022/01/08/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/MOE/2022/01/08/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942"
+    ],
+    "creation_timestamp": "2021-07-16T04:05:27.857",
+    "dataset": "MOE",
+    "dataset_level": "NA",
+    "dataset_type": "MOE",
+    "endtime": "2022-01-08T23:59:42.000000Z",
+    "id": "NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+    "images": [],
+    "ipath": "hysds::data/MOE",
+    "metadata": {
+        "CreationDateTime": "2022-01-04T14:50:19.000000Z",
+        "Fidelity": "MOE",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/05/ingest-staged-NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz-20210716T040508.911866Z/output/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+        "FileName": "NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz",
+        "FileSize": 445,
+        "GranuleName": "NISAR_ANC_J_PR_MOE_20220108T050942_20220108T235942",
+        "ISL_urls": [
+            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz"
+        ],
+        "Instrument": "J",
+        "Lambda_trigger_time": "2021-07-16T04:05:08.665453Z",
+        "ProcessingType": "PR",
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:05:27.854527Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "MOE",
+        "S3_event_record": {
+            "awsRegion": "us-west-2",
+            "eventName": "ObjectCreated:Put",
+            "eventSource": "aws:s3",
+            "eventTime": "2021-07-16T04:05:00.351Z",
+            "eventVersion": "2.1",
+            "requestParameters": {
+                "sourceIPAddress": "100.64.122.209"
+            },
+            "responseElements": {
+                "x-amz-id-2": "ZQQIHlORJPc+XpZDx+q6ewaYP2Kv530M1MO98QHBJ8doTXj8RliZxR1ohMnTNQSHmVuhVIR9LLF8+riFjwt1yoB8JgcmIMO3",
+                "x-amz-request-id": "29D3YRGT62DN88HH"
+            },
+            "s3": {
+                "bucket": {
+                    "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                    "name": "nisar-dev-isl-fwd-bporeh",
+                    "ownerIdentity": {
+                        "principalId": "AWZVWFO1088SI"
+                    }
+                },
+                "configurationId": "sqs_event",
+                "object": {
+                    "eTag": "d569ba05dfdc4e7ca52ad43089e714e6",
+                    "key": "gds/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz",
+                    "sequencer": "0060F10573BBE30760",
+                    "size": 445
+                },
+                "s3SchemaVersion": "1.0"
+            },
+            "userIdentity": {
+                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1"
+            }
+        },
+        "SQS_record": {
+            "attributes": {
+                "ApproximateFirstReceiveTimestamp": "1626408308570",
+                "ApproximateReceiveCount": "1",
+                "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                "SentTimestamp": "1626408308568"
+            },
+            "awsRegion": "us-west-2",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-07-16T04:05:00.351Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.209\"},\"responseElements\":{\"x-amz-request-id\":\"29D3YRGT62DN88HH\",\"x-amz-id-2\":\"ZQQIHlORJPc+XpZDx+q6ewaYP2Kv530M1MO98QHBJ8doTXj8RliZxR1ohMnTNQSHmVuhVIR9LLF8+riFjwt1yoB8JgcmIMO3\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz\",\"size\":445,\"eTag\":\"d569ba05dfdc4e7ca52ad43089e714e6\",\"sequencer\":\"0060F10573BBE30760\"}}}]}",
+            "eventSource": "aws:sqs",
+            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-354-isl-queue",
+            "md5OfBody": "294bf76dd6590c4e7b9fe1a70fef83c6",
+            "messageAttributes": {},
+            "messageId": "ac002ad3-9d02-4423-b884-13b2a4be0a65",
+            "receiptHandle": "AQEBZd494ZYYlSop3KzC7TcEZKrM05RsxKNsvcbkR0ALOa/zI0XKDiHl4TxjOlUwoYdChbtumWe0HqFqpp5nqjVgMTXSk9qzdr2bYLsqdyM1pN/U2X+EH31Er6kWvbh0upmTg/w0+Mrbttjl5urXZtdENkGorWCvnqK10aTnvRtnlyo2K0/bY7Bcqi2h23Hsq40D/j87AAK50HAHLloCCYvxqT4WUGFeWFob+v1Qm3z79Md7w/aOIfr8QLsDUWQzgBoSPSqyoW6RbqjK8lXNLC4JMlMwbUZPmGqqReR0EvKFTH+mhXw4/3AhAnuM6zZ/iW8chLym777j216VeHPhOu+SPC7edeIEkXYMWAUPIv11gtW2QEdne+e432XYkCWqZmcitGjBcKrWSZwO1kkJAgpEXlA/a5Kp0nvS+q6FBOLu7Xk="
+        },
+        "ValidityEndDateTime": "2022-01-08T23:59:42.000000Z",
+        "ValidityStartDateTime": "2022-01-08T05:09:42.000000Z",
+        "ValidityStartDay": "08",
+        "ValidityStartMonth": "01",
+        "ValidityStartYear": 2022,
+        "id": "NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+        "restaged": false,
+        "tags": [
+            "ISL"
+        ]
+    },
+    "objectid": "NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942.xml.gz"
+        ],
+        "wasGeneratedBy": "task_id:91f5a008-7f04-463c-a790-b86052e0695d"
+    },
+    "starttime": "2022-01-08T05:09:42.000000Z",
+    "system_version": "1",
+    "temporal_span": 1,
+    "urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/MOE/2022/01/08/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/MOE/2022/01/08/NISAR_ANC_J_PR_MOE_20220104T145019_20220108T050942_20220108T235942"
+    ],
+    "version": "1"
+}

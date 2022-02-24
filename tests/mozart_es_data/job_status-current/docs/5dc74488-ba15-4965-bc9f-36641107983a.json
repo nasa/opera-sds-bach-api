@@ -1,0 +1,1788 @@
+{
+    "@timestamp": "2021-03-30T19:30:54.091Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-track-frame-acct.100.64.123.21",
+    "context": {
+        "_command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+        "_disk_usage": "20GB",
+        "_prov": {
+            "wasGeneratedBy": "task_id:7e814e76-92c8-418e-95e7-c0bde0f1ebc3"
+        },
+        "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+        "container_image_name": "container-iems-sds_nisar-pcm:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+        "container_mappings": {
+            "$HOME/.aws": "/home/ops/.aws",
+            "$HOME/.netrc": "/home/ops/.netrc",
+            "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+        },
+        "container_specification": {
+            "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+            "id": "container-iems-sds_nisar-pcm:develop",
+            "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+            "version": "develop"
+        },
+        "dataset_type": "L0B_L_RRSD",
+        "job_priority": 0,
+        "job_specification": {
+            "command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+            "container": "container-iems-sds_nisar-pcm:develop",
+            "disk_usage": "20GB",
+            "id": "job-Track_Frame_Accountability:develop",
+            "imported_worker_files": {
+                "$HOME/.aws": "/home/ops/.aws",
+                "$HOME/.netrc": "/home/ops/.netrc",
+                "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+            },
+            "job-version": "develop",
+            "params": [
+                {
+                    "destination": "context",
+                    "name": "product_paths",
+                    "value": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                },
+                {
+                    "destination": "context",
+                    "name": "product_metadata",
+                    "value": {
+                        "metadata": {
+                            "Ancillary_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                            ],
+                            "CompositeReleaseID": "D00001",
+                            "CycleNumber": 1,
+                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "Direction": "D",
+                            "Fidelity": "M",
+                            "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                            "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                            "FileSize": 1024,
+                            "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                            "Input_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ],
+                            "OBS_ID": "2020-10-02T02:48:30",
+                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                            "PGE_Name": "L0B_L_PGE",
+                            "PGE_Version": "R1.1.0",
+                            "ProcessingType": "PR",
+                            "ProductCounter": 1,
+                            "ProductReceivedDay": "30",
+                            "ProductReceivedMonth": "03",
+                            "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                            "ProductReceivedYear": 2021,
+                            "ProductType": "L0B_L_RRSD",
+                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                            "RadarMode": 128,
+                            "RadarProcessingMode": "S",
+                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "RelativeOrbitNumber": 1,
+                            "SAS_Version": "ISCE3 v0.2.0-dev",
+                            "TotalNumberOfMissingRangelines": 10,
+                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                            "TotalNumberRangelines": 99999,
+                            "datatake_state_config_id": "dtid_2022008083136_state-config",
+                            "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                            "lineage": [
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                            ],
+                            "runconfig": {
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "DebugLevelGroup": {
+                                    "DebugSwitch": "Off"
+                                },
+                                "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                                "DynamicAncillaryFileGroup": {
+                                    "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                                    "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                                },
+                                "Geometry": {
+                                    "AbsoluteOrbitNumber": 11,
+                                    "LookDirection": "Left",
+                                    "OrbitDirection": "Descending",
+                                    "RelativeOrbitNumber": 11
+                                },
+                                "InputFilePath": {
+                                    "L0A_L_RRST": [
+                                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                    ]
+                                },
+                                "MakeHstDrtFile": true,
+                                "Observations": [
+                                    {
+                                        "ConfigurationId": 128,
+                                        "EndTime": "2022-01-08T08:32:52.000000Z",
+                                        "IsUrgentObservation": false,
+                                        "MissionCycle": 1,
+                                        "PlannedObservationId": "oid_2022008083136",
+                                        "RangelinesToSkip": 0,
+                                        "StartTime": "2022-01-08T08:31:36.000000Z",
+                                        "TotalNumberRangelines": 4096
+                                    }
+                                ],
+                                "PGENameGroup": {
+                                    "PGEName": "L0B_L_PGE"
+                                },
+                                "PlannedDatatakeId": "dtid_2022008083136",
+                                "PrimaryExecutable": {
+                                    "CompositeReleaseID": "D00001",
+                                    "MissionId": "NISAR",
+                                    "NumberOfThreads": 4,
+                                    "ProcessingType": "PR",
+                                    "ProductType": "RRSD",
+                                    "RadarProcessingMode": "S"
+                                },
+                                "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                                "ProductPathGroup": {
+                                    "ProductCounter": 1,
+                                    "ProductPath": "output"
+                                },
+                                "TimeOffset": 0,
+                                "base_name": {
+                                    "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                    "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                    "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                                },
+                                "extra_pge_output_metadata": {
+                                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                    "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                    "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                    "datatake_state_config_id": "dtid_2022008083136_state-config"
+                                },
+                                "localize": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "mock_metadata": {
+                                    "L0B_L_CRSD": {
+                                        "Ancillary_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                        ],
+                                        "CompositeReleaseID": "D00001",
+                                        "DATATAKE_ID": "2020-10-02T02:48:30",
+                                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "Input_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                        ],
+                                        "PGE_Name": "L0B_L_PGE",
+                                        "PGE_Version": "V1.0",
+                                        "ProductCounter": 1,
+                                        "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                        "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "TotalNumberOfMissingRangelines": 10,
+                                        "TotalNumberOfRangelinesFailedChecksum": 1,
+                                        "TotalNumberRangelines": 99999
+                                    },
+                                    "L0B_L_HST_DRT": {
+                                        "Ancillary_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                        ],
+                                        "CompositeReleaseID": "D00001",
+                                        "DATATAKE_ID": "2020-10-02T02:48:30",
+                                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "Input_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                        ],
+                                        "PGE_Name": "L0B_L_PGE",
+                                        "PGE_Version": "V1.0",
+                                        "ProductCounter": 1,
+                                        "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                        "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "TotalNumberOfMissingRangelines": 10,
+                                        "TotalNumberRangelines": 99999,
+                                        "Total_NumberOfRangelinesFailedChecksum": 1
+                                    },
+                                    "L0B_L_RRSD": {
+                                        "Ancillary_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                        ],
+                                        "CompositeReleaseID": "D00001",
+                                        "Input_Files": [
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                        ],
+                                        "OBS_ID": "2020-10-02T02:48:30",
+                                        "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "PGE_Name": "L0B_L_PGE",
+                                        "PGE_Version": "R1.1.0",
+                                        "ProductCounter": 1,
+                                        "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                        "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "SAS_Version": "ISCE3 v0.2.0-dev",
+                                        "TotalNumberOfMissingRangelines": 10,
+                                        "TotalNumberOfRangelinesFailedChecksum": 1,
+                                        "TotalNumberRangelines": 99999
+                                    }
+                                },
+                                "pge_job_name": "dtid_2022008083136_state-config",
+                                "simulate_outputs": true
+                            },
+                            "tags": [
+                                "PGE"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "destination": "context",
+                    "name": "dataset_type",
+                    "value": "L0B_L_RRSD"
+                }
+            ],
+            "post": [
+                "hysds.utils.triage"
+            ],
+            "recommended-queues": [
+                "nisar-job_worker-track-frame-acct"
+            ],
+            "resource": "jobspec",
+            "soft_time_limit": 1080,
+            "time_limit": 1200
+        },
+        "localize_urls": [],
+        "product_metadata": {
+            "metadata": {
+                "Ancillary_Files": [
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                ],
+                "CompositeReleaseID": "D00001",
+                "CycleNumber": 1,
+                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                "Direction": "D",
+                "Fidelity": "M",
+                "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                "FileSize": 1024,
+                "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                "Input_Files": [
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                ],
+                "OBS_ID": "2020-10-02T02:48:30",
+                "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                "PGE_Name": "L0B_L_PGE",
+                "PGE_Version": "R1.1.0",
+                "ProcessingType": "PR",
+                "ProductCounter": 1,
+                "ProductReceivedDay": "30",
+                "ProductReceivedMonth": "03",
+                "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                "ProductReceivedYear": 2021,
+                "ProductType": "L0B_L_RRSD",
+                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                "RadarMode": 128,
+                "RadarProcessingMode": "S",
+                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                "RelativeOrbitNumber": 1,
+                "SAS_Version": "ISCE3 v0.2.0-dev",
+                "TotalNumberOfMissingRangelines": 10,
+                "TotalNumberOfRangelinesFailedChecksum": 1,
+                "TotalNumberRangelines": 99999,
+                "datatake_state_config_id": "dtid_2022008083136_state-config",
+                "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                "lineage": [
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                ],
+                "runconfig": {
+                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "DebugLevelGroup": {
+                        "DebugSwitch": "Off"
+                    },
+                    "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                    "DynamicAncillaryFileGroup": {
+                        "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                        "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                    },
+                    "Geometry": {
+                        "AbsoluteOrbitNumber": 11,
+                        "LookDirection": "Left",
+                        "OrbitDirection": "Descending",
+                        "RelativeOrbitNumber": 11
+                    },
+                    "InputFilePath": {
+                        "L0A_L_RRST": [
+                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                        ]
+                    },
+                    "MakeHstDrtFile": true,
+                    "Observations": [
+                        {
+                            "ConfigurationId": 128,
+                            "EndTime": "2022-01-08T08:32:52.000000Z",
+                            "IsUrgentObservation": false,
+                            "MissionCycle": 1,
+                            "PlannedObservationId": "oid_2022008083136",
+                            "RangelinesToSkip": 0,
+                            "StartTime": "2022-01-08T08:31:36.000000Z",
+                            "TotalNumberRangelines": 4096
+                        }
+                    ],
+                    "PGENameGroup": {
+                        "PGEName": "L0B_L_PGE"
+                    },
+                    "PlannedDatatakeId": "dtid_2022008083136",
+                    "PrimaryExecutable": {
+                        "CompositeReleaseID": "D00001",
+                        "MissionId": "NISAR",
+                        "NumberOfThreads": 4,
+                        "ProcessingType": "PR",
+                        "ProductType": "RRSD",
+                        "RadarProcessingMode": "S"
+                    },
+                    "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                    "ProductPathGroup": {
+                        "ProductCounter": 1,
+                        "ProductPath": "output"
+                    },
+                    "TimeOffset": 0,
+                    "base_name": {
+                        "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                        "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                        "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                    },
+                    "extra_pge_output_metadata": {
+                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                        "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                        "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                        "datatake_state_config_id": "dtid_2022008083136_state-config"
+                    },
+                    "localize": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                    ],
+                    "mock_metadata": {
+                        "L0B_L_CRSD": {
+                            "Ancillary_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                            ],
+                            "CompositeReleaseID": "D00001",
+                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "Input_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ],
+                            "PGE_Name": "L0B_L_PGE",
+                            "PGE_Version": "V1.0",
+                            "ProductCounter": 1,
+                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "TotalNumberOfMissingRangelines": 10,
+                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                            "TotalNumberRangelines": 99999
+                        },
+                        "L0B_L_HST_DRT": {
+                            "Ancillary_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                            ],
+                            "CompositeReleaseID": "D00001",
+                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "Input_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ],
+                            "PGE_Name": "L0B_L_PGE",
+                            "PGE_Version": "V1.0",
+                            "ProductCounter": 1,
+                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "TotalNumberOfMissingRangelines": 10,
+                            "TotalNumberRangelines": 99999,
+                            "Total_NumberOfRangelinesFailedChecksum": 1
+                        },
+                        "L0B_L_RRSD": {
+                            "Ancillary_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                            ],
+                            "CompositeReleaseID": "D00001",
+                            "Input_Files": [
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ],
+                            "OBS_ID": "2020-10-02T02:48:30",
+                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "PGE_Name": "L0B_L_PGE",
+                            "PGE_Version": "R1.1.0",
+                            "ProductCounter": 1,
+                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "SAS_Version": "ISCE3 v0.2.0-dev",
+                            "TotalNumberOfMissingRangelines": 10,
+                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                            "TotalNumberRangelines": 99999
+                        }
+                    },
+                    "pge_job_name": "dtid_2022008083136_state-config",
+                    "simulate_outputs": true
+                },
+                "tags": [
+                    "PGE"
+                ]
+            }
+        },
+        "product_paths": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+        "runtime_options": {},
+        "tag": "trigger-Track_Frame_Accountability"
+    },
+    "dedup": true,
+    "job": {
+        "command": {
+            "arguments": [],
+            "env": [],
+            "options": [],
+            "path": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh"
+        },
+        "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+        "container_image_name": "container-iems-sds_nisar-pcm:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+        "container_mappings": {
+            "$HOME/.aws": "/home/ops/.aws",
+            "$HOME/.netrc": "/home/ops/.netrc",
+            "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml",
+            "/home/ops/verdi/etc/celeryconfig.py": "celeryconfig.py",
+            "/home/ops/verdi/etc/datasets.json": "datasets.json"
+        },
+        "context": {
+            "_command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+            "_disk_usage": "20GB",
+            "_prov": {
+                "wasGeneratedBy": "task_id:7e814e76-92c8-418e-95e7-c0bde0f1ebc3"
+            },
+            "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+            "container_image_name": "container-iems-sds_nisar-pcm:develop",
+            "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+            "container_mappings": {
+                "$HOME/.aws": "/home/ops/.aws",
+                "$HOME/.netrc": "/home/ops/.netrc",
+                "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+            },
+            "container_specification": {
+                "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+                "id": "container-iems-sds_nisar-pcm:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+                "version": "develop"
+            },
+            "dataset_type": "L0B_L_RRSD",
+            "job_priority": 0,
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+                "container": "container-iems-sds_nisar-pcm:develop",
+                "disk_usage": "20GB",
+                "id": "job-Track_Frame_Accountability:develop",
+                "imported_worker_files": {
+                    "$HOME/.aws": "/home/ops/.aws",
+                    "$HOME/.netrc": "/home/ops/.netrc",
+                    "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+                },
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "context",
+                        "name": "product_paths",
+                        "value": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "product_metadata",
+                        "value": {
+                            "metadata": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "CycleNumber": 1,
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Direction": "D",
+                                "Fidelity": "M",
+                                "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                                "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                                "FileSize": 1024,
+                                "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "OBS_ID": "2020-10-02T02:48:30",
+                                "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "R1.1.0",
+                                "ProcessingType": "PR",
+                                "ProductCounter": 1,
+                                "ProductReceivedDay": "30",
+                                "ProductReceivedMonth": "03",
+                                "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                                "ProductReceivedYear": 2021,
+                                "ProductType": "L0B_L_RRSD",
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RadarMode": 128,
+                                "RadarProcessingMode": "S",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "RelativeOrbitNumber": 1,
+                                "SAS_Version": "ISCE3 v0.2.0-dev",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999,
+                                "datatake_state_config_id": "dtid_2022008083136_state-config",
+                                "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                                "lineage": [
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "runconfig": {
+                                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                    "DebugLevelGroup": {
+                                        "DebugSwitch": "Off"
+                                    },
+                                    "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                                    "DynamicAncillaryFileGroup": {
+                                        "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                        "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                                        "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                        "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                                    },
+                                    "Geometry": {
+                                        "AbsoluteOrbitNumber": 11,
+                                        "LookDirection": "Left",
+                                        "OrbitDirection": "Descending",
+                                        "RelativeOrbitNumber": 11
+                                    },
+                                    "InputFilePath": {
+                                        "L0A_L_RRST": [
+                                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                        ]
+                                    },
+                                    "MakeHstDrtFile": true,
+                                    "Observations": [
+                                        {
+                                            "ConfigurationId": 128,
+                                            "EndTime": "2022-01-08T08:32:52.000000Z",
+                                            "IsUrgentObservation": false,
+                                            "MissionCycle": 1,
+                                            "PlannedObservationId": "oid_2022008083136",
+                                            "RangelinesToSkip": 0,
+                                            "StartTime": "2022-01-08T08:31:36.000000Z",
+                                            "TotalNumberRangelines": 4096
+                                        }
+                                    ],
+                                    "PGENameGroup": {
+                                        "PGEName": "L0B_L_PGE"
+                                    },
+                                    "PlannedDatatakeId": "dtid_2022008083136",
+                                    "PrimaryExecutable": {
+                                        "CompositeReleaseID": "D00001",
+                                        "MissionId": "NISAR",
+                                        "NumberOfThreads": 4,
+                                        "ProcessingType": "PR",
+                                        "ProductType": "RRSD",
+                                        "RadarProcessingMode": "S"
+                                    },
+                                    "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                                    "ProductPathGroup": {
+                                        "ProductCounter": 1,
+                                        "ProductPath": "output"
+                                    },
+                                    "TimeOffset": 0,
+                                    "base_name": {
+                                        "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                        "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                        "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                                    },
+                                    "extra_pge_output_metadata": {
+                                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "datatake_state_config_id": "dtid_2022008083136_state-config"
+                                    },
+                                    "localize": [
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                    ],
+                                    "mock_metadata": {
+                                        "L0B_L_CRSD": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "V1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                                            "TotalNumberRangelines": 99999
+                                        },
+                                        "L0B_L_HST_DRT": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "V1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberRangelines": 99999,
+                                            "Total_NumberOfRangelinesFailedChecksum": 1
+                                        },
+                                        "L0B_L_RRSD": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "OBS_ID": "2020-10-02T02:48:30",
+                                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "R1.1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "SAS_Version": "ISCE3 v0.2.0-dev",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                                            "TotalNumberRangelines": 99999
+                                        }
+                                    },
+                                    "pge_job_name": "dtid_2022008083136_state-config",
+                                    "simulate_outputs": true
+                                },
+                                "tags": [
+                                    "PGE"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "dataset_type",
+                        "value": "L0B_L_RRSD"
+                    }
+                ],
+                "post": [
+                    "hysds.utils.triage"
+                ],
+                "recommended-queues": [
+                    "nisar-job_worker-track-frame-acct"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 1080,
+                "time_limit": 1200
+            },
+            "localize_urls": [],
+            "product_metadata": {
+                "metadata": {
+                    "Ancillary_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                    ],
+                    "CompositeReleaseID": "D00001",
+                    "CycleNumber": 1,
+                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "Direction": "D",
+                    "Fidelity": "M",
+                    "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                    "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                    "FileSize": 1024,
+                    "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                    "Input_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                    ],
+                    "OBS_ID": "2020-10-02T02:48:30",
+                    "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                    "PGE_Name": "L0B_L_PGE",
+                    "PGE_Version": "R1.1.0",
+                    "ProcessingType": "PR",
+                    "ProductCounter": 1,
+                    "ProductReceivedDay": "30",
+                    "ProductReceivedMonth": "03",
+                    "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                    "ProductReceivedYear": 2021,
+                    "ProductType": "L0B_L_RRSD",
+                    "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                    "RadarMode": 128,
+                    "RadarProcessingMode": "S",
+                    "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "RelativeOrbitNumber": 1,
+                    "SAS_Version": "ISCE3 v0.2.0-dev",
+                    "TotalNumberOfMissingRangelines": 10,
+                    "TotalNumberOfRangelinesFailedChecksum": 1,
+                    "TotalNumberRangelines": 99999,
+                    "datatake_state_config_id": "dtid_2022008083136_state-config",
+                    "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                    "lineage": [
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                    ],
+                    "runconfig": {
+                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                        "DebugLevelGroup": {
+                            "DebugSwitch": "Off"
+                        },
+                        "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                        "DynamicAncillaryFileGroup": {
+                            "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                            "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                            "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                            "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                        },
+                        "Geometry": {
+                            "AbsoluteOrbitNumber": 11,
+                            "LookDirection": "Left",
+                            "OrbitDirection": "Descending",
+                            "RelativeOrbitNumber": 11
+                        },
+                        "InputFilePath": {
+                            "L0A_L_RRST": [
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ]
+                        },
+                        "MakeHstDrtFile": true,
+                        "Observations": [
+                            {
+                                "ConfigurationId": 128,
+                                "EndTime": "2022-01-08T08:32:52.000000Z",
+                                "IsUrgentObservation": false,
+                                "MissionCycle": 1,
+                                "PlannedObservationId": "oid_2022008083136",
+                                "RangelinesToSkip": 0,
+                                "StartTime": "2022-01-08T08:31:36.000000Z",
+                                "TotalNumberRangelines": 4096
+                            }
+                        ],
+                        "PGENameGroup": {
+                            "PGEName": "L0B_L_PGE"
+                        },
+                        "PlannedDatatakeId": "dtid_2022008083136",
+                        "PrimaryExecutable": {
+                            "CompositeReleaseID": "D00001",
+                            "MissionId": "NISAR",
+                            "NumberOfThreads": 4,
+                            "ProcessingType": "PR",
+                            "ProductType": "RRSD",
+                            "RadarProcessingMode": "S"
+                        },
+                        "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                        "ProductPathGroup": {
+                            "ProductCounter": 1,
+                            "ProductPath": "output"
+                        },
+                        "TimeOffset": 0,
+                        "base_name": {
+                            "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                            "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                            "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                        },
+                        "extra_pge_output_metadata": {
+                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "datatake_state_config_id": "dtid_2022008083136_state-config"
+                        },
+                        "localize": [
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                        ],
+                        "mock_metadata": {
+                            "L0B_L_CRSD": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "DATATAKE_ID": "2020-10-02T02:48:30",
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "V1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999
+                            },
+                            "L0B_L_HST_DRT": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "DATATAKE_ID": "2020-10-02T02:48:30",
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "V1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberRangelines": 99999,
+                                "Total_NumberOfRangelinesFailedChecksum": 1
+                            },
+                            "L0B_L_RRSD": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "OBS_ID": "2020-10-02T02:48:30",
+                                "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "R1.1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "SAS_Version": "ISCE3 v0.2.0-dev",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999
+                            }
+                        },
+                        "pge_job_name": "dtid_2022008083136_state-config",
+                        "simulate_outputs": true
+                    },
+                    "tags": [
+                        "PGE"
+                    ]
+                }
+            },
+            "product_paths": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+            "runtime_options": {},
+            "tag": "trigger-Track_Frame_Accountability"
+        },
+        "delivery_info": {
+            "exchange": "",
+            "priority": 0,
+            "redelivered": false,
+            "routing_key": "nisar-job_worker-track-frame-acct"
+        },
+        "job_id": "Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+        "job_info": {
+            "cmd_duration": 10.051885,
+            "cmd_end": "2021-03-30T19:30:50.589400Z",
+            "cmd_start": "2021-03-30T19:30:40.537515Z",
+            "context_file": "/data/work/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z/_context.json",
+            "datasets_cfg_file": "/home/ops/verdi/etc/datasets.json",
+            "dedup": true,
+            "duration": 10.563514,
+            "execute_node": "100.64.123.21",
+            "facts": {
+                "architecture": "x86_64",
+                "domain": "jpl.nasa.gov",
+                "ec2_instance_id": "i-0d513073eddef98cf",
+                "ec2_instance_type": "t3a.medium",
+                "ec2_placement_availability_zone": "us-west-2b",
+                "fqdn": "100.64.123.21",
+                "hardwaremodel": "x86_64",
+                "hostname": "verdi",
+                "hysds_execute_node": "100.64.123.21",
+                "hysds_public_ip": "100.64.123.21",
+                "ipaddress": "172.18.0.2",
+                "ipaddress_eth0": "100.64.123.21",
+                "is_virtual": true,
+                "memoryfree": "2.41 GB",
+                "memorysize": "3.65 GB",
+                "operatingsystem": "CentOS",
+                "operatingsystemrelease": "7.9.2009",
+                "osfamily": "RedHat",
+                "physicalprocessorcount": 1,
+                "processorcount": 2,
+                "swapfree": "0.00 MB",
+                "swapsize": "0.00 MB",
+                "uptime": "0:01 hours",
+                "virtual": "docker"
+            },
+            "id": "Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+            "job_dir": "/data/work/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+            "job_payload": {
+                "job_type": "job:job-Track_Frame_Accountability:develop",
+                "payload_task_id": "5dc74488-ba15-4965-bc9f-36641107983a"
+            },
+            "job_queue": "nisar-job_worker-track-frame-acct",
+            "job_url": "http://100.64.123.21:8085/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+            "metrics": {
+                "inputs_localized": [],
+                "job_dir_size": 186706,
+                "product_provenance": {
+                    "availability_time": "2021-03-30T19:30:54.081641Z",
+                    "processing_latency": 0.23409813333333332,
+                    "processing_start_time": "2021-03-30T19:30:40.035753Z",
+                    "product_type": "hysds::data/track_frame-state-config",
+                    "total_latency": 0.23409813333333332
+                },
+                "products_staged": [
+                    {
+                        "browse_urls": [],
+                        "dataset": "track_frame-state-config",
+                        "dataset_level": "state-config",
+                        "dataset_type": "track_frame-state-config",
+                        "disk_usage": 38988,
+                        "duration": 1.54694,
+                        "id": "track_frame_011_016_060_state-config",
+                        "index": "grq_1_track_frame-state-config",
+                        "ipath": "hysds::data/track_frame-state-config",
+                        "path": "/data/work/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z/track_frame_011_016_060_state-config",
+                        "system_version": "1",
+                        "time_end": "2021-03-30T19:30:52.147350Z",
+                        "time_start": "2021-03-30T19:30:50.600410Z",
+                        "transfer_rate": 25203.304588413255,
+                        "urls": []
+                    },
+                    {
+                        "browse_urls": [],
+                        "dataset": "track_frame-state-config",
+                        "dataset_level": "state-config",
+                        "dataset_type": "track_frame-state-config",
+                        "disk_usage": 38990,
+                        "duration": 1.303933,
+                        "id": "track_frame_011_016_061_state-config",
+                        "index": "grq_1_track_frame-state-config",
+                        "ipath": "hysds::data/track_frame-state-config",
+                        "path": "/data/work/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z/track_frame_011_016_061_state-config",
+                        "system_version": "1",
+                        "time_end": "2021-03-30T19:30:53.456951Z",
+                        "time_start": "2021-03-30T19:30:52.153018Z",
+                        "transfer_rate": 29901.84311617238,
+                        "urls": []
+                    },
+                    {
+                        "browse_urls": [],
+                        "dataset": "track_frame-state-config",
+                        "dataset_level": "state-config",
+                        "dataset_type": "track_frame-state-config",
+                        "disk_usage": 38982,
+                        "duration": 0.619488,
+                        "id": "track_frame_011_016_062_state-config",
+                        "index": "grq_1_track_frame-state-config",
+                        "ipath": "hysds::data/track_frame-state-config",
+                        "path": "/data/work/jobs/2021/03/30/19/30/Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z/track_frame_011_016_062_state-config",
+                        "system_version": "1",
+                        "time_end": "2021-03-30T19:30:54.081641Z",
+                        "time_start": "2021-03-30T19:30:53.462153Z",
+                        "transfer_rate": 62926.15837594917,
+                        "urls": []
+                    }
+                ],
+                "usage_stats": [
+                    {
+                        "cgroups": {
+                            "blkio_stats": {
+                                "io_service_bytes_recursive": [
+                                    {
+                                        "major": 259,
+                                        "op": "Read"
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Write",
+                                        "value": 52722176
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Sync",
+                                        "value": 52722176
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Async"
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Total",
+                                        "value": 52722176
+                                    }
+                                ],
+                                "io_serviced_recursive": [
+                                    {
+                                        "major": 259,
+                                        "op": "Read"
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Write",
+                                        "value": 1402
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Sync",
+                                        "value": 1402
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Async"
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Total",
+                                        "value": 1402
+                                    }
+                                ]
+                            },
+                            "cpu_stats": {
+                                "cpu_usage": {
+                                    "percpu_usage": [
+                                        6990729499,
+                                        206645941
+                                    ],
+                                    "total_usage": 7197361089,
+                                    "usage_in_kernelmode": 620000000,
+                                    "usage_in_usermode": 6480000000
+                                },
+                                "throttling_data": {}
+                            },
+                            "hugetlb_stats": {
+                                "1GB": {
+                                    "failcnt": 0
+                                },
+                                "2MB": {
+                                    "failcnt": 0
+                                }
+                            },
+                            "memory_stats": {
+                                "cache": 48513024,
+                                "kernel_tcp_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "kernel_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "stats": {
+                                    "active_anon": 4591616,
+                                    "active_file": 81920,
+                                    "cache": 48513024,
+                                    "hierarchical_memory_limit": 9223372036854771712,
+                                    "hierarchical_memsw_limit": 9223372036854771712,
+                                    "inactive_anon": 0,
+                                    "inactive_file": 48431104,
+                                    "mapped_file": 0,
+                                    "pgfault": 126081,
+                                    "pgmajfault": 0,
+                                    "pgpgin": 89050,
+                                    "pgpgout": 77107,
+                                    "rss": 4591616,
+                                    "rss_huge": 4194304,
+                                    "swap": 0,
+                                    "total_active_anon": 4591616,
+                                    "total_active_file": 81920,
+                                    "total_cache": 48513024,
+                                    "total_inactive_anon": 0,
+                                    "total_inactive_file": 48431104,
+                                    "total_mapped_file": 0,
+                                    "total_pgfault": 0,
+                                    "total_pgmajfault": 0,
+                                    "total_pgpgin": 0,
+                                    "total_pgpgout": 0,
+                                    "total_rss": 4591616,
+                                    "total_rss_huge": 4194304,
+                                    "total_swap": 0,
+                                    "total_unevictable": 0,
+                                    "unevictable": 0
+                                },
+                                "swap_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 328491008,
+                                    "usage": 53211136
+                                },
+                                "usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 328491008,
+                                    "usage": 53211136
+                                }
+                            },
+                            "pids_stats": {
+                                "current": 7
+                            }
+                        },
+                        "sys_cpu_time": 383204000,
+                        "user_cpu_time": 6359359000,
+                        "wall_time": 7845028178
+                    }
+                ]
+            },
+            "payload_hash": "e18ea55449b6d8bf5ab4ac231b8946fb",
+            "pid": 274,
+            "public_ip": "100.64.123.21",
+            "soft_time_limit": 1080,
+            "status": 0,
+            "stderr": "",
+            "stdout": "",
+            "time_end": "2021-03-30T19:30:50.599267Z",
+            "time_limit": 1380,
+            "time_queued": "2021-03-30T19:30:08.218496Z",
+            "time_start": "2021-03-30T19:30:40.035753Z"
+        },
+        "localize_urls": [],
+        "name": "Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+        "params": {
+            "_command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+            "_disk_usage": "20GB",
+            "container_specification": {
+                "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+                "id": "container-iems-sds_nisar-pcm:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+                "version": "develop"
+            },
+            "dataset_type": "L0B_L_RRSD",
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/nisar-pcm/Track_Frame_Accountability/eval_track_frame.sh",
+                "container": "container-iems-sds_nisar-pcm:develop",
+                "disk_usage": "20GB",
+                "id": "job-Track_Frame_Accountability:develop",
+                "imported_worker_files": {
+                    "$HOME/.aws": "/home/ops/.aws",
+                    "$HOME/.netrc": "/home/ops/.netrc",
+                    "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+                },
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "context",
+                        "name": "product_paths",
+                        "value": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "product_metadata",
+                        "value": {
+                            "metadata": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "CycleNumber": 1,
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Direction": "D",
+                                "Fidelity": "M",
+                                "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                                "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                                "FileSize": 1024,
+                                "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "OBS_ID": "2020-10-02T02:48:30",
+                                "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "R1.1.0",
+                                "ProcessingType": "PR",
+                                "ProductCounter": 1,
+                                "ProductReceivedDay": "30",
+                                "ProductReceivedMonth": "03",
+                                "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                                "ProductReceivedYear": 2021,
+                                "ProductType": "L0B_L_RRSD",
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RadarMode": 128,
+                                "RadarProcessingMode": "S",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "RelativeOrbitNumber": 1,
+                                "SAS_Version": "ISCE3 v0.2.0-dev",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999,
+                                "datatake_state_config_id": "dtid_2022008083136_state-config",
+                                "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                                "lineage": [
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                                    "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "runconfig": {
+                                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                    "DebugLevelGroup": {
+                                        "DebugSwitch": "Off"
+                                    },
+                                    "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                                    "DynamicAncillaryFileGroup": {
+                                        "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                        "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                                        "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                                        "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                                    },
+                                    "Geometry": {
+                                        "AbsoluteOrbitNumber": 11,
+                                        "LookDirection": "Left",
+                                        "OrbitDirection": "Descending",
+                                        "RelativeOrbitNumber": 11
+                                    },
+                                    "InputFilePath": {
+                                        "L0A_L_RRST": [
+                                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                            "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                        ]
+                                    },
+                                    "MakeHstDrtFile": true,
+                                    "Observations": [
+                                        {
+                                            "ConfigurationId": 128,
+                                            "EndTime": "2022-01-08T08:32:52.000000Z",
+                                            "IsUrgentObservation": false,
+                                            "MissionCycle": 1,
+                                            "PlannedObservationId": "oid_2022008083136",
+                                            "RangelinesToSkip": 0,
+                                            "StartTime": "2022-01-08T08:31:36.000000Z",
+                                            "TotalNumberRangelines": 4096
+                                        }
+                                    ],
+                                    "PGENameGroup": {
+                                        "PGEName": "L0B_L_PGE"
+                                    },
+                                    "PlannedDatatakeId": "dtid_2022008083136",
+                                    "PrimaryExecutable": {
+                                        "CompositeReleaseID": "D00001",
+                                        "MissionId": "NISAR",
+                                        "NumberOfThreads": 4,
+                                        "ProcessingType": "PR",
+                                        "ProductType": "RRSD",
+                                        "RadarProcessingMode": "S"
+                                    },
+                                    "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                                    "ProductPathGroup": {
+                                        "ProductCounter": 1,
+                                        "ProductPath": "output"
+                                    },
+                                    "TimeOffset": 0,
+                                    "base_name": {
+                                        "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                        "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                                        "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                                    },
+                                    "extra_pge_output_metadata": {
+                                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                        "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                        "datatake_state_config_id": "dtid_2022008083136_state-config"
+                                    },
+                                    "localize": [
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                    ],
+                                    "mock_metadata": {
+                                        "L0B_L_CRSD": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "V1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                                            "TotalNumberRangelines": 99999
+                                        },
+                                        "L0B_L_HST_DRT": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "DATATAKE_ID": "2020-10-02T02:48:30",
+                                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "V1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberRangelines": 99999,
+                                            "Total_NumberOfRangelinesFailedChecksum": 1
+                                        },
+                                        "L0B_L_RRSD": {
+                                            "Ancillary_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                            ],
+                                            "CompositeReleaseID": "D00001",
+                                            "Input_Files": [
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                            ],
+                                            "OBS_ID": "2020-10-02T02:48:30",
+                                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "PGE_Name": "L0B_L_PGE",
+                                            "PGE_Version": "R1.1.0",
+                                            "ProductCounter": 1,
+                                            "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                            "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                            "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                            "SAS_Version": "ISCE3 v0.2.0-dev",
+                                            "TotalNumberOfMissingRangelines": 10,
+                                            "TotalNumberOfRangelinesFailedChecksum": 1,
+                                            "TotalNumberRangelines": 99999
+                                        }
+                                    },
+                                    "pge_job_name": "dtid_2022008083136_state-config",
+                                    "simulate_outputs": true
+                                },
+                                "tags": [
+                                    "PGE"
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "dataset_type",
+                        "value": "L0B_L_RRSD"
+                    }
+                ],
+                "post": [
+                    "hysds.utils.triage"
+                ],
+                "recommended-queues": [
+                    "nisar-job_worker-track-frame-acct"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 1080,
+                "time_limit": 1200
+            },
+            "localize_urls": [],
+            "product_metadata": {
+                "metadata": {
+                    "Ancillary_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                    ],
+                    "CompositeReleaseID": "D00001",
+                    "CycleNumber": 1,
+                    "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "Direction": "D",
+                    "Fidelity": "M",
+                    "FileLocation": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output/datasets/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                    "FileName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001.h5",
+                    "FileSize": 1024,
+                    "GranuleName": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252",
+                    "Input_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                    ],
+                    "OBS_ID": "2020-10-02T02:48:30",
+                    "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "PCMRetrievalID": "NISAR_L0_PR_RRSD_001_001_D_S_20220108T083136_20220108T083252",
+                    "PGE_Name": "L0B_L_PGE",
+                    "PGE_Version": "R1.1.0",
+                    "ProcessingType": "PR",
+                    "ProductCounter": 1,
+                    "ProductReceivedDay": "30",
+                    "ProductReceivedMonth": "03",
+                    "ProductReceivedTime": "2021-03-30T19:29:11.987910Z",
+                    "ProductReceivedYear": 2021,
+                    "ProductType": "L0B_L_RRSD",
+                    "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                    "RadarMode": 128,
+                    "RadarProcessingMode": "S",
+                    "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                    "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                    "RelativeOrbitNumber": 1,
+                    "SAS_Version": "ISCE3 v0.2.0-dev",
+                    "TotalNumberOfMissingRangelines": 10,
+                    "TotalNumberOfRangelinesFailedChecksum": 1,
+                    "TotalNumberRangelines": 99999,
+                    "datatake_state_config_id": "dtid_2022008083136_state-config",
+                    "id": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+                    "lineage": [
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml",
+                        "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003"
+                    ],
+                    "runconfig": {
+                        "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                        "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                        "DebugLevelGroup": {
+                            "DebugSwitch": "Off"
+                        },
+                        "DebugPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z",
+                        "DynamicAncillaryFileGroup": {
+                            "ChirpParameterFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_06-00-0101_chirp-parameter_v44.12.xml",
+                            "LRCLKFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_198900_SCLKSCET_LRCLK.00003",
+                            "RadarConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_01-00-0101_radar-configuration_v44.12.xml",
+                            "WaveformConfigurationFile": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/id_ff-00-ff01_waveform.xml"
+                        },
+                        "Geometry": {
+                            "AbsoluteOrbitNumber": 11,
+                            "LookDirection": "Left",
+                            "OrbitDirection": "Descending",
+                            "RelativeOrbitNumber": 11
+                        },
+                        "InputFilePath": {
+                            "L0A_L_RRST": [
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                            ]
+                        },
+                        "MakeHstDrtFile": true,
+                        "Observations": [
+                            {
+                                "ConfigurationId": 128,
+                                "EndTime": "2022-01-08T08:32:52.000000Z",
+                                "IsUrgentObservation": false,
+                                "MissionCycle": 1,
+                                "PlannedObservationId": "oid_2022008083136",
+                                "RangelinesToSkip": 0,
+                                "StartTime": "2022-01-08T08:31:36.000000Z",
+                                "TotalNumberRangelines": 4096
+                            }
+                        ],
+                        "PGENameGroup": {
+                            "PGEName": "L0B_L_PGE"
+                        },
+                        "PlannedDatatakeId": "dtid_2022008083136",
+                        "PrimaryExecutable": {
+                            "CompositeReleaseID": "D00001",
+                            "MissionId": "NISAR",
+                            "NumberOfThreads": 4,
+                            "ProcessingType": "PR",
+                            "ProductType": "RRSD",
+                            "RadarProcessingMode": "S"
+                        },
+                        "ProductPath": "/data/work/jobs/2021/03/30/19/28/SCIFLO_L0B__develop-dtid_2022008083136_state-config-20210330T192807.526259Z/output",
+                        "ProductPathGroup": {
+                            "ProductCounter": 1,
+                            "ProductPath": "output"
+                        },
+                        "TimeOffset": 0,
+                        "base_name": {
+                            "L0B_L_CRSD": "NISAR_L0_PR_CRSD_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                            "L0B_L_HST_DRT": "NISAR_L0_PR_HST_DRT_001_001_D_20220108T083136_20220108T083252_D00001_001",
+                            "L0B_L_RRSD": "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001"
+                        },
+                        "extra_pge_output_metadata": {
+                            "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                            "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                            "datatake_state_config_id": "dtid_2022008083136_state-config"
+                        },
+                        "localize": [
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                        ],
+                        "mock_metadata": {
+                            "L0B_L_CRSD": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "DATATAKE_ID": "2020-10-02T02:48:30",
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "V1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999
+                            },
+                            "L0B_L_HST_DRT": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "DATATAKE_ID": "2020-10-02T02:48:30",
+                                "DatatakeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "DatatakeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "V1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberRangelines": 99999,
+                                "Total_NumberOfRangelinesFailedChecksum": 1
+                            },
+                            "L0B_L_RRSD": {
+                                "Ancillary_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/RADAR_CFG/id_01-00-0101_radar-configuration_v44.12/id_01-00-0101_radar-configuration_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/CHIRP_PARAM/id_06-00-0101_chirp-parameter_v44.12/id_06-00-0101_chirp-parameter_v44.12.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/WAVEFORM/id_ff-00-ff01_waveform/id_ff-00-ff01_waveform.xml",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00003/NISAR_198900_SCLKSCET_LRCLK.00003"
+                                ],
+                                "CompositeReleaseID": "D00001",
+                                "Input_Files": [
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
+                                    "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin"
+                                ],
+                                "OBS_ID": "2020-10-02T02:48:30",
+                                "ObservationStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "ObservationStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "PGE_Name": "L0B_L_PGE",
+                                "PGE_Version": "R1.1.0",
+                                "ProductCounter": 1,
+                                "Production_DateTime": "2021-03-30T19:29:00.326160Z",
+                                "RangeStartDateTime": "2022-01-08T08:31:36.000000Z",
+                                "RangeStopDateTime": "2022-01-08T08:32:52.000000Z",
+                                "SAS_Version": "ISCE3 v0.2.0-dev",
+                                "TotalNumberOfMissingRangelines": 10,
+                                "TotalNumberOfRangelinesFailedChecksum": 1,
+                                "TotalNumberRangelines": 99999
+                            }
+                        },
+                        "pge_job_name": "dtid_2022008083136_state-config",
+                        "simulate_outputs": true
+                    },
+                    "tags": [
+                        "PGE"
+                    ]
+                }
+            },
+            "product_paths": "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001",
+            "tag": "trigger-Track_Frame_Accountability"
+        },
+        "priority": 0,
+        "runtime_options": {},
+        "tag": "trigger-Track_Frame_Accountability",
+        "task_id": "7e814e76-92c8-418e-95e7-c0bde0f1ebc3",
+        "type": "job-Track_Frame_Accountability:develop",
+        "username": "hysdsops"
+    },
+    "job_id": "Track_Frame_Accountability__develop-NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00001_M_001-20210330T193008.218485Z",
+    "payload_hash": "e18ea55449b6d8bf5ab4ac231b8946fb",
+    "payload_id": "5dc74488-ba15-4965-bc9f-36641107983a",
+    "resource": "job",
+    "status": "job-completed",
+    "tags": [
+        "trigger-Track_Frame_Accountability"
+    ],
+    "type": "job-Track_Frame_Accountability:develop",
+    "uuid": "7e814e76-92c8-418e-95e7-c0bde0f1ebc3"
+}

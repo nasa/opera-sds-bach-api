@@ -1,0 +1,30 @@
+{
+    "@timestamp": "2021-03-30T19:56:29.250Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-send_cnm_notify.100.64.122.240",
+    "event": {
+        "active": 0,
+        "clock": 597,
+        "freq": 60.0,
+        "hostname": "celery@nisar-job_worker-send_cnm_notify.100.64.122.240",
+        "loadavg": [
+            0.0,
+            0.03,
+            0.16
+        ],
+        "pid": 114,
+        "processed": 53,
+        "sw_ident": "py-celery",
+        "sw_sys": "Linux",
+        "sw_ver": "4.4.7",
+        "type": "worker-offline",
+        "utcoffset": 0
+    },
+    "local_received": "1617134189",
+    "resource": "worker",
+    "status": "worker-offline",
+    "tags": [],
+    "timestamp": "1617134189",
+    "type": "nisar-job_worker-send_cnm_notify",
+    "uuid": []
+}

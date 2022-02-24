@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:18:33.325Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-small.100.64.122.25",
+    "event": {
+        "clock": 136,
+        "hostname": "celery@nisar-job_worker-small.100.64.122.25",
+        "pid": 114,
+        "result": "{'uuid': '0e4fe8f3-5e2e-4779-925b-d0ff727425d5', 'job_id': 'ingest-staged-id_00-11-0100_radar-observation-sequence_lset003_rcid208.xml-20210330T191742.97209Z', 'payload_id': '18089a8b-9351-4d30-9350-daf8534375e0', 'payload_hash': '5e5e36f12194004aff5b509336301891', 'dedup': True, 'status': 'job-completed', 'job_url': 'http://100.64.122.25:8085/jobs/2021/03/30/19/18/ingest-staged-id_00-11-0100_radar-observation-sequence_lset003_rcid208.xml-20210330T191742.97209Z', 'celery_hostname': 'celery@nisar-job_worker-small.100.64.122.25'}",
+        "runtime": 15.558682332999979,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "0e4fe8f3-5e2e-4779-925b-d0ff727425d5"
+    },
+    "local_received": "1617131913",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617131913",
+    "type": "nisar-job_worker-small",
+    "uuid": "0e4fe8f3-5e2e-4779-925b-d0ff727425d5"
+}

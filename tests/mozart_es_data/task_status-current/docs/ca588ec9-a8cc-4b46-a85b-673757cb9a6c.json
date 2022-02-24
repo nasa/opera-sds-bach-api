@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:24:47.648Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-send_cnm_notify.100.64.123.211",
+    "event": {
+        "clock": 39,
+        "hostname": "celery@nisar-job_worker-send_cnm_notify.100.64.123.211",
+        "pid": 113,
+        "result": "{'uuid': 'ca588ec9-a8cc-4b46-a85b-673757cb9a6c', 'job_id': 'send_notify_msg__develop-NISAR_S198_WFF_AS4_M00_P00114_R26_C27_G81_2022_008_08_09_36_000000000.vc24-20210330T192125.910752Z', 'payload_id': 'ad2d6aa4-bf2a-4d1e-8377-b316f46c2b9c', 'payload_hash': '27ccf5735f529d03933b8c4e97cdda70', 'dedup': True, 'status': 'job-completed', 'job_url': 'http://100.64.123.211:8085/jobs/2021/03/30/19/24/send_notify_msg__develop-NISAR_S198_WFF_AS4_M00_P00114_R26_C27_G81_2022_008_08_09_36_000000000.vc24-20210330T192125.910752Z', 'celery_hostname': 'celery@nisar-job_worker-send_cnm_notify.100.64.123.211'}",
+        "runtime": 6.060175788999999,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "ca588ec9-a8cc-4b46-a85b-673757cb9a6c"
+    },
+    "local_received": "1617132287",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617132287",
+    "type": "nisar-job_worker-send_cnm_notify",
+    "uuid": "ca588ec9-a8cc-4b46-a85b-673757cb9a6c"
+}

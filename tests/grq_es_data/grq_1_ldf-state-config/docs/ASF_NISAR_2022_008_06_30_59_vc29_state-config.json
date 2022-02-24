@@ -1,0 +1,45 @@
+{
+    "@timestamp": "2021-07-16T04:08:06.661430428Z",
+    "browse_urls": [],
+    "creation_time": "2021-07-16T04:08:06.036203Z",
+    "dataset": "ldf-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "ldf-state-config",
+    "id": "ASF_NISAR_2022_008_06_30_59_vc29_state-config",
+    "images": [],
+    "ipath": "hysds::data/ldf-state-config",
+    "metadata": {
+        "expiration_time": "2021-07-16T04:09:06.035620Z",
+        "force_submit": false,
+        "found_rrsts": [
+            "NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2022_008_07_10_28_000000000.vc29",
+            "NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2022_008_07_28_30_000000000.vc29",
+            "NISAR_S198_ASF_PA12_M01_P00114_R22_C23_G81_2022_008_07_28_45_000000000.vc29",
+            "NISAR_S198_ASF_AS4_M00_P00114_R07_C08_G81_2022_008_07_29_40_000000000.vc29",
+            "NISAR_S198_ASF_AS4_M00_P00114_R33_C34_G81_2022_008_07_34_00_000000000.vc29"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "ldf_name": "ASF_NISAR_2022_008_06_30_59.ldf",
+        "missing_rrsts": [],
+        "rrst_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2022_008_07_10_28_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2022_008_07_28_30_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_ASF_PA12_M01_P00114_R22_C23_G81_2022_008_07_28_45_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_ASF_AS4_M00_P00114_R07_C08_G81_2022_008_07_29_40_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_ASF_AS4_M00_P00114_R33_C34_G81_2022_008_07_34_00_000000000.vc29"
+        ],
+        "vcid": "vc29"
+    },
+    "objectid": "ASF_NISAR_2022_008_06_30_59_vc29_state-config",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/LDF/2022/008/ASF_NISAR_2022_008_06_30_59_LDF"
+        ],
+        "wasGeneratedBy": "task_id:20a49dc1-7ef1-4c15-966e-3723f6e1da2e"
+    },
+    "starttime": "2022-01-08T06:30:59.000000Z",
+    "system_version": "1",
+    "urls": [],
+    "version": "1"
+}

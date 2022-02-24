@@ -1,0 +1,117 @@
+{
+    "allowed_accounts": [
+        "ops"
+    ],
+    "disable_post_builtins": true,
+    "enable_dedup": true,
+    "id": "hysds-io-SCIFLO_GCOV:develop",
+    "job-specification": "job-SCIFLO_GCOV:develop",
+    "job-version": "develop",
+    "label": "SCIFLO_GCOV",
+    "params": [
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: list(filter(lambda x: x.startswith('s3://'), ds['urls']))[0]",
+            "name": "product_paths"
+        },
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: { 'metadata': ds['metadata'] }",
+            "name": "product_metadata"
+        },
+        {
+            "from": "dataset_jpath:_id",
+            "name": "input_dataset_id",
+            "type": "text"
+        },
+        {
+            "from": "dataset_jpath:_source.dataset",
+            "name": "dataset_type",
+            "type": "text"
+        },
+        {
+            "from": "value",
+            "name": "module_path",
+            "type": "text",
+            "value": "/home/ops/verdi/ops/nisar-pcm"
+        },
+        {
+            "from": "value",
+            "name": "accountability_module_path",
+            "type": "text",
+            "value": "nisar_chimera.accountability"
+        },
+        {
+            "from": "value",
+            "name": "accountability_class",
+            "type": "text",
+            "value": "NisarAccountability"
+        },
+        {
+            "from": "value",
+            "name": "es_index",
+            "type": "text",
+            "value": "observation"
+        },
+        {
+            "from": "value",
+            "name": "wf_dir",
+            "type": "text",
+            "value": "/home/ops/verdi/ops/nisar-pcm/nisar_chimera/wf_xml"
+        },
+        {
+            "from": "value",
+            "name": "purpose",
+            "type": "text",
+            "value": "GCOV"
+        },
+        {
+            "default": "forward",
+            "enumerables": [
+                "forward",
+                "reprocessing",
+                "urgent"
+            ],
+            "from": "submitter",
+            "name": "processing_type",
+            "type": "enum"
+        },
+        {
+            "default": "False",
+            "enumerables": [
+                "False",
+                "True"
+            ],
+            "from": "submitter",
+            "name": "fullcovariance",
+            "type": "enum"
+        },
+        {
+            "default": "gamma0",
+            "enumerables": [
+                "None",
+                "gamma0"
+            ],
+            "from": "submitter",
+            "name": "output_type",
+            "type": "enum"
+        },
+        {
+            "default": "area_projection",
+            "enumerables": [
+                "area_projection",
+                "bilinear_distribution"
+            ],
+            "from": "submitter",
+            "name": "algorithm_type",
+            "type": "enum"
+        },
+        {
+            "default": "[20, 100]",
+            "from": "submitter",
+            "name": "output_posting",
+            "type": "text"
+        }
+    ],
+    "resource": "hysds-io-specification"
+}

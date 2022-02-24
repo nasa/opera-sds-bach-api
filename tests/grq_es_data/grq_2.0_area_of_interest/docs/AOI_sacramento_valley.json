@@ -1,0 +1,394 @@
+{
+    "@timestamp": "2021-07-16T04:02:17.871730340Z",
+    "browse_urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/AOI_sacramento_valley",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/AOI_sacramento_valley"
+    ],
+    "center": {
+        "coordinates": [
+            -121.84577180088404,
+            39.31038836175972
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "CA",
+            "admin1_name": "California",
+            "admin2_code": "067",
+            "admin2_name": "Sacramento County",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kakalameko",
+                "New Helvetia",
+                "SAC",
+                "Sacramento",
+                "Sacramento Stad",
+                "Sacramentum",
+                "Sakramenta",
+                "Sakramentas",
+                "Sakramento",
+                "Sakraments",
+                "Sakraminto",
+                "Sakram\u00e9nto",
+                "cekramento",
+                "saekeulamento",
+                "saikaramainto",
+                "saikramento",
+                "sakramento",
+                "sakramntw",
+                "sakramntw  kalyfrnya",
+                "sakuramento",
+                "sekramento",
+                "sha jia mian du",
+                "sqrmntw",
+                "\u03a3\u03b1\u03ba\u03c1\u03b1\u03bc\u03ad\u03bd\u03c4\u03bf",
+                "\u0421\u0430\u043a\u0440\u0430\u043c\u0435\u043d\u0442\u0430",
+                "\u0421\u0430\u043a\u0440\u0430\u043c\u0435\u043d\u0442\u043e",
+                "\u054d\u0561\u056f\u0580\u0561\u0574\u0565\u0576\u057f\u0578",
+                "\u05e1\u05d0\u05e7\u05e8\u05d0\u05de\u05e2\u05e0\u05d8\u05d0",
+                "\u05e1\u05e7\u05e8\u05de\u05e0\u05d8\u05d5",
+                "\u0633\u0627\u0643\u0631\u0627\u0645\u0646\u062a\u0648",
+                "\u0633\u0627\u06a9\u0631\u0627\u0645\u0646\u062a\u0648",
+                "\u0633\u0627\u06a9\u0631\u0627\u0645\u0646\u062a\u0648\u060c \u06a9\u0627\u0644\u06cc\u0641\u0631\u0646\u06cc\u0627",
+                "\u0633\u0627\u06a9\u0631\u0627\u0645\u0646\u0679\u0648",
+                "\u0633\u06a9\u0631\u0627\u0645\u0646\u0679\u0648\u060c \u06a9\u06cc\u0644\u06cc \u0641\u0648\u0631\u0646\u06cc\u0627",
+                "\u0938\u093e\u0915\u094d\u0930\u093e\u092e\u0947\u0902\u091f\u094b",
+                "\u0938\u093e\u0915\u094d\u0930\u093e\u092e\u0947\u0928\u094d\u091f\u094b",
+                "\u0938\u0947\u0915\u094d\u0930\u093e\u092e\u0947\u0928\u094d\u091f\u094b",
+                "\u0938\u0947\u0915\u094d\u0930\u093e\u092e\u0947\u0928\u094d\u0924\u094b",
+                "\u0938\u0948\u0915\u094d\u0930\u093e\u092e\u0947\u0923\u094d\u091f\u094b",
+                "\u09b8\u09be\u0995\u09cd\u09b0\u09be\u09ae\u09c7\u09a8\u09cd\u099f\u09cb",
+                "\u0a38\u0a48\u0a15\u0a30\u0a3e\u0a2e\u0a48\u0a02\u0a1f\u0a4b",
+                "\u0b9a\u0bc7\u0b95\u0bcd\u0bb0\u0bae\u0bc6\u0ba3\u0bcd\u0b9f\u0bcb",
+                "\u0e41\u0e0b\u0e04\u0e23\u0e32\u0e40\u0e21\u0e19\u0e42\u0e15",
+                "\u10e1\u10d0\u10d9\u10e0\u10d0\u10db\u10d4\u10dc\u10e2\u10dd",
+                "\u1233\u12ad\u122b\u1218\u1295\u1276",
+                "\u30b5\u30af\u30e9\u30e1\u30f3\u30c8",
+                "\u6c99\u52a0\u7dec\u5ea6",
+                "\uc0c8\ud06c\ub77c\uba58\ud1a0"
+            ],
+            "asciiname": "Sacramento",
+            "cc2": [],
+            "continent_code": "NA",
+            "continent_name": "North America",
+            "country_code": "US",
+            "country_name": "United States",
+            "dem": "14",
+            "elevation": 9,
+            "feature_class": "P",
+            "feature_code": "PPLA",
+            "geonameid": "5389489",
+            "latitude": 38.58157,
+            "location": {
+                "lat": 38.58157,
+                "lon": -121.4944
+            },
+            "longitude": -121.4944,
+            "modification_date": "2019-09-05",
+            "name": "Sacramento",
+            "population": 490712,
+            "timezone": "America/Los_Angeles"
+        },
+        {
+            "admin1_code": "CA",
+            "admin1_name": "California",
+            "admin2_code": "067",
+            "admin2_name": "Sacramento County",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Ehlk-Grov",
+                "Elk Grouv",
+                "Elk Grove",
+                "Elk-Grouv",
+                "Elkgrove",
+                "ai er ke ge luo fu",
+                "al kgrww  kalyfrnya",
+                "alk ghrwfy",
+                "alk grww",
+                "elka grobha",
+                "elkeugeulobeu",
+                "erukugurobu",
+                "\u0415\u043b\u043a \u0413\u0440\u043e\u0443\u0432",
+                "\u0415\u043b\u043a-\u0490\u0440\u043e\u0443\u0432",
+                "\u042d\u043b\u043a-\u0413\u0440\u043e\u0432",
+                "\u0625\u0644\u0643 \u063a\u0631\u0648\u0641\u064a",
+                "\u0627\u0644 \u06a9\u06af\u0631\u0648\u0648\u060c \u06a9\u0627\u0644\u06cc\u0641\u0631\u0646\u06cc\u0627",
+                "\u0627\u0644\u06a9 \u06af\u0631\u0648\u0648",
+                "\u090f\u0932\u094d\u0915 \u0917\u094d\u0930\u094b\u092d",
+                "\u30a8\u30eb\u30af\u30b0\u30ed\u30fc\u30d6",
+                "\u57c3\u723e\u514b\u683c\u7f85\u592b",
+                "\uc5d8\ud06c\uadf8\ub85c\ube0c"
+            ],
+            "asciiname": "Elk Grove",
+            "cc2": [],
+            "continent_code": "NA",
+            "continent_name": "North America",
+            "country_code": "US",
+            "country_name": "United States",
+            "dem": "17",
+            "elevation": 14,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "5346111",
+            "latitude": 38.4088,
+            "location": {
+                "lat": 38.4088,
+                "lon": -121.37162
+            },
+            "longitude": -121.37162,
+            "modification_date": "2017-03-09",
+            "name": "Elk Grove",
+            "population": 166913,
+            "timezone": "America/Los_Angeles"
+        },
+        {
+            "admin1_code": "CA",
+            "admin1_name": "California",
+            "admin2_code": "061",
+            "admin2_name": "Placer County",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Griders",
+                "Roseville",
+                "Roseville Junction",
+                "Rouzvil",
+                "Rozvell",
+                "Rozvill",
+                "lojeubil",
+                "luo si wei er",
+                "rojabhila",
+                "rozubiru",
+                "rwzfyl",
+                "rzwyl  kalyfrnya",
+                "\u0420\u043e\u0437\u0432\u0435\u043b\u043b",
+                "\u0420\u043e\u0437\u0432\u0438\u043b\u043b",
+                "\u0420\u043e\u0443\u0437\u0432\u0438\u043b",
+                "\u0631\u0632\u0648\u06cc\u0644\u060c \u06a9\u0627\u0644\u06cc\u0641\u0631\u0646\u06cc\u0627",
+                "\u0631\u0648\u0632\u0641\u064a\u0644",
+                "\u0631\u0648\u0633\u0648\u0644\u06d2",
+                "\u0930\u094b\u091c\u092d\u093f\u0932",
+                "\u30ed\u30fc\u30ba\u30d3\u30eb",
+                "\u7f85\u65af\u7dad\u723e",
+                "\ub85c\uc988\ube4c"
+            ],
+            "asciiname": "Roseville",
+            "cc2": [],
+            "continent_code": "NA",
+            "continent_name": "North America",
+            "country_code": "US",
+            "country_name": "United States",
+            "dem": "51",
+            "elevation": 50,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "5388881",
+            "latitude": 38.75212,
+            "location": {
+                "lat": 38.75212,
+                "lon": -121.28801
+            },
+            "longitude": -121.28801,
+            "modification_date": "2017-03-09",
+            "name": "Roseville",
+            "population": 130269,
+            "timezone": "America/Los_Angeles"
+        },
+        {
+            "admin1_code": "CA",
+            "admin1_name": "California",
+            "admin2_code": "067",
+            "admin2_name": "Sacramento County",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Arden-Arcade",
+                "Arden-Arcade CDP",
+                "Arden-Arkejd",
+                "aden'akedo",
+                "ardena'arkeda",
+                "\u0410\u0440\u0434\u0435\u043d-\u0410\u0440\u043a\u0435\u0458\u0434",
+                "\u0906\u0930\u094d\u0921\u0947\u0928\u0906\u0930\u094d\u0915\u0947\u0921",
+                "\u30a2\u30fc\u30c7\u30f3\u30a2\u30fc\u30b1\u30fc\u30c9"
+            ],
+            "asciiname": "Arden-Arcade",
+            "cc2": [],
+            "continent_code": "NA",
+            "continent_name": "North America",
+            "country_code": "US",
+            "country_name": "United States",
+            "dem": "23",
+            "elevation": 17,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "7260806",
+            "latitude": 38.6025,
+            "location": {
+                "lat": 38.6025,
+                "lon": -121.37854
+            },
+            "longitude": -121.37854,
+            "modification_date": "2011-05-14",
+            "name": "Arden-Arcade",
+            "population": 92186,
+            "timezone": "America/Los_Angeles"
+        },
+        {
+            "admin1_code": "CA",
+            "admin1_name": "California",
+            "admin2_code": "089",
+            "admin2_name": "Shasta County",
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Latona",
+                "RDD",
+                "Reading",
+                "Redding",
+                "Reding",
+                "leding",
+                "lei ding",
+                "rdyng  kalyfrnya",
+                "rdyngh",
+                "redinga",
+                "redingu",
+                "\u0420\u0435\u0434\u0434\u0438\u043d\u0433",
+                "\u0420\u0435\u0434\u0438\u043d\u0433",
+                "\u0631\u062f\u064a\u0646\u063a",
+                "\u0631\u062f\u06cc\u0646\u06af\u060c \u06a9\u0627\u0644\u06cc\u0641\u0631\u0646\u06cc\u0627",
+                "\u0631\u06cc\u0688\u0646\u06af\u060c\u0627\u0645\u0631\u06cc\u06a9\u06c1",
+                "\u0930\u0947\u0921\u093f\u0902\u0917",
+                "\u30ec\u30c7\u30a3\u30f3\u30b0",
+                "\u96f7\u4e01",
+                "\ub808\ub529"
+            ],
+            "asciiname": "Redding",
+            "cc2": [],
+            "continent_code": "NA",
+            "continent_name": "North America",
+            "country_code": "US",
+            "country_name": "United States",
+            "dem": "172",
+            "elevation": 172,
+            "feature_class": "P",
+            "feature_code": "PPLA2",
+            "geonameid": "5570160",
+            "latitude": 40.58654,
+            "location": {
+                "lat": 40.58654,
+                "lon": -122.39168
+            },
+            "longitude": -122.39168,
+            "modification_date": "2017-03-09",
+            "name": "Redding",
+            "population": 91582,
+            "timezone": "America/Los_Angeles"
+        }
+    ],
+    "continent": "North America",
+    "dataset": "area_of_interest",
+    "dataset_level": "L0",
+    "dataset_type": "area_of_interest",
+    "id": "AOI_sacramento_valley",
+    "images": [
+        {
+            "img": "browse.png",
+            "small_img": "browse_small.png",
+            "tooltip": ""
+        }
+    ],
+    "ipath": "ariamh::data/area_of_interest",
+    "label": "Sacramento Valley",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    -122.9059682940358,
+                    40.47090915967475
+                ],
+                [
+                    -121.6679748715316,
+                    37.84406528996276
+                ],
+                [
+                    -120.7310161872557,
+                    38.28728069813177
+                ],
+                [
+                    -121.7043611684245,
+                    39.94137004454238
+                ],
+                [
+                    -121.9536916840953,
+                    40.67097860759095
+                ],
+                [
+                    -122.3100379696548,
+                    40.7267890636145
+                ],
+                [
+                    -122.7640648263371,
+                    40.5457010812299
+                ],
+                [
+                    -122.9059682940358,
+                    40.47090915967475
+                ]
+            ]
+        ],
+        "type": "polygon"
+    },
+    "metadata": {
+        "event": {
+            "time": "2017-06-05T00:00:00",
+            "type": "time-series"
+        },
+        "priority": 8,
+        "query": {
+            "apihub": {
+                "label": "API Hub OpenData",
+                "priority": 2,
+                "products": [
+                    "S1_IW_SLC"
+                ],
+                "starttime": "now - 1 days",
+                "tags": [
+                    "sacramento_valley"
+                ]
+            },
+            "asf": {
+                "label": "ASF",
+                "priority": 6,
+                "products": [
+                    "S1_IW_SLC"
+                ],
+                "tags": [
+                    "sacramento_valley"
+                ]
+            },
+            "scihub": {
+                "label": "SciHub DHUS",
+                "priority": 2,
+                "products": [
+                    "S1_IW_SLC"
+                ],
+                "starttime": "now - 36 days",
+                "tags": [
+                    "sacramento_valley"
+                ]
+            }
+        }
+    },
+    "objectid": "AOI_sacramento_valley",
+    "prov": {},
+    "starttime": "2017-03-01T00:00:00",
+    "system_version": "2.0",
+    "urls": [
+        "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/AOI_sacramento_valley",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/AOI_sacramento_valley"
+    ],
+    "version": "2.0"
+}

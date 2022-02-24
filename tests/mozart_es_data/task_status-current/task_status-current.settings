@@ -1,0 +1,27 @@
+{
+  "task_status-current": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1617130171836",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "task_status-current",
+        "uuid": "xlpXO5wDQ5WCKR5jlS3NmA",
+        "version": {
+          "created": "7010199"
+        }
+      }
+    }
+  }
+}

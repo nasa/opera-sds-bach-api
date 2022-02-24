@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:19:07.061Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-small.100.64.123.178",
+    "event": {
+        "clock": 152,
+        "hostname": "celery@nisar-job_worker-small.100.64.123.178",
+        "pid": 113,
+        "result": "{'uuid': 'dcae859c-c208-4d14-bde4-bc908b01668d', 'job_id': 'PGE_ROST__develop-id_00-0a-0100_radar-observation-sequence_lset003_rcid201-20210330T191811.260928Z', 'payload_id': 'e5daa301-74c5-448a-bb92-eb93b54c1291', 'payload_hash': '4c88804a7c4d870db5278f2ae4bd2ebd', 'dedup': True, 'status': 'job-completed', 'job_url': 'http://100.64.123.178:8085/jobs/2021/03/30/19/18/PGE_ROST__develop-id_00-0a-0100_radar-observation-sequence_lset003_rcid201-20210330T191811.260928Z', 'celery_hostname': 'celery@nisar-job_worker-small.100.64.123.178'}",
+        "runtime": 7.1272870739999235,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "dcae859c-c208-4d14-bde4-bc908b01668d"
+    },
+    "local_received": "1617131947",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617131947",
+    "type": "nisar-job_worker-small",
+    "uuid": "dcae859c-c208-4d14-bde4-bc908b01668d"
+}

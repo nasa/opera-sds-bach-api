@@ -1,0 +1,16 @@
+{
+    "creation_time": "2019-11-12T16:30:00Z",
+    "enabled": true,
+    "job_spec": "job-send_notify_msg:develop",
+    "job_type": "hysds-io-send_notify_msg:develop",
+    "kwargs": "{\"provider_name\":\"JPL-NISAR\",\"checksum_type\":\"md5\",\"publisher_arn\":\"arn:aws:sqs:us-west-2:782376038308:daac-proxy-for-nisar\",\"kinesis_role_arn\":\"\",\"sqs_queue_url\":\"https://sqs.us-west-2.amazonaws.com/782376038308/daac-proxy-for-nisar\",\"sqs_endpoint_url\":\"None\",\"staged_data_types\":{\"data\":[\"*.h5\",\"*.yaml\"],\"metadata\":[\"*.context.json\",\"*.met.json\",\"*.dataset.json\",\"*.md5\"]}}",
+    "modified_time": "2019-11-12T17:25:56Z",
+    "passthru_query": false,
+    "priority": 0,
+    "query_all": false,
+    "query_string": "{\n \"bool\": {\n \"must\": [\n {\n \"term\": {\n \"dataset.keyword\": \"L2_L_GCOV\"\n }\n }\n ],\n \"must_not\": [\n {\n \"term\": {\n \"metadata.restaged\": \"true\"\n }\n }\n ]\n }\n}",
+    "queue": "nisar-job_worker-send_cnm_notify",
+    "rule_name": "trigger-send_cnm_notify_msg_L2_L_GCOV",
+    "username": "hysdsops",
+    "workflow": "hysds-io-send_notify_msg:develop"
+}

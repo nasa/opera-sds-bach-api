@@ -1,0 +1,35 @@
+{
+    "command": "/home/ops/verdi/ops/nisar-pcm/radar_mode/run_radar_mode_pge.sh",
+    "container": "container-iems-sds_nisar-pcm:develop",
+    "disk_usage": "100KB",
+    "id": "job-PGE_Radar_Mode:develop",
+    "imported_worker_files": {
+        "$HOME/.aws": "/home/ops/.aws",
+        "$HOME/.netrc": "/home/ops/.netrc",
+        "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+    },
+    "job-version": "develop",
+    "params": [
+        {
+            "destination": "positional",
+            "name": "dataset_name"
+        },
+        {
+            "destination": "localize",
+            "name": "product_paths"
+        },
+        {
+            "destination": "context",
+            "name": "product_metadata"
+        }
+    ],
+    "post": [
+        "hysds.utils.triage"
+    ],
+    "recommended-queues": [
+        "nisar-job_worker-small"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 900,
+    "time_limit": 960
+}

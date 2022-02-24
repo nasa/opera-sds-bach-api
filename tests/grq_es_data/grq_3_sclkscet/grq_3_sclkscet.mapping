@@ -1,0 +1,723 @@
+{
+  "grq_3_sclkscet": {
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "strings": {
+            "mapping": {
+              "copy_to": "text_fields",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "match": "*",
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "browse_urls": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "center": {
+          "strategy": "recursive",
+          "type": "geo_shape"
+        },
+        "creation_timestamp": {
+          "type": "date"
+        },
+        "dataset": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "dataset_level": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "dataset_type": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "endtime": {
+          "type": "date"
+        },
+        "id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "ipath": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "location": {
+          "ignore_z_value": true,
+          "strategy": "recursive",
+          "type": "geo_shape"
+        },
+        "metadata": {
+          "properties": {
+            "FileLocation": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "FileName": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "FileSize": {
+              "type": "float"
+            },
+            "ISL_urls": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Lambda_trigger_time": {
+              "type": "date"
+            },
+            "ProductReceivedDay": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProductReceivedMonth": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProductReceivedTime": {
+              "type": "date"
+            },
+            "ProductReceivedYear": {
+              "type": "long"
+            },
+            "ProductType": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "S3_event_record": {
+              "properties": {
+                "awsRegion": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "eventName": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "eventSource": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "eventTime": {
+                  "type": "date"
+                },
+                "eventVersion": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "requestParameters": {
+                  "properties": {
+                    "sourceIPAddress": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "responseElements": {
+                  "properties": {
+                    "x-amz-id-2": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "x-amz-request-id": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "s3": {
+                  "properties": {
+                    "bucket": {
+                      "properties": {
+                        "arn": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "name": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ownerIdentity": {
+                          "properties": {
+                            "principalId": {
+                              "copy_to": [
+                                "text_fields"
+                              ],
+                              "fields": {
+                                "keyword": {
+                                  "ignore_above": 256,
+                                  "type": "keyword"
+                                }
+                              },
+                              "norms": false,
+                              "type": "text"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "configurationId": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "object": {
+                      "properties": {
+                        "eTag": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "key": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "sequencer": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "size": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "s3SchemaVersion": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "userIdentity": {
+                  "properties": {
+                    "principalId": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "SQS_record": {
+              "properties": {
+                "attributes": {
+                  "properties": {
+                    "ApproximateFirstReceiveTimestamp": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "ApproximateReceiveCount": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "SenderId": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "SentTimestamp": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "awsRegion": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "body": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "eventSource": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "eventSourceARN": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "md5OfBody": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "messageAttributes": {
+                  "type": "object"
+                },
+                "messageId": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "receiptHandle": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            },
+            "SpacecraftID": {
+              "type": "long"
+            },
+            "Type": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "VersionID": {
+              "type": "long"
+            },
+            "context": {
+              "enabled": false,
+              "type": "object"
+            },
+            "id": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "restaged": {
+              "type": "boolean"
+            },
+            "tags": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "objectid": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "prov": {
+          "properties": {
+            "wasDerivedFrom": {
+              "type": "keyword"
+            },
+            "wasGeneratedBy": {
+              "type": "keyword"
+            }
+          }
+        },
+        "starttime": {
+          "type": "date"
+        },
+        "system_version": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "urls": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "version": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        }
+      }
+    }
+  }
+}

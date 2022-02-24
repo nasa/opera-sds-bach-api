@@ -1,0 +1,16 @@
+{
+    "creation_time": "2021-03-17T16:30:00Z",
+    "enabled": true,
+    "job_spec": "job-SCIFLO_GCOV:develop",
+    "job_type": "hysds-io-SCIFLO_GCOV:develop",
+    "kwargs": "{\"processing_type\":\"forward\",\"fullcovariance\":\"False\",\"output_type\":\"gamma0\",\"algorithm_type\":\"area_projection\",\"output_posting\":\"[20, 100]\"}",
+    "modified_time": "2021-03-18T17:25:56Z",
+    "passthru_query": false,
+    "priority": 0,
+    "query_all": false,
+    "query_string": "{\n \"bool\": {\n \"must\": [\n {\n \"term\": {\n \"dataset.keyword\": \"L1_L_RSLC\"\n }\n }\n ]\n }\n }",
+    "queue": "nisar-job_worker-sciflo-gcov",
+    "rule_name": "trigger-SCIFLO_GCOV",
+    "username": "hysdsops",
+    "workflow": "hysds-io-SCIFLO_GCOV:develop"
+}

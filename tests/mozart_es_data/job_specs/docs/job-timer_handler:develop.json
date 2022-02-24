@@ -1,0 +1,30 @@
+{
+    "command": "/home/ops/verdi/ops/nisar-pcm/timer/timer_handler.sh",
+    "container": "container-iems-sds_nisar-pcm:develop",
+    "disk_usage": "1GB",
+    "id": "job-timer_handler:develop",
+    "job-version": "develop",
+    "params": [
+        {
+            "destination": "context",
+            "name": "dataset_type"
+        },
+        {
+            "destination": "context",
+            "name": "creation_time"
+        },
+        {
+            "destination": "context",
+            "name": "notify_arn"
+        }
+    ],
+    "post": [
+        "hysds.utils.triage"
+    ],
+    "recommended-queues": [
+        "nisar-job_worker-timer"
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 600,
+    "time_limit": 660
+}

@@ -1,0 +1,17 @@
+{
+    "command": "/home/ops/verdi/ops/nisar-pcm/hello_world/run_hello_world-gpu.sh",
+    "container": "container-iems-sds_nisar-pcm:develop",
+    "disk_usage": "100KB",
+    "id": "job-hello_world-gpu:develop",
+    "job-version": "develop",
+    "params": [],
+    "recommended-queues": [
+        "nisar-job_worker-gpu"
+    ],
+    "resource": "jobspec",
+    "runtime_options": {
+        "gpus": "all"
+    },
+    "soft_time_limit": 900,
+    "time_limit": 960
+}

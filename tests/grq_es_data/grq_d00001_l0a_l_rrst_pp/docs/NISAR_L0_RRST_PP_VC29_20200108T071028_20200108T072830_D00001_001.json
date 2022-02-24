@@ -1,0 +1,140 @@
+{
+    "@timestamp": "2021-07-16T04:13:09.429590549Z",
+    "browse_urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/L0A_L_RRST_PP/2020/01/08/NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/browse/L0A_L_RRST_PP/2020/01/08/NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001"
+    ],
+    "creation_timestamp": "2021-07-16T04:12:55.964",
+    "dataset": "L0A_L_RRST_PP",
+    "dataset_level": "L0A",
+    "dataset_type": "L0A_L_RRST_PP",
+    "endtime": "2020-01-08T07:28:30.000000Z",
+    "id": "NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001",
+    "images": [],
+    "ipath": "hysds::data/L0A_L_RRST_PP",
+    "metadata": {
+        "CompositeReleaseID": "D00001",
+        "DAPHNE_Flag_Count": 0,
+        "DAPHNE_Max_Time_Tag": "2020-01-08T07:28:30.000000Z",
+        "DAPHNE_Min_Time_Tag": "2020-01-08T07:10:28.000000Z",
+        "FileLocation": "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/output/datasets/NISAR_L0_RRST_VC29_20200108T071028_20200108T072830_D00001_001",
+        "FileName": "NISAR_L0_RRST_VC29_20200108T071028_20200108T072830_D00001_001.bin",
+        "FileSize": 1024,
+        "Input_Files": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29"
+        ],
+        "Max_VCFC": 28,
+        "Min_VCFC": 1,
+        "Missing_VCFC_ERT_List": "2019-10-29T17:13:05.813023Z, 2019-10-29T17:13:05.813123Z, 2019-10-29T17:13:05.813199Z, 2019-10-29T17:13:05.813266Z, 2019-10-29T17:13:05.813342Z, 2019-10-29T17:13:05.813411Z",
+        "Missing_VCFC_List": [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27
+        ],
+        "PCMRetrievalID": "NISAR_L0_RRST_VC29_20200108T071028_20200108T072830",
+        "PGE_Name": "L0A_L_PGE",
+        "PGE_Version": "R1.1.0",
+        "Packets_with_Corrected_FEC": 2,
+        "ProductCounter": 1,
+        "ProductReceivedDay": "16",
+        "ProductReceivedMonth": "07",
+        "ProductReceivedTime": "2021-07-16T04:12:55.956308Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "L0A_L_RRST",
+        "ProductionDateTime": "2021-07-16T04:12:51.558587Z",
+        "SAS_Version": "ISCE3 v0.2.0-dev",
+        "VCID": "VC29",
+        "id": "NISAR_L0_RRST_VC29_20200108T071028_20200108T072830_D00001_001",
+        "ldf_state_config_id": "ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config",
+        "lineage": [
+            "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29",
+            "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29"
+        ],
+        "runconfig": {
+            "CompositeReleaseID": "D00001",
+            "DebugPath": "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z",
+            "DebugSwitch": "Off",
+            "FileSizeLimit": "700M",
+            "InputFilePath": {
+                "NEN_L_RRST": [
+                    "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29",
+                    "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29"
+                ]
+            },
+            "NumberOfThreads": 4,
+            "PGEName": "L0A_L_PGE",
+            "PGEType": "L-SAR",
+            "ProductCounter": 1,
+            "ProductPath": "/data/work/jobs/2021/07/16/04/12/SCIFLO_L0A__develop-ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config-20210716T041247.317440Z/output",
+            "base_name": {
+                "L0A_L_RRST": "NISAR_L0_RRST_VC29_20200108T071028_20200108T072830_D00001_001"
+            },
+            "extra_pge_output_metadata": {
+                "ldf_state_config_id": "ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config"
+            },
+            "localize": [
+                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29",
+                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29"
+            ],
+            "mock_metadata": {
+                "L0A_L_RRST": {
+                    "CompositeReleaseID": "D00001",
+                    "DAPHNE_Flag_Count": 0,
+                    "DAPHNE_Max_Time_Tag": "2020-01-08T07:28:30.000000Z",
+                    "DAPHNE_Min_Time_Tag": "2020-01-08T07:10:28.000000Z",
+                    "Input_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R31_C32_G81_2020_008_07_10_28_000000000.vc29",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29/NISAR_S198_ASF_AS4_M00_P00114_R30_C31_G81_2020_008_07_28_30_000000000.vc29"
+                    ],
+                    "Max_VCFC": 28,
+                    "Min_VCFC": 1,
+                    "Missing_VCFC_ERT_List": "2019-10-29T17:13:05.813023Z, 2019-10-29T17:13:05.813123Z, 2019-10-29T17:13:05.813199Z, 2019-10-29T17:13:05.813266Z, 2019-10-29T17:13:05.813342Z, 2019-10-29T17:13:05.813411Z",
+                    "Missing_VCFC_List": [
+                        0,
+                        3,
+                        6,
+                        9,
+                        12,
+                        15,
+                        18,
+                        21,
+                        24,
+                        27
+                    ],
+                    "PGE_Name": "L0A_L_PGE",
+                    "PGE_Version": "R1.1.0",
+                    "Packets_with_Corrected_FEC": 2,
+                    "ProductCounter": 1,
+                    "ProductionDateTime": "2021-07-16T04:12:51.558587Z",
+                    "SAS_Version": "ISCE3 v0.2.0-dev",
+                    "VCID": "VC29"
+                }
+            },
+            "pge_job_name": "ASF_NISAR_2020_008_06_30_59_vc29_expired-state-config",
+            "simulate_outputs": true
+        },
+        "tags": [
+            "PGE"
+        ]
+    },
+    "objectid": "NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001",
+    "prov": {
+        "wasGeneratedBy": "task_id:452020fb-1447-4fe1-9688-53d01c54b199"
+    },
+    "starttime": "2020-01-08T07:10:28.000000Z",
+    "system_version": "d00001",
+    "temporal_span": 0,
+    "urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/L0A_L_RRST_PP/2020/01/08/NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST_PP/2020/01/08/NISAR_L0_RRST_PP_VC29_20200108T071028_20200108T072830_D00001_001"
+    ],
+    "version": "d00001"
+}

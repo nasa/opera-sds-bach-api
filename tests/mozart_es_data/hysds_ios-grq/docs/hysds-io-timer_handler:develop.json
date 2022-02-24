@@ -1,0 +1,31 @@
+{
+    "allowed_accounts": [
+        "ops"
+    ],
+    "id": "hysds-io-timer_handler:develop",
+    "job-specification": "job-timer_handler:develop",
+    "job-version": "develop",
+    "label": "Check for Expired State Config Datasets",
+    "params": [
+        {
+            "enumerables": [
+                "L2_RAD_OGDR-state-config"
+            ],
+            "from": "submitter",
+            "name": "dataset_type",
+            "type": "enum"
+        },
+        {
+            "from": "submitter",
+            "name": "creation_time",
+            "placeholder": "YYYY-MM-DDThh:mm:ss.ffffffZ"
+        },
+        {
+            "from": "submitter",
+            "name": "notify_arn",
+            "placeholder": "SNS ARN to notify operator"
+        }
+    ],
+    "resource": "hysds-io-specification",
+    "submission_type": "iteration"
+}

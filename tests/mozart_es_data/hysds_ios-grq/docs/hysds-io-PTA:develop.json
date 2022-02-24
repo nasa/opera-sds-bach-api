@@ -1,0 +1,34 @@
+{
+    "allowed_accounts": [
+        "ops"
+    ],
+    "disable_post_builtins": true,
+    "enable_dedup": true,
+    "id": "hysds-io-PTA:develop",
+    "job-specification": "job-PTA:develop",
+    "job-version": "develop",
+    "label": "Point Target Analysis",
+    "params": [
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: list(filter(lambda x: x.startswith('s3://'), ds['urls']))[0]",
+            "name": "product_paths"
+        },
+        {
+            "from": "dataset_jpath:_source",
+            "lambda": "lambda ds: { 'metadata': ds['metadata'] }",
+            "name": "product_metadata"
+        },
+        {
+            "from": "dataset_jpath:_id",
+            "name": "input_dataset_id",
+            "type": "text"
+        },
+        {
+            "from": "dataset_jpath:_source.dataset",
+            "name": "dataset_type",
+            "type": "text"
+        }
+    ],
+    "resource": "hysds-io-specification"
+}

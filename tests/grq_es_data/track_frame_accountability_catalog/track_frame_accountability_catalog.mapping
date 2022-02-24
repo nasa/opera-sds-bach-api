@@ -1,0 +1,266 @@
+{
+  "track_frame_accountability_catalog": {
+    "mappings": {
+      "properties": {
+        "L0B_L_RRSD_ids": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L1_L_RSLC_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L1_L_RSLC_job_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L1_L_RSLC_status": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GCOV_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GCOV_job_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GCOV_status": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GSLC_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GSLC_job_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "L2_L_GSLC_status": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "beam_name": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "begin_time": {
+          "type": "date"
+        },
+        "created_at": {
+          "type": "date"
+        },
+        "data_source": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "datatake_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "end_time": {
+          "type": "date"
+        },
+        "frame_coverage": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "l0a_l_rrst_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_crsd_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_crsd_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_hst_drt_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_hst_drt_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_rrsd_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0b_l_rrsd_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l1_l_rslc_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l1_l_rslc_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gcov_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gcov_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gslc_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l2_l_gslc_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "last_modified": {
+          "type": "date"
+        },
+        "processing_begin_time": {
+          "type": "date"
+        },
+        "processing_end_time": {
+          "type": "date"
+        },
+        "refrec_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "track_frame-state-config_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "track_frame_force_submit": {
+          "type": "boolean"
+        },
+        "track_frame_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "track_frame_is_complete": {
+          "type": "boolean"
+        },
+        "track_frame_is_urgent": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

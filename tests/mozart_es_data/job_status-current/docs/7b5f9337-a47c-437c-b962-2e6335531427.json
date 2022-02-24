@@ -1,0 +1,934 @@
+{
+    "@timestamp": "2021-03-30T19:18:18.696Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-small.100.64.123.183",
+    "context": {
+        "_command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml' 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml'",
+        "_disk_usage": "10GB",
+        "_prov": {
+            "wasDerivedFrom": [
+                "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            ],
+            "wasGeneratedBy": "task_id:4b88f324-eb46-47e8-90ee-465c343f4655"
+        },
+        "checksum": false,
+        "checksum_type": null,
+        "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+        "container_image_name": "container-iems-sds_nisar-pcm:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+        "container_mappings": {
+            "$HOME/.aws": "/home/ops/.aws",
+            "$HOME/.netrc": "/home/ops/.netrc",
+            "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+        },
+        "container_specification": {
+            "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+            "id": "container-iems-sds_nisar-pcm:develop",
+            "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+            "version": "develop"
+        },
+        "data_file": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+        "data_url": [
+            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+        ],
+        "id": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+        "job_priority": 0,
+        "job_specification": {
+            "command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh",
+            "container": "container-iems-sds_nisar-pcm:develop",
+            "disk_usage": "10GB",
+            "id": "job-INGEST_STAGED:develop",
+            "imported_worker_files": {
+                "$HOME/.aws": "/home/ops/.aws",
+                "$HOME/.netrc": "/home/ops/.netrc",
+                "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+            },
+            "job-version": "develop",
+            "params": [
+                {
+                    "destination": "positional",
+                    "name": "id",
+                    "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                },
+                {
+                    "destination": "context",
+                    "name": "data_url",
+                    "value": [
+                        "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    ]
+                },
+                {
+                    "destination": "localize",
+                    "name": "data_url",
+                    "value": [
+                        "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    ]
+                },
+                {
+                    "destination": "positional",
+                    "name": "data_file",
+                    "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                },
+                {
+                    "destination": "context",
+                    "name": "prod_met",
+                    "value": {
+                        "ISL_urls": [
+                            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                        ],
+                        "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+                        "S3_event_record": {
+                            "awsRegion": "us-west-2",
+                            "eventName": "ObjectCreated:Put",
+                            "eventSource": "aws:s3",
+                            "eventTime": "2021-03-30T19:17:33.448Z",
+                            "eventVersion": "2.1",
+                            "requestParameters": {
+                                "sourceIPAddress": "100.64.122.95"
+                            },
+                            "responseElements": {
+                                "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                                "x-amz-request-id": "521G202Y7HMPS0EP"
+                            },
+                            "s3": {
+                                "bucket": {
+                                    "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                                    "name": "nisar-dev-isl-fwd-bporeh",
+                                    "ownerIdentity": {
+                                        "principalId": "AWZVWFO1088SI"
+                                    }
+                                },
+                                "configurationId": "sqs_event",
+                                "object": {
+                                    "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                                    "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                                    "sequencer": "00606379503698B534",
+                                    "size": 1920
+                                },
+                                "s3SchemaVersion": "1.0"
+                            },
+                            "userIdentity": {
+                                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                            }
+                        },
+                        "SQS_record": {
+                            "attributes": {
+                                "ApproximateFirstReceiveTimestamp": "1617131857665",
+                                "ApproximateReceiveCount": "1",
+                                "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                                "SentTimestamp": "1617131857664"
+                            },
+                            "awsRegion": "us-west-2",
+                            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                            "eventSource": "aws:sqs",
+                            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                            "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                            "messageAttributes": {},
+                            "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                            "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+                        },
+                        "restaged": false,
+                        "tags": [
+                            "ISL"
+                        ]
+                    }
+                },
+                {
+                    "destination": "context",
+                    "name": "checksum",
+                    "value": false
+                },
+                {
+                    "destination": "context",
+                    "name": "checksum_type",
+                    "value": null
+                }
+            ],
+            "recommended-queues": [
+                "factotum-job_worker-small"
+            ],
+            "resource": "jobspec",
+            "soft_time_limit": 1800,
+            "time_limit": 1860
+        },
+        "localize_urls": [
+            {
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            }
+        ],
+        "prod_met": {
+            "ISL_urls": [
+                "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            ],
+            "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+            "S3_event_record": {
+                "awsRegion": "us-west-2",
+                "eventName": "ObjectCreated:Put",
+                "eventSource": "aws:s3",
+                "eventTime": "2021-03-30T19:17:33.448Z",
+                "eventVersion": "2.1",
+                "requestParameters": {
+                    "sourceIPAddress": "100.64.122.95"
+                },
+                "responseElements": {
+                    "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                    "x-amz-request-id": "521G202Y7HMPS0EP"
+                },
+                "s3": {
+                    "bucket": {
+                        "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                        "name": "nisar-dev-isl-fwd-bporeh",
+                        "ownerIdentity": {
+                            "principalId": "AWZVWFO1088SI"
+                        }
+                    },
+                    "configurationId": "sqs_event",
+                    "object": {
+                        "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                        "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                        "sequencer": "00606379503698B534",
+                        "size": 1920
+                    },
+                    "s3SchemaVersion": "1.0"
+                },
+                "userIdentity": {
+                    "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                }
+            },
+            "SQS_record": {
+                "attributes": {
+                    "ApproximateFirstReceiveTimestamp": "1617131857665",
+                    "ApproximateReceiveCount": "1",
+                    "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                    "SentTimestamp": "1617131857664"
+                },
+                "awsRegion": "us-west-2",
+                "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                "eventSource": "aws:sqs",
+                "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                "messageAttributes": {},
+                "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+            },
+            "restaged": false,
+            "tags": [
+                "ISL"
+            ]
+        },
+        "runtime_options": {},
+        "tag": "data-staged"
+    },
+    "dedup": true,
+    "job": {
+        "command": {
+            "arguments": [
+                "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            ],
+            "env": [],
+            "options": [],
+            "path": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh"
+        },
+        "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+        "container_image_name": "container-iems-sds_nisar-pcm:develop",
+        "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+        "container_mappings": {
+            "$HOME/.aws": "/home/ops/.aws",
+            "$HOME/.netrc": "/home/ops/.netrc",
+            "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml",
+            "/home/ops/verdi/etc/celeryconfig.py": "celeryconfig.py",
+            "/home/ops/verdi/etc/datasets.json": "datasets.json"
+        },
+        "context": {
+            "_command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml' 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml'",
+            "_disk_usage": "10GB",
+            "_prov": {
+                "wasDerivedFrom": [
+                    "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                ],
+                "wasGeneratedBy": "task_id:4b88f324-eb46-47e8-90ee-465c343f4655"
+            },
+            "checksum": false,
+            "checksum_type": null,
+            "container_image_id": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+            "container_image_name": "container-iems-sds_nisar-pcm:develop",
+            "container_image_url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+            "container_mappings": {
+                "$HOME/.aws": "/home/ops/.aws",
+                "$HOME/.netrc": "/home/ops/.netrc",
+                "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+            },
+            "container_specification": {
+                "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+                "id": "container-iems-sds_nisar-pcm:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+                "version": "develop"
+            },
+            "data_file": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+            "data_url": [
+                "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            ],
+            "id": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+            "job_priority": 0,
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh",
+                "container": "container-iems-sds_nisar-pcm:develop",
+                "disk_usage": "10GB",
+                "id": "job-INGEST_STAGED:develop",
+                "imported_worker_files": {
+                    "$HOME/.aws": "/home/ops/.aws",
+                    "$HOME/.netrc": "/home/ops/.netrc",
+                    "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+                },
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "positional",
+                        "name": "id",
+                        "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "data_url",
+                        "value": [
+                            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                        ]
+                    },
+                    {
+                        "destination": "localize",
+                        "name": "data_url",
+                        "value": [
+                            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                        ]
+                    },
+                    {
+                        "destination": "positional",
+                        "name": "data_file",
+                        "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "prod_met",
+                        "value": {
+                            "ISL_urls": [
+                                "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                            ],
+                            "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+                            "S3_event_record": {
+                                "awsRegion": "us-west-2",
+                                "eventName": "ObjectCreated:Put",
+                                "eventSource": "aws:s3",
+                                "eventTime": "2021-03-30T19:17:33.448Z",
+                                "eventVersion": "2.1",
+                                "requestParameters": {
+                                    "sourceIPAddress": "100.64.122.95"
+                                },
+                                "responseElements": {
+                                    "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                                    "x-amz-request-id": "521G202Y7HMPS0EP"
+                                },
+                                "s3": {
+                                    "bucket": {
+                                        "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                                        "name": "nisar-dev-isl-fwd-bporeh",
+                                        "ownerIdentity": {
+                                            "principalId": "AWZVWFO1088SI"
+                                        }
+                                    },
+                                    "configurationId": "sqs_event",
+                                    "object": {
+                                        "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                                        "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                                        "sequencer": "00606379503698B534",
+                                        "size": 1920
+                                    },
+                                    "s3SchemaVersion": "1.0"
+                                },
+                                "userIdentity": {
+                                    "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                                }
+                            },
+                            "SQS_record": {
+                                "attributes": {
+                                    "ApproximateFirstReceiveTimestamp": "1617131857665",
+                                    "ApproximateReceiveCount": "1",
+                                    "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                                    "SentTimestamp": "1617131857664"
+                                },
+                                "awsRegion": "us-west-2",
+                                "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                                "eventSource": "aws:sqs",
+                                "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                                "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                                "messageAttributes": {},
+                                "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                                "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+                            },
+                            "restaged": false,
+                            "tags": [
+                                "ISL"
+                            ]
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "checksum",
+                        "value": false
+                    },
+                    {
+                        "destination": "context",
+                        "name": "checksum_type",
+                        "value": null
+                    }
+                ],
+                "recommended-queues": [
+                    "factotum-job_worker-small"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 1800,
+                "time_limit": 1860
+            },
+            "localize_urls": [
+                {
+                    "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                }
+            ],
+            "prod_met": {
+                "ISL_urls": [
+                    "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                ],
+                "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+                "S3_event_record": {
+                    "awsRegion": "us-west-2",
+                    "eventName": "ObjectCreated:Put",
+                    "eventSource": "aws:s3",
+                    "eventTime": "2021-03-30T19:17:33.448Z",
+                    "eventVersion": "2.1",
+                    "requestParameters": {
+                        "sourceIPAddress": "100.64.122.95"
+                    },
+                    "responseElements": {
+                        "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                        "x-amz-request-id": "521G202Y7HMPS0EP"
+                    },
+                    "s3": {
+                        "bucket": {
+                            "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                            "name": "nisar-dev-isl-fwd-bporeh",
+                            "ownerIdentity": {
+                                "principalId": "AWZVWFO1088SI"
+                            }
+                        },
+                        "configurationId": "sqs_event",
+                        "object": {
+                            "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                            "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                            "sequencer": "00606379503698B534",
+                            "size": 1920
+                        },
+                        "s3SchemaVersion": "1.0"
+                    },
+                    "userIdentity": {
+                        "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                    }
+                },
+                "SQS_record": {
+                    "attributes": {
+                        "ApproximateFirstReceiveTimestamp": "1617131857665",
+                        "ApproximateReceiveCount": "1",
+                        "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                        "SentTimestamp": "1617131857664"
+                    },
+                    "awsRegion": "us-west-2",
+                    "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                    "eventSource": "aws:sqs",
+                    "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                    "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                    "messageAttributes": {},
+                    "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                    "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+                },
+                "restaged": false,
+                "tags": [
+                    "ISL"
+                ]
+            },
+            "runtime_options": {},
+            "tag": "data-staged"
+        },
+        "delivery_info": {
+            "exchange": "",
+            "priority": 0,
+            "redelivered": false,
+            "routing_key": "nisar-job_worker-small"
+        },
+        "job_id": "ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+        "job_info": {
+            "cmd_duration": 4.055976,
+            "cmd_end": "2021-03-30T19:18:08.094845Z",
+            "cmd_start": "2021-03-30T19:18:04.038869Z",
+            "context_file": "/data/work/jobs/2021/03/30/19/18/ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z/_context.json",
+            "datasets_cfg_file": "/home/ops/verdi/etc/datasets.json",
+            "dedup": true,
+            "duration": 5.823353,
+            "execute_node": "100.64.123.183",
+            "facts": {
+                "architecture": "x86_64",
+                "domain": "jpl.nasa.gov",
+                "ec2_instance_id": "i-0fc2185c2a281ac97",
+                "ec2_instance_type": "t3.medium",
+                "ec2_placement_availability_zone": "us-west-2b",
+                "fqdn": "100.64.123.183",
+                "hardwaremodel": "x86_64",
+                "hostname": "verdi",
+                "hysds_execute_node": "100.64.123.183",
+                "hysds_public_ip": "100.64.123.183",
+                "ipaddress": "172.18.0.2",
+                "ipaddress_eth0": "100.64.123.183",
+                "is_virtual": true,
+                "memoryfree": "2.37 GB",
+                "memorysize": "3.64 GB",
+                "operatingsystem": "CentOS",
+                "operatingsystemrelease": "7.9.2009",
+                "osfamily": "RedHat",
+                "physicalprocessorcount": 1,
+                "processorcount": 2,
+                "swapfree": "0.00 MB",
+                "swapsize": "0.00 MB",
+                "uptime": "0:09 hours",
+                "virtual": "docker"
+            },
+            "id": "ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+            "job_dir": "/data/work/jobs/2021/03/30/19/18/ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+            "job_payload": {
+                "job_type": "job:job-INGEST_STAGED:develop",
+                "payload_task_id": "7b5f9337-a47c-437c-b962-2e6335531427"
+            },
+            "job_queue": "nisar-job_worker-small",
+            "job_url": "http://100.64.123.183:8085/jobs/2021/03/30/19/18/ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+            "metrics": {
+                "inputs_localized": [
+                    {
+                        "disk_usage": 1920,
+                        "duration": 1.392075,
+                        "path": "/data/work/jobs/2021/03/30/19/18/ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                        "time_end": "2021-03-30T19:18:04.029842Z",
+                        "time_start": "2021-03-30T19:18:02.637767Z",
+                        "transfer_rate": 1379.2360325413501,
+                        "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    }
+                ],
+                "job_dir_size": 70486,
+                "product_provenance": {
+                    "availability_time": "2021-03-30T19:18:18.686625Z",
+                    "processing_latency": 0.27343381666666666,
+                    "processing_start_time": "2021-03-30T19:18:02.280596Z",
+                    "product_type": "hysds::data/ROST",
+                    "total_latency": 0.27343381666666666
+                },
+                "products_staged": [
+                    {
+                        "browse_urls": [
+                            "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/ROST/id_00-04-0100_radar-observation-sequence_lset003_rcid195",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/ROST/id_00-04-0100_radar-observation-sequence_lset003_rcid195"
+                        ],
+                        "dataset": "ROST",
+                        "dataset_level": "NA",
+                        "dataset_type": "ROST",
+                        "disk_usage": 20723,
+                        "duration": 10.581435,
+                        "id": "id_00-04-0100_radar-observation-sequence_lset003_rcid195",
+                        "index": "grq_1_rost",
+                        "ipath": "hysds::data/ROST",
+                        "path": "/data/work/jobs/2021/03/30/19/18/ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z/output/id_00-04-0100_radar-observation-sequence_lset003_rcid195",
+                        "system_version": "1",
+                        "time_end": "2021-03-30T19:18:18.686625Z",
+                        "time_start": "2021-03-30T19:18:08.105190Z",
+                        "transfer_rate": 1958.4300239050751,
+                        "urls": [
+                            "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/ROST/id_00-04-0100_radar-observation-sequence_lset003_rcid195",
+                            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/ROST/id_00-04-0100_radar-observation-sequence_lset003_rcid195"
+                        ]
+                    }
+                ],
+                "usage_stats": [
+                    {
+                        "cgroups": {
+                            "blkio_stats": {
+                                "io_service_bytes_recursive": [
+                                    {
+                                        "major": 259,
+                                        "op": "Read",
+                                        "value": 184320
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Write",
+                                        "value": 54240256
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Sync",
+                                        "value": 54240256
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Async",
+                                        "value": 184320
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Total",
+                                        "value": 54424576
+                                    }
+                                ],
+                                "io_serviced_recursive": [
+                                    {
+                                        "major": 259,
+                                        "op": "Read",
+                                        "value": 9
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Write",
+                                        "value": 1402
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Sync",
+                                        "value": 1402
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Async",
+                                        "value": 9
+                                    },
+                                    {
+                                        "major": 259,
+                                        "op": "Total",
+                                        "value": 1411
+                                    }
+                                ]
+                            },
+                            "cpu_stats": {
+                                "cpu_usage": {
+                                    "percpu_usage": [
+                                        1334896025,
+                                        175451997
+                                    ],
+                                    "total_usage": 1510348022,
+                                    "usage_in_kernelmode": 290000000,
+                                    "usage_in_usermode": 830000000
+                                },
+                                "throttling_data": {}
+                            },
+                            "hugetlb_stats": {
+                                "1GB": {
+                                    "failcnt": 0
+                                },
+                                "2MB": {
+                                    "failcnt": 0
+                                }
+                            },
+                            "memory_stats": {
+                                "cache": 48648192,
+                                "kernel_tcp_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "kernel_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712
+                                },
+                                "stats": {
+                                    "active_anon": 4587520,
+                                    "active_file": 45056,
+                                    "cache": 48648192,
+                                    "hierarchical_memory_limit": 9223372036854771712,
+                                    "hierarchical_memsw_limit": 9223372036854771712,
+                                    "inactive_anon": 0,
+                                    "inactive_file": 48603136,
+                                    "mapped_file": 0,
+                                    "pgfault": 75165,
+                                    "pgmajfault": 3,
+                                    "pgpgin": 39924,
+                                    "pgpgout": 27949,
+                                    "rss": 4587520,
+                                    "rss_huge": 4194304,
+                                    "swap": 0,
+                                    "total_active_anon": 4587520,
+                                    "total_active_file": 45056,
+                                    "total_cache": 48648192,
+                                    "total_inactive_anon": 0,
+                                    "total_inactive_file": 48603136,
+                                    "total_mapped_file": 0,
+                                    "total_pgfault": 0,
+                                    "total_pgmajfault": 0,
+                                    "total_pgpgin": 0,
+                                    "total_pgpgout": 0,
+                                    "total_rss": 4587520,
+                                    "total_rss_huge": 4194304,
+                                    "total_swap": 0,
+                                    "total_unevictable": 0,
+                                    "unevictable": 0
+                                },
+                                "swap_usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 129576960,
+                                    "usage": 53387264
+                                },
+                                "usage": {
+                                    "failcnt": 0,
+                                    "limit": 9223372036854771712,
+                                    "max_usage": 129576960,
+                                    "usage": 53387264
+                                }
+                            },
+                            "pids_stats": {
+                                "current": 8
+                            }
+                        },
+                        "sys_cpu_time": 159102000,
+                        "user_cpu_time": 985640000,
+                        "wall_time": 1172919910
+                    }
+                ]
+            },
+            "payload_hash": "39a70159a6f0dc4af29317232a2fdb93",
+            "pid": 355,
+            "public_ip": "100.64.123.183",
+            "soft_time_limit": 1800,
+            "status": 0,
+            "stderr": "",
+            "stdout": "",
+            "time_end": "2021-03-30T19:18:08.103949Z",
+            "time_limit": 2100,
+            "time_queued": "2021-03-30T19:17:38.352104Z",
+            "time_start": "2021-03-30T19:18:02.280596Z"
+        },
+        "localize_urls": [
+            {
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            }
+        ],
+        "name": "ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+        "params": {
+            "_command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml' 'id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml'",
+            "_disk_usage": "10GB",
+            "checksum": false,
+            "checksum_type": null,
+            "container_specification": {
+                "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
+                "id": "container-iems-sds_nisar-pcm:develop",
+                "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
+                "version": "develop"
+            },
+            "data_file": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+            "data_url": [
+                "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+            ],
+            "id": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+            "job_specification": {
+                "command": "/home/ops/verdi/ops/nisar-pcm/ingest/INGEST_STAGED/run_pcm_int.sh",
+                "container": "container-iems-sds_nisar-pcm:develop",
+                "disk_usage": "10GB",
+                "id": "job-INGEST_STAGED:develop",
+                "imported_worker_files": {
+                    "$HOME/.aws": "/home/ops/.aws",
+                    "$HOME/.netrc": "/home/ops/.netrc",
+                    "$HOME/verdi/etc/settings.yaml": "/home/ops/verdi/ops/nisar-pcm/conf/settings.yaml"
+                },
+                "job-version": "develop",
+                "params": [
+                    {
+                        "destination": "positional",
+                        "name": "id",
+                        "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "data_url",
+                        "value": [
+                            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                        ]
+                    },
+                    {
+                        "destination": "localize",
+                        "name": "data_url",
+                        "value": [
+                            "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                        ]
+                    },
+                    {
+                        "destination": "positional",
+                        "name": "data_file",
+                        "value": "id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                    },
+                    {
+                        "destination": "context",
+                        "name": "prod_met",
+                        "value": {
+                            "ISL_urls": [
+                                "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                            ],
+                            "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+                            "S3_event_record": {
+                                "awsRegion": "us-west-2",
+                                "eventName": "ObjectCreated:Put",
+                                "eventSource": "aws:s3",
+                                "eventTime": "2021-03-30T19:17:33.448Z",
+                                "eventVersion": "2.1",
+                                "requestParameters": {
+                                    "sourceIPAddress": "100.64.122.95"
+                                },
+                                "responseElements": {
+                                    "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                                    "x-amz-request-id": "521G202Y7HMPS0EP"
+                                },
+                                "s3": {
+                                    "bucket": {
+                                        "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                                        "name": "nisar-dev-isl-fwd-bporeh",
+                                        "ownerIdentity": {
+                                            "principalId": "AWZVWFO1088SI"
+                                        }
+                                    },
+                                    "configurationId": "sqs_event",
+                                    "object": {
+                                        "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                                        "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                                        "sequencer": "00606379503698B534",
+                                        "size": 1920
+                                    },
+                                    "s3SchemaVersion": "1.0"
+                                },
+                                "userIdentity": {
+                                    "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                                }
+                            },
+                            "SQS_record": {
+                                "attributes": {
+                                    "ApproximateFirstReceiveTimestamp": "1617131857665",
+                                    "ApproximateReceiveCount": "1",
+                                    "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                                    "SentTimestamp": "1617131857664"
+                                },
+                                "awsRegion": "us-west-2",
+                                "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                                "eventSource": "aws:sqs",
+                                "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                                "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                                "messageAttributes": {},
+                                "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                                "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+                            },
+                            "restaged": false,
+                            "tags": [
+                                "ISL"
+                            ]
+                        }
+                    },
+                    {
+                        "destination": "context",
+                        "name": "checksum",
+                        "value": false
+                    },
+                    {
+                        "destination": "context",
+                        "name": "checksum_type",
+                        "value": null
+                    }
+                ],
+                "recommended-queues": [
+                    "factotum-job_worker-small"
+                ],
+                "resource": "jobspec",
+                "soft_time_limit": 1800,
+                "time_limit": 1860
+            },
+            "localize_urls": [
+                {
+                    "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                }
+            ],
+            "prod_met": {
+                "ISL_urls": [
+                    "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml"
+                ],
+                "Lambda_trigger_time": "2021-03-30T19:17:38.079736Z",
+                "S3_event_record": {
+                    "awsRegion": "us-west-2",
+                    "eventName": "ObjectCreated:Put",
+                    "eventSource": "aws:s3",
+                    "eventTime": "2021-03-30T19:17:33.448Z",
+                    "eventVersion": "2.1",
+                    "requestParameters": {
+                        "sourceIPAddress": "100.64.122.95"
+                    },
+                    "responseElements": {
+                        "x-amz-id-2": "z4IHOjPyEAsFv7P1NOyDnFXuJxun08V09vQqQJC7nxwFZGXIWl6i3126FuFiWp78iKDP9Vh+ERAlXoOnoYSJ56QeA8tP8LDJ",
+                        "x-amz-request-id": "521G202Y7HMPS0EP"
+                    },
+                    "s3": {
+                        "bucket": {
+                            "arn": "arn:aws:s3:::nisar-dev-isl-fwd-bporeh",
+                            "name": "nisar-dev-isl-fwd-bporeh",
+                            "ownerIdentity": {
+                                "principalId": "AWZVWFO1088SI"
+                            }
+                        },
+                        "configurationId": "sqs_event",
+                        "object": {
+                            "eTag": "7bd8f3eb3c5bff5e1916cdc4517b145f",
+                            "key": "gds/id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml",
+                            "sequencer": "00606379503698B534",
+                            "size": 1920
+                        },
+                        "s3SchemaVersion": "1.0"
+                    },
+                    "userIdentity": {
+                        "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d"
+                    }
+                },
+                "SQS_record": {
+                    "attributes": {
+                        "ApproximateFirstReceiveTimestamp": "1617131857665",
+                        "ApproximateReceiveCount": "1",
+                        "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
+                        "SentTimestamp": "1617131857664"
+                    },
+                    "awsRegion": "us-west-2",
+                    "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-03-30T19:17:34.012Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-0c23cd31595426a3d\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.95\"},\"responseElements\":{\"x-amz-request-id\":\"521QVPRTGN64CR53\",\"x-amz-id-2\":\"2vNWRsNzyHeF1iCIvDl9855AV9YJHxWKfTp4lYhbIINH43/t8et0rDCCDSHfEHg+KtdMk2LLL4/rSHq3yhkDnRU1Dp1XWmf/\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/id_00-05-0100_radar-observation-sequence_lset003_rcid196.xml\",\"size\":1920,\"eTag\":\"1f505e479b746378760a63693000254e\",\"sequencer\":\"0060637950D0DF2A4F\"}}}]}",
+                    "eventSource": "aws:sqs",
+                    "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-269-isl-queue",
+                    "md5OfBody": "fb79565591ec6f1fa60f7c24e3f97f1e",
+                    "messageAttributes": {},
+                    "messageId": "b593bb35-9602-4690-8822-83568b72ad5d",
+                    "receiptHandle": "AQEBY2/kUvNJOTLKKkBQ/iObFfLSjoEcpSvbMYKnhTD7rrO8jA7pqtjOmj+reH0H9Bz3Xgew5kfj6Pzrs2g5Gt3FLeYcWEeS4yeNIK7EvQ0OHS+14Igl/HtEfJuoG2Lon3ZK4sJUlAD/GnWxYEqq7LMDVUN6UCp5y9LD/5DG7p0Lzq3Dx92w0WCjO6V1MG66pJ2y66/iqRNmWYG/JQYzsXb2u08XseQubMQIzS2q9rRXcZ/DeCBz91vCNfjqqtciFQRfKCrMGQ/EvBuqPulw0mM9T7X03yhj13J665ambyUY3ou//yXtobZdjfh/AhIp8ob5ZyRuhoYIJlse2ZYbtOnrw8M5PMDbYYvOfYHzIbShnCxT9s+osPZJMNid9BQ1hCSXhGyj2MYs7/nYm2aO5u9eqLw0MAdUcG+Dh5cJaIFmAUA="
+                },
+                "restaged": false,
+                "tags": [
+                    "ISL"
+                ]
+            },
+            "tag": "data-staged"
+        },
+        "priority": 0,
+        "runtime_options": {},
+        "tag": "data-staged",
+        "task_id": "4b88f324-eb46-47e8-90ee-465c343f4655",
+        "type": "job-INGEST_STAGED:develop"
+    },
+    "job_id": "ingest-staged-id_00-04-0100_radar-observation-sequence_lset003_rcid195.xml-20210330T191738.352081Z",
+    "payload_hash": "39a70159a6f0dc4af29317232a2fdb93",
+    "payload_id": "7b5f9337-a47c-437c-b962-2e6335531427",
+    "resource": "job",
+    "status": "job-completed",
+    "tags": [
+        "data-staged"
+    ],
+    "type": "job-INGEST_STAGED:develop",
+    "uuid": "4b88f324-eb46-47e8-90ee-465c343f4655"
+}

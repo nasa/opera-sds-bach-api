@@ -1,0 +1,23 @@
+{
+  "ilm-history-2-000001": {
+    "settings": {
+      "index": {
+        "auto_expand_replicas": "0-1",
+        "creation_date": "1626408003238",
+        "format": "1",
+        "hidden": "true",
+        "lifecycle": {
+          "name": "ilm-history-ilm-policy",
+          "rollover_alias": "ilm-history-2"
+        },
+        "number_of_replicas": "0",
+        "number_of_shards": "1",
+        "provided_name": "ilm-history-2-000001",
+        "uuid": "IIY8I3wTTzm7MBAZuM89lg",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

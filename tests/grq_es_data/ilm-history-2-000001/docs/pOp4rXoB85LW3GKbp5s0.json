@@ -1,0 +1,17 @@
+{
+    "@timestamp": 1626408000601,
+    "index": ".slm-history-2-000001",
+    "index_age": 101,
+    "policy": "slm-history-ilm-policy",
+    "state": {
+        "action": "complete",
+        "action_time": "1626408000567",
+        "creation_date": "1626408000500",
+        "phase": "new",
+        "phase_definition": "{\"policy\":\"slm-history-ilm-policy\",\"version\":1,\"modified_date_in_millis\":1613597613264}",
+        "phase_time": "1626408000567",
+        "step": "complete",
+        "step_time": "1626408000567"
+    },
+    "success": true
+}

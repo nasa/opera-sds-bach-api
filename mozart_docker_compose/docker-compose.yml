@@ -1,0 +1,9 @@
+version: '2.2'
+services:
+  docker:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    container_name: mozart-container-bach-api
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9300:9200

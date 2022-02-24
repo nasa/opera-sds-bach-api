@@ -1,0 +1,13 @@
+{
+    "L0A_L_RRST_ids": [],
+    "created_at": "2021-07-16T04:06:03.413996Z",
+    "datatake_id": "dtid_2022008104508",
+    "header": {},
+    "last_modified": "2021-07-16T04:06:03.414022Z",
+    "observation_ids": [
+        "oid_2022008104800"
+    ],
+    "ref_end_datetime_iso": "2022-01-08T10:50:24.000000Z",
+    "ref_start_datetime_iso": "2022-01-08T10:48:00.000000Z",
+    "refrec_id": ""
+}

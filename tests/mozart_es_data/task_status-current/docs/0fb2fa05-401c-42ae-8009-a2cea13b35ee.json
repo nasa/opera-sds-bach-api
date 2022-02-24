@@ -1,0 +1,23 @@
+{
+    "@timestamp": "2021-03-30T19:33:01.830Z",
+    "@version": "1",
+    "celery_hostname": "celery@nisar-job_worker-sciflo-rslc.100.64.123.247",
+    "event": {
+        "clock": 57,
+        "hostname": "celery@nisar-job_worker-sciflo-rslc.100.64.123.247",
+        "pid": 113,
+        "result": "{'uuid': '0fb2fa05-401c-42ae-8009-a2cea13b35ee', 'job_id': 'SCIFLO_RSLC__develop-track_frame_011_016_018_state-config-20210330T193112.303574Z', 'payload_id': '87caf859-29b2-41c4-81a2-9454e1e563d8', 'payload_hash': '004036b9a961bf27f6188e381e8f6340', 'dedup': True, 'status': 'job-completed', 'job_url': 'http://100.64.123.247:8085/jobs/2021/03/30/19/32/SCIFLO_RSLC__develop-track_frame_011_016_018_state-config-20210330T193112.303574Z', 'celery_hostname': 'celery@nisar-job_worker-sciflo-rslc.100.64.123.247'}",
+        "runtime": 24.770433422999986,
+        "state": "SUCCESS",
+        "type": "task-succeeded",
+        "utcoffset": 0,
+        "uuid": "0fb2fa05-401c-42ae-8009-a2cea13b35ee"
+    },
+    "local_received": "1617132781",
+    "resource": "task",
+    "status": "task-succeeded",
+    "tags": [],
+    "timestamp": "1617132781",
+    "type": "nisar-job_worker-sciflo-rslc",
+    "uuid": "0fb2fa05-401c-42ae-8009-a2cea13b35ee"
+}

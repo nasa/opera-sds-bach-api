@@ -1,0 +1,16 @@
+{
+  "observation_accountability_catalog": {
+    "settings": {
+      "index": {
+        "creation_date": "1626408125513",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "observation_accountability_catalog",
+        "uuid": "uoGeIk6bTguqW8jb8j6K8g",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

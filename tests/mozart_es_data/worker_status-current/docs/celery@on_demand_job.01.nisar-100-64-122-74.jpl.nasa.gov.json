@@ -1,0 +1,30 @@
+{
+    "@timestamp": "2021-03-30T19:59:23.533Z",
+    "@version": "1",
+    "celery_hostname": "celery@on_demand_job.01.nisar-100-64-122-74.jpl.nasa.gov",
+    "event": {
+        "active": 0,
+        "clock": 924,
+        "freq": 60.0,
+        "hostname": "celery@on_demand_job.01.nisar-100-64-122-74.jpl.nasa.gov",
+        "loadavg": [
+            0.0,
+            0.04,
+            0.1
+        ],
+        "pid": 19723,
+        "processed": 0,
+        "sw_ident": "py-celery",
+        "sw_sys": "Linux",
+        "sw_ver": "4.4.7",
+        "type": "worker-heartbeat",
+        "utcoffset": 0
+    },
+    "local_received": "1617134363",
+    "resource": "worker",
+    "status": "worker-heartbeat",
+    "tags": [],
+    "timestamp": "1617134363",
+    "type": "on_demand_job",
+    "uuid": []
+}

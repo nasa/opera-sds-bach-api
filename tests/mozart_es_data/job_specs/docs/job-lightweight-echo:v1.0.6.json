@@ -1,0 +1,16 @@
+{
+    "command": "echo",
+    "container": "container-hysds_lightweight-jobs:v1.0.6",
+    "disk_usage": "1GB",
+    "id": "job-lightweight-echo:v1.0.6",
+    "job-version": "v1.0.6",
+    "params": [
+        {
+            "destination": "positional",
+            "name": "echo_var"
+        }
+    ],
+    "resource": "jobspec",
+    "soft_time_limit": 86400,
+    "time_limit": 86700
+}

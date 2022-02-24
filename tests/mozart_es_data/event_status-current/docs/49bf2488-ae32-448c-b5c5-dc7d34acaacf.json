@@ -1,0 +1,11 @@
+{
+    "@timestamp": "2021-03-30T19:58:31.828Z",
+    "@version": "1",
+    "event": {},
+    "hostname": "ip-100-64-123-252.jpl.nasa.gov",
+    "resource": "event",
+    "status": "shutdown",
+    "tags": [],
+    "type": "harikiri",
+    "uuid": "49bf2488-ae32-448c-b5c5-dc7d34acaacf"
+}
