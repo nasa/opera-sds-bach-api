@@ -13,13 +13,13 @@
             }
           }
         },
-        "creation_date": "1626408695776",
+        "creation_date": "1636568037610",
         "default_pipeline": "dataset_pipeline",
         "number_of_replicas": "1",
         "number_of_shards": "8",
         "provided_name": "grq_1_datatake-state-config",
         "refresh_interval": "5s",
-        "uuid": "OnlX2538RUaLcfSrJ_yZ1g",
+        "uuid": "PEjew7c5Qrm1EX23OoQHMg",
         "version": {
           "created": "7090399"
         }

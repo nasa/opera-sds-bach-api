@@ -16,11 +16,12 @@ from .file_contents import api as log_stream_api
 from .downlink_data import api as downlink_api
 from .observation_data import api as obs_api
 from .data import api as data_api
+from .track_frame_data import api as track_frame_api
 
 from accountability_api.configuration_obj import ConfigurationObj
 
 version = "2.0"
-blueprint = Blueprint("lsmd_h5_flask", __name__, url_prefix="/{}".format(version))
+blueprint = Blueprint("lsmd_h5_flask", __name__, url_prefix="/")
 
 api = Api(
     blueprint,
@@ -93,3 +94,4 @@ api.add_namespace(basic_config_api)
 api.add_namespace(downlink_api)
 api.add_namespace(obs_api)
 api.add_namespace(data_api)
+api.add_namespace(track_frame_api)

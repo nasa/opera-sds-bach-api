@@ -115,15 +115,69 @@
         },
         "metadata": {
           "properties": {
+            "Antenna": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Channel": {
+              "type": "long"
+            },
             "FileSize": {
               "type": "float"
+            },
+            "Group": {
+              "type": "long"
+            },
+            "Mission": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Mode": {
+              "type": "long"
+            },
+            "Pass": {
+              "type": "long"
+            },
+            "Receiver": {
+              "type": "long"
+            },
+            "SCID": {
+              "type": "long"
+            },
+            "Station": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
             },
             "context": {
               "enabled": false,
               "type": "object"
-            },
-            "expiration_time": {
-              "type": "date"
             },
             "force_submit": {
               "type": "boolean"

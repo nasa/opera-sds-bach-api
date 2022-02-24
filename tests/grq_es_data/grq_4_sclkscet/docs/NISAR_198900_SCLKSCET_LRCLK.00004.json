@@ -1,10 +1,23 @@
 {
-    "@timestamp": "2021-07-16T04:03:49.618918561Z",
+    "@timestamp": "2021-11-10T19:13:31.738499610Z",
     "browse_urls": [
         "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00004",
         "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/SCLKSCET/LRCLK/NISAR_198900_SCLKSCET_LRCLK.00004"
     ],
-    "creation_timestamp": "2021-07-16T04:03:40.323",
+    "creation_timestamp": "2021-11-10T18:02:54.148",
+    "daac_CNM_S_status": "SUCCESS",
+    "daac_CNM_S_timestamp": "2021-11-10T18:04:56.540635Z",
+    "daac_catalog_id": "C1234208438-NISAR-TEST",
+    "daac_catalog_url": "http://some/cmr/url",
+    "daac_collection": "SCLKSCET",
+    "daac_delivery_status": "SUCCESS",
+    "daac_identifier": "NISAR_198900_SCLKSCET_LRCLK.00004",
+    "daac_process_complete_timestamp": "2021-11-10T19:07:41.385548Z",
+    "daac_product_file_urls": [
+        "http://some/daac/url/NISAR_198900_SCLKSCET_LRCLK.00004"
+    ],
+    "daac_received_timestamp": "2021-11-10T19:07:41.385531Z",
+    "daac_submission_timestamp": "2021-11-10T19:07:41.385272Z",
     "dataset": "SCLKSCET",
     "dataset_level": "NA",
     "dataset_type": "SCLKSCET",
@@ -12,30 +25,30 @@
     "images": [],
     "ipath": "hysds::data/SCLKSCET",
     "metadata": {
-        "FileLocation": "/data/work/jobs/2021/07/16/04/03/ingest-staged-NISAR_198900_SCLKSCET_LRCLK.00004-20210716T040239.858377Z/output/NISAR_198900_SCLKSCET_LRCLK.00004",
+        "FileLocation": "/data/work/jobs/2021/11/10/18/00/ingest-staged-NISAR_198900_SCLKSCET_LRCLK.00004-20211110T180021.294935Z/output/NISAR_198900_SCLKSCET_LRCLK.00004",
         "FileName": "NISAR_198900_SCLKSCET_LRCLK.00004",
         "FileSize": 872,
         "ISL_urls": [
             "s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/NISAR_198900_SCLKSCET_LRCLK.00004"
         ],
-        "Lambda_trigger_time": "2021-07-16T04:02:39.544193Z",
-        "ProductReceivedDay": "16",
-        "ProductReceivedMonth": "07",
-        "ProductReceivedTime": "2021-07-16T04:03:40.322674Z",
+        "Lambda_trigger_time": "2021-11-10T18:00:20.982671Z",
+        "ProductReceivedDay": "10",
+        "ProductReceivedMonth": "11",
+        "ProductReceivedTime": "2021-11-10T18:02:54.147877Z",
         "ProductReceivedYear": 2021,
         "ProductType": "SCLKSCET",
         "S3_event_record": {
             "awsRegion": "us-west-2",
             "eventName": "ObjectCreated:Put",
             "eventSource": "aws:s3",
-            "eventTime": "2021-07-16T04:02:30.858Z",
+            "eventTime": "2021-11-10T18:00:16.995Z",
             "eventVersion": "2.1",
             "requestParameters": {
-                "sourceIPAddress": "100.64.122.209"
+                "sourceIPAddress": "100.104.11.195"
             },
             "responseElements": {
-                "x-amz-id-2": "QEO/mS8mrxcIkupDa0lGer6WIQ7GcaQHFfhHeNAUXYBDS+6vNOQtvpdHxWy3nsJjGacbiQvNmAy0oPsroMD2hKaAq/PvEhB2",
-                "x-amz-request-id": "40Y0BKKH9FS27DZD"
+                "x-amz-id-2": "+rjiUNPeV+0l/8uQcYNgGbn4mmqTdWuxjK4i96jLT5c1/sgGHgqHVD3Aoyu5pu8usuHHL9ZRNfxSrpw8lj7ZiBd6IFHPef++",
+                "x-amz-request-id": "8SS2D2ANZX00AVQ5"
             },
             "s3": {
                 "bucket": {
@@ -49,30 +62,30 @@
                 "object": {
                     "eTag": "2307578b6848964a196cf2c1f10cc00c",
                     "key": "gds/NISAR_198900_SCLKSCET_LRCLK.00004",
-                    "sequencer": "0060F104D92EEF72A1",
+                    "sequencer": "00618C08B0EB8A0812",
                     "size": 872
                 },
                 "s3SchemaVersion": "1.0"
             },
             "userIdentity": {
-                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1"
+                "principalId": "AWS:AROAT6GZRFRQICYUJN4LT:i-03fe1460fe101c8d6"
             }
         },
         "SQS_record": {
             "attributes": {
-                "ApproximateFirstReceiveTimestamp": "1626408153908",
+                "ApproximateFirstReceiveTimestamp": "1636567217927",
                 "ApproximateReceiveCount": "1",
                 "SenderId": "AIDAJFWZWTE5KRAMGW5A2",
-                "SentTimestamp": "1626408153904"
+                "SentTimestamp": "1636567217925"
             },
             "awsRegion": "us-west-2",
-            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-07-16T04:02:30.858Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-004c8a7fbea1088e1\"},\"requestParameters\":{\"sourceIPAddress\":\"100.64.122.209\"},\"responseElements\":{\"x-amz-request-id\":\"40Y0BKKH9FS27DZD\",\"x-amz-id-2\":\"QEO/mS8mrxcIkupDa0lGer6WIQ7GcaQHFfhHeNAUXYBDS+6vNOQtvpdHxWy3nsJjGacbiQvNmAy0oPsroMD2hKaAq/PvEhB2\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/NISAR_198900_SCLKSCET_LRCLK.00004\",\"size\":872,\"eTag\":\"2307578b6848964a196cf2c1f10cc00c\",\"sequencer\":\"0060F104D92EEF72A1\"}}}]}",
+            "body": "{\"Records\":[{\"eventVersion\":\"2.1\",\"eventSource\":\"aws:s3\",\"awsRegion\":\"us-west-2\",\"eventTime\":\"2021-11-10T18:00:16.995Z\",\"eventName\":\"ObjectCreated:Put\",\"userIdentity\":{\"principalId\":\"AWS:AROAT6GZRFRQICYUJN4LT:i-03fe1460fe101c8d6\"},\"requestParameters\":{\"sourceIPAddress\":\"100.104.11.195\"},\"responseElements\":{\"x-amz-request-id\":\"8SS2D2ANZX00AVQ5\",\"x-amz-id-2\":\"+rjiUNPeV+0l/8uQcYNgGbn4mmqTdWuxjK4i96jLT5c1/sgGHgqHVD3Aoyu5pu8usuHHL9ZRNfxSrpw8lj7ZiBd6IFHPef++\"},\"s3\":{\"s3SchemaVersion\":\"1.0\",\"configurationId\":\"sqs_event\",\"bucket\":{\"name\":\"nisar-dev-isl-fwd-bporeh\",\"ownerIdentity\":{\"principalId\":\"AWZVWFO1088SI\"},\"arn\":\"arn:aws:s3:::nisar-dev-isl-fwd-bporeh\"},\"object\":{\"key\":\"gds/NISAR_198900_SCLKSCET_LRCLK.00004\",\"size\":872,\"eTag\":\"2307578b6848964a196cf2c1f10cc00c\",\"sequencer\":\"00618C08B0EB8A0812\"}}}]}",
             "eventSource": "aws:sqs",
-            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-354-isl-queue",
-            "md5OfBody": "3a32860d6e347870e16f6f23cbe55b7e",
+            "eventSourceARN": "arn:aws:sqs:us-west-2:271039147104:nisar-bporeh-451-isl-queue",
+            "md5OfBody": "641924a8bb7e739a2e67e28a78e9d90f",
             "messageAttributes": {},
-            "messageId": "c3d4eca6-6edf-4374-9831-659e57ea4f3b",
-            "receiptHandle": "AQEBibz71T4JaICMI1Rr1GcBpn7DZON/jUWWgeqYRawUgAx5YGlKVfymlJLrLvRbMlIfQAVv5qmGyE0FoNpnQ4fTEozvLtr36Xbc8/BxFaKUi/988gCWSodFfxU9kDFEltoQxlgFyRiVXkyo90XEg4bSz3I08N9aFQ6dvqXC4YloeyGlLlOUs7RUreadfdp7L5ArHFJlfuWTb0shckj6Ydr334x1lv6Ha31yXAU2vgg5Xz28M4z1KBhZrNzbzLs7JJbHAoMPstL4zKng142ng47Kj+5HhAiCiNkrHDnqHJvS0REuqhfZIKTW8uUjwxFCFFBUFjDf2RzitbOqZfrckta69J7iYJ8Aw+bhN1/OFQvP8PxH4i1e8otSXoO0UYMOvtt1rZfwKjKrk/+1DgOA6p38+kkXZVQy38VmZRbua+oHZvY="
+            "messageId": "677595b7-e2b6-406f-82ea-58ee12e20240",
+            "receiptHandle": "AQEBRQYVeu88yPI9N3+jsesJdvSIjlmtrGarHjHGWFxUtzkq9X41IU4e1NpsALBqZBpecG+IT8uP9WWKeaiNPs5Woi3v9HxGGkIofYviKdylxOvuPNT+gNj6I4jyWFWcK8mQtR/prE06952BBhnA5aLCSXbI8gb7m+wP4q2zFiFTA1XWw6XvHchrusfsA9VLCAdJra4Q1vjQxcQLvk9TldY+GvCq87SyEzi/p162LaDElb7PFrDhIGToX2QNQbR+qxvjek/YC00htthzOQMRMmTH4d2Iy9qxcZjlW99DofvJX8mBP+ZbdYvgoTGzkMKZJzdse5fLNhB/isPzC3TmJ+QoJRXzWdWjxNX5/iUGl9hbk0zuSsZpJZPZK+8wkLTARbpMk/c3dpu2o3WKjWAINvWmGLGcGBgaeJLY93oY7cvJGek="
         },
         "SpacecraftID": 198900,
         "Type": "LRCLK",
@@ -80,7 +93,8 @@
         "id": "NISAR_198900_SCLKSCET_LRCLK.00004",
         "restaged": false,
         "tags": [
-            "ISL"
+            "ISL",
+            "daac_delivered"
         ]
     },
     "objectid": "NISAR_198900_SCLKSCET_LRCLK.00004",
@@ -88,7 +102,7 @@
         "wasDerivedFrom": [
             "url:s3://s3-us-west-2.amazonaws.com/nisar-dev-isl-fwd-bporeh/gds/NISAR_198900_SCLKSCET_LRCLK.00004"
         ],
-        "wasGeneratedBy": "task_id:4dc7c0b2-121f-40bd-b373-0186b4e2ff02"
+        "wasGeneratedBy": "task_id:4b063a90-3e66-482a-be05-03ee0f7597ee"
     },
     "system_version": "4",
     "urls": [

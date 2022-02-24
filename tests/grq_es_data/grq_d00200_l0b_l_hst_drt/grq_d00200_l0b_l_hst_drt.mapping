@@ -1,0 +1,1512 @@
+{
+  "grq_d00200_l0b_l_hst_drt": {
+    "mappings": {
+      "dynamic_templates": [
+        {
+          "strings": {
+            "mapping": {
+              "copy_to": "text_fields",
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "match": "*",
+            "match_mapping_type": "string"
+          }
+        }
+      ],
+      "properties": {
+        "@timestamp": {
+          "type": "date"
+        },
+        "browse_urls": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "center": {
+          "strategy": "recursive",
+          "type": "geo_shape"
+        },
+        "creation_timestamp": {
+          "type": "date"
+        },
+        "dataset": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "dataset_level": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "dataset_type": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "endtime": {
+          "type": "date"
+        },
+        "id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "ipath": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "location": {
+          "ignore_z_value": true,
+          "strategy": "recursive",
+          "type": "geo_shape"
+        },
+        "metadata": {
+          "properties": {
+            "Ancillary_Files": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "CompositeReleaseID": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "CycleNumber": {
+              "type": "long"
+            },
+            "DATATAKE_ID": {
+              "type": "date"
+            },
+            "DatatakeStartDateTime": {
+              "type": "date"
+            },
+            "DatatakeStopDateTime": {
+              "type": "date"
+            },
+            "Direction": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "FileLocation": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "FileName": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "FileSize": {
+              "type": "float"
+            },
+            "GranuleName": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Input_Files": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "IsUrgent": {
+              "type": "boolean"
+            },
+            "PCMRetrievalID": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "PGE_Name": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "PGE_Version": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProcessingType": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProductCounter": {
+              "type": "long"
+            },
+            "ProductReceivedDay": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProductReceivedMonth": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "ProductReceivedTime": {
+              "type": "date"
+            },
+            "ProductReceivedYear": {
+              "type": "long"
+            },
+            "ProductType": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Production_DateTime": {
+              "type": "date"
+            },
+            "RangeStartDateTime": {
+              "type": "date"
+            },
+            "RangeStopDateTime": {
+              "type": "date"
+            },
+            "RelativeOrbitNumber": {
+              "type": "long"
+            },
+            "TotalNumberOfMissingRangelines": {
+              "type": "long"
+            },
+            "TotalNumberRangelines": {
+              "type": "long"
+            },
+            "Total_NumberOfRangelinesFailedChecksum": {
+              "type": "long"
+            },
+            "accountability": {
+              "properties": {
+                "L0A_L_RRST": {
+                  "properties": {
+                    "input_data_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "inputs": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "job_ids": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "outputs": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_ids": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "L0A_L_RRST_PP": {
+                  "properties": {
+                    "input_data_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "inputs": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "job_ids": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "outputs": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_ids": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "L0B_L_RRSD": {
+                  "properties": {
+                    "id": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "input_data_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "inputs": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "job_id": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_id": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "trigger_dataset_type": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                }
+              }
+            },
+            "context": {
+              "enabled": false,
+              "type": "object"
+            },
+            "datatake_state_config_id": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "id": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "lineage": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "runconfig": {
+              "properties": {
+                "DatatakeStartDateTime": {
+                  "type": "date"
+                },
+                "DatatakeStopDateTime": {
+                  "type": "date"
+                },
+                "DebugLevelGroup": {
+                  "properties": {
+                    "DebugSwitch": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "DebugPath": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "DynamicAncillaryFileGroup": {
+                  "properties": {
+                    "ChirpParameterFile": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "LRCLKFile": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "RadarConfigurationFile": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "WaveformConfigurationFile": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "Geometry": {
+                  "properties": {
+                    "AbsoluteOrbitNumber": {
+                      "type": "long"
+                    },
+                    "LookDirection": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "OrbitDirection": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "RelativeOrbitNumber": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "InputFilePath": {
+                  "properties": {
+                    "L0A_L_RRST": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "MakeHstDrtFile": {
+                  "type": "boolean"
+                },
+                "Observations": {
+                  "properties": {
+                    "ConfigurationId": {
+                      "type": "long"
+                    },
+                    "EndTime": {
+                      "type": "date"
+                    },
+                    "IsUrgentObservation": {
+                      "type": "boolean"
+                    },
+                    "MissionCycle": {
+                      "type": "long"
+                    },
+                    "PlannedObservationId": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "RangelinesToSkip": {
+                      "type": "long"
+                    },
+                    "StartTime": {
+                      "type": "date"
+                    },
+                    "TotalNumberRangelines": {
+                      "type": "long"
+                    }
+                  }
+                },
+                "PGENameGroup": {
+                  "properties": {
+                    "PGEName": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "PlannedDatatakeId": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "PrimaryExecutable": {
+                  "properties": {
+                    "CompositeReleaseID": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "MissionId": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "NumberOfThreads": {
+                      "type": "long"
+                    },
+                    "ProcessingType": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "ProductType": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "RadarProcessingMode": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "ProductPath": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "ProductPathGroup": {
+                  "properties": {
+                    "ProductCounter": {
+                      "type": "long"
+                    },
+                    "ProductPath": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "TimeOffset": {
+                  "type": "long"
+                },
+                "base_name": {
+                  "properties": {
+                    "L0B_L_CRSD": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "L0B_L_HST_DRT": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    },
+                    "L0B_L_RRSD": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "extra_pge_output_metadata": {
+                  "properties": {
+                    "DatatakeStartDateTime": {
+                      "type": "date"
+                    },
+                    "DatatakeStopDateTime": {
+                      "type": "date"
+                    },
+                    "IsUrgent": {
+                      "type": "boolean"
+                    },
+                    "datatake_state_config_id": {
+                      "copy_to": [
+                        "text_fields"
+                      ],
+                      "fields": {
+                        "keyword": {
+                          "ignore_above": 256,
+                          "type": "keyword"
+                        }
+                      },
+                      "norms": false,
+                      "type": "text"
+                    }
+                  }
+                },
+                "localize": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "mock_metadata": {
+                  "properties": {
+                    "L0B_L_CRSD": {
+                      "properties": {
+                        "Ancillary_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "CompositeReleaseID": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "DATATAKE_ID": {
+                          "type": "date"
+                        },
+                        "DatatakeStartDateTime": {
+                          "type": "date"
+                        },
+                        "DatatakeStopDateTime": {
+                          "type": "date"
+                        },
+                        "Input_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "PGE_Name": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "PGE_Version": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProcessingType": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProductCounter": {
+                          "type": "long"
+                        },
+                        "Production_DateTime": {
+                          "type": "date"
+                        },
+                        "RangeStartDateTime": {
+                          "type": "date"
+                        },
+                        "RangeStopDateTime": {
+                          "type": "date"
+                        },
+                        "TotalNumberOfMissingRangelines": {
+                          "type": "long"
+                        },
+                        "TotalNumberOfRangelinesFailedChecksum": {
+                          "type": "long"
+                        },
+                        "TotalNumberRangelines": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "L0B_L_HST_DRT": {
+                      "properties": {
+                        "Ancillary_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "CompositeReleaseID": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "DATATAKE_ID": {
+                          "type": "date"
+                        },
+                        "DatatakeStartDateTime": {
+                          "type": "date"
+                        },
+                        "DatatakeStopDateTime": {
+                          "type": "date"
+                        },
+                        "Input_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "PGE_Name": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "PGE_Version": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProcessingType": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProductCounter": {
+                          "type": "long"
+                        },
+                        "Production_DateTime": {
+                          "type": "date"
+                        },
+                        "RangeStartDateTime": {
+                          "type": "date"
+                        },
+                        "RangeStopDateTime": {
+                          "type": "date"
+                        },
+                        "TotalNumberOfMissingRangelines": {
+                          "type": "long"
+                        },
+                        "TotalNumberRangelines": {
+                          "type": "long"
+                        },
+                        "Total_NumberOfRangelinesFailedChecksum": {
+                          "type": "long"
+                        }
+                      }
+                    },
+                    "L0B_L_RRSD": {
+                      "properties": {
+                        "Ancillary_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "CompositeReleaseID": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "Input_Files": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "OBS_ID": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ObservationEndDateTime": {
+                          "type": "date"
+                        },
+                        "ObservationStartDateTime": {
+                          "type": "date"
+                        },
+                        "PGE_Name": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "PGE_Version": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProcessingType": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "ProductCounter": {
+                          "type": "long"
+                        },
+                        "Production_DateTime": {
+                          "type": "date"
+                        },
+                        "RadarMode": {
+                          "type": "long"
+                        },
+                        "RangeStartDateTime": {
+                          "type": "date"
+                        },
+                        "RangeStopDateTime": {
+                          "type": "date"
+                        },
+                        "SAS_Version": {
+                          "copy_to": [
+                            "text_fields"
+                          ],
+                          "fields": {
+                            "keyword": {
+                              "ignore_above": 256,
+                              "type": "keyword"
+                            }
+                          },
+                          "norms": false,
+                          "type": "text"
+                        },
+                        "TotalNumberOfMissingRangelines": {
+                          "type": "long"
+                        },
+                        "TotalNumberOfRangelinesFailedChecksum": {
+                          "type": "long"
+                        },
+                        "TotalNumberRangelines": {
+                          "type": "long"
+                        }
+                      }
+                    }
+                  }
+                },
+                "pge_job_name": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "simulate_outputs": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "tags": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            }
+          }
+        },
+        "objectid": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "prov": {
+          "properties": {
+            "wasDerivedFrom": {
+              "type": "keyword"
+            },
+            "wasGeneratedBy": {
+              "type": "keyword"
+            }
+          }
+        },
+        "starttime": {
+          "type": "date"
+        },
+        "system_version": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "temporal_span": {
+          "type": "long"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "urls": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "version": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        }
+      }
+    }
+  }
+}

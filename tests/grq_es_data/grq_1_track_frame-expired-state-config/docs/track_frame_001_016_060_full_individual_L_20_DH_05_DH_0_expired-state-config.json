@@ -1,0 +1,157 @@
+{
+    "@timestamp": "2021-11-10T18:44:12.231433650Z",
+    "browse_urls": [],
+    "creation_time": "2021-11-10T18:44:03.658586Z",
+    "dataset": "track_frame-expired-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:32:07.326037Z",
+    "id": "track_frame_001_016_060_full_individual_L_20_DH_05_DH_0_expired-state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-expired-state-config",
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 60,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            80.35329722340471,
+                            57.56535862101111
+                        ],
+                        [
+                            80.38193109930236,
+                            57.55837031700367
+                        ],
+                        [
+                            81.58335309491792,
+                            57.256793553623
+                        ],
+                        [
+                            82.29843530401786,
+                            57.06940279169739
+                        ],
+                        [
+                            84.07399378603975,
+                            56.57774000963803
+                        ],
+                        [
+                            83.6220433420031,
+                            56.09440757849511
+                        ],
+                        [
+                            83.18123740049195,
+                            55.60946722222337
+                        ],
+                        [
+                            82.751145297364,
+                            55.12298454711821
+                        ],
+                        [
+                            82.33135630032879,
+                            54.63502176201817
+                        ],
+                        [
+                            80.62377293339873,
+                            55.10297525389511
+                        ],
+                        [
+                            79.93749510482232,
+                            55.2813501799784
+                        ],
+                        [
+                            78.78624678994446,
+                            55.56846919016034
+                        ],
+                        [
+                            78.75883536912154,
+                            55.57512348077213
+                        ],
+                        [
+                            79.14255416781064,
+                            56.07446903542552
+                        ],
+                        [
+                            79.53592312767316,
+                            56.57265765695898
+                        ],
+                        [
+                            79.93935804582296,
+                            57.06963871822602
+                        ],
+                        [
+                            80.35329722340471,
+                            57.56535862101111
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001.h5"
+        ],
+        "is_complete": false,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:32:07.326037Z",
+        "processing_start_time": "2022-01-08T08:31:36.000000Z",
+        "submitted_by_timer": null,
+        "track_frame_begin_time": "2022-01-08T08:31:31.671410Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 2031.3193727731705,
+            "endCY": 91927.32605874538,
+            "endET": 694404325.0485561,
+            "end_time_utc": "2022-01-08T08:32:07.326037Z",
+            "epsg": 32644,
+            "fractionLand": 1.0,
+            "frame": 60,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 199.0,
+            "meanTopo": 134.0,
+            "medianTopo": 134.50636291503906,
+            "minTopo": 78.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 759258.2109942529,
+            "satelliteLat": 58.00122500329768,
+            "satelliteLon": 72.62399354823137,
+            "startAX": 1995.6647456884384,
+            "startCY": 91891.67143166065,
+            "startET": 694404289.393929,
+            "start_time_utc": "2022-01-08T08:31:31.671410Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1058219.7473349557,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 893511.0621532932,
+            "track": 16,
+            "velocityAlongTrack": 7561.275729346457,
+            "velocityVertical": -14.252514111047079
+        },
+        "track_frame_end_time": "2022-01-08T08:32:07.326037Z"
+    },
+    "objectid": "track_frame_001_016_060_full_individual_L_20_DH_05_DH_0_expired-state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:6e941d05-769f-4c6b-975b-823ef2219ea1"
+    },
+    "starttime": "2022-01-08T08:31:36.000000Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

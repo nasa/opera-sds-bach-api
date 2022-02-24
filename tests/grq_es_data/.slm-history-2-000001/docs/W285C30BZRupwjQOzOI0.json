@@ -1,0 +1,17 @@
+{
+    "@timestamp": 1636570876979,
+    "configuration": {
+        "ignore_unavailable": true,
+        "include_global_state": false,
+        "indices": [
+            "grq_*",
+            "*_catalog"
+        ]
+    },
+    "error_details": null,
+    "operation": "CREATE",
+    "policy": "hourly-snapshot",
+    "repository": "snapshot-repository",
+    "snapshot_name": "grq-backup-2021.11.10-8_uddqlkqte7xlyfnkuwua",
+    "success": true
+}

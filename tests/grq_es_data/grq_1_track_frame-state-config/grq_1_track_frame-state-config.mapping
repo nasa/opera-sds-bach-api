@@ -358,6 +358,9 @@
         "endtime": {
           "type": "date"
         },
+        "expiration_time": {
+          "type": "date"
+        },
         "id": {
           "copy_to": [
             "text_fields"
@@ -466,9 +469,6 @@
               "enabled": false,
               "type": "object"
             },
-            "expiration_time": {
-              "type": "date"
-            },
             "force_submit": {
               "type": "boolean"
             },
@@ -508,6 +508,9 @@
               "type": "date"
             },
             "processing_start_time": {
+              "type": "date"
+            },
+            "submitted_by_timer": {
               "type": "date"
             },
             "track_frame_begin_time": {

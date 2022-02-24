@@ -1,0 +1,29 @@
+{
+  "grq_d00200_l1_l_runw": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1636571237019",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_d00200_l1_l_runw",
+        "refresh_interval": "5s",
+        "uuid": "D9mR0iC0Rx-E5Oqv7e7mmA",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

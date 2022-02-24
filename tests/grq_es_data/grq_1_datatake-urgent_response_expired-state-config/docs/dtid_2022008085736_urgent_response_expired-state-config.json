@@ -1,7 +1,7 @@
 {
-    "@timestamp": "2021-07-16T04:16:25.521838531Z",
+    "@timestamp": "2021-11-10T18:29:08.713388116Z",
     "browse_urls": [],
-    "creation_time": "2021-07-16T04:16:24.589875Z",
+    "creation_time": "2021-11-10T18:29:07.607987Z",
     "dataset": "datatake-urgent_response_expired-state-config",
     "dataset_level": "state-config",
     "dataset_type": "datatake-urgent_response_state-config",
@@ -13,21 +13,20 @@
         "datatake_begin_time": "2022-01-08T08:57:36.000000Z",
         "datatake_end_time": "2022-01-08T09:05:00.000000Z",
         "datatake_id": "dtid_2022008085736",
-        "expiration_time": "2021-07-16T04:12:33.225665Z",
         "force_submit": false,
         "found_l0a_rrsts": [
-            "NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001.bin",
-            "NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001.bin",
-            "NISAR_L0_RRST_VC24_20220108T090316_20220108T090326_D00001_001.bin",
-            "NISAR_L0_RRST_VC29_20220108T090316_20220108T090326_D00001_001.bin"
+            "NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00200_001.bin",
+            "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001.bin",
+            "NISAR_L0_RRST_VC24_20220108T090316_20220108T090326_D00200_001.bin",
+            "NISAR_L0_RRST_VC29_20220108T090316_20220108T090326_D00200_001.bin"
         ],
         "is_complete": false,
         "is_urgent": true,
         "l0a_rrst_product_paths": [
-            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00001_001",
-            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090316_D00001_001",
-            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T090316_20220108T090326_D00001_001",
-            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T090316_20220108T090326_D00001_001"
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00200_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC24_20220108T090316_20220108T090326_D00200_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST/2022/01/08/NISAR_L0_RRST_VC29_20220108T090316_20220108T090326_D00200_001"
         ],
         "observation_ids": [
             "oid_2022008085736",
@@ -38,7 +37,7 @@
     },
     "objectid": "dtid_2022008085736_urgent_response_expired-state-config",
     "prov": {
-        "wasGeneratedBy": "task_id:cf187bc4-c335-45ed-bb0d-92c4a226dd8a"
+        "wasGeneratedBy": "task_id:7f911343-197e-4b46-a2b9-224757986229"
     },
     "starttime": "2022-01-08T08:57:36.000000Z",
     "system_version": "1",

@@ -1,0 +1,157 @@
+{
+    "@timestamp": "2021-11-10T18:10:47.199759397Z",
+    "browse_urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/L0A_L_RRST_PP/2022/01/08/NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/browse/L0A_L_RRST_PP/2022/01/08/NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001"
+    ],
+    "creation_timestamp": "2021-11-10T18:10:33.524",
+    "dataset": "L0A_L_RRST_PP",
+    "dataset_level": "L0A",
+    "dataset_type": "L0A_L_RRST_PP",
+    "endtime": "2022-01-08T09:00:20.000000Z",
+    "id": "NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001",
+    "images": [],
+    "ipath": "hysds::data/L0A_L_RRST_PP",
+    "metadata": {
+        "CompositeReleaseID": "D00200",
+        "DAPHNE_Flag_Count": 0,
+        "DAPHNE_Max_Time_Tag": "2022-01-08T09:00:20.000000Z",
+        "DAPHNE_Min_Time_Tag": "2022-01-08T08:25:36.000000Z",
+        "FileLocation": "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/output/datasets/NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001",
+        "FileName": "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001.bin",
+        "FileSize": 1024,
+        "Input_Files": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+        ],
+        "Max_VCFC": 28,
+        "Min_VCFC": 1,
+        "Missing_VCFC_ERT_List": "2019-10-29T17:13:05.813023Z, 2019-10-29T17:13:05.813123Z, 2019-10-29T17:13:05.813199Z, 2019-10-29T17:13:05.813266Z, 2019-10-29T17:13:05.813342Z, 2019-10-29T17:13:05.813411Z",
+        "Missing_VCFC_List": [
+            0,
+            3,
+            6,
+            9,
+            12,
+            15,
+            18,
+            21,
+            24,
+            27
+        ],
+        "PCMRetrievalID": "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020",
+        "PGE_Name": "L0A_L_PGE",
+        "PGE_Version": "R1.1.0",
+        "Packets_with_Corrected_FEC": 2,
+        "ProductCounter": 1,
+        "ProductReceivedDay": "10",
+        "ProductReceivedMonth": "11",
+        "ProductReceivedTime": "2021-11-10T18:10:33.521622Z",
+        "ProductReceivedYear": 2021,
+        "ProductType": "L0A_L_RRST",
+        "ProductionDateTime": "2021-11-10T18:10:29.041674Z",
+        "SAS_Version": "ISCE3 v0.2.0-dev",
+        "VCID": "VC29",
+        "accountability": {
+            "L0A_L_RRST_PP": {
+                "id": "NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001",
+                "input_data_type": "ldf-state-config",
+                "inputs": [
+                    "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+                    "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+                ],
+                "job_id": "e1d30250-8025-49a4-8212-459301e580cf",
+                "trigger_dataset_id": "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config",
+                "trigger_dataset_type": "ldf-state-config"
+            }
+        },
+        "id": "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001",
+        "ldf_state_config_id": "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config",
+        "lineage": [
+            "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+            "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+        ],
+        "runconfig": {
+            "CompositeReleaseID": "D00200",
+            "DebugPath": "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z",
+            "DebugSwitch": "Off",
+            "FileSizeLimit": "50M",
+            "InputFilePath": {
+                "NEN_L_RRST": [
+                    "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+                    "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+                ]
+            },
+            "NumberOfThreads": 2,
+            "PGEName": "L0A_L_PGE",
+            "PGEType": "L-SAR",
+            "ProductCounter": 1,
+            "ProductPath": "/data/work/jobs/2021/11/10/18/10/SCIFLO_L0A__NSDS-1390-NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config-20211110T180827.140229Z/output",
+            "base_name": {
+                "L0A_L_RRST": "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001"
+            },
+            "extra_pge_output_metadata": {
+                "ldf_state_config_id": "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config"
+            },
+            "localize": [
+                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+                "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+            ],
+            "mock_metadata": {
+                "L0A_L_RRST": {
+                    "CompositeReleaseID": "D00200",
+                    "DAPHNE_Flag_Count": 0,
+                    "DAPHNE_Max_Time_Tag": "2022-01-08T09:00:20.000000Z",
+                    "DAPHNE_Min_Time_Tag": "2022-01-08T08:25:36.000000Z",
+                    "Input_Files": [
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+                        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+                    ],
+                    "Max_VCFC": 28,
+                    "Min_VCFC": 1,
+                    "Missing_VCFC_ERT_List": "2019-10-29T17:13:05.813023Z, 2019-10-29T17:13:05.813123Z, 2019-10-29T17:13:05.813199Z, 2019-10-29T17:13:05.813266Z, 2019-10-29T17:13:05.813342Z, 2019-10-29T17:13:05.813411Z",
+                    "Missing_VCFC_List": [
+                        0,
+                        3,
+                        6,
+                        9,
+                        12,
+                        15,
+                        18,
+                        21,
+                        24,
+                        27
+                    ],
+                    "PGE_Name": "L0A_L_PGE",
+                    "PGE_Version": "R1.1.0",
+                    "Packets_with_Corrected_FEC": 2,
+                    "ProductCounter": 1,
+                    "ProductionDateTime": "2021-11-10T18:10:29.041674Z",
+                    "SAS_Version": "ISCE3 v0.2.0-dev",
+                    "VCID": "VC29"
+                }
+            },
+            "pge_job_name": "NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_30_59_000000000_vc29_state-config",
+            "simulate_outputs": true
+        },
+        "tags": [
+            "PGE"
+        ]
+    },
+    "objectid": "NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_08_25_36_000000000.vc29",
+            "url:s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29/NISAR_S198_SGS_SG11_M00_P00115_R00_C01_G00_2022_008_09_00_20_000000000.vc29"
+        ],
+        "wasGeneratedBy": "task_id:d81676d2-c474-4c8d-8d9a-649904dd2347"
+    },
+    "starttime": "2022-01-08T08:25:36.000000Z",
+    "system_version": "d00200",
+    "temporal_span": 0,
+    "urls": [
+        "http://nisar-dev-rs-fwd-bporeh.s3-website-us-west-2.amazonaws.com/products/L0A_L_RRST_PP/2022/01/08/NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0A_L_RRST_PP/2022/01/08/NISAR_L0_RRST_PP_VC29_20220108T082536_20220108T090020_D00200_001"
+    ],
+    "version": "d00200"
+}

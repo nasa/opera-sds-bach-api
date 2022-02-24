@@ -80,7 +80,11 @@ def create_app(object_name):
     from accountability_api.v2 import blueprint as v2_blueprint
 
     app.register_blueprint(v2_blueprint)
-    app.register_blueprint(apidoc.apidoc)
+    # Need to pass in a unique name, otherwise the following warning message is
+    # thrown:
+    # "The name 'restx_doc' is already registered for this blueprint.
+    # Use 'name=' to provide a unique name. This will become an error in Flask 2.1."
+    app.register_blueprint(apidoc.apidoc, name="bach_restx_doc")
 
     CORS(app)
     # cors.init_app(app)

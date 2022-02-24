@@ -42,6 +42,7 @@ STATE_CONFIG_INDEXES = {
 PRODUCT_INDEXES = {
     "LDF_STATE_CONFIG": "grq_*_ldf-state-config",
     "LDF_EXPIRED_STATE_CONFIG": "grq_*_ldf-expired-state-config",
+    "DATATAKE_STATE_CONFIGS": "grq_*_datatake*state-config",
     "DATATAKE_STATE_CONFIG": "grq_*_datatake-state-config",
     "DATATAKE_EXPIRED_STATE_CONFIG": "grq_*_datatake-expired-state-config",
     "DATATAKE_URGENT_RESPONSE_EXPIRED_STATE_CONFIG": "grq_*_datatake-urgent_response_expired-state-config",
@@ -62,6 +63,7 @@ PRODUCT_INDEXES = {
 ACCOUNTABILITY_INDEXES = {
     "DOWNLINK": "pass_accountability_catalog",
     "OBSERVATION": "observation_accountability_catalog",
+    "TRACK_FRAME": "track_frame_accountability_catalog",
     "COP": "cop_catalog",
     "ROST": "rost_catalog"
 }
@@ -110,5 +112,12 @@ GENERATED_PRODUCTS = {
     "L2_L_GUNW": "grq_*_l2_l_gunw"
 }
 
+RSLC_CHILDREN = [
+    "L1_L_RIFG",
+    "L1_L_RUNW",
+    "L2_L_GSLC",
+    "L2_L_GCOV",
+    "L2_L_GUNW"
+]
 
 MOZART_INDEXES = {"JOB_STATUS": "job_status-current", "TIMER": "timer_status"}

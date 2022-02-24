@@ -1,0 +1,29 @@
+{
+  "grq_d00200_l1_l_rslc": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1636568520253",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_d00200_l1_l_rslc",
+        "refresh_interval": "5s",
+        "uuid": "zR-rPhT3S7aYatTK-ZN9Cw",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

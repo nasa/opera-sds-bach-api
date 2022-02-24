@@ -1,0 +1,410 @@
+{
+    "@timestamp": "2021-11-10T18:19:48.885008181Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            66.93351381435835,
+            26.74342986077787
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "02",
+            "admin1_name": "Balochistan",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "KDD",
+                "Khozdar",
+                "Khuzdar"
+            ],
+            "asciiname": "Khuzdar",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "1233",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1173664",
+            "latitude": 27.81193,
+            "location": {
+                "lat": 27.81193,
+                "lon": 66.61096
+            },
+            "longitude": 66.61096,
+            "modification_date": "2018-02-06",
+            "name": "Khuzdar",
+            "population": 141227,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "DDU",
+                "Dadu",
+                "dadu",
+                "\u062f\u0627\u062f\u064f\u0648"
+            ],
+            "asciiname": "Dadu",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "24",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA2",
+            "geonameid": "1180809",
+            "latitude": 26.73033,
+            "location": {
+                "lat": 26.73033,
+                "lon": 67.7769
+            },
+            "longitude": 67.7769,
+            "modification_date": "2018-02-06",
+            "name": "Dadu",
+            "population": 139784,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Moro"
+            ],
+            "asciiname": "Moro",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "44",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1170013",
+            "latitude": 26.66317,
+            "location": {
+                "lat": 26.66317,
+                "lon": 68.00016
+            },
+            "longitude": 68.00016,
+            "modification_date": "2018-07-04",
+            "name": "Moro",
+            "population": 76765,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "SYW",
+                "Sehwan"
+            ],
+            "asciiname": "Sehwan",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "40",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1165789",
+            "latitude": 26.42495,
+            "location": {
+                "lat": 26.42495,
+                "lon": 67.86126
+            },
+            "longitude": 67.86126,
+            "modification_date": "2018-02-06",
+            "name": "Sehwan",
+            "population": 41150,
+            "timezone": "Asia/Karachi"
+        },
+        {
+            "admin1_code": "05",
+            "admin1_name": "Sindh",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "New Badah",
+                "New B\u0101d\u0101h"
+            ],
+            "asciiname": "New Badah",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "PK",
+            "country_name": "Pakistan",
+            "dem": "47",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1357699",
+            "latitude": 27.34167,
+            "location": {
+                "lat": 27.34167,
+                "lon": 68.03194
+            },
+            "longitude": 68.03194,
+            "modification_date": "2018-12-06",
+            "name": "New B\u0101d\u0101h",
+            "population": 38855,
+            "timezone": "Asia/Karachi"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-11-10T18:19:47.038468Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:40:36.473140Z",
+    "expiration_time": "2021-11-10T18:39:47.037873Z",
+    "id": "track_frame_001_016_075_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        66.03455682331028,
+                        28.05983934933871
+                    ],
+                    [
+                        66.05288982145886,
+                        28.05544973009114
+                    ],
+                    [
+                        66.82712868250881,
+                        27.86750258816908
+                    ],
+                    [
+                        67.29275358211034,
+                        27.75205598852133
+                    ],
+                    [
+                        68.46529306420298,
+                        27.45328277702559
+                    ],
+                    [
+                        68.29967310275627,
+                        26.94541085560958
+                    ],
+                    [
+                        68.13579080494608,
+                        26.43729736590794
+                    ],
+                    [
+                        67.97360442128686,
+                        25.92894859844603
+                    ],
+                    [
+                        67.81307343704319,
+                        25.42037068674706
+                    ],
+                    [
+                        66.65949952651503,
+                        25.71251026427029
+                    ],
+                    [
+                        66.20158186442812,
+                        25.82555982376956
+                    ],
+                    [
+                        65.44037330979371,
+                        26.00981975244582
+                    ],
+                    [
+                        65.42235204995367,
+                        26.01412658263612
+                    ],
+                    [
+                        65.57326850608989,
+                        26.52582649643828
+                    ],
+                    [
+                        65.7255834027157,
+                        27.03734844184812
+                    ],
+                    [
+                        65.87933353627403,
+                        27.54868767802924
+                    ],
+                    [
+                        66.03455682331028,
+                        28.05983934933871
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 75,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            66.03455682331028,
+                            28.05983934933871
+                        ],
+                        [
+                            66.05288982145886,
+                            28.05544973009114
+                        ],
+                        [
+                            66.82712868250881,
+                            27.86750258816908
+                        ],
+                        [
+                            67.29275358211034,
+                            27.75205598852133
+                        ],
+                        [
+                            68.46529306420298,
+                            27.45328277702559
+                        ],
+                        [
+                            68.29967310275627,
+                            26.94541085560958
+                        ],
+                        [
+                            68.13579080494608,
+                            26.43729736590794
+                        ],
+                        [
+                            67.97360442128686,
+                            25.92894859844603
+                        ],
+                        [
+                            67.81307343704319,
+                            25.42037068674706
+                        ],
+                        [
+                            66.65949952651503,
+                            25.71251026427029
+                        ],
+                        [
+                            66.20158186442812,
+                            25.82555982376956
+                        ],
+                        [
+                            65.44037330979371,
+                            26.00981975244582
+                        ],
+                        [
+                            65.42235204995367,
+                            26.01412658263612
+                        ],
+                        [
+                            65.57326850608989,
+                            26.52582649643828
+                        ],
+                        [
+                            65.7255834027157,
+                            27.03734844184812
+                        ],
+                        [
+                            65.87933353627403,
+                            27.54868767802924
+                        ],
+                        [
+                            66.03455682331028,
+                            28.05983934933871
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00200_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083412_20220108T084104_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:40:36.473140Z",
+        "processing_start_time": "2022-01-08T08:40:01.866349Z",
+        "submitted_by_timer": null,
+        "track_frame_begin_time": "2022-01-08T08:40:01.866349Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 2540.4664764404297,
+            "endCY": 92436.47316241264,
+            "endET": 694404834.1956598,
+            "end_time_utc": "2022-01-08T08:40:36.473140Z",
+            "epsg": 32642,
+            "fractionLand": 1.0,
+            "frame": 75,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 2235.0,
+            "meanTopo": 445.0,
+            "medianTopo": 586.6983642578125,
+            "minTopo": 15.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 753404.2929354012,
+            "satelliteLat": 28.000200727857337,
+            "satelliteLon": 61.37954652883312,
+            "startAX": 2505.859684944153,
+            "startCY": 92401.86637091637,
+            "startET": 694404799.5888683,
+            "start_time_utc": "2022-01-08T08:40:01.866349Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1049625.1048562163,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 886607.8120793427,
+            "track": 16,
+            "velocityAlongTrack": 7569.983740495433,
+            "velocityVertical": -10.03405048504956
+        },
+        "track_frame_end_time": "2022-01-08T08:40:36.473140Z"
+    },
+    "objectid": "track_frame_001_016_075_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:7ddb90e9-4772-492b-bb72-b0bc1c18d0e6"
+    },
+    "starttime": "2022-01-08T08:40:01.866349Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

@@ -1,0 +1,242 @@
+{
+    "@timestamp": "2021-11-10T18:23:14.673658503Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            -130.53429626484228,
+            42.52281797299932
+        ],
+        "type": "point"
+    },
+    "city": [],
+    "continent": "North America",
+    "creation_time": "2021-11-10T18:23:13.291137Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:10:52.348880Z",
+    "expiration_time": "2021-11-10T18:43:13.290433Z",
+    "id": "track_frame_001_016_023_partial_individual_L_05_SV_00_NA_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        -128.6445813061574,
+                        41.86371468535001
+                    ],
+                    [
+                        -128.6660540066644,
+                        41.85855387185887
+                    ],
+                    [
+                        -129.5713392832259,
+                        41.63654535177847
+                    ],
+                    [
+                        -130.1142932498738,
+                        41.4992153083547
+                    ],
+                    [
+                        -131.4764863321337,
+                        41.14071216973742
+                    ],
+                    [
+                        -131.7177233066834,
+                        41.64302168739582
+                    ],
+                    [
+                        -131.9628503618181,
+                        42.14478146302019
+                    ],
+                    [
+                        -132.2119875045987,
+                        42.64597456837425
+                    ],
+                    [
+                        -132.4652594854344,
+                        43.14658342267547
+                    ],
+                    [
+                        -131.0638085619376,
+                        43.51704128153482
+                    ],
+                    [
+                        -130.5047571315767,
+                        43.65880313150754
+                    ],
+                    [
+                        -129.5720820047715,
+                        43.88777747324034
+                    ],
+                    [
+                        -129.5499514534789,
+                        43.89309707386907
+                    ],
+                    [
+                        -129.3182147178039,
+                        43.38641272791504
+                    ],
+                    [
+                        -129.0901508660668,
+                        42.87927863742828
+                    ],
+                    [
+                        -128.8656436176197,
+                        42.37170829517156
+                    ],
+                    [
+                        -128.6445813061574,
+                        41.86371468535001
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_05_SV_00_NA",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "partial",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 23,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            -128.6445813061574,
+                            41.86371468535001
+                        ],
+                        [
+                            -128.6660540066644,
+                            41.85855387185887
+                        ],
+                        [
+                            -129.5713392832259,
+                            41.63654535177847
+                        ],
+                        [
+                            -130.1142932498738,
+                            41.4992153083547
+                        ],
+                        [
+                            -131.4764863321337,
+                            41.14071216973742
+                        ],
+                        [
+                            -131.7177233066834,
+                            41.64302168739582
+                        ],
+                        [
+                            -131.9628503618181,
+                            42.14478146302019
+                        ],
+                        [
+                            -132.2119875045987,
+                            42.64597456837425
+                        ],
+                        [
+                            -132.4652594854344,
+                            43.14658342267547
+                        ],
+                        [
+                            -131.0638085619376,
+                            43.51704128153482
+                        ],
+                        [
+                            -130.5047571315767,
+                            43.65880313150754
+                        ],
+                        [
+                            -129.5720820047715,
+                            43.88777747324034
+                        ],
+                        [
+                            -129.5499514534789,
+                            43.89309707386907
+                        ],
+                        [
+                            -129.3182147178039,
+                            43.38641272791504
+                        ],
+                        [
+                            -129.0901508660668,
+                            42.87927863742828
+                        ],
+                        [
+                            -128.8656436176197,
+                            42.37170829517156
+                        ],
+                        [
+                            -128.6445813061574,
+                            41.86371468535001
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_134S_20220108T081032_20220108T081324_D00200_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_134S_20220108T081032_20220108T081324_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:10:52.348880Z",
+        "processing_start_time": "2022-01-08T08:10:32.000000Z",
+        "submitted_by_timer": null,
+        "track_frame_begin_time": "2022-01-08T08:10:17.412088Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 756.3422156572342,
+            "endCY": 90652.34890162945,
+            "endET": 694403050.071399,
+            "end_time_utc": "2022-01-08T08:10:52.348880Z",
+            "epsg": 32609,
+            "fractionLand": 0.0,
+            "frame": 23,
+            "hasLand": false,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 0.0,
+            "meanTopo": 0.0,
+            "medianTopo": 0.0,
+            "minTopo": 0.0,
+            "passDirection": "Ascending",
+            "satelliteHeight": 756056.4426211677,
+            "satelliteLat": 44.000453206194685,
+            "satelliteLon": -123.82508492903257,
+            "startAX": 721.405424118042,
+            "startCY": 90617.41211009026,
+            "startET": 694403015.1346074,
+            "start_time_utc": "2022-01-08T08:10:17.412088Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1053584.0358454161,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 889672.8054684269,
+            "track": 16,
+            "velocityAlongTrack": 7565.84991620076,
+            "velocityVertical": 15.245630588946476
+        },
+        "track_frame_end_time": "2022-01-08T08:10:52.348880Z"
+    },
+    "objectid": "track_frame_001_016_023_partial_individual_L_05_SV_00_NA_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:61f7b4e7-6eb5-4015-88c7-3d9df07a914f"
+    },
+    "starttime": "2022-01-08T08:10:32.000000Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

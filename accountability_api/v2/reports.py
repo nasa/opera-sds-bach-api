@@ -105,22 +105,18 @@ class CreateReport(Resource):
             self._crid = args["crid"]
 
         self._start = args["startDateTime"]
-        if "Z" not in self._start:
-            self._start = "{}Z".format(self._start)
         self._end = args["endDateTime"]
-        if "Z" not in self._start:
-            self._end = "{}Z".format(self._end)
         self._mimetype = args["mime"]
 
         try:
-            reports_generator = ReportsGenerator(self._start, self._end, self._mimetype)
+            reports_generator = ReportsGenerator(self._start, self._end, mime=self._mimetype)
             report = reports_generator.generate_report(
                 reportName,
-                self._report_type,
+                report_type=self._report_type,
                 output_format=self._mimetype,
                 processing_mode=self._processing_mode,
                 venue=self._venue,
-                crid=self._crid,
+                crid=self._crid
             )
             filename = reports_generator.filename
             if self._mimetype == "json":

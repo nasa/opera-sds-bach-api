@@ -13,13 +13,13 @@
             }
           }
         },
-        "creation_date": "1626408320853",
+        "creation_date": "1636567412845",
         "default_pipeline": "dataset_pipeline",
         "number_of_replicas": "1",
         "number_of_shards": "8",
         "provided_name": "grq_0_tiurdrop",
         "refresh_interval": "5s",
-        "uuid": "ylc73kstRVSdkXPEvZRCeA",
+        "uuid": "ZJcgIB7cRRCXH9soWQ5jaQ",
         "version": {
           "created": "7090399"
         }

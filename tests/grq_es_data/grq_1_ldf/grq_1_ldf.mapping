@@ -112,17 +112,24 @@
         },
         "metadata": {
           "properties": {
-            "CreationDateTime": {
+            "Antenna": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "Channel": {
+              "type": "long"
+            },
+            "FileCreationDateTime": {
               "type": "date"
-            },
-            "CreationHour": {
-              "type": "long"
-            },
-            "CreationMinute": {
-              "type": "long"
-            },
-            "CreationSecond": {
-              "type": "long"
             },
             "FileLocation": {
               "copy_to": [
@@ -153,6 +160,9 @@
             "FileSize": {
               "type": "float"
             },
+            "Group": {
+              "type": "long"
+            },
             "ISL_urls": {
               "copy_to": [
                 "text_fields"
@@ -181,6 +191,12 @@
               },
               "norms": false,
               "type": "text"
+            },
+            "Mode": {
+              "type": "long"
+            },
+            "Pass": {
+              "type": "long"
             },
             "ProductReceivedDay": {
               "copy_to": [
@@ -226,6 +242,12 @@
               },
               "norms": false,
               "type": "text"
+            },
+            "R": {
+              "type": "long"
+            },
+            "Receiver": {
+              "type": "long"
             },
             "S3_event_record": {
               "properties": {
@@ -473,6 +495,9 @@
                 }
               }
             },
+            "SCID": {
+              "type": "long"
+            },
             "SQS_record": {
               "properties": {
                 "attributes": {
@@ -640,9 +665,74 @@
               "norms": false,
               "type": "text"
             },
+            "antenna": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "channel": {
+              "type": "long"
+            },
             "context": {
               "enabled": false,
               "type": "object"
+            },
+            "files": {
+              "properties": {
+                "md5": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "name": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                },
+                "size": {
+                  "type": "long"
+                },
+                "status": {
+                  "copy_to": [
+                    "text_fields"
+                  ],
+                  "fields": {
+                    "keyword": {
+                      "ignore_above": 256,
+                      "type": "keyword"
+                    }
+                  },
+                  "norms": false,
+                  "type": "text"
+                }
+              }
+            },
+            "group": {
+              "type": "long"
             },
             "id": {
               "copy_to": [
@@ -657,10 +747,38 @@
               "norms": false,
               "type": "text"
             },
+            "mission": {
+              "copy_to": [
+                "text_fields"
+              ],
+              "fields": {
+                "keyword": {
+                  "ignore_above": 256,
+                  "type": "keyword"
+                }
+              },
+              "norms": false,
+              "type": "text"
+            },
+            "mode": {
+              "type": "long"
+            },
+            "numFiles": {
+              "type": "long"
+            },
+            "pass": {
+              "type": "long"
+            },
+            "receiver": {
+              "type": "long"
+            },
             "restaged": {
               "type": "boolean"
             },
-            "rrst_files": {
+            "scid": {
+              "type": "long"
+            },
+            "station": {
               "copy_to": [
                 "text_fields"
               ],

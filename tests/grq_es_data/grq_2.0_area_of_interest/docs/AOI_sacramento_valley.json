@@ -1,5 +1,5 @@
 {
-    "@timestamp": "2021-07-16T04:02:17.871730340Z",
+    "@timestamp": "2021-11-10T18:00:02.232024147Z",
     "browse_urls": [
         "http://nisar-dev-lts-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/AOI_sacramento_valley",
         "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/browse/AOI_sacramento_valley"

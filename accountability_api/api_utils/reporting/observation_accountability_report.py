@@ -13,7 +13,7 @@ class ObservationAccountabilityReport(Report):
         super(ObservationAccountabilityReport, self).__init__(
             title, start_date, end_date, timestamp, **kwargs
         )
-        self._dt_format = "%Y-%jT%H:%M:%S"
+        self._dt_format = "%Y-%m-%dT%H:%M:%S"
         self._start_datetime = utils.from_dt_to_iso(
             utils.from_iso_to_dt(self._start_datetime), custom_format=self._dt_format
         )
@@ -53,7 +53,7 @@ class ObservationAccountabilityReport(Report):
             s=obs_id[11:13],
         )
         dt = utils.from_iso_to_dt(dt_obs_id)
-        return utils.from_dt_to_iso(dt, custom_format="%Y-%m-%dT%H:%M:%S")
+        return utils.from_dt_to_iso(dt, custom_format="%Y-%m-%dT%H:%M:%SZ")
 
     def populate_data(self):
         obs_ids = self._get_observations_within_timeframe()
@@ -65,7 +65,10 @@ class ObservationAccountabilityReport(Report):
                 continue
 
             obs = {}
-            obs["OBS_ID"] = data["runconfig"]["Observations"][0]["PlannedObservationId"]
+            try:
+                obs["OBS_ID"] = data["runconfig"]["Observations"][0]["PlannedObservationId"]
+            except Exception:
+                obs["OBS_ID"] = data["OBS_ID"]
             obs["PRODUCT_SIZE"] = data["FileSize"]
             # LATENCY
             # from L0B_L_RRSD catalog metadata, pull metadata.RangeStartDateTime
@@ -101,20 +104,20 @@ class ObservationAccountabilityReport(Report):
 
     def _get_observations_within_timeframe(self):
         # make sure that start_date and end_date are iso formatted
-        r_start = query.construct_range_object(
-            "ref_start_datetime_iso", start_value=self._start_datetime, stop_value=None
+        r_start = query._construct_range_query(
+            "ref_start_datetime_iso", "gte", self._start_datetime
         )
-        r_end = query.construct_range_object(
-            "ref_end_datetime_iso", start_value=None, stop_value=self._end_datetime
+        r_end = query._construct_range_query(
+            "ref_end_datetime_iso", "lt", self._end_datetime
         )
 
-        body = {"query": {"bool": {"must": [{"range": r_start}, {"range": r_end}]}}}
+        body = {"query": {"bool": {"must": [r_start, r_end]}}}
 
         body = self.add_universal_query_params(body)
 
         try:
             results = query.run_query(
-                index=consts.ACCOUNTABILITY_INDEXES["OBSERVATION"],
+                index=consts.ACCOUNTABILITY_INDEXES["COP"],
                 body=body,
                 doc_type="_doc",
                 size=1000,
@@ -122,17 +125,18 @@ class ObservationAccountabilityReport(Report):
         except Exception:
             print("could not find index")
             return []
-        return list(map(lambda doc: doc["_source"], results["hits"]["hits"]))
+        return list(map(lambda doc: doc["_source"]["refobs_id"], results["hits"]["hits"]))
 
     def _get_l0b_observations(self, obs_ids):
+        if len(obs_ids) == 0:
+            return []
         obs_body = {"query": {"bool": {"should": []}}}
-        for obs in obs_ids:
-            for obs_id in obs["observation_ids"]:
-                obs_body = query.add_query_find(
-                    query=obs_body,
-                    field_name="metadata.runconfig.Observations.PlannedObservationId",
-                    value=obs_id,
-                )
+        for obs_id in obs_ids:
+            obs_body = query.add_query_find(
+                query=obs_body,
+                field_name="metadata.runconfig.Observations.PlannedObservationId",
+                value=obs_id,
+            )
 
         obs_source_includes = [
             "metadata.FileSize",

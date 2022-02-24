@@ -29,8 +29,8 @@ else
     timeout 300 bash -c 'while [[ "$(curl -s -o /dev/null -w ''%{http_code}'' http://localhost:9300/_cluster/health?wait_for_status=green&timeout=50s)" != "200" ]]; do sleep 5; echo "Waiting for Elasticsearch container to spin up"; done' || false
 fi
 # load data into elasticsearch
-pip install -e .
-
+pip install --no-deps -e .
+# adding comment
 python accountability_api/load_es_data.py $(pwd)/tests/grq_es_data/ grq
 python accountability_api/load_es_data.py $(pwd)/tests/mozart_es_data/ mozart
 

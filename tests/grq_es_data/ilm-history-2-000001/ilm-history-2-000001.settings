@@ -3,7 +3,7 @@
     "settings": {
       "index": {
         "auto_expand_replicas": "0-1",
-        "creation_date": "1626408003238",
+        "creation_date": "1636567209004",
         "format": "1",
         "hidden": "true",
         "lifecycle": {
@@ -13,7 +13,7 @@
         "number_of_replicas": "0",
         "number_of_shards": "1",
         "provided_name": "ilm-history-2-000001",
-        "uuid": "IIY8I3wTTzm7MBAZuM89lg",
+        "uuid": "NW66ICa4T2utjt8-s1oCLA",
         "version": {
           "created": "7090399"
         }

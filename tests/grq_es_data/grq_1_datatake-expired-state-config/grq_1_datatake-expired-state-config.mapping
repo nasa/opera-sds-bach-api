@@ -141,9 +141,6 @@
               "norms": false,
               "type": "text"
             },
-            "expiration_time": {
-              "type": "date"
-            },
             "force_submit": {
               "type": "boolean"
             },

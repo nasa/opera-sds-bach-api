@@ -1,0 +1,46 @@
+{
+    "@timestamp": "2021-11-10T18:13:27.129033051Z",
+    "browse_urls": [],
+    "creation_time": "2021-11-10T18:13:25.068312Z",
+    "dataset": "ldf-expired-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "ldf-state-config",
+    "id": "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_06_30_59_000000000_vc29_expired-state-config",
+    "images": [],
+    "ipath": "hysds::data/ldf-expired-state-config",
+    "metadata": {
+        "Antenna": "as4",
+        "Channel": 1,
+        "Group": 0,
+        "Mission": "nisar",
+        "Mode": 0,
+        "Pass": 114,
+        "Receiver": 0,
+        "SCID": 198,
+        "Station": "asf",
+        "force_submit": false,
+        "found_rrsts": [
+            "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_07_10_28_000000000.vc29",
+            "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_07_28_30_000000000.vc29"
+        ],
+        "is_complete": false,
+        "is_urgent": false,
+        "ldf_name": "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_06_30_59_000000000",
+        "missing_rrsts": [
+            "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_07_10_28_000000001.vc29"
+        ],
+        "rrst_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_07_10_28_000000000.vc29",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2020/008/NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_07_28_30_000000000.vc29"
+        ],
+        "vcid": "vc29"
+    },
+    "objectid": "NISAR_S198_ASF_AS4_M00_P00114_R00_C01_G00_2020_008_06_30_59_000000000_vc29_expired-state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:5cab369b-4ce7-442d-9d03-fca19206fa88"
+    },
+    "starttime": "2020-01-08T06:30:59.000000Z",
+    "system_version": "1",
+    "urls": [],
+    "version": "1"
+}

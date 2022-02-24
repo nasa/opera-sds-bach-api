@@ -153,16 +153,17 @@ class TestQuery(unittest.TestCase):
         )
         return
 
-    def test_get_downlink_data(self):
-        """
-        Test grabbing all pass data and formatting it.
-        There should be as many pass entries as there are ldfs (expected[1] is the number of results retrieved).
-        """
-        data, num_expected = query.get_docs_in_index(
-            "pass_accountability_catalog", start=None, end=None, size=50, time_key=None
-        )
-        pass_data = query.get_downlink_data()
-        self.assertEqual(len(pass_data), num_expected)
+    # def test_get_downlink_data(self):
+    #     """
+    #     Test grabbing all pass data and formatting it.
+    #     There should be as many pass entries as there are ldfs (expected[1] is the number of results retrieved).
+    #     """
+    #     data, num_expected = query.get_docs_in_index(
+    #         "pass_accountability_catalog", start=None, end=None, size=50, time_key=None
+    #     )
+    #     pass_data = query.get_downlink_data()
+    #     self.assertEqual(len(pass_data), num_expected)
+    #     return
 
     def test_get_product(self):
         """
@@ -170,9 +171,9 @@ class TestQuery(unittest.TestCase):
         """
         self.maxDiff = None
         products = [
-            "ASF_NISAR_2022_008_06_30_59_LDF",
-            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083048_20220108T083112_D00001_M_001",
-            "COP_e2020-041_c2020-041_v002",
+            "ASF_NISAR_2022_008_06_30_59_ARP",
+            "NISAR_L0_PR_RRSD_001_001_D_132S_20220108T171156_20220108T171216_D00200_M_001",
+            "COP_e2020-041_c2020-041_v001",
         ]
 
         # retrieved_products = []
@@ -180,6 +181,7 @@ class TestQuery(unittest.TestCase):
             print("looking for %s" % _id)
             retrieved_product = query.get_product(_id, index="grq_*_*")
             self.assertIsNotNone(retrieved_product)
+        return
 
     def test_get_docs_in_index(self):
         """
@@ -187,11 +189,11 @@ class TestQuery(unittest.TestCase):
         """
         indexes = [
             ("cop_catalog", 100),
-            ("pass_accountability_catalog", 11),
-            ("grq_1_ldf", 6),
+            ("grq_1_ldf", 12),
         ]
         for index, count in indexes:
             documents = query.get_docs_in_index(
                 index, start=None, end=None, size=50, time_key=None
             )
             self.assertEqual(documents[1], count)
+        return

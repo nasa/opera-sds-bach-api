@@ -1,0 +1,432 @@
+{
+    "@timestamp": "2021-11-10T18:19:10.589121616Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            79.83402563672288,
+            54.18970235889787
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "04",
+            "admin1_name": "Altai Krai",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kamen'",
+                "Kamen'-na-Obi",
+                "Kamen-Na-Obi",
+                "Kamen\u2019",
+                "Kamen\u2019-na-Obi",
+                "\u041a\u0430\u043c\u0435\u043d\u044c-\u043d\u0430-\u041e\u0431\u0438"
+            ],
+            "asciiname": "Kamen'-na-Obi",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "125",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1504871",
+            "latitude": 53.7884,
+            "location": {
+                "lat": 53.7884,
+                "lon": 81.3423
+            },
+            "longitude": 81.3423,
+            "modification_date": "2012-01-17",
+            "name": "Kamen\u2019-na-Obi",
+            "population": 44564,
+            "timezone": "Asia/Barnaul"
+        },
+        {
+            "admin1_code": "53",
+            "admin1_name": "Novosibirsk Oblast",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Karassouk",
+                "Karassuk",
+                "Karasuk",
+                "Karasukas",
+                "ka la su ke",
+                "karaswk",
+                "\u041a\u0430\u0440\u0430\u0441\u0443\u043a",
+                "\u0643\u0627\u0631\u0627\u0633\u0648\u0643",
+                "\u06a9\u0627\u0631\u0627\u0633\u0648\u06a9",
+                "\u5361\u62c9\u8607\u514b"
+            ],
+            "asciiname": "Karasuk",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "114",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1504489",
+            "latitude": 53.73772,
+            "location": {
+                "lat": 53.73772,
+                "lon": 78.04026
+            },
+            "longitude": 78.04026,
+            "modification_date": "2019-09-05",
+            "name": "Karasuk",
+            "population": 28589,
+            "timezone": "Asia/Novosibirsk"
+        },
+        {
+            "admin1_code": "53",
+            "admin1_name": "Novosibirsk Oblast",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kargat",
+                "\u041a\u0430\u0440\u0433\u0430\u0442"
+            ],
+            "asciiname": "Kargat",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "132",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1504380",
+            "latitude": 55.19556,
+            "location": {
+                "lat": 55.19556,
+                "lon": 80.28111
+            },
+            "longitude": 80.28111,
+            "modification_date": "2012-01-17",
+            "name": "Kargat",
+            "population": 10881,
+            "timezone": "Asia/Novosibirsk"
+        },
+        {
+            "admin1_code": "53",
+            "admin1_name": "Novosibirsk Oblast",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Krasnoozersk",
+                "Krasnozersk",
+                "Krasnozerskoe",
+                "Krasnozerskoje",
+                "Krasnozerskoye",
+                "Krasnozjorskoe",
+                "Krasnoz\u00ebrskoye",
+                "\u041a\u0440\u0430\u0441\u043d\u043e\u0437\u0435\u0440\u0441\u043a\u043e\u0435",
+                "\u041a\u0440\u0430\u0441\u043d\u043e\u0437\u0451\u0440\u0441\u043a\u043e\u0435"
+            ],
+            "asciiname": "Krasnozerskoye",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "140",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1501988",
+            "latitude": 53.98277,
+            "location": {
+                "lat": 53.98277,
+                "lon": 79.23735
+            },
+            "longitude": 79.23735,
+            "modification_date": "2014-06-27",
+            "name": "Krasnoz\u00ebrskoye",
+            "population": 10339,
+            "timezone": "Asia/Novosibirsk"
+        },
+        {
+            "admin1_code": "53",
+            "admin1_name": "Novosibirsk Oblast",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Ordiinskoe",
+                "Ordinskoe",
+                "Ordinskoje",
+                "Ordynskoe",
+                "Ordynskoje",
+                "Ordynskoye",
+                "\u041e\u0440\u0434\u044b\u043d\u0441\u043a\u043e\u0435"
+            ],
+            "asciiname": "Ordynskoye",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "127",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1496100",
+            "latitude": 54.3656,
+            "location": {
+                "lat": 54.3656,
+                "lon": 81.8994
+            },
+            "longitude": 81.8994,
+            "modification_date": "2012-01-17",
+            "name": "Ordynskoye",
+            "population": 10314,
+            "timezone": "Asia/Novosibirsk"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-11-10T18:19:09.296792Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:32:41.825389Z",
+    "expiration_time": "2021-11-10T18:39:09.295785Z",
+    "id": "track_frame_001_016_061_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        78.80141574512284,
+                        55.63119985565175
+                    ],
+                    [
+                        78.82886009246033,
+                        55.62453672950153
+                    ],
+                    [
+                        79.98146229705729,
+                        55.3370348405173
+                    ],
+                    [
+                        80.66851972881716,
+                        55.15842074015523
+                    ],
+                    [
+                        82.37795067480349,
+                        54.68983687449676
+                    ],
+                    [
+                        81.96874872361359,
+                        54.2027431537818
+                    ],
+                    [
+                        81.56904363875007,
+                        53.71428987989272
+                    ],
+                    [
+                        81.17848134699656,
+                        53.22452986583411
+                    ],
+                    [
+                        80.79672381885483,
+                        52.73351331813185
+                    ],
+                    [
+                        79.15073126583898,
+                        53.18083792160828
+                    ],
+                    [
+                        78.49034714846628,
+                        53.35140229791677
+                    ],
+                    [
+                        77.38394976388815,
+                        53.62603812629028
+                    ],
+                    [
+                        77.35762738678095,
+                        53.63240465460752
+                    ],
+                    [
+                        77.70599923132498,
+                        54.13360958999244
+                    ],
+                    [
+                        78.0625277192957,
+                        54.63383768116842
+                    ],
+                    [
+                        78.42754875035651,
+                        55.13304861615207
+                    ],
+                    [
+                        78.80141574512284,
+                        55.63119985565175
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 61,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            78.80141574512284,
+                            55.63119985565175
+                        ],
+                        [
+                            78.82886009246033,
+                            55.62453672950153
+                        ],
+                        [
+                            79.98146229705729,
+                            55.3370348405173
+                        ],
+                        [
+                            80.66851972881716,
+                            55.15842074015523
+                        ],
+                        [
+                            82.37795067480349,
+                            54.68983687449676
+                        ],
+                        [
+                            81.96874872361359,
+                            54.2027431537818
+                        ],
+                        [
+                            81.56904363875007,
+                            53.71428987989272
+                        ],
+                        [
+                            81.17848134699656,
+                            53.22452986583411
+                        ],
+                        [
+                            80.79672381885483,
+                            52.73351331813185
+                        ],
+                        [
+                            79.15073126583898,
+                            53.18083792160828
+                        ],
+                        [
+                            78.49034714846628,
+                            53.35140229791677
+                        ],
+                        [
+                            77.38394976388815,
+                            53.62603812629028
+                        ],
+                        [
+                            77.35762738678095,
+                            53.63240465460752
+                        ],
+                        [
+                            77.70599923132498,
+                            54.13360958999244
+                        ],
+                        [
+                            78.0625277192957,
+                            54.63383768116842
+                        ],
+                        [
+                            78.42754875035651,
+                            55.13304861615207
+                        ],
+                        [
+                            78.80141574512284,
+                            55.63119985565175
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:32:41.825389Z",
+        "processing_start_time": "2022-01-08T08:32:06.326037Z",
+        "submitted_by_timer": null,
+        "track_frame_begin_time": "2022-01-08T08:32:06.326037Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 2065.8187248706818,
+            "endCY": 91961.8254108429,
+            "endET": 694404359.5479082,
+            "end_time_utc": "2022-01-08T08:32:41.825389Z",
+            "epsg": 32644,
+            "fractionLand": 1.0,
+            "frame": 61,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 305.0,
+            "meanTopo": 138.0,
+            "medianTopo": 145.3786163330078,
+            "minTopo": 94.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 758839.4582986515,
+            "satelliteLat": 56.00102815965223,
+            "satelliteLon": 71.46168738186358,
+            "startAX": 2030.3193727731705,
+            "startCY": 91926.32605874538,
+            "startET": 694404324.0485561,
+            "start_time_utc": "2022-01-08T08:32:06.326037Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1057619.1533645634,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 893004.5647135044,
+            "track": 16,
+            "velocityAlongTrack": 7561.878084026819,
+            "velocityVertical": -14.659669443834526
+        },
+        "track_frame_end_time": "2022-01-08T08:32:41.825389Z"
+    },
+    "objectid": "track_frame_001_016_061_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:0349bf67-816b-4a5a-89f8-4ee6e8a091ab"
+    },
+    "starttime": "2022-01-08T08:32:06.326037Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

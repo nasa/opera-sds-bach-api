@@ -1,0 +1,11 @@
+{
+    "created_at": "2021-11-10T18:16:14.302850",
+    "input_data_type": "datatake-state-config",
+    "inputs": [
+        "NISAR_L0_RRST_VC24_20220108T082536_20220108T090316_D00200_001",
+        "NISAR_L0_RRST_VC29_20220108T082536_20220108T090020_D00200_001"
+    ],
+    "output_data_type": "L0B_L_RRSD",
+    "trigger_dataset_id": "dtid_2022008083412_state-config",
+    "trigger_dataset_type": "datatake-state-config"
+}

@@ -109,18 +109,11 @@ def from_td_to_str(input_td):
         minutes += 1
         seconds -= 60
 
-    days_str = ""
+    sign = days < 0
 
-    if not (days >= 100 or days <= -100):
-        if not (days >= 10 or days <= -10):
-            days_str = "00{}".format(days)
-        else:
-            days_str = "0{}".format(days)
-    else:
-        days_str = "{}".format(days)
-
-    return "{}T{}:{}:{}".format(
-        days_str,
+    return "{}{}T{}:{}:{}".format(
+        "-" if sign else "",
+        "{:03d}".format(abs(days)).rjust(3),
         hours if hours >= 10 else "0" + str(hours),
         minutes if minutes >= 10 else "0" + str(minutes),
         seconds if seconds >= 10 else "0" + str(seconds),

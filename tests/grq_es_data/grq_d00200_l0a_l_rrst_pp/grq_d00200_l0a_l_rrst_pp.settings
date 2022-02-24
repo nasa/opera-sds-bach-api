@@ -1,0 +1,29 @@
+{
+  "grq_d00200_l0a_l_rrst_pp": {
+    "settings": {
+      "index": {
+        "analysis": {
+          "analyzer": {
+            "default": {
+              "filter": [
+                "lowercase",
+                "word_delimiter"
+              ],
+              "tokenizer": "keyword"
+            }
+          }
+        },
+        "creation_date": "1636567822091",
+        "default_pipeline": "dataset_pipeline",
+        "number_of_replicas": "1",
+        "number_of_shards": "8",
+        "provided_name": "grq_d00200_l0a_l_rrst_pp",
+        "refresh_interval": "5s",
+        "uuid": "l9iHAMIoSieLppEsMHoqqQ",
+        "version": {
+          "created": "7090399"
+        }
+      }
+    }
+  }
+}

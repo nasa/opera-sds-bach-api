@@ -13,13 +13,13 @@
             }
           }
         },
-        "creation_date": "1626408339914",
+        "creation_date": "1636567432287",
         "default_pipeline": "dataset_pipeline",
         "number_of_replicas": "1",
         "number_of_shards": "8",
         "provided_name": "grq_1_frp",
         "refresh_interval": "5s",
-        "uuid": "GFiLb1_LTyiopANn-ZZigg",
+        "uuid": "SJmSgddsT9GBnHOKkhihAg",
         "version": {
           "created": "7090399"
         }

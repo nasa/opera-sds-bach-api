@@ -60,13 +60,13 @@ class Report(ABC):
         super().__init__()
 
     def add_universal_query_params(self, query_body):
-        if self._crid != "":
+        if self._crid:
             query_body = query.add_query_filter(
                 query=query_body,
                 field_name="metadata.CompositeReleaseID",
                 value=self._crid,
             )
-        if self._processing_mode != "":
+        if self._processing_mode:
             query_body = query.add_query_filter(
                 query=query_body,
                 field_name="metadata.ProcessingType",
@@ -83,7 +83,7 @@ class Report(ABC):
         self.populate_data()
 
         self.filename = self.get_filename(output_format)
-        if output_format == "xml":
+        if output_format == "xml" or output_format is None:
             return self.to_xml()
         elif output_format == "csv":
             return self.to_csv()

@@ -1,0 +1,465 @@
+{
+    "@timestamp": "2021-11-10T18:43:56.013405496Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            78.42835476143313,
+            52.26213695042295
+        ],
+        "type": "point"
+    },
+    "city": [
+        {
+            "admin1_code": "11",
+            "admin1_name": "Pavlodar Region",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kereku",
+                "Kerek\u016b",
+                "PWQ",
+                "Pauladar",
+                "Pavlodar",
+                "Pavlodara",
+                "Pavlodaras",
+                "Pavlontar",
+                "Pawlodar",
+                "Paw\u0142odar",
+                "ba fu luo da er",
+                "baflwdar",
+                "pabeullodaleu",
+                "paf lod ar",
+                "pavalodara",
+                "pavurodaru",
+                "pawlwdar",
+                "pawlwdar  qzaqstan",
+                "pawlwdr",
+                "pblwdr",
+                "\u03a0\u03b1\u03b2\u03bb\u03bf\u03bd\u03c4\u03ac\u03c1",
+                "\u041f\u0430\u0432\u043b\u043e\u0434\u0430\u0440",
+                "\u041f\u0430\u045e\u043b\u0430\u0434\u0430\u0440",
+                "\u05e4\u05d1\u05dc\u05d5\u05d3\u05e8",
+                "\u0628\u0627\u0641\u0644\u0648\u062f\u0627\u0631",
+                "\u067e\u0627\u0624\u0644\u0648\u062f\u0627\u0631",
+                "\u067e\u0627\u0648\u0644\u0648\u062f\u0627\u0631\u060c \u0642\u0632\u0627\u0642\u0633\u062a\u0627\u0646",
+                "\u067e\u0627\u0648\u0644\u0648\u062f\u0631",
+                "\u067e\u0627\u06a4\u0644\u06c6\u062f\u0627\u0631",
+                "\u0a2a\u0a3e\u0a35\u0a32\u0a4b\u0a26\u0a30",
+                "\u0e1b\u0e31\u0e1f\u0e42\u0e25\u0e14\u0e32\u0e23\u0e4c",
+                "\u10de\u10d0\u10d5\u10da\u10dd\u10d3\u10d0\u10e0\u10d8",
+                "\u30d1\u30f4\u30ed\u30c0\u30eb",
+                "\u5df4\u752b\u6d1b\u9054\u723e",
+                "\ud30c\ube14\ub85c\ub2e4\ub974"
+            ],
+            "asciiname": "Pavlodar",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "133",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPLA",
+            "geonameid": "1520240",
+            "latitude": 52.28333,
+            "location": {
+                "lat": 52.28333,
+                "lon": 76.96667
+            },
+            "longitude": 76.96667,
+            "modification_date": "2019-09-05",
+            "name": "Pavlodar",
+            "population": 329002,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "11",
+            "admin1_name": "Pavlodar Region",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Aksu",
+                "Aqsu",
+                "Aqs\u016b",
+                "Ermak",
+                "Yermak",
+                "\u0410\u043a\u0441\u0443",
+                "\u0410\u049b\u0441\u0443",
+                "\u0415\u0440\u043c\u0430\u043a"
+            ],
+            "asciiname": "Aksu",
+            "cc2": [],
+            "continent_code": "AS",
+            "continent_name": "Asia",
+            "country_code": "KZ",
+            "country_name": "Kazakhstan",
+            "dem": "123",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1524298",
+            "latitude": 52.04023,
+            "location": {
+                "lat": 52.04023,
+                "lon": 76.92748
+            },
+            "longitude": 76.92748,
+            "modification_date": "2019-05-06",
+            "name": "Aksu",
+            "population": 44808,
+            "timezone": "Asia/Almaty"
+        },
+        {
+            "admin1_code": "04",
+            "admin1_name": "Altai Krai",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Slaugarad",
+                "Slavgorod",
+                "Slawgorod",
+                "Sl\u00e0vgorod",
+                "Sl\u00e1vgorod",
+                "Sslawgorod",
+                "S\u0142awgorod",
+                "aslawgwrwd",
+                "si la fu ge luo de",
+                "slafghwrwd",
+                "\u0421\u043b\u0430\u0432\u0433\u043e\u0440\u043e\u0434",
+                "\u0421\u043b\u0430\u045e\u0433\u0430\u0440\u0430\u0434",
+                "\u0627\u0633\u0644\u0627\u0648\u06af\u0648\u0631\u0648\u062f",
+                "\u0633\u0644\u0627\u0641\u063a\u0648\u0631\u0648\u062f",
+                "\u65af\u62c9\u592b\u6208\u7f85\u5fb7"
+            ],
+            "asciiname": "Slavgorod",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "116",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1491706",
+            "latitude": 52.9978,
+            "location": {
+                "lat": 52.9978,
+                "lon": 78.6449
+            },
+            "longitude": 78.6449,
+            "modification_date": "2019-09-05",
+            "name": "Slavgorod",
+            "population": 34141,
+            "timezone": "Asia/Barnaul"
+        },
+        {
+            "admin1_code": "04",
+            "admin1_name": "Altai Krai",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Jarovoe",
+                "Jarovoje",
+                "Yarovoy",
+                "Yarovoye",
+                "\u042f\u0440\u043e\u0432\u043e\u0435"
+            ],
+            "asciiname": "Yarovoye",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "102",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1486340",
+            "latitude": 52.9273,
+            "location": {
+                "lat": 52.9273,
+                "lon": 78.58
+            },
+            "longitude": 78.58,
+            "modification_date": "2012-01-17",
+            "name": "Yarovoye",
+            "population": 21195,
+            "timezone": "Asia/Barnaul"
+        },
+        {
+            "admin1_code": "04",
+            "admin1_name": "Altai Krai",
+            "admin2_code": null,
+            "admin2_name": null,
+            "admin3_code": null,
+            "admin4_code": null,
+            "alternatename": [
+                "Kulunda",
+                "\u041a\u0443\u043b\u0443\u043d\u0434\u0430"
+            ],
+            "asciiname": "Kulunda",
+            "cc2": [],
+            "continent_code": "EU",
+            "continent_name": "Europe",
+            "country_code": "RU",
+            "country_name": "Russia",
+            "dem": "136",
+            "elevation": null,
+            "feature_class": "P",
+            "feature_code": "PPL",
+            "geonameid": "1501460",
+            "latitude": 52.566,
+            "location": {
+                "lat": 52.566,
+                "lon": 78.9385
+            },
+            "longitude": 78.9385,
+            "modification_date": "2012-01-17",
+            "name": "Kulunda",
+            "population": 15345,
+            "timezone": "Asia/Barnaul"
+        }
+    ],
+    "continent": "Asia",
+    "creation_time": "2021-11-10T18:19:37.275004Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:32:52.000000Z",
+    "expiration_time": "2021-11-10T18:39:37.274419Z",
+    "id": "track_frame_001_016_062_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        77.39648369617191,
+                        53.68892709576732
+                    ],
+                    [
+                        77.42283637782037,
+                        53.68255267113553
+                    ],
+                    [
+                        78.53048361420484,
+                        53.40757394824653
+                    ],
+                    [
+                        79.19159101140872,
+                        53.23679469477858
+                    ],
+                    [
+                        80.83930966098103,
+                        52.78890143010977
+                    ],
+                    [
+                        80.46645632890575,
+                        52.29862359544442
+                    ],
+                    [
+                        80.10175139920469,
+                        51.80718575899211
+                    ],
+                    [
+                        79.74490190573074,
+                        51.31463089747503
+                    ],
+                    [
+                        79.39562780632394,
+                        50.82099993783759
+                    ],
+                    [
+                        77.80681207513483,
+                        51.24975479708151
+                    ],
+                    [
+                        77.17031506262343,
+                        51.41331602719135
+                    ],
+                    [
+                        76.10510757121155,
+                        51.67679342617037
+                    ],
+                    [
+                        76.07978260899849,
+                        51.68290325227343
+                    ],
+                    [
+                        76.39825442643908,
+                        52.18569192745209
+                    ],
+                    [
+                        76.72367696377519,
+                        52.68764740240793
+                    ],
+                    [
+                        77.05632416240104,
+                        53.18873719361554
+                    ],
+                    [
+                        77.39648369617191,
+                        53.68892709576732
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 62,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            77.39648369617191,
+                            53.68892709576732
+                        ],
+                        [
+                            77.42283637782037,
+                            53.68255267113553
+                        ],
+                        [
+                            78.53048361420484,
+                            53.40757394824653
+                        ],
+                        [
+                            79.19159101140872,
+                            53.23679469477858
+                        ],
+                        [
+                            80.83930966098103,
+                            52.78890143010977
+                        ],
+                        [
+                            80.46645632890575,
+                            52.29862359544442
+                        ],
+                        [
+                            80.10175139920469,
+                            51.80718575899211
+                        ],
+                        [
+                            79.74490190573074,
+                            51.31463089747503
+                        ],
+                        [
+                            79.39562780632394,
+                            50.82099993783759
+                        ],
+                        [
+                            77.80681207513483,
+                            51.24975479708151
+                        ],
+                        [
+                            77.17031506262343,
+                            51.41331602719135
+                        ],
+                        [
+                            76.10510757121155,
+                            51.67679342617037
+                        ],
+                        [
+                            76.07978260899849,
+                            51.68290325227343
+                        ],
+                        [
+                            76.39825442643908,
+                            52.18569192745209
+                        ],
+                        [
+                            76.72367696377519,
+                            52.68764740240793
+                        ],
+                        [
+                            77.05632416240104,
+                            53.18873719361554
+                        ],
+                        [
+                            77.39648369617191,
+                            53.68892709576732
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001.h5"
+        ],
+        "is_complete": false,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083136_20220108T083252_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:32:52.000000Z",
+        "processing_start_time": "2022-01-08T08:32:40.825389Z",
+        "submitted_by_timer": "2021-11-10T18:43:56.012005Z",
+        "track_frame_begin_time": "2022-01-08T08:32:40.825389Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 2100.1873981952667,
+            "endCY": 91996.19408416748,
+            "endET": 694404393.9165815,
+            "end_time_utc": "2022-01-08T08:33:16.194062Z",
+            "epsg": 32643,
+            "fractionLand": 1.0,
+            "frame": 62,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 350.0,
+            "meanTopo": 135.0,
+            "medianTopo": 140.7426300048828,
+            "minTopo": 58.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 758412.6927307677,
+            "satelliteLat": 54.00087455127201,
+            "satelliteLon": 70.40370951653406,
+            "startAX": 2064.8187248706818,
+            "startCY": 91960.8254108429,
+            "startET": 694404358.5479082,
+            "start_time_utc": "2022-01-08T08:32:40.825389Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1057004.9771924408,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 892490.1747019218,
+            "track": 16,
+            "velocityAlongTrack": 7562.4936041154515,
+            "velocityVertical": -14.969311734347674
+        },
+        "track_frame_end_time": "2022-01-08T08:33:16.194062Z"
+    },
+    "objectid": "track_frame_001_016_062_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:099a167d-ab5b-4027-9d9c-894db32db1fe"
+    },
+    "starttime": "2022-01-08T08:32:40.825389Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

@@ -1,0 +1,122 @@
+{
+  "jobs_accountability_catalog": {
+    "mappings": {
+      "properties": {
+        "created_at": {
+          "type": "date"
+        },
+        "input_data_type": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "inputs": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "l0a_l_rrst_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0a_l_rrst_job_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0a_l_rrst_pp_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "l0a_l_rrst_pp_job_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "last_modified": {
+          "type": "date"
+        },
+        "ldf_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "ldf_state": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "ldf_state_config_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "nen_l_rrst_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "nen_l_rrst_job_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        },
+        "output_data_type": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "text_fields": {
+          "type": "text"
+        },
+        "trigger_dataset_id": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "trigger_dataset_type": {
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "type": "text"
+        },
+        "vcid": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "type": "text"
+        }
+      }
+    }
+  }
+}

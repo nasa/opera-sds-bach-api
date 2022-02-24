@@ -1,0 +1,244 @@
+{
+    "@timestamp": "2021-11-10T18:44:08.102225805Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            85.0035621773252,
+            59.9073375140082
+        ],
+        "type": "point"
+    },
+    "city": [],
+    "continent": "Asia",
+    "creation_time": "2021-11-10T18:19:27.720285Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:30:57.829366Z",
+    "expiration_time": "2021-11-10T18:39:27.719675Z",
+    "id": "track_frame_001_016_058_full_individual_L_20_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        84.02227037304704,
+                        61.40261217213882
+                    ],
+                    [
+                        84.05358954779174,
+                        61.39483686243806
+                    ],
+                    [
+                        85.3644504365408,
+                        61.05932232866981
+                    ],
+                    [
+                        86.14163188736383,
+                        60.8508892333148
+                    ],
+                    [
+                        88.06134293741704,
+                        60.30430350273777
+                    ],
+                    [
+                        87.49800245336667,
+                        59.83082491276173
+                    ],
+                    [
+                        86.9503579155232,
+                        59.35502546916742
+                    ],
+                    [
+                        86.41776055185494,
+                        58.8770099207262
+                    ],
+                    [
+                        85.89959233615497,
+                        58.39687715272966
+                    ],
+                    [
+                        84.05579195927095,
+                        58.91360696357293
+                    ],
+                    [
+                        83.31150811899205,
+                        59.11057441399679
+                    ],
+                    [
+                        82.05886674332541,
+                        59.42756335415344
+                    ],
+                    [
+                        82.0289796893736,
+                        59.43490855624258
+                    ],
+                    [
+                        82.50579552940823,
+                        59.92944207292551
+                    ],
+                    [
+                        82.99650497356252,
+                        60.42229363809956
+                    ],
+                    [
+                        83.50176494090435,
+                        60.9133799215569
+                    ],
+                    [
+                        84.02227037304704,
+                        61.40261217213882
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_20_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "individual",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 58,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            84.02227037304704,
+                            61.40261217213882
+                        ],
+                        [
+                            84.05358954779174,
+                            61.39483686243806
+                        ],
+                        [
+                            85.3644504365408,
+                            61.05932232866981
+                        ],
+                        [
+                            86.14163188736383,
+                            60.8508892333148
+                        ],
+                        [
+                            88.06134293741704,
+                            60.30430350273777
+                        ],
+                        [
+                            87.49800245336667,
+                            59.83082491276173
+                        ],
+                        [
+                            86.9503579155232,
+                            59.35502546916742
+                        ],
+                        [
+                            86.41776055185494,
+                            58.8770099207262
+                        ],
+                        [
+                            85.89959233615497,
+                            58.39687715272966
+                        ],
+                        [
+                            84.05579195927095,
+                            58.91360696357293
+                        ],
+                        [
+                            83.31150811899205,
+                            59.11057441399679
+                        ],
+                        [
+                            82.05886674332541,
+                            59.42756335415344
+                        ],
+                        [
+                            82.0289796893736,
+                            59.43490855624258
+                        ],
+                        [
+                            82.50579552940823,
+                            59.92944207292551
+                        ],
+                        [
+                            82.99650497356252,
+                            60.42229363809956
+                        ],
+                        [
+                            83.50176494090435,
+                            60.9133799215569
+                        ],
+                        [
+                            84.02227037304704,
+                            61.40261217213882
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083048_20220108T083112_D00200_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083048_20220108T083112_D00200_M_001.h5"
+        ],
+        "is_complete": false,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_128S_20220108T083048_20220108T083112_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_128S_20220108T083048_20220108T083112_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:30:57.829366Z",
+        "processing_start_time": "2022-01-08T08:30:48.000000Z",
+        "submitted_by_timer": "2021-11-10T18:44:08.100954Z",
+        "track_frame_begin_time": "2022-01-08T08:30:21.757157Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 1961.822702050209,
+            "endCY": 91857.82938802242,
+            "endET": 694404255.5518854,
+            "end_time_utc": "2022-01-08T08:30:57.829366Z",
+            "epsg": 3413,
+            "fractionLand": 1.0,
+            "frame": 58,
+            "hasLand": true,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 191.0,
+            "meanTopo": 132.0,
+            "medianTopo": 129.8980712890625,
+            "minTopo": 68.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 760061.1080194386,
+            "satelliteLat": 62.00182381405959,
+            "satelliteLon": 75.35724020322259,
+            "startAX": 1925.7504931688309,
+            "startCY": 91821.75717914104,
+            "startET": 694404219.4796765,
+            "start_time_utc": "2022-01-08T08:30:21.757157Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1059365.0195183642,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 894487.5251485611,
+            "track": 16,
+            "velocityAlongTrack": 7560.124904178908,
+            "velocityVertical": -13.152304646153077
+        },
+        "track_frame_end_time": "2022-01-08T08:30:57.829366Z"
+    },
+    "objectid": "track_frame_001_016_058_full_individual_L_20_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:a5b60fca-166f-446c-8e33-2f1e6abe8e5c"
+    },
+    "starttime": "2022-01-08T08:30:48.000000Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

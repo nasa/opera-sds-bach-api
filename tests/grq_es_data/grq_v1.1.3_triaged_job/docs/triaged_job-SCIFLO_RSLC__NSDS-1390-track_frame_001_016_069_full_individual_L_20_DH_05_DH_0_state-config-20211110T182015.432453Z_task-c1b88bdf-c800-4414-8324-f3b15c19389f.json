@@ -1,0 +1,88 @@
+{
+    "@timestamp": "2021-11-10T18:23:30.900928166Z",
+    "browse_urls": [
+        "http://nisar-dev-triage-fwd-bporeh.s3-website-us-west-2.amazonaws.com/browse/triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-triage-fwd-bporeh/browse/triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f"
+    ],
+    "dataset": "triaged_job",
+    "dataset_level": "NA",
+    "dataset_type": "triaged_job",
+    "endtime": "2021-11-10T18:23:08.137938Z",
+    "id": "triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f",
+    "images": [],
+    "ipath": "hysds::data/triaged_job",
+    "label": "triage for job SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z",
+    "metadata": {
+        "cmd_duration": 27.048434,
+        "cmd_end": "2021-11-10T18:23:08.137938Z",
+        "cmd_start": "2021-11-10T18:22:41.089504Z",
+        "context_file": "/data/work/jobs/2021/11/10/18/22/SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z/_context.json",
+        "datasets_cfg_file": "/home/ops/verdi/etc/datasets.json",
+        "dedup": true,
+        "duration": 27.569987,
+        "execute_node": "172.31.7.7",
+        "facts": {
+            "architecture": "x86_64",
+            "domain": "us-west-2.compute.internal",
+            "ec2_instance_id": "i-0427db07628a01402",
+            "ec2_instance_type": "t2.medium",
+            "ec2_placement_availability_zone": "us-west-2c",
+            "fqdn": "172.31.7.7",
+            "hardwaremodel": "x86_64",
+            "hostname": "verdi",
+            "hysds_execute_node": "172.31.7.7",
+            "hysds_public_ip": "172.31.7.7",
+            "ipaddress": "172.18.0.2",
+            "ipaddress_eth0": "172.31.7.7",
+            "is_virtual": true,
+            "memoryfree": "2.47 GB",
+            "memorysize": "3.70 GB",
+            "operatingsystem": "CentOS",
+            "operatingsystemrelease": "7.9.2009",
+            "osfamily": "RedHat",
+            "physicalprocessorcount": 1,
+            "processorcount": 2,
+            "swapfree": "0.00 MB",
+            "swapsize": "0.00 MB",
+            "uptime": "0:25 hours",
+            "virtual": "docker"
+        },
+        "id": "SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z",
+        "job_dir": "/data/work/jobs/2021/11/10/18/22/SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z",
+        "job_payload": {
+            "job_type": "job:job-SCIFLO_RSLC:NSDS-1390",
+            "payload_task_id": "a6ea86a0-cfbe-4611-b3cc-4565fbda19cf"
+        },
+        "job_queue": "nisar-job_worker-sciflo-rslc",
+        "job_url": "http://172.31.7.7:8085/jobs/2021/11/10/18/22/SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z",
+        "metrics": {
+            "inputs_localized": [],
+            "job_dir_size": 502875878,
+            "products_staged": [],
+            "usage_stats": []
+        },
+        "payload_hash": "2092d4bdd8c1aa6f2a74a798b6510692",
+        "pid": 349,
+        "public_ip": "172.31.7.7",
+        "soft_time_limit": 12000,
+        "status": 1,
+        "stderr": "",
+        "stdout": "",
+        "time_end": "2021-11-10T18:23:08.158450Z",
+        "time_limit": 12520,
+        "time_queued": "2021-11-10T18:20:15.432463Z",
+        "time_start": "2021-11-10T18:22:40.588463Z"
+    },
+    "objectid": "triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f",
+    "prov": {
+        "wasGeneratedBy": "task_id:c1b88bdf-c800-4414-8324-f3b15c19389f"
+    },
+    "starttime": "2021-11-10T18:22:41.089504Z",
+    "system_version": "v1.1.3",
+    "temporal_span": 0,
+    "urls": [
+        "http://nisar-dev-triage-fwd-bporeh.s3-website-us-west-2.amazonaws.com/triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f",
+        "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-triage-fwd-bporeh/triaged_job-SCIFLO_RSLC__NSDS-1390-track_frame_001_016_069_full_individual_L_20_DH_05_DH_0_state-config-20211110T182015.432453Z_task-c1b88bdf-c800-4414-8324-f3b15c19389f"
+    ],
+    "version": "v1.1.3"
+}

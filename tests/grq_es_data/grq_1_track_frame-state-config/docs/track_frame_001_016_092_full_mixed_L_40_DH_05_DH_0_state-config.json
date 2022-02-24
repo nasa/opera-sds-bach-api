@@ -1,0 +1,248 @@
+{
+    "@timestamp": "2021-11-10T18:19:36.176952223Z",
+    "browse_urls": [],
+    "center": {
+        "coordinates": [
+            58.660130814747546,
+            -7.071123292108656
+        ],
+        "type": "point"
+    },
+    "city": [],
+    "continent": "Africa",
+    "creation_time": "2021-11-10T18:19:34.606881Z",
+    "dataset": "track_frame-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "track_frame-state-config",
+    "endtime": "2022-01-08T08:50:05.698318Z",
+    "expiration_time": "2021-11-10T18:39:34.605801Z",
+    "id": "track_frame_001_016_092_full_mixed_L_40_DH_05_DH_0_state-config",
+    "images": [],
+    "ipath": "hysds::data/track_frame-state-config",
+    "location": {
+        "coordinates": [
+            [
+                [
+                    [
+                        57.77249817081608,
+                        -5.812024859276927
+                    ],
+                    [
+                        57.78900628001548,
+                        -5.815522499752793
+                    ],
+                    [
+                        58.48761390159887,
+                        -5.963053645209813
+                    ],
+                    [
+                        58.90912525459199,
+                        -6.051603025243481
+                    ],
+                    [
+                        59.97525658197813,
+                        -6.273972216385668
+                    ],
+                    [
+                        59.87008244643952,
+                        -6.786581306569863
+                    ],
+                    [
+                        59.76529863634089,
+                        -7.299194543158716
+                    ],
+                    [
+                        59.66089537152271,
+                        -7.811809833541739
+                    ],
+                    [
+                        59.55686298156568,
+                        -8.324425112205951
+                    ],
+                    [
+                        58.48451282437538,
+                        -8.105381798642128
+                    ],
+                    [
+                        58.06063042336413,
+                        -8.017949598584254
+                    ],
+                    [
+                        57.35820230767394,
+                        -7.872022782106201
+                    ],
+                    [
+                        57.34160556773446,
+                        -7.868559318150857
+                    ],
+                    [
+                        57.44904672014834,
+                        -7.354439724072081
+                    ],
+                    [
+                        57.55666860798374,
+                        -6.840309517750187
+                    ],
+                    [
+                        57.6644821172492,
+                        -6.326170592435065
+                    ],
+                    [
+                        57.77249817081608,
+                        -5.812024859276927
+                    ]
+                ]
+            ]
+        ],
+        "type": "multipolygon"
+    },
+    "metadata": {
+        "BeamName": "L_40_DH_05_DH",
+        "CycleNumber": 1,
+        "DataSource": "mixed",
+        "FrameCoverage": "full",
+        "RelativeOrbitNumber": 16,
+        "TrackFrame": 92,
+        "TrackFramePolygon": {
+            "coordinates": [
+                [
+                    [
+                        [
+                            57.77249817081608,
+                            -5.812024859276927
+                        ],
+                        [
+                            57.78900628001548,
+                            -5.815522499752793
+                        ],
+                        [
+                            58.48761390159887,
+                            -5.963053645209813
+                        ],
+                        [
+                            58.90912525459199,
+                            -6.051603025243481
+                        ],
+                        [
+                            59.97525658197813,
+                            -6.273972216385668
+                        ],
+                        [
+                            59.87008244643952,
+                            -6.786581306569863
+                        ],
+                        [
+                            59.76529863634089,
+                            -7.299194543158716
+                        ],
+                        [
+                            59.66089537152271,
+                            -7.811809833541739
+                        ],
+                        [
+                            59.55686298156568,
+                            -8.324425112205951
+                        ],
+                        [
+                            58.48451282437538,
+                            -8.105381798642128
+                        ],
+                        [
+                            58.06063042336413,
+                            -8.017949598584254
+                        ],
+                        [
+                            57.35820230767394,
+                            -7.872022782106201
+                        ],
+                        [
+                            57.34160556773446,
+                            -7.868559318150857
+                        ],
+                        [
+                            57.44904672014834,
+                            -7.354439724072081
+                        ],
+                        [
+                            57.55666860798374,
+                            -6.840309517750187
+                        ],
+                        [
+                            57.6644821172492,
+                            -6.326170592435065
+                        ],
+                        [
+                            57.77249817081608,
+                            -5.812024859276927
+                        ]
+                    ]
+                ]
+            ],
+            "type": "MultiPolygon"
+        },
+        "force_submit": false,
+        "found_l0b_rrsds": [
+            "NISAR_L0_PR_RRSD_001_001_D_137S_20220108T084852_20220108T084956_D00200_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_137S_20220108T084852_20220108T084956_D00200_M_001.h5",
+            "NISAR_L0_PR_RRSD_001_001_D_137S_20220108T084956_20220108T085136_D00200_M_001.h5",
+            "NISAR_L0_UR_RRSD_001_001_D_137S_20220108T084956_20220108T085136_D00200_M_001.h5"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "l0b_rrsd_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_137S_20220108T084852_20220108T084956_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_137S_20220108T084852_20220108T084956_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/L0B_L_RRSD/2022/01/08/NISAR_L0_PR_RRSD_001_001_D_137S_20220108T084956_20220108T085136_D00200_M_001",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/ur_products/L0B_L_RRSD/2022/01/08/NISAR_L0_UR_RRSD_001_001_D_137S_20220108T084956_20220108T085136_D00200_M_001"
+        ],
+        "processing_end_time": "2022-01-08T08:50:05.698318Z",
+        "processing_start_time": "2022-01-08T08:49:31.231407Z",
+        "submitted_by_timer": null,
+        "track_frame_begin_time": "2022-01-08T08:49:31.231407Z",
+        "track_frame_db_info": {
+            "crossesDateline": false,
+            "cycle": 1,
+            "endAX": 3109.6916543245316,
+            "endCY": 93005.69834029675,
+            "endET": 694405403.4208376,
+            "end_time_utc": "2022-01-08T08:50:05.698318Z",
+            "epsg": 32740,
+            "fractionLand": 0.0,
+            "frame": 92,
+            "hasLand": false,
+            "hasSeaIce": false,
+            "isCalVal": false,
+            "isDNC": false,
+            "isSNWG": false,
+            "maxTopo": 0.0,
+            "meanTopo": 0.0,
+            "medianTopo": 0.0,
+            "minTopo": 0.0,
+            "passDirection": "Descending",
+            "satelliteHeight": 754457.3026333125,
+            "satelliteLat": -6.000063136531192,
+            "satelliteLon": 53.640897542905144,
+            "startAX": 3075.224743247032,
+            "startCY": 92971.23142921925,
+            "startET": 694405368.9539266,
+            "start_time_utc": "2022-01-08T08:49:31.231407Z",
+            "swathFarLookAngle": 41.1,
+            "swathFarRange": 1051330.9892174206,
+            "swathNearLookAngle": 29.9,
+            "swathNearRange": 887787.6574655236,
+            "track": 16,
+            "velocityAlongTrack": 7569.991197921503,
+            "velocityVertical": 13.23883132122211
+        },
+        "track_frame_end_time": "2022-01-08T08:50:05.698318Z"
+    },
+    "objectid": "track_frame_001_016_092_full_mixed_L_40_DH_05_DH_0_state-config",
+    "prov": {
+        "wasGeneratedBy": "task_id:a3e19d09-a82e-44fa-a197-ec229989037f"
+    },
+    "starttime": "2022-01-08T08:49:31.231407Z",
+    "system_version": "1",
+    "temporal_span": 0,
+    "urls": [],
+    "version": "1"
+}

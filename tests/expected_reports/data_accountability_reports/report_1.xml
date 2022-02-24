@@ -1,14 +1,14 @@
 <DATA_ACCOUNTABILITY_REPORT>
 	<header>
-		<time_of_report>2021-08-03T20:07:27</time_of_report>
-		<data_recieved_time_range>20210703T000000-20210803T235900</data_recieved_time_range>
+		<time_of_report>2021-12-09T16:26:07</time_of_report>
+		<data_recieved_time_range>20210101T000000-20250101T235900</data_recieved_time_range>
 		<crid/>
 		<venue>local</venue>
 		<processing_mode/>
-		<total_incoming_data_files>102</total_incoming_data_files>
-		<total_incoming_data_volume>2460252</total_incoming_data_volume>
-		<total_products_produced_files>513</total_products_produced_files>
-		<total_products_produced_volume>828048</total_products_produced_volume>
+		<total_incoming_data_files>120</total_incoming_data_files>
+		<total_incoming_data_volume>2596662</total_incoming_data_volume>
+		<total_products_produced_files>518</total_products_produced_files>
+		<total_products_produced_volume>833168</total_products_produced_volume>
 	</header>
 	<daac_outgoing_products>
 		<item>
@@ -53,8 +53,8 @@
 		</item>
 		<item>
 			<name>L0A_L_RRST</name>
-			<products_delivered>11</products_delivered>
-			<volume>11264</volume>
+			<products_delivered>12</products_delivered>
+			<volume>12288</volume>
 		</item>
 		<item>
 			<name>L0B_L_RRSD</name>
@@ -63,44 +63,44 @@
 		</item>
 		<item>
 			<name>L0B_L_CRSD</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>19</products_delivered>
+			<volume>19456</volume>
 		</item>
 		<item>
 			<name>L1_L_RSLC</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>98</products_delivered>
+			<volume>100352</volume>
 		</item>
 		<item>
 			<name>L1_L_RIFG</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>1</products_delivered>
+			<volume>1024</volume>
 		</item>
 		<item>
 			<name>L1_L_RUNW</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>1</products_delivered>
+			<volume>1024</volume>
 		</item>
 		<item>
 			<name>L2_L_GSLC</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>100</products_delivered>
+			<volume>102400</volume>
 		</item>
 		<item>
 			<name>L2_L_GCOV</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>100</products_delivered>
+			<volume>102400</volume>
 		</item>
 		<item>
 			<name>L2_L_GUNW</name>
-			<products_delivered>0</products_delivered>
-			<volume>0</volume>
+			<products_delivered>1</products_delivered>
+			<volume>1024</volume>
 		</item>
 	</daac_outgoing_products>
 	<generated_sds_products>
 		<item>
 			<name>LDF_STATE_CONFIG</name>
-			<files_produced>11</files_produced>
+			<files_produced>12</files_produced>
 			<volume>0</volume>
 		</item>
 		<item>
@@ -115,7 +115,7 @@
 		</item>
 		<item>
 			<name>DATATAKE_EXPIRED_STATE_CONFIG</name>
-			<files_produced>3</files_produced>
+			<files_produced>2</files_produced>
 			<volume>0</volume>
 		</item>
 		<item>
@@ -135,13 +135,13 @@
 		</item>
 		<item>
 			<name>L0A_L_RRST_PP</name>
-			<files_produced>11</files_produced>
-			<volume>11264</volume>
+			<files_produced>12</files_produced>
+			<volume>12288</volume>
 		</item>
 		<item>
 			<name>L0A_L_RRST</name>
-			<files_produced>12</files_produced>
-			<volume>453264</volume>
+			<files_produced>13</files_produced>
+			<volume>454288</volume>
 		</item>
 		<item>
 			<name>L0B_L_RRSD</name>
@@ -160,13 +160,13 @@
 		</item>
 		<item>
 			<name>L1_L_RIFG</name>
-			<files_produced>0</files_produced>
-			<volume>0</volume>
+			<files_produced>1</files_produced>
+			<volume>1024</volume>
 		</item>
 		<item>
 			<name>L1_L_RUNW</name>
-			<files_produced>0</files_produced>
-			<volume>0</volume>
+			<files_produced>1</files_produced>
+			<volume>1024</volume>
 		</item>
 		<item>
 			<name>L2_L_GSLC</name>
@@ -180,32 +180,32 @@
 		</item>
 		<item>
 			<name>L2_L_GUNW</name>
-			<files_produced>0</files_produced>
-			<volume>0</volume>
+			<files_produced>1</files_produced>
+			<volume>1024</volume>
 		</item>
 	</generated_sds_products>
 	<incoming_nen_products>
 		<item>
 			<name>NEN_L_RRST</name>
-			<num_ingested>41</num_ingested>
-			<volume>1226105</volume>
+			<num_ingested>43</num_ingested>
+			<volume>1285915</volume>
 		</item>
 		<item>
 			<name>LDF</name>
-			<num_ingested>6</num_ingested>
-			<volume>3844</volume>
+			<num_ingested>12</num_ingested>
+			<volume>12195</volume>
 		</item>
 		<item>
 			<name>ARP</name>
-			<num_ingested>4</num_ingested>
-			<volume>177</volume>
+			<num_ingested>5</num_ingested>
+			<volume>221</volume>
 		</item>
 	</incoming_nen_products>
 	<incoming_gds_products>
 		<item>
 			<name>COP</name>
 			<num_ingested>3</num_ingested>
-			<volume>281720</volume>
+			<volume>283070</volume>
 		</item>
 		<item>
 			<name>TIURDROP</name>

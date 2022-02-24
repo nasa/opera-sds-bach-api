@@ -82,6 +82,9 @@
         "endtime": {
           "type": "date"
         },
+        "expiration_time": {
+          "type": "date"
+        },
         "id": {
           "copy_to": [
             "text_fields"
@@ -140,9 +143,6 @@
               },
               "norms": false,
               "type": "text"
-            },
-            "expiration_time": {
-              "type": "date"
             },
             "force_submit": {
               "type": "boolean"

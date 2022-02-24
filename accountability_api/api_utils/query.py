@@ -2,16 +2,18 @@
 #     get_orbit_range_list,
 #     ElasticsearchResultDictWrapper,
 # )
-from accountability_api.api_utils import GRQ_ES, JOBS_ES
-from accountability_api.api_utils import metadata as consts
-from accountability_api.api_utils.processing import format_downlink_data, format_data
+import os
 import logging
 import traceback
 import json
 
-# import copy
-# from pandas import DataFrame as df
-# import requests
+from accountability_api.api_utils import GRQ_ES, JOBS_ES
+from accountability_api.api_utils import metadata as consts
+from accountability_api.api_utils.processing import (
+    format_downlink_data,
+    format_track_frame_data,
+    format_l0b_data,
+)
 
 LOGGER = logging.getLogger()
 
@@ -26,10 +28,7 @@ def run_query(
     index=consts.PRODUCTS_INDEX,
     **kwargs
 ):
-    # headers= {"content-type": "application/json"}
-    # pdb.set_trace()
-    # response = requests.post("http://" + GRQ_ES_URL + "/_search", data=body, headers=headers)
-    # return json.loads(response.text)
+
     if sort:
         if q and body is None:
             return es.search(
@@ -186,13 +185,13 @@ def _construct_sub_filter(field_name, start=None, stop=None, sub_filter={}):
             field_name=field_name, start_value=start, stop_value=stop
         )
     elif start and stop is None:
-        current_filter = [_construct_range_query(
-            field_name=field_name, operator="gte", value=start
-        )]
+        current_filter = [
+            _construct_range_query(field_name=field_name, operator="gte", value=start)
+        ]
     elif stop and start is None:
-        current_filter = [_construct_range_query(
-            field_name=field_name, operator="lte", value=stop
-        )]
+        current_filter = [
+            _construct_range_query(field_name=field_name, operator="lte", value=stop)
+        ]
 
     if len(current_filter) > 0:
         sub_filter["and"] = current_filter
@@ -214,7 +213,7 @@ def add_range_filter(query=None, time_key=None, start=None, stop=None):
 
 
 def add_query_find(query=None, field_name=None, value=None):
-    new_filter = {"term": {field_name: value}}
+    new_filter = {"match": {field_name: value}}
     query["query"]["bool"]["should"].append(new_filter)
     return query
 
@@ -254,11 +253,11 @@ def get_downlink_data(
     LOGGER.debug(
         "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
     )
-    index = consts.ACCOUNTABILITY_INDEXES["DOWNLINK"]
+    index = consts.ANCILLARY_INDEXES["LDF"]
     filter_path = ["hits.hits._id", "hits.hits._source"]
     query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}, "_source": []}
 
-    sort = "last_modified:desc"
+    sort = "creation_timestamp:desc"
     try:
         if start and end:
             # add created_at range filter
@@ -273,23 +272,21 @@ def get_downlink_data(
             query = add_range_filter(
                 query=query, time_key=time_key, start=None, stop=end
             )
-        if work_start and work_end:
-            query = add_range_filter(
-                query=query, time_key="created_at", start=work_start, stop=work_end
-            )
-        elif work_start:
-            query = add_range_filter(
-                query=query, time_key="created_at", start=work_start, stop=None
-            )
-        elif work_end:
-            query = add_range_filter(
-                query=query, time_key="created_at", start=None, stop=work_end
-            )
+        # if work_start and work_end:
+        #     query = add_range_filter(
+        #         query=query, time_key="created_at", start=work_start, stop=work_end
+        #     )
+        # elif work_start:
+        #     query = add_range_filter(
+        #         query=query, time_key="created_at", start=work_start, stop=None
+        #     )
+        # elif work_end:
+        #     query = add_range_filter(
+        #         query=query, time_key="created_at", start=None, stop=work_end
+        #     )
 
         if vcid:
-            query = add_query_filter(
-                query=query, field_name="vcid", value=vcid
-            )
+            query = add_query_filter(query=query, field_name="vcid", value=vcid)
 
         if ldf_filename:
             query = add_query_filter(
@@ -301,12 +298,12 @@ def get_downlink_data(
             # add obs_id filter
 
             obs_query = add_query_filter(
-                query=obs_query, field_name="observation_ids", value=obs_id
+                query=obs_query, field_name="metadata.observation_ids", value=obs_id
             )
 
             obs_results = (
                 run_query(
-                    index=consts.ACCOUNTABILITY_INDEXES["OBSERVATION"],
+                    index=consts.PRODUCT_INDEXES["DATATAKE_STATE_CONFIGS"],
                     sort=sort,
                     size=size,
                     body=obs_query,
@@ -318,26 +315,132 @@ def get_downlink_data(
 
             for result in obs_results:
                 source = result["_source"]
-                if "L0A_L_RRST_ids" in source and len(source["L0A_L_RRST_ids"]) > 1:
-                    for l0a in source["L0A_L_RRST_ids"]:
+                metadata = source["metadata"]
+                if (
+                    "l0a_rrst_product_paths" in metadata
+                    and len(metadata["l0a_rrst_product_paths"]) > 0
+                ):
+                    for l0a in metadata["l0a_rrst_product_paths"]:
                         query = add_query_filter(
-                            query=query, field_name="L0A_L_RRST_id", value=l0a
+                            query=query,
+                            field_name="L0A_L_RRST_id",
+                            value=os.path.basename(l0a),
                         )
-        result = run_query(
-            index=consts.ACCOUNTABILITY_INDEXES["DOWNLINK"],
-            sort=sort,
-            size=size,
-            body=query,
-            **kwargs
-        )
+        result = run_query(index=index, sort=sort, size=size, body=query, **kwargs)
 
         # Remove this when the orbit status is fixed
         tmpresult = result.get("hits").get("hits")
-        if len(tmpresult) == 0:
-            return []
-        #
-        formatted_results = format_downlink_data(tmpresult)
-        return formatted_results
+        ldf_tree = {}
+        for entry in tmpresult:
+            ldf = entry["_source"]["id"]
+            workflow_start = entry["_source"]["creation_timestamp"]
+            state_config_results = run_query(
+                index="grq_*_ldf-*",
+                body={
+                    "query": {
+                        "bool": {
+                            "must": [
+                                {"match": {"metadata.ldf_name": ldf.split("_LDF")[0]}}
+                            ]
+                        }
+                    }
+                },
+            )
+            # print(state_config_results)
+            results = list(
+                map(
+                    lambda x: (x["_id"], x["_source"]),
+                    state_config_results["hits"]["hits"],
+                )
+            )
+            for state_config, sc_source in results:
+                state_config_results = run_query(
+                    index=consts.PRODUCT_INDEXES["L0A_L_RRST"],
+                    body={
+                        "query": {
+                            "bool": {
+                                "must": [
+                                    {
+                                        "match": {
+                                            "metadata.accountability.L0A_L_RRST_PP.trigger_dataset_ids": state_config
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                )
+                # print(ldf)
+                # print(state_config_results)
+                if len(state_config_results["hits"]["hits"]) == 0:
+                    ldf_tree[ldf] = {
+                        "workflow_start": workflow_start,
+                        state_config: {state_config: sc_source},
+                    }
+                else:
+                    for res in state_config_results["hits"]["hits"]:
+                        source = res["_source"]
+                        if ldf not in ldf_tree:
+                            ldf_tree[ldf] = {
+                                "workflow_start": workflow_start,
+                                state_config: {
+                                    source["metadata"]["accountability"][
+                                        "L0A_L_RRST_PP"
+                                    ]["outputs"][0]: source
+                                },
+                            }
+                        elif state_config not in ldf_tree[ldf]:
+                            ldf_tree[ldf] = {
+                                "workflow_start": workflow_start,
+                                state_config: {
+                                    source["metadata"]["accountability"][
+                                        "L0A_L_RRST_PP"
+                                    ]["outputs"][0]: source
+                                },
+                            }
+                        else:
+                            ldf_tree[ldf][state_config][
+                                source["metadata"]["accountability"]["L0A_L_RRST_PP"][
+                                    "outputs"
+                                ][0]
+                            ] = source
+                            ldf_tree[ldf]["workflow_start"] = workflow_start
+                    state_config_results = run_query(
+                        index=consts.PRODUCT_INDEXES["L0A_L_RRST_PP"],
+                        body={
+                            "query": {
+                                "bool": {
+                                    "must": [
+                                        {
+                                            "match": {
+                                                "metadata.accountability.L0A_L_RRST_PP.trigger_dataset_id": state_config
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                    )
+                    for res in state_config_results["hits"]["hits"]:
+                        source = res["_source"]
+                        if ldf not in ldf_tree:
+                            ldf_tree[ldf] = {
+                                "workflow_start": workflow_start,
+                                state_config: {source["id"]: source},
+                            }
+                        elif state_config not in ldf_tree[ldf]:
+                            ldf_tree[ldf] = {
+                                "workflow_start": workflow_start,
+                                state_config: {source["id"]: source},
+                            }
+                        elif source["id"] in ldf_tree[ldf][state_config]:
+                            continue
+                        else:
+                            ldf_tree[ldf][state_config][source["id"]] = source
+                            ldf_tree[ldf]["workflow_start"] = workflow_start
+            # print(ldf_tree)
+        resulting_data = format_downlink_data(ldf_tree)
+        return resulting_data
     except Exception as e:
         LOGGER.error("Error occurred while getting LDFs: {}".format(e))
         LOGGER.error(traceback.format_exc())
@@ -365,13 +468,14 @@ def get_obs_data(
     LOGGER.debug(
         "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
     )
-    index = consts.ACCOUNTABILITY_INDEXES["OBSERVATION"]
+    index = consts.PRODUCT_INDEXES["DATATAKE_STATE_CONFIGS"]
     filter_path = ["hits.hits._id", "hits.hits._source"]
     query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}}
 
-    sort = "last_modified:desc"
+    sort = "creation_time:desc"
     _filter = {}
     # sort = ""
+    datatake_state_configs = []
     try:
         # add datetime filters
         if start and end:
@@ -386,62 +490,210 @@ def get_obs_data(
             query = add_range_filter(
                 query=query, time_key=time_key, start=None, stop=end
             )
-        if obs_start:
-            query = add_range_filter(
-                query=query, time_key="ref_start_datetime_iso", start=obs_start, stop=None
+        datatake_state_configs = (
+            run_query(index=index, sort=sort, size=size, body=query, **kwargs)
+            .get("hits")
+            .get("hits")
+        )
+    except Exception as e:
+        LOGGER.error("Error occurred while getting Observations: {}".format(e))
+        LOGGER.error(traceback.format_exc())
+        return []
+
+    results = {}
+
+    for dt_state_config in datatake_state_configs:
+        last_modified = dt_state_config["_source"]["@timestamp"]
+        id = dt_state_config["_source"]["metadata"]["datatake_id"]
+        obs_ids = dt_state_config["_source"]["metadata"]["observation_ids"]
+        l0b_query = {"query": {"bool": {"should": []}}}
+        if id not in results:
+            results[id] = {}
+        for obs_id in obs_ids:
+            results[id][obs_id] = {}
+            l0b_query["query"]["bool"]["should"].append(
+                {"match": {"metadata.OBS_ID": obs_id}}
             )
-        if obs_end:
-            query = add_range_filter(
-                query=query, time_key="ref_end_datetime_iso", start=None, stop=obs_end
+        l0b_results = (
+            run_query(index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=l0b_query)
+            .get("hits")
+            .get("hits")
+        )
+
+        for result in l0b_results:
+            obs_id = result["_source"]["metadata"]["OBS_ID"]
+            results[id][obs_id] = result["_source"]
+
+    return format_l0b_data(results)
+
+
+def get_result_ids(results):
+    hits = results.get("hits").get("hits")
+
+    if len(hits) > 0:
+
+        return list(
+            map(
+                lambda x: {
+                    "id": x["_id"],
+                    "track": x["_source"]["metadata"]["accountability"]["L1_L_RSLC"][
+                        "id"
+                    ].split("_")[5]
+                    if "accountability" in x["_source"]["metadata"]
+                    else "",
+                    "frame": x["_source"]["metadata"]["accountability"]["L1_L_RSLC"][
+                        "id"
+                    ].split("_")[7]
+                    if "accountability" in x["_source"]["metadata"]
+                    else "",
+                    "coverage": x["_source"]["metadata"]["accountability"]["L1_L_RSLC"][
+                        "trigger_dataset_id"
+                    ].split("_")[5]
+                    if "accountability" in x["_source"]["metadata"]
+                    else "",
+                },
+                hits,
             )
+        )
+    else:
+        return []
+
+
+def grab_l0b_rrsd_rslc_children(l0b_id, track="", frame=""):
+    index = consts.PRODUCT_INDEXES["L1_L_RSLC"]
+    query = {
+        "query": {
+            "bool": {
+                "must": [
+                    {"match": {"metadata.accountability.L1_L_RSLC.inputs": l0b_id}}
+                ]
+            }
+        }
+    }
+
+    if track:
+        query = add_query_match(
+            query=query, field_name="metadata.RelativeOrbitNumber", value=int(track)
+        )
+
+    if frame:
+        query = add_query_match(
+            query=query, field_name="metadata.FrameNumber", value=int(frame)
+        )
+
+    results = run_query(index=index, body=query)
+
+    return get_result_ids(results)
+
+
+def grab_rslc_children(rslc_id, cycle_sec="", cycle_ref=""):
+    index = "grq_*_l*_l_*"
+    query = {"query": {"bool": {"should": [], "must": []}}}
+
+    for dataset in consts.RSLC_CHILDREN:
+        query = add_query_find(
+            query=query,
+            field_name="metadata.accountability.{}.inputs".format(dataset),
+            value=rslc_id,
+        )
+
+        # if cycle_ref:
+        #     query = add_query_filter(
+        #         query=query, field_name="metadata.ReferenceCycleNumber", value=cycle_ref
+        #     )
+        # if cycle_sec:
+        #     query = add_query_filter(
+        #         query=query, field_name="metadata.SecondaryCycleNumber", value=cycle_sec
+        #     )
+
+    results = run_query(index=index, body=query)
+
+    hits = results.get("hits").get("hits")
+
+    return hits
+
+
+def get_track_frame_data(
+    size=40,
+    cycle_sec=None,
+    cycle_ref=None,
+    track=None,
+    frame=None,
+    obs_id=None,
+    l0b_rrsd_id=None,
+    **kwargs
+):
+    """
+    Gets LDFs status doc by filtering based on the provided criteria. If none are provided it gets all the docs.
+    :param size:
+    :return:
+    """
+    LOGGER.debug(
+        "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
+    )
+    index = consts.PRODUCT_INDEXES["L0B_L_RRSD"]
+    filter_path = ["hits.hits._id", "hits.hits._source"]
+    query = {"query": {"bool": {"must": [{"match": {"_index": index}}]}}}
+
+    sort = "creation_timestamp:desc"
+    _filter = {}
+    # sort = ""
+    try:
+        # this happens during the L0B querys
+        if l0b_rrsd_id:
+            query = add_query_match(query=query, field_name="_id", value=l0b_rrsd_id)
 
         # add obs_id
         if obs_id:
             query = add_query_filter(
-                query=query, field_name="observation_ids", value=obs_id
-            )
-        if dt_id:
-            query = add_query_filter(query=query, field_name="datatake_id", value=dt_id)
-        if processing_type:
-            query = add_query_filter(
-                query=query, field_name="processing_type", value=processing_type
-            )
-        if cycle:
-            L0B_query = {"query": {"bool": {"must": []}}}
-
-            L0B_query = add_query_match(
-                L0B_query, field_name="metadata.CycleNumber", value=cycle
+                query=query, field_name="metadata.OBS_ID", value=obs_id
             )
 
-            l0b_results = (
-                run_query(
-                    index=consts.PRODUCT_INDEXES["L0B_RRSD"],
-                    sort=sort,
-                    size=size,
-                    body=L0B_query,
-                    **kwargs
-                )
-                .get("hits")
-                .get("hits")
-            )
+        l0b_results = run_query(index=index, body=query, sort=sort, size=size, **kwargs)
 
-            for l0b in l0b_results:
-                query = add_query_filter(
-                    query=query, field_name="L0B_L_RRSD_id", value=l0b["_id"]
-                )
+        l0b_tree = {}
+        for entry in l0b_results.get("hits").get("hits"):
+            metadata = entry["_source"]["metadata"]
+            if "OBS_ID" not in metadata:
+                continue
+            obs_id = metadata["OBS_ID"]
+            l0b_id = entry["_id"]
+            if l0b_id not in l0b_tree:
+                l0b_tree[l0b_id] = {
+                    "observation_id": obs_id,
+                    "workflow_start": entry["_source"]["creation_timestamp"],
+                    "L1_L_RSLC": {},
+                }
 
-        result = run_query(
-            index=consts.ACCOUNTABILITY_INDEXES["OBSERVATION"],
-            sort=sort,
-            size=size,
-            body=query,
-            **kwargs
-        )
+                rslcs = grab_l0b_rrsd_rslc_children(l0b_id, track=track, frame=frame)
 
-        # Remove this when the orbit status is fixed
-        tmpresult = result.get("hits").get("hits")
-        #
-        return format_data(tmpresult)
+                for rslc in rslcs:
+                    rslc_id = rslc["id"]
+                    del rslc["id"]
+                    l0b_tree[l0b_id]["L1_L_RSLC"][rslc_id] = rslc
+
+                    children = grab_rslc_children(
+                        rslc_id, cycle_sec=cycle_sec, cycle_ref=cycle_ref
+                    )
+
+                    rslc_dict = l0b_tree[l0b_id]["L1_L_RSLC"]
+
+                    if rslc_id not in rslc_dict:
+                        rslc_dict[rslc_id] = {}
+
+                    for child in children:
+                        source = child["_source"]
+                        dataset = source["dataset"]
+
+                        if dataset not in rslc_dict[rslc_id]:
+                            rslc_dict[rslc_id][dataset] = {}
+
+                        rslc_dict[rslc_id][dataset][child["_id"]] = source
+
+        with open("f.json", "w") as p:
+            json.dump(l0b_tree, p)
+
+        return format_track_frame_data(l0b_tree)
     except Exception as e:
         LOGGER.error("Error occurred while getting Observations: {}".format(e))
         LOGGER.error(traceback.format_exc())
@@ -681,7 +933,9 @@ def get_num_docs(index_dict, start=None, end=None, **kwargs):
         if isinstance(index_dict[name], list):
             for index in index_dict[name]:
                 if index:
-                    docs_count[name] += get_num_docs_in_index(index, start, end, **kwargs)
+                    docs_count[name] += get_num_docs_in_index(
+                        index, start, end, **kwargs
+                    )
         else:
             index = index_dict[name]
             if index:

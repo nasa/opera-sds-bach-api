@@ -127,7 +127,7 @@ class Downlink(Resource):
             start=start_datetime,
             end=end_datetime,
             size=size,
-            time_key="last_modified",
+            time_key="creation_timestamp",
             obs_id=obs_id,
             vcid=vcid,
             ldf_filename=ldf_filename,

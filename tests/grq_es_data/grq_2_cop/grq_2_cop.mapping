@@ -37,6 +37,109 @@
         "creation_timestamp": {
           "type": "date"
         },
+        "daac_CNM_S_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_CNM_S_timestamp": {
+          "type": "date"
+        },
+        "daac_catalog_id": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_catalog_url": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_collection": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_delivery_status": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_identifier": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_process_complete_timestamp": {
+          "type": "date"
+        },
+        "daac_product_file_urls": {
+          "copy_to": [
+            "text_fields"
+          ],
+          "fields": {
+            "keyword": {
+              "ignore_above": 256,
+              "type": "keyword"
+            }
+          },
+          "norms": false,
+          "type": "text"
+        },
+        "daac_received_timestamp": {
+          "type": "date"
+        },
+        "daac_submission_timestamp": {
+          "type": "date"
+        },
         "dataset": {
           "copy_to": [
             "text_fields"

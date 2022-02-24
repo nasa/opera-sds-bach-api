@@ -1,7 +1,8 @@
-# from accountability_api.api_utils.metadata import *
 import logging
 from datetime import datetime, timedelta
 from dateutil import parser
+
+from accountability_api.api_utils import metadata as consts
 
 # from pandas import DataFrame as df
 
@@ -49,31 +50,172 @@ def get_duration(source):
 
 def format_downlink_data(results=None):
     records = []
-    for entry in results:
+    for ldf in results:
+        new_record = {}
         # id = entry.get("_id")
-        entry = entry.get("_source")
-        entry["id"] = entry["ldf_id"]
-        del entry["ldf_id"]
-        duration = get_duration(entry)
-        entry["duration"] = duration.total_seconds() / 60
-        # set end_time as unknown for now
-        entry["end_time"] = "N/A"
-        records.append(entry)
+        new_record["start_time"] = results[ldf]["workflow_start"]
+        if "Z" not in new_record["start_time"]:
+            new_record["start_time"] = "{}Z".format(new_record["start_time"])
+        del results[ldf]["workflow_start"]
+        state_configs = results[ldf]
+        for state_config in results[ldf]:
+            new_record["id"] = ldf
+            i = 0
+            while True:
+                if "@timestamp" not in state_configs[state_config]:
+                    l0a_pps = state_configs[state_config]
+                    for l0a_l_rrst_pp in l0a_pps:
+                        record_copy = new_record.copy()
+                        record_copy["L0A_L_RRST_PP_id"] = l0a_l_rrst_pp
+                        duration = parser.parse(
+                            l0a_pps[l0a_l_rrst_pp]["@timestamp"]
+                        ) - parser.parse(record_copy["start_time"])
+                        if l0a_pps[l0a_l_rrst_pp]["dataset"] == "L0A_L_RRST":
+
+                            record_copy["L0A_L_RRST_id"] = l0a_pps[l0a_l_rrst_pp]["id"]
+                            record_copy["end_time"] = l0a_pps[l0a_l_rrst_pp][
+                                "@timestamp"
+                            ]
+                        else:
+                            record_copy["L0A_L_RRST_id"] = "N/A"
+                            record_copy["end_time"] = "N/A"
+
+                        record_copy["duration"] = duration.total_seconds() / 60
+                        record_copy["vcid"] = l0a_pps[l0a_l_rrst_pp]["metadata"][
+                            "VCID"
+                        ].lower()
+                        record_copy["last_modified"] = l0a_pps[l0a_l_rrst_pp][
+                            "@timestamp"
+                        ]
+                        records.append(record_copy)
+                    # process as l0a_l_rrst_pp
+                else:
+                    state_config_dict = state_configs[state_config]
+                    record_copy = new_record.copy()
+                    duration = parser.parse(
+                        state_config_dict["@timestamp"]
+                    ) - parser.parse(record_copy["start_time"])
+                    record_copy["vcid"] = state_config_dict["metadata"]["vcid"]
+                    record_copy["end_time"] = "N/A"
+                    record_copy["duration"] = duration.total_seconds() / 60
+                    record_copy["last_modified"] = state_config_dict["@timestamp"]
+                    records.append(record_copy)
+                i += 1
+                if i < len(state_configs):
+                    continue
+                else:
+                    break
     return records
 
 
-def format_data(results=None):
+def format_l0b_data(results=None):
+    data = []
     if results is not None:
-        data = []
         for result in results:
-            cleaned = {
-                "id": result["_id"],
-            }
+            entry = {}
+            entry["datatake_id"] = result
+            obs_results = results[result]
+            for obs_id in obs_results:
+                entry_copy = entry.copy()
+                entry_copy["id"] = "{}-{}".format(result, obs_id)
+                entry_copy["observation_id"] = obs_id
+                if obs_results[obs_id]:
+                    entry_copy["CompositeReleaseID"] = obs_results[obs_id]["metadata"][
+                        "CompositeReleaseID"
+                    ]
+                    entry_copy["CycleNumber"] = obs_results[obs_id]["metadata"][
+                        "CycleNumber"
+                    ]
+                    entry_copy["RangeStartDateTime"] = obs_results[obs_id]["metadata"][
+                        "ObservationStartDateTime"
+                    ]
+                    entry_copy["RangeStopDateTime"] = obs_results[obs_id]["metadata"][
+                        "ObservationEndDateTime"
+                    ]
+                    entry_copy["last_modified"] = obs_results[obs_id][
+                        "creation_timestamp"
+                    ]
+                    data.append(entry_copy)
+            del entry_copy
+    return data
 
-            cleaned.update(result["_source"])
-            data.append(cleaned)
-        return data
-    return None
+
+def get_track_frame_entry(l0b_l_rrsd, obs_id, rslc_id, track="", frame="", coverage=""):
+
+    entry = {
+        "id": "{}-{}".format(l0b_l_rrsd, rslc_id),
+        "observation_id": obs_id,
+        "L0B_L_RRSD": l0b_l_rrsd,
+        "L1_L_RSLC": rslc_id,
+        "Track": track,
+        "Frame": frame,
+        "frame_coverage": coverage,
+    }
+
+    return entry
+
+
+def format_track_frame_data(results=None):
+    entries = []
+
+    for l0b_l_rrsd in results:
+        l0b_dict = results[l0b_l_rrsd]
+
+        track = ""
+        frame = ""
+
+        if "L1_L_RSLC" in l0b_dict:
+            if l0b_dict["L1_L_RSLC"]:
+                for l1_rslc in l0b_dict["L1_L_RSLC"]:
+                    if "track" in l0b_dict["L1_L_RSLC"][l1_rslc]:
+                        track = l0b_dict["L1_L_RSLC"][l1_rslc]["track"]
+                        del l0b_dict["L1_L_RSLC"][l1_rslc]["track"]
+
+                    if "frame" in l0b_dict["L1_L_RSLC"][l1_rslc]:
+                        frame = l0b_dict["L1_L_RSLC"][l1_rslc]["frame"]
+                        del l0b_dict["L1_L_RSLC"][l1_rslc]["frame"]
+
+                    if "coverage" in l0b_dict["L1_L_RSLC"][l1_rslc]:
+                        coverage = l0b_dict["L1_L_RSLC"][l1_rslc]["coverage"]
+                        del l0b_dict["L1_L_RSLC"][l1_rslc]["coverage"]
+
+                    rslc_dict = l0b_dict["L1_L_RSLC"][l1_rslc]
+
+                    entry = get_track_frame_entry(
+                        l0b_l_rrsd,
+                        l0b_dict["observation_id"],
+                        l1_rslc,
+                        track=track,
+                        frame=frame,
+                        coverage=coverage,
+                    )
+
+                    for dataset in consts.RSLC_CHILDREN:
+                        if dataset in rslc_dict:
+
+                            keys = list(rslc_dict[dataset].keys())
+
+                            entry[dataset] = rslc_dict[dataset][keys[0]]["id"]
+
+                            if dataset == "L1_L_RIFG":
+                                entry["sec_ref_cycle"] = "{}/{}".format(
+                                    rslc_dict[dataset][keys[0]]["metadata"][
+                                        "SecondaryCycleNumber"
+                                    ],
+                                    rslc_dict[dataset][keys[0]]["metadata"][
+                                        "ReferenceCycleNumber"
+                                    ],
+                                )
+                        else:
+                            entry[dataset] = ""
+                    entries.append(entry)
+        else:
+            entry = get_track_frame_entry(
+                l0b_l_rrsd, l0b_dict["observation_id"], "", track=track, frame=frame
+            )
+            entries.append(entry)
+
+    return entries
 
 
 def seperate_observations(datatakes):

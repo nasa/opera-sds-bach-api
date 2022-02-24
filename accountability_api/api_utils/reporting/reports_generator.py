@@ -14,7 +14,7 @@ class ReportsGenerator:
         self._output_format = mime
 
     def generate_report(
-        self, report_name, report_type="", output_format=None, **kwargs
+        self, report_name, output_format=None, **kwargs
     ):
         # first, we need to convert this report_name to the proper module
         # assuming its the same as the class name
@@ -31,17 +31,15 @@ class ReportsGenerator:
         if not issubclass(cls, Report):
             raise Exception("%s is not of subclass Report" % report_name)
 
-        detailed = False
-        if report_type == "brief" or report_type == "detailed":
-            detailed = report_type == "detailed"
+        # detailed = False
+        # if report_type == "brief" or report_type == "detailed":
+        #     detailed = report_type == "detailed"
 
         report = cls(
             report_name,
             self._start,
             self._end,
-            datetime.utcnow().isoformat(),
-            report_type=report_type,
-            detailed=detailed,
+            datetime.utcnow().isoformat(timespec="milliseconds"),
             **kwargs
         )
         if output_format is not None and output_format != self._output_format:

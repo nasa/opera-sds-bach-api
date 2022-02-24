@@ -57,19 +57,22 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="xml"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="xml"
         )
 
         obs_report = generator.generate_report(
             report_name="ObservationAccountabilityReport", report_type="brief"
         )
 
-        with open("generated_reports/DAR.xml", "w") as f:
-            f.write(obs_report.decode())
+        with open("generated_reports/OAR.xml", "w") as f:
+            if isinstance(obs_report, str):
+                f.write(obs_report)
+            else:
+                f.write(obs_report.decode())
 
         parser = etree.XMLParser(remove_blank_text=True)
-        tree = etree.parse("generated_reports/DAR.xml", parser)
-        tree.write("generated_reports/DAR.xml", pretty_print=True)
+        tree = etree.parse("generated_reports/OAR.xml", parser)
+        tree.write("generated_reports/OAR.xml", pretty_print=True)
 
         obs_report_tree = etree.parse(
             "tests/expected_reports/observation_accountability_reports/report_4.xml",
@@ -124,7 +127,7 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="json"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         incoming_nen_files_report = generator.generate_report(
@@ -188,7 +191,7 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="json"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         incoming_gds_files_report = generator.generate_report(
@@ -254,7 +257,7 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="json"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         generated_sds_products_report = generator.generate_report(
@@ -319,7 +322,7 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="json"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         daac_outgoing_products_report = generator.generate_report(
@@ -384,7 +387,7 @@ class TestReports(unittest.TestCase):
         self.assertTrue(issubclass(cls, Report))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="xml"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         dar_report = generator.generate_report(
@@ -415,7 +418,7 @@ class TestReports(unittest.TestCase):
         self.assertEqual(len(expected_obs), len(actual_obs))
 
         generator = ReportsGenerator(
-            "2021-07-03T00:00:00Z", "2021-08-03T23:59:00Z", mime="json"
+            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
         dar_report = generator.generate_report(

@@ -1,0 +1,48 @@
+{
+    "@timestamp": "2021-11-10T18:07:46.037043495Z",
+    "browse_urls": [],
+    "creation_time": "2021-11-10T18:07:44.872119Z",
+    "dataset": "ldf-state-config",
+    "dataset_level": "state-config",
+    "dataset_type": "ldf-state-config",
+    "expiration_time": "2021-11-10T18:10:44.871745Z",
+    "id": "NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_10_00_000000000_vc35_state-config",
+    "images": [],
+    "ipath": "hysds::data/ldf-state-config",
+    "metadata": {
+        "Antenna": "as4",
+        "Channel": 1,
+        "Group": 1,
+        "Mission": "nisar",
+        "Mode": 0,
+        "Pass": 115,
+        "Receiver": 0,
+        "SCID": 198,
+        "Station": "wff",
+        "force_submit": false,
+        "found_rrsts": [
+            "NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_11_56_000000000.vc35",
+            "NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_13_20_000000000.vc35"
+        ],
+        "is_complete": true,
+        "is_urgent": false,
+        "ldf_name": "NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_10_00_000000000",
+        "missing_rrsts": [],
+        "rrst_product_paths": [
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_11_56_000000000.vc35",
+            "s3://s3-us-west-2.amazonaws.com:80/nisar-dev-rs-fwd-bporeh/products/NEN_L_RRST/2022/008/NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_13_20_000000000.vc35"
+        ],
+        "vcid": "vc35"
+    },
+    "objectid": "NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_10_00_000000000_vc35_state-config",
+    "prov": {
+        "wasDerivedFrom": [
+            "url:s3://s3-us-west-2.amazonaws.com:80/nisar-dev-lts-fwd-bporeh/products/LDF/2022/008/NISAR_S198_WFF_AS4_M00_P00115_R00_C01_G01_2022_008_17_10_00_000000000_LDF"
+        ],
+        "wasGeneratedBy": "task_id:150d5d2b-4e0d-460f-ba08-661cb8ea2ecd"
+    },
+    "starttime": "2022-01-08T17:10:00.000000Z",
+    "system_version": "1",
+    "urls": [],
+    "version": "1"
+}
