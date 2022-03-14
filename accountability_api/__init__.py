@@ -104,9 +104,7 @@ def create_app(object_name):
 
 
 if __name__ == "__main__":
-    # Import the config for the proper environment using the
-    # shell var FLASK_ENV
     env = os.environ.get("FLASK_ENV", "development")
-    app = create_app("accountability_api.settings.%sConfig" % env.capitalize())
+    app = create_app(f"accountability_api.settings.{env.capitalize()}Config")
 
-    app.run()
+    app.run(port=8875)
