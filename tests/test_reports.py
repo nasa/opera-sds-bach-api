@@ -61,12 +61,12 @@ class TestReports(unittest.TestCase):
         )
 
         incoming_nen_files_report = generator.generate_report(
-            report_name=report_name, report_type="nen", output_format="json"
+            report_name=report_name, report_type="sdp", output_format="json"
         )
 
         expected_result = None
         with open(
-            "tests/expected_reports/incoming_files_reports/incoming_nen_files.json", "r"
+            "tests/expected_reports/incoming_files_reports/incoming_sdp_files.json", "r"
         ) as f:
             expected_result = json.loads(f.read())
 
@@ -106,7 +106,7 @@ class TestReports(unittest.TestCase):
                 product["volume"], expected_result_products[product["name"]]["volume"]
             )
 
-    def test_incoming_gds_files_report(self):
+    def test_incoming_ancillary_files_report(self):
         self.assertTrue(issubclass(IncomingFiles, Report))
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
@@ -124,7 +124,7 @@ class TestReports(unittest.TestCase):
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
         )
 
-        incoming_gds_files_report = generator.generate_report(
+        incoming_ancillary_files_report = generator.generate_report(
             report_name="IncomingFiles",
             report_type="ancillary",
             output_format="json",
@@ -132,25 +132,25 @@ class TestReports(unittest.TestCase):
 
         expected_result = None
         with open(
-            "tests/expected_reports/incoming_files_reports/incoming_gds_files.json", "r"
+            "tests/expected_reports/incoming_files_reports/incoming_ancillary_files.json", "r"
         ) as f:
             expected_result = json.loads(f.read())
 
-        incoming_gds_files_report = json.loads(incoming_gds_files_report)
+        incoming_ancillary_files_report = json.loads(incoming_ancillary_files_report)
 
         self.assertEqual(
-            incoming_gds_files_report["root_name"], expected_result["root_name"]
+            incoming_ancillary_files_report["root_name"], expected_result["root_name"]
         )
         self.assertEqual(
-            incoming_gds_files_report["header"]["data_received_time_range"],
+            incoming_ancillary_files_report["header"]["data_received_time_range"],
             expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
-            incoming_gds_files_report["header"]["total_products_produced"],
+            incoming_ancillary_files_report["header"]["total_products_produced"],
             expected_result["header"]["total_products_produced"],
         )
         self.assertEqual(
-            incoming_gds_files_report["header"]["total_data_volume"],
+            incoming_ancillary_files_report["header"]["total_data_volume"],
             expected_result["header"]["total_data_volume"],
         )
 
@@ -162,7 +162,7 @@ class TestReports(unittest.TestCase):
                 "volume": product["volume"],
             }
 
-        for product in incoming_gds_files_report["products"]:
+        for product in incoming_ancillary_files_report["products"]:
             self.assertIn(product["name"], expected_result_products)
             self.assertEqual(
                 product["num_ingested"],
