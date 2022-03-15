@@ -97,7 +97,7 @@ class IncomingFiles(Report):
             "root_name": root_name,
             "header": {
                 "time_of_report": self._creation_time,
-                "data_recieved_time_range": "{}-{}".format(
+                "data_received_time_range": "{}-{}".format(
                     utils.split_extra_except_t(self._start_datetime),
                     utils.split_extra_except_t(self._end_datetime),
                 ),

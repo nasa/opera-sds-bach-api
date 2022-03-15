@@ -1,7 +1,7 @@
 <DATA_ACCOUNTABILITY_REPORT>
 	<header>
 		<time_of_report>2021-12-09T16:26:07</time_of_report>
-		<data_recieved_time_range>20210101T000000-20250101T235900</data_recieved_time_range>
+		<data_received_time_range>20210101T000000-20250101T235900</data_received_time_range>
 		<crid/>
 		<venue>local</venue>
 		<processing_mode/>

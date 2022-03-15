@@ -42,76 +42,6 @@ class TestReports(unittest.TestCase):
     def test_report_class(self):
         return
 
-    def test_observation_accountability_report_1(self):
-        self.assertTrue(issubclass(ObservationAccountabilityReport, Report))
-
-        # make sure all reports are subclasses of the Report class when getting importing via the import_module
-
-        report_name = "ObservationAccountabilityReport"
-        module_path = re.sub(r"(?<!^)(?=[A-Z])", "_", report_name).lower()
-
-        module = import_module("accountability_api.api_utils.reporting." + module_path)
-
-        cls = getattr(module, report_name)
-
-        self.assertTrue(issubclass(cls, Report))
-
-        generator = ReportsGenerator(
-            "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="xml"
-        )
-
-        obs_report = generator.generate_report(
-            report_name="ObservationAccountabilityReport", report_type="brief"
-        )
-
-        with open("generated_reports/OAR.xml", "w") as f:
-            if isinstance(obs_report, str):
-                f.write(obs_report)
-            else:
-                f.write(obs_report.decode())
-
-        parser = etree.XMLParser(remove_blank_text=True)
-        tree = etree.parse("generated_reports/OAR.xml", parser)
-        tree.write("generated_reports/OAR.xml", pretty_print=True)
-
-        obs_report_tree = etree.parse(
-            "tests/expected_reports/observation_accountability_reports/report_4.xml",
-            parser,
-        )
-
-        expected_obs_root = obs_report_tree.getroot()
-        actual_obs_root = tree.getroot()
-
-        expected_obs = expected_obs_root.findall("OBSERVATION")
-        actual_obs = actual_obs_root.findall("OBSERVATION")
-
-        expected_obs = sort_observations(expected_obs)
-        actual_obs = sort_observations(actual_obs)
-
-        self.assertEqual(len(expected_obs), len(actual_obs))
-
-        for i in range(0, len(expected_obs)):
-            expected = expected_obs[i]
-            actual = actual_obs[i]
-            # get OBS_ID
-            expected_obs_id = expected.find("OBS_ID").text
-            actual_obs_id = actual.find("OBS_ID").text
-            # get PRODUCT_SIZE
-            expected_prod_size = expected.find("PRODUCT_SIZE").text
-            actual_prod_size = actual.find("PRODUCT_SIZE").text
-            # get PERCENT_COMPLETE
-            expected_prc_compl = expected.find("PERCENT_COMPLETE").text
-            actual_prc_compl = actual.find("PERCENT_COMPLETE").text
-            # get COMPLETENESS
-            expected_completeness = expected.find("COMPLETENESS").text
-            actual_completeness = actual.find("COMPLETENESS").text
-
-            # assert equal
-            self.assertEqual(expected_obs_id, actual_obs_id)
-            self.assertEqual(expected_prod_size, actual_prod_size)
-            self.assertEqual(expected_prc_compl, actual_prc_compl)
-            self.assertEqual(expected_completeness, actual_completeness)
-
     def test_incoming_nen_files_report(self):
         self.assertTrue(issubclass(IncomingFiles, Report))
 
@@ -120,7 +50,7 @@ class TestReports(unittest.TestCase):
         report_name = "IncomingFiles"
         module_path = re.sub(r"(?<!^)(?=[A-Z])", "_", report_name).lower()
 
-        module = import_module("accountability_api.api_utils.reporting." + module_path)
+        module = import_module(f"accountability_api.api_utils.reporting.{module_path}")
 
         cls = getattr(module, report_name)
 
@@ -146,8 +76,8 @@ class TestReports(unittest.TestCase):
             incoming_nen_files_report["root_name"], expected_result["root_name"]
         )
         self.assertEqual(
-            incoming_nen_files_report["header"]["data_recieved_time_range"],
-            expected_result["header"]["data_recieved_time_range"],
+            incoming_nen_files_report["header"]["data_received_time_range"],
+            expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
             incoming_nen_files_report["header"]["total_products_produced"],
@@ -212,8 +142,8 @@ class TestReports(unittest.TestCase):
             incoming_gds_files_report["root_name"], expected_result["root_name"]
         )
         self.assertEqual(
-            incoming_gds_files_report["header"]["data_recieved_time_range"],
-            expected_result["header"]["data_recieved_time_range"],
+            incoming_gds_files_report["header"]["data_received_time_range"],
+            expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
             incoming_gds_files_report["header"]["total_products_produced"],
@@ -277,8 +207,8 @@ class TestReports(unittest.TestCase):
             generated_sds_products_report["root_name"], expected_result["root_name"]
         )
         self.assertEqual(
-            generated_sds_products_report["header"]["data_recieved_time_range"],
-            expected_result["header"]["data_recieved_time_range"],
+            generated_sds_products_report["header"]["data_received_time_range"],
+            expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
             generated_sds_products_report["header"]["total_products_produced"],
@@ -342,8 +272,8 @@ class TestReports(unittest.TestCase):
             daac_outgoing_products_report["root_name"], expected_result["root_name"]
         )
         self.assertEqual(
-            daac_outgoing_products_report["header"]["data_recieved_time_range"],
-            expected_result["header"]["data_recieved_time_range"],
+            daac_outgoing_products_report["header"]["data_received_time_range"],
+            expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
             daac_outgoing_products_report["header"]["total_products_produced"],
@@ -436,8 +366,8 @@ class TestReports(unittest.TestCase):
 
         self.assertEqual(dar_report["root_name"], expected_result["root_name"])
         self.assertEqual(
-            dar_report["header"]["data_recieved_time_range"],
-            expected_result["header"]["data_recieved_time_range"],
+            dar_report["header"]["data_received_time_range"],
+            expected_result["header"]["data_received_time_range"],
         )
         self.assertEqual(
             dar_report["header"]["total_incoming_data_files"],
