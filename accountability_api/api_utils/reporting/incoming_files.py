@@ -10,7 +10,7 @@ class IncomingFiles(Report):
     """
 
     def __init__(
-        self, title, start_date, end_date, timestamp, report_type="nen", **kwargs
+        self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs
     ):
         super(IncomingFiles, self).__init__(
             title, start_date, end_date, timestamp, **kwargs
@@ -33,12 +33,11 @@ class IncomingFiles(Report):
 
         indexes = {}
 
-        if self._report_type == "nen":
-            indexes = consts.INCOMING_NEN_PRODUCTS
+        if self._report_type == "sdp":
+            indexes = consts.INCOMING_SDP_PRODUCTS
         elif self._report_type == "gds_ancillary":
             indexes = consts.INCOMING_GDS_ANCILLARY_FILES
 
-        # Go through each index in the incoming_nen_products indexes
         products = []
 
         total_products_produced = 0
@@ -88,8 +87,8 @@ class IncomingFiles(Report):
 
     def get_dict_format(self):
         root_name = ""
-        if self._report_type == "nen":
-            root_name = "INCOMING_NEN_PRODUCTS_REPORT"
+        if self._report_type == "sdp":
+            root_name = "INCOMING_SDP_PRODUCTS_REPORT"
         elif self._report_type == "gds_ancillary":
             root_name = "INCOMING_GDS_PRODUCTS_REPORT"
 

@@ -34,8 +34,7 @@ ACCOUNTABILITY_INDEXES = {
     "TRACK_FRAME": "track_frame_accountability_catalog"
 }
 
-# TODO chrisjrd: rename
-INCOMING_NEN_PRODUCTS = {
+INCOMING_SDP_PRODUCTS = {
     "HLS_L30": "grq_1_l2_hls_l30",
     "HLS_S30": "grq_1_l2_hls_s30"
 }
