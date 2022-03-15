@@ -35,8 +35,8 @@ class IncomingFiles(Report):
 
         if self._report_type == "sdp":
             indexes = consts.INCOMING_SDP_PRODUCTS
-        elif self._report_type == "gds_ancillary":
-            indexes = consts.INCOMING_GDS_ANCILLARY_FILES
+        elif self._report_type == "ancillary":
+            indexes = consts.INCOMING_ANCILLARY_FILES
 
         products = []
 
@@ -89,8 +89,8 @@ class IncomingFiles(Report):
         root_name = ""
         if self._report_type == "sdp":
             root_name = "INCOMING_SDP_PRODUCTS_REPORT"
-        elif self._report_type == "gds_ancillary":
-            root_name = "INCOMING_GDS_PRODUCTS_REPORT"
+        elif self._report_type == "ancillary":
+            root_name = "INCOMING_ANCILLARY_PRODUCTS_REPORT"
 
         return {
             "root_name": root_name,

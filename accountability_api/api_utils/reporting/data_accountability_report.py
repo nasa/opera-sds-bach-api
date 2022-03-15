@@ -58,7 +58,7 @@ class DataAccountabilityReport(Report):
             self._start_datetime,
             self._end_datetime,
             self._creation_time,
-            report_type="gds_ancillary",
+            report_type="ancillary",
         )
 
         reports = {}
@@ -66,7 +66,7 @@ class DataAccountabilityReport(Report):
         reports["daac_outgoing_products"] = DOP_report._get_daac_outgoing_products()
         reports["generated_sds_products"] = GSP_report._get_generated_products()
         reports["incoming_nen_products"] = IFN_report._get_incoming_products()
-        reports["incoming_gds_products"] = IFG_report._get_incoming_products()
+        reports["incoming_ancillary_products"] = IFG_report._get_incoming_products()
 
         self._total_incoming_data_file_num += (
             IFN_report._total_incoming_data_file_num
@@ -103,7 +103,7 @@ class DataAccountabilityReport(Report):
             "daac_outgoing_products": self._reports["daac_outgoing_products"],
             "generated_sds_products": self._reports["generated_sds_products"],
             "incoming_nen_products": self._reports["incoming_nen_products"],
-            "incoming_gds_products": self._reports["incoming_gds_products"],
+            "incoming_ancillary_products": self._reports["incoming_ancillary_products"],
         }
 
     def get_data(self):

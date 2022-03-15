@@ -39,7 +39,7 @@ INCOMING_SDP_PRODUCTS = {
     "HLS_S30": "grq_1_l2_hls_s30"
 }
 
-INCOMING_GDS_ANCILLARY_FILES = {}
+INCOMING_ANCILLARY_FILES = {}
 
 GENERATED_PRODUCTS = {
     "L30_STATE_CONFIG": "grq_1_l2_hls_l30-state-config",

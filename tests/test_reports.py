@@ -126,7 +126,7 @@ class TestReports(unittest.TestCase):
 
         incoming_gds_files_report = generator.generate_report(
             report_name="IncomingFiles",
-            report_type="gds_ancillary",
+            report_type="ancillary",
             output_format="json",
         )
 
@@ -388,7 +388,7 @@ class TestReports(unittest.TestCase):
 
         expected_result_products = {
             "incoming_nen_products": {},
-            "incoming_gds_products": {},
+            "incoming_ancillary_products": {},
             "generated_sds_products": {},
             "daac_outgoing_products": {},
         }
@@ -398,8 +398,8 @@ class TestReports(unittest.TestCase):
                 "num_ingested": product["num_ingested"],
                 "volume": product["volume"],
             }
-        for product in expected_result["incoming_gds_products"]:
-            expected_result_products["incoming_gds_products"][product["name"]] = {
+        for product in expected_result["incoming_ancillary_products"]:
+            expected_result_products["incoming_ancillary_products"][product["name"]] = {
                 "num_ingested": product["num_ingested"],
                 "volume": product["volume"],
             }
@@ -431,20 +431,20 @@ class TestReports(unittest.TestCase):
                     "volume"
                 ],
             )
-        # check incoming_gds_products
-        for product in dar_report["incoming_gds_products"]:
+        # check incoming_ancillary_products
+        for product in dar_report["incoming_ancillary_products"]:
             self.assertTrue(
-                product["name"] in expected_result_products["incoming_gds_products"]
+                product["name"] in expected_result_products["incoming_ancillary_products"]
             )
             self.assertEqual(
                 product["num_ingested"],
-                expected_result_products["incoming_gds_products"][product["name"]][
+                expected_result_products["incoming_ancillary_products"][product["name"]][
                     "num_ingested"
                 ],
             )
             self.assertEqual(
                 product["volume"],
-                expected_result_products["incoming_gds_products"][product["name"]][
+                expected_result_products["incoming_ancillary_products"][product["name"]][
                     "volume"
                 ],
             )
