@@ -39,7 +39,11 @@ INCOMING_SDP_PRODUCTS = {
     "HLS_S30": "grq_1_l2_hls_s30"
 }
 
-INCOMING_ANCILLARY_FILES = {}
+# TODO chrisjrd: finalize. adding here so the ancillary tab isn't empty (we don't have test data yet)
+INCOMING_ANCILLARY_FILES = {
+    "HLS_L30": "grq_1_l2_hls_l30",
+    "HLS_S30": "grq_1_l2_hls_s30"
+}
 
 GENERATED_PRODUCTS = {
     "L30_STATE_CONFIG": "grq_1_l2_hls_l30-state-config",
