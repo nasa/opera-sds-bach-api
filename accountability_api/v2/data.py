@@ -116,10 +116,10 @@ class ListDataTypeCounts(Resource):
         if args.get('category') == 'incoming':
             indexes.update(consts.INCOMING_SDP_PRODUCTS)
         elif args.get('category') == 'outgoing':
-            indexes.update(consts.PRODUCT_INDEXES)
+            indexes.update(consts.OUTGOING_PRODUCTS_TO_DAAC)
         else:
             indexes.update(consts.INCOMING_SDP_PRODUCTS)
-            indexes.update(consts.PRODUCT_INDEXES)
+            indexes.update(consts.OUTGOING_PRODUCTS_TO_DAAC)
 
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
