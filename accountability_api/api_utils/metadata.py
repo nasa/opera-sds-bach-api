@@ -48,6 +48,10 @@ GENERATED_PRODUCTS = {
     "DSWX_HLS": "grq_1_l3_dswx_hls"
 }
 
+OUTGOING_PRODUCTS_TO_DAAC = {
+    "DSWX_HLS": "grq_1_l3_dswx_hls"
+}
+
 RSLC_CHILDREN = []
 
 MOZART_INDEXES = {"JOB_STATUS": "job_status-current", "TIMER": "timer_status"}

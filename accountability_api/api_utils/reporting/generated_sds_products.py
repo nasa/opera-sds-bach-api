@@ -29,9 +29,9 @@ class GeneratedSdsProducts(Report):
     def _get_generated_products(self):
 
         indexes = {}
+        indexes = consts.GENERATED_PRODUCTS
 
         # Go through each index in the GENERATED_PRODUCTS indexes
-        indexes = consts.GENERATED_PRODUCTS
         products = []
 
         total_products_produced = 0

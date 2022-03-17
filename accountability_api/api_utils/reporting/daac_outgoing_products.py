@@ -31,7 +31,7 @@ class DaacOutgoingProducts(Report):
     def _get_daac_outgoing_products(self):
 
         indexes = {}
-        indexes = consts.GENERATED_PRODUCTS
+        indexes = consts.OUTGOING_PRODUCTS_TO_DAAC
 
         # Go through each index in the incoming_nen_products indexes
         products = []
