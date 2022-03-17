@@ -79,6 +79,14 @@ parser.add_argument(
     required=False,
     help="Please provide a valid size.",
 )
+parser.add_argument(
+    "category",
+    dest="category",
+    type=str,
+    location="args",
+    required=False,
+    help="Data category. ( incoming | outgoing | all )",
+)
 
 
 @api.route("/list")
@@ -105,8 +113,13 @@ class ListDataTypeCounts(Resource):
         args = parser.parse_args()
 
         indexes = {}
-        indexes.update(consts.ANCILLARY_INDEXES)
-        indexes.update(consts.PRODUCT_INDEXES)
+        if args.get('category') == 'incoming':
+            indexes.update(consts.INCOMING_SDP_PRODUCTS)
+        elif args.get('category') == 'outgoing':
+            indexes.update(consts.PRODUCT_INDEXES)
+        else:
+            indexes.update(consts.INCOMING_SDP_PRODUCTS)
+            indexes.update(consts.PRODUCT_INDEXES)
 
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
@@ -119,7 +132,10 @@ class ListDataTypeCounts(Resource):
             workflow_start=workflow_start_datetime,
             workflow_end=workflow_end_datetime,
         )
-        return count
+        results = []
+        for c in count:
+            results.append({"id": c, "count": count[c]["count"]})
+        return results
 
 
 @api.route("/<path:index_name>")
