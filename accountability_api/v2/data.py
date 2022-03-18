@@ -134,7 +134,7 @@ class ListDataTypeCounts(Resource):
         )
         results = []
         for c in count:
-            results.append({"id": c, "count": count[c]["count"]})
+            results.append({"id": c, "count": count[c]})
         return results
 
 
