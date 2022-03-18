@@ -15,10 +15,12 @@ API to support the UIs for OPERA with HySDS
     VENUE = local
     JOB_CONTAINER_NAME = container-sds-accountability_accountability-sciflo:core-v3.0.1
     swagger_base = /api
+
     [LOGGING]
     LOG_LEVEL = INFO
     LOG_INTERVAL_HOUR = 12
     LOG_BACKUP_COUNT = 30
+
     [dev]
     DEBUG = True
     
