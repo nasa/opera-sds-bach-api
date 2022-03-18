@@ -107,4 +107,4 @@ if __name__ == "__main__":
     env = os.environ.get("FLASK_ENV", "development")
     app = create_app(f"accountability_api.settings.{env.capitalize()}Config")
 
-    app.run(port=8875)
+    app.run(host="0.0.0.0", port=8875)
