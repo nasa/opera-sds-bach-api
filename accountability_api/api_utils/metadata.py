@@ -44,9 +44,6 @@ INCOMING_ANCILLARY_FILES = {
 }
 
 GENERATED_PRODUCTS = {
-    "L30_STATE_CONFIG": "grq_1_l2_hls_l30-state-config",
-    "S30_STATE_CONFIG": "grq_1_l2_hls_s30-state-config",
-    "OPERA_STATE_CONFIG": "grq_1_opera_state_config",
     "DSWX_HLS": "grq_1_l3_dswx_hls"
 }
 
