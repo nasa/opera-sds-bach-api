@@ -4,6 +4,7 @@
 # )
 import os
 import logging
+from more_itertools import always_iterable
 import traceback
 import json
 
@@ -901,6 +902,12 @@ def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwa
                 query=query, time_key="creation_timestamp", start=start, stop=end
             )
 
+    if "metadata_tile_id" in kwargs:
+        if kwargs.get("metadata_tile_id"):
+            query = add_query_match(query=query, field_name="metadata.tile_id.keyword", value=kwargs["metadata_tile_id"])
+        # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
+        del kwargs['metadata_tile_id']
+
     while _from <= _to:
         result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)
         total = result.get("hits").get("total").get("value")
@@ -912,15 +919,9 @@ def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwa
 
 def get_docs(index, start=None, end=None, source=None, size=40, **kwargs):
     docs = []
-    if isinstance(index, list):
-        for partial in index:
-            result, total = get_docs_in_index(
-                partial, start=start, end=end, size=size, **kwargs
-            )
-            docs.extend(result)
-    else:
+    for partial in always_iterable(index):
         result, total = get_docs_in_index(
-            index, start=start, end=end, size=size, **kwargs
+            partial, start=start, end=end, size=size, **kwargs
         )
         docs.extend(result)
     return docs
@@ -930,14 +931,8 @@ def get_num_docs(index_dict, start=None, end=None, **kwargs):
     docs_count = {}
     for name in index_dict:
         docs_count[name] = 0
-        if isinstance(index_dict[name], list):
-            for index in index_dict[name]:
-                if index:
-                    docs_count[name] += get_num_docs_in_index(
-                        index, start, end, **kwargs
-                    )
-        else:
-            index = index_dict[name]
+        for index in always_iterable(index_dict[name]):
             if index:
-                docs_count[name] = get_num_docs_in_index(index, start, end, **kwargs)
+                docs_count[name] += get_num_docs_in_index(
+                    index, start, end, **kwargs)
     return docs_count

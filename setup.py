@@ -35,6 +35,7 @@ setup(
         "jsonschema>=3.2.0",
         "lxml>=4.5.2",
         "MarkupSafe>=2.0.0",
+        "more_itertools>=8.12.0",
         "numpy>=1.20.3",
         "packaging>=20.4",
         "pandas>=1.3.5",

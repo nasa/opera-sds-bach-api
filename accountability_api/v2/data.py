@@ -87,6 +87,14 @@ parser.add_argument(
     required=False,
     help="Data category. ( incoming | outgoing | all )",
 )
+parser.add_argument(
+    "metadata.tile_id",
+    dest="metadata_tile_id",
+    type=str,
+    location="args",
+    required=False,
+    help="Tile ID."
+)
 
 
 @api.route("/list")
@@ -223,6 +231,7 @@ class Data(Resource):
                         # to be used later
                         # workflow_start=workflow_start_dt,
                         # workflow_end=workflow_end_dt,
+                        metadata_tile_id=args["metadata_tile_id"]
                     )
                 )
         if len(docs) > 0:
