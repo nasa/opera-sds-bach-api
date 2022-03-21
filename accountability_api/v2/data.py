@@ -1,3 +1,5 @@
+from typing import List
+
 from flask_restx import Namespace, Resource, reqparse
 from accountability_api.api_utils import query
 from accountability_api.api_utils import metadata as consts
@@ -180,14 +182,17 @@ class DataIndex(Resource):
                     time_key="created_at",
                     start=start_dt,
                     end=end_dt,
+                    size=size,
+                    metadata_tile_id=args["metadata_tile_id"]
                     # workflow_start=workflow_start_dt,
                     # workflow_end=workflow_end_dt,
-                    size=size,
                 )
                 docs.extend(results)
 
         for i in range(len(docs)):
             docs[i] = set_transfer_status(docs[i])
+
+        docs = minimize_docs(docs)
 
         return docs
 
@@ -228,10 +233,10 @@ class Data(Resource):
                         start=start_datetime,
                         end=end_datetime,
                         size=size,
+                        metadata_tile_id=args["metadata_tile_id"]
                         # to be used later
                         # workflow_start=workflow_start_dt,
                         # workflow_end=workflow_end_dt,
-                        metadata_tile_id=args["metadata_tile_id"]
                     )
                 )
         if len(docs) > 0:
@@ -239,4 +244,21 @@ class Data(Resource):
                 docs = [docs]
             docs = list(map(set_transfer_status, docs))
 
+        docs = minimize_docs(docs)
+
         return docs
+
+
+def minimize_docs(docs: List) -> List:
+    """Filter out redundant data from the request"""
+    for i, doc in enumerate(docs):
+        docs[i] = {
+            "id": doc.get("id"),
+            "dataset_type": doc.get("dataset_type"),
+            "metadata": {
+                "FileName": doc.get("metadata", {}).get("FileName")
+            },
+            "product_received_time": doc.get("metadata", {}).get("product_received_time"),
+            "transfer_status": doc.get("transfer_status")
+        }
+    return docs

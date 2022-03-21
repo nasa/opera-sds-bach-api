@@ -23,6 +23,7 @@ setup(
         "dicttoxml>=1.7.4",
         "elasticsearch>=7.0.0,<8.0.0",
         "Flask>=2.0.0",
+        "Flask-Compress>=1.11",
         "Flask-Cors>=3.0.10",
         "flask-restx>=0.5.1",
         "idna>=2.10",

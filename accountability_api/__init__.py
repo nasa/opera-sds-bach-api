@@ -3,8 +3,11 @@ import os
 import logging
 
 from flask import Flask
+from flask_compress import Compress
 from flask_cors import CORS  # , cross_origin
 from flask_restx import apidoc
+
+compress = Compress()
 
 
 class ReverseProxied(object):
@@ -98,6 +101,8 @@ def create_app(object_name):
     # login_manager.init_app(app)
     # limiter.init_app(app)
     # mail.init_app(app)
+
+    compress.init_app(app)
 
     # Import and register the different asset bundles
     return app
