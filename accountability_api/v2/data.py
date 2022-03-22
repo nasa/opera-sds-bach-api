@@ -256,9 +256,9 @@ def minimize_docs(docs: List) -> List:
             "id": doc.get("id"),
             "dataset_type": doc.get("dataset_type"),
             "metadata": {
-                "FileName": doc.get("metadata", {}).get("FileName")
+                "FileName": doc.get("metadata", {}).get("FileName"),
+                "ProductReceivedTime": doc.get("metadata", {}).get("ProductReceivedTime")
             },
-            "product_received_time": doc.get("metadata", {}).get("product_received_time"),
             "transfer_status": doc.get("transfer_status")
         }
     return docs
