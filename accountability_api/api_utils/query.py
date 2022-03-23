@@ -4,6 +4,8 @@
 # )
 import os
 import logging
+from typing import Union, List, Dict, Tuple
+
 from more_itertools import always_iterable
 import traceback
 import json
@@ -868,7 +870,7 @@ def get_num_docs_in_index(
     return result
 
 
-def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwargs):
+def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
     """
     Get docs within particular index between a certain time range
     :param index:
@@ -917,9 +919,18 @@ def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwa
     return docs, total
 
 
-def get_docs(index, start=None, end=None, source=None, size=40, **kwargs):
+def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=40, **kwargs) -> List[Dict]:
+    """
+    Get docs within particular indexes between a certain time range
+    :param indexes: a single index name or list of index names
+    :param index:
+    :param start:
+    :param end:
+    :param size:
+    :return:
+    """
     docs = []
-    for partial in always_iterable(index):
+    for partial in always_iterable(indexes):
         result, total = get_docs_in_index(
             partial, start=start, end=end, size=size, **kwargs
         )
