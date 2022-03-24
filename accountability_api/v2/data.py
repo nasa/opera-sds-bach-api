@@ -1,5 +1,7 @@
+import logging
 from typing import List
 
+from elasticsearch.exceptions import NotFoundError
 from flask_restx import Namespace, Resource, reqparse
 from accountability_api.api_utils import query
 from accountability_api.api_utils import metadata as consts
@@ -227,18 +229,22 @@ class Data(Resource):
                 index = indexes[name]
                 if not size:
                     size = 40
-                docs.extend(
-                    query.get_docs(
-                        index,
-                        start=start_datetime,
-                        end=end_datetime,
-                        size=size,
-                        metadata_tile_id=args["metadata_tile_id"]
-                        # to be used later
-                        # workflow_start=workflow_start_dt,
-                        # workflow_end=workflow_end_dt,
+                try:
+                    docs.extend(
+                        query.get_docs(
+                            index,
+                            start=start_datetime,
+                            end=end_datetime,
+                            size=size,
+                            metadata_tile_id=args["metadata_tile_id"]
+                            # to be used later
+                            # workflow_start=workflow_start_dt,
+                            # workflow_end=workflow_end_dt,
+                        )
                     )
-                )
+                except NotFoundError:
+                    logging.error(f"Index ({index}) was not found. Is the index name valid? Does it exist?")
+
         if len(docs) > 0:
             if not isinstance(docs, list):
                 docs = [docs]

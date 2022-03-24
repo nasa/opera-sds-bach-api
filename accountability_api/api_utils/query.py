@@ -6,6 +6,7 @@ import os
 import logging
 from typing import Union, List, Dict, Tuple
 
+from elasticsearch.exceptions import NotFoundError
 from more_itertools import always_iterable
 import traceback
 import json
@@ -944,6 +945,9 @@ def get_num_docs(index_dict, start=None, end=None, **kwargs):
         docs_count[name] = 0
         for index in always_iterable(index_dict[name]):
             if index:
-                docs_count[name] += get_num_docs_in_index(
-                    index, start, end, **kwargs)
+                try:
+                    docs_count[name] += get_num_docs_in_index(
+                        index, start, end, **kwargs)
+                except NotFoundError:
+                    logging.error(f"Index ({index}) was not found. Is the index name valid? Does it exist?")
     return docs_count
