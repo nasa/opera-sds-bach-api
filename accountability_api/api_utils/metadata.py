@@ -37,10 +37,8 @@ INCOMING_SDP_PRODUCTS = {
     "HLS_S30": "grq_1_l2_hls_s30"
 }
 
-# TODO chrisjrd: finalize. adding here so the ancillary tab isn't empty (we don't have test data yet)
+# TODO chrisjrd: finalize.
 INCOMING_ANCILLARY_FILES = {
-    "HLS_L30": "grq_1_l2_hls_l30",
-    "HLS_S30": "grq_1_l2_hls_s30"
 }
 
 GENERATED_PRODUCTS = {

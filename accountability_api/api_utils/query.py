@@ -202,7 +202,7 @@ def _construct_sub_filter(field_name, start=None, stop=None, sub_filter={}):
     return sub_filter
 
 
-def add_range_filter(query=None, time_key=None, start=None, stop=None):
+def add_range_filter(query: Dict, time_key=None, start=None, stop=None) -> Dict:
     _filter = _construct_sub_filter(field_name=time_key, start=start, stop=stop)
 
     if "filter" not in query["query"]["bool"]:
@@ -216,19 +216,19 @@ def add_range_filter(query=None, time_key=None, start=None, stop=None):
     return query
 
 
-def add_query_find(query=None, field_name=None, value=None):
+def add_query_find(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     query["query"]["bool"]["should"].append(new_filter)
     return query
 
 
-def add_query_match(query=None, field_name=None, value=None):
+def add_query_match(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     query["query"]["bool"]["must"].append(new_filter)
     return query
 
 
-def add_query_filter(query=None, field_name=None, value=None):
+def add_query_filter(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     if "filter" not in query["query"]["bool"]:
         query["query"]["bool"]["filter"] = []
@@ -910,6 +910,11 @@ def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, 
             query = add_query_match(query=query, field_name="metadata.tile_id.keyword", value=kwargs["metadata_tile_id"])
         # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
         del kwargs['metadata_tile_id']
+    if "metadata_sensor" in kwargs:
+        if kwargs.get("metadata_sensor"):
+            query = add_query_match(query=query, field_name="metadata.sensor.keyword", value=kwargs["metadata_sensor"])
+        # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
+        del kwargs['metadata_sensor']
 
     while _from <= _to:
         result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)

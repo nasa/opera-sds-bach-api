@@ -99,6 +99,14 @@ parser.add_argument(
     required=False,
     help="Tile ID."
 )
+parser.add_argument(
+    "metadata.sensor",
+    dest="metadata_sensor",
+    type=str,
+    location="args",
+    required=False,
+    help="Sensor."
+)
 
 
 @api.route("/list")
@@ -185,7 +193,8 @@ class DataIndex(Resource):
                     start=start_dt,
                     end=end_dt,
                     size=size,
-                    metadata_tile_id=args["metadata_tile_id"]
+                    metadata_tile_id=args["metadata_tile_id"],
+                    metadata_sensor=args["metadata_sensor"]
                     # workflow_start=workflow_start_dt,
                     # workflow_end=workflow_end_dt,
                 )
@@ -236,7 +245,8 @@ class Data(Resource):
                             start=start_datetime,
                             end=end_datetime,
                             size=size,
-                            metadata_tile_id=args["metadata_tile_id"]
+                            metadata_tile_id=args["metadata_tile_id"],
+                            metadata_sensor=args["metadata_sensor"]
                             # to be used later
                             # workflow_start=workflow_start_dt,
                             # workflow_end=workflow_end_dt,
