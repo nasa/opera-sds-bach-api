@@ -1,6 +1,8 @@
-# accountability-ui-api
-API to support the UIs for OPERA with HySDS
+# bach-api
+API to support the Accountability UIs for OPERA with HySDS
+
 ## Files required to run in `docker`
+
 ### Sample `app.conf.ini`
     [default]
     FLASK_HOST = 0.0.0.0
@@ -31,6 +33,7 @@ API to support the UIs for OPERA with HySDS
     FLASK_APP_NAME = ACCOUNTABILITY API
     PDR_SERVER = http://137.78.112.40:5000
     LOG_LEVEL = INFO
+
 #### `app.conf.ini` Explanation
 | Name | Description | Default Value |
 |---|---|---|
@@ -57,10 +60,12 @@ API to support the UIs for OPERA with HySDS
 | DEBUG | [boolean] |NA. mandatory|
 | FLASK_HOST | [0.0.0.0] |NA. mandatory|
 | FLASK_PORT | [integer] |NA. mandatory|
+
 ### `.netrc`
     machine 127.0.0.1 login <rabbit-mq-username> password <rabbit-mq-password>
     macdef init
 - the permissions of `.netrc` needs to be `400`
+
 ### `celeryconfig.py`
 - using the existing config from factotum machine. 
 - keys in use
@@ -73,9 +78,28 @@ API to support the UIs for OPERA with HySDS
 |MOZART_URL|to extract Mozart IP|
 |TOSCA_URL|to extract GRQ IP|
 |REDIS_INSTANCE_METRICS_URL|to extract Kibana IP|
+
 #### Assumptions
 External Rabbit-MQ port is internal Rabbit-MQ port retrieved from `celeryconfig.py` + 1
+
+#### local testing
+
+When running locally, `celeryconfig.py` should look like the following. Place this file at `$PROJECT_HOME`.
+
+```python
+JOBS_ES_URL = "http://127.0.0.1:9200"
+
+GRQ_AWS_ES = False
+GRQ_ES_HOST = "127.0.0.1"
+AWS_REGION = "us-west-2"
+GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
+
+GRQ_ES_USER = "<user>"
+GRQ_ES_PWD = "<password>"
+```
+
 ### Directory `logs` to keep log files
+
 #### `docker` command to start the server
         docker run --rm --name <docker_ps_name> \
           -v /absolute/path/to/.netrc:/home/ops/.netrc:z  \
@@ -83,6 +107,7 @@ External Rabbit-MQ port is internal Rabbit-MQ port retrieved from `celeryconfig.
           -v /absolute/path/to/app.conf.ini:/home/ops/accountability-ui-api/accountability_api/app.conf.ini:ro  \
           -v /absolute/path/to/logs:/home/ops/accountability-ui-api/logs:z  \
           -d --net="host" <image-name>:<tag> ;
+
 ### NOTES
 - This project requires `boto3` and `botocore`. But they are not part of the installation instruction as `hysds/pge-base:v3.0.0-rc.4` already has them installed.
 - This project assumes aws key and secret are set in default location. 
