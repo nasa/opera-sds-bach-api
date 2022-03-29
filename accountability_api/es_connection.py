@@ -50,9 +50,9 @@ def get_grq_es(logger=None) -> ElasticsearchUtility:
                 logger= logger,
                 # NOTE: devs adjust this locally to connect to own Elasticsearch.
                 # http_auth=(app.conf["GRQ_ES_USER"], app.conf["GRQ_ES_PWD"]),
-                connection_class=RequestsHttpConnection,
-                use_ssl=True,
-                verify_certs=False,
-                ssl_show_warn=False,
+                # connection_class=RequestsHttpConnection,
+                # use_ssl=True,
+                # verify_certs=False,
+                # ssl_show_warn=False,
             )
     return GRQ_ES
