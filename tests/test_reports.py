@@ -1,29 +1,17 @@
-import unittest
-import re
-import os
 import json
-from lxml import etree
-
-# from datetime import datetime
+import os
+import re
 from importlib import import_module
 
+from lxml import etree
+from pytest_mock import MockerFixture
+
+from accountability_api.api_utils.reporting.daac_outgoing_products import DaacOutgoingProducts
+from accountability_api.api_utils.reporting.data_accountability_report import DataAccountabilityReport
+from accountability_api.api_utils.reporting.generated_sds_products import GeneratedSdsProducts
+from accountability_api.api_utils.reporting.incoming_files import IncomingFiles
 from accountability_api.api_utils.reporting.report import Report
 from accountability_api.api_utils.reporting.reports_generator import ReportsGenerator
-from accountability_api.api_utils.reporting.observation_accountability_report import (
-    ObservationAccountabilityReport,
-)
-from accountability_api.api_utils.reporting.incoming_files import (
-    IncomingFiles,
-)
-from accountability_api.api_utils.reporting.generated_sds_products import (
-    GeneratedSdsProducts,
-)
-from accountability_api.api_utils.reporting.daac_outgoing_products import (
-    DaacOutgoingProducts,
-)
-from accountability_api.api_utils.reporting.data_accountability_report import (
-    DataAccountabilityReport,
-)
 
 
 def sort_observations(observations):
@@ -34,16 +22,30 @@ def sort_products(products):
     return sorted(products, key=lambda child: child.find("name").text)
 
 
-class TestReports(unittest.TestCase):
-    def setUp(self):
+class ElasticsearchUtilityStub:
+    def search(self, **kwargs):
+        return {}
+
+class TestReports:
+    @classmethod
+    def setup_class(cls):
+        pass
+
+    @classmethod
+    def teardown_class(cls):
+        pass
+
+    def setup_method(self, method):
         if not os.path.isdir("generated_reports"):
             os.mkdir("generated_reports")
 
-    def test_report_class(self):
-        return
+    def teardown_method(self, method):
+        pass
 
-    def test_incoming_nen_files_report(self):
-        self.assertTrue(issubclass(IncomingFiles, Report))
+    def test_incoming_nen_files_report(self, mocker: MockerFixture):
+        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+
+        assert issubclass(IncomingFiles, Report)
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
 
@@ -54,7 +56,7 @@ class TestReports(unittest.TestCase):
 
         cls = getattr(module, report_name)
 
-        self.assertTrue(issubclass(cls, Report))
+        assert issubclass(cls, Report)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -72,21 +74,10 @@ class TestReports(unittest.TestCase):
 
         incoming_nen_files_report = json.loads(incoming_nen_files_report)
 
-        self.assertTrue(
-            incoming_nen_files_report["root_name"], expected_result["root_name"]
-        )
-        self.assertEqual(
-            incoming_nen_files_report["header"]["data_received_time_range"],
-            expected_result["header"]["data_received_time_range"],
-        )
-        self.assertEqual(
-            incoming_nen_files_report["header"]["total_products_produced"],
-            expected_result["header"]["total_products_produced"],
-        )
-        self.assertEqual(
-            incoming_nen_files_report["header"]["total_data_volume"],
-            expected_result["header"]["total_data_volume"],
-        )
+        assert incoming_nen_files_report["root_name"] == expected_result["root_name"]
+        assert incoming_nen_files_report["header"]["data_received_time_range"] == expected_result["header"]["data_received_time_range"]
+        assert incoming_nen_files_report["header"]["total_products_produced"] == expected_result["header"]["total_products_produced"]
+        assert incoming_nen_files_report["header"]["total_data_volume"] == expected_result["header"]["total_data_volume"]
 
         expected_result_products = {}
 
@@ -97,17 +88,14 @@ class TestReports(unittest.TestCase):
             }
 
         for product in incoming_nen_files_report["products"]:
-            self.assertIn(product["name"], expected_result_products)
-            self.assertEqual(
-                product["num_ingested"],
-                expected_result_products[product["name"]]["num_ingested"],
-            )
-            self.assertEqual(
-                product["volume"], expected_result_products[product["name"]]["volume"]
-            )
+            assert product["name"] in expected_result_products
+            assert product["num_ingested"] == expected_result_products[product["name"]]["num_ingested"]
+            assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
-    def test_incoming_ancillary_files_report(self):
-        self.assertTrue(issubclass(IncomingFiles, Report))
+    def test_incoming_ancillary_files_report(self, mocker: MockerFixture):
+        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+
+        assert issubclass(IncomingFiles, Report)
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
 
@@ -118,7 +106,7 @@ class TestReports(unittest.TestCase):
 
         cls = getattr(module, report_name)
 
-        self.assertTrue(issubclass(cls, Report))
+        assert issubclass(cls, Report)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -138,21 +126,10 @@ class TestReports(unittest.TestCase):
 
         incoming_ancillary_files_report = json.loads(incoming_ancillary_files_report)
 
-        self.assertEqual(
-            incoming_ancillary_files_report["root_name"], expected_result["root_name"]
-        )
-        self.assertEqual(
-            incoming_ancillary_files_report["header"]["data_received_time_range"],
-            expected_result["header"]["data_received_time_range"],
-        )
-        self.assertEqual(
-            incoming_ancillary_files_report["header"]["total_products_produced"],
-            expected_result["header"]["total_products_produced"],
-        )
-        self.assertEqual(
-            incoming_ancillary_files_report["header"]["total_data_volume"],
-            expected_result["header"]["total_data_volume"],
-        )
+        assert incoming_ancillary_files_report["root_name"] == expected_result["root_name"]
+        assert incoming_ancillary_files_report["header"]["data_received_time_range"] == expected_result["header"]["data_received_time_range"]
+        assert incoming_ancillary_files_report["header"]["total_products_produced"] == expected_result["header"]["total_products_produced"]
+        assert incoming_ancillary_files_report["header"]["total_data_volume"] == expected_result["header"]["total_data_volume"]
 
         expected_result_products = {}
 
@@ -163,17 +140,14 @@ class TestReports(unittest.TestCase):
             }
 
         for product in incoming_ancillary_files_report["products"]:
-            self.assertIn(product["name"], expected_result_products)
-            self.assertEqual(
-                product["num_ingested"],
-                expected_result_products[product["name"]]["num_ingested"],
-            )
-            self.assertEqual(
-                product["volume"], expected_result_products[product["name"]]["volume"]
-            )
+            assert product["name"] in expected_result_products
+            assert product["num_ingested"] == expected_result_products[product["name"]]["num_ingested"]
+            assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
-    def test_generated_sds_products_(self):
-        self.assertTrue(issubclass(GeneratedSdsProducts, Report))
+    def test_generated_sds_products_(self, mocker: MockerFixture):
+        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+
+        assert issubclass(GeneratedSdsProducts, Report)
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
 
@@ -184,7 +158,7 @@ class TestReports(unittest.TestCase):
 
         cls = getattr(module, report_name)
 
-        self.assertTrue(issubclass(cls, Report))
+        assert issubclass(cls, Report)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -203,21 +177,10 @@ class TestReports(unittest.TestCase):
 
         generated_sds_products_report = json.loads(generated_sds_products_report)
 
-        self.assertEqual(
-            generated_sds_products_report["root_name"], expected_result["root_name"]
-        )
-        self.assertEqual(
-            generated_sds_products_report["header"]["data_received_time_range"],
-            expected_result["header"]["data_received_time_range"],
-        )
-        self.assertEqual(
-            generated_sds_products_report["header"]["total_products_produced"],
-            expected_result["header"]["total_products_produced"],
-        )
-        self.assertEqual(
-            generated_sds_products_report["header"]["total_data_volume"],
-            expected_result["header"]["total_data_volume"],
-        )
+        assert generated_sds_products_report["root_name"] == expected_result["root_name"]
+        assert generated_sds_products_report["header"]["data_received_time_range"] == expected_result["header"]["data_received_time_range"]
+        assert generated_sds_products_report["header"]["total_products_produced"] == expected_result["header"]["total_products_produced"]
+        assert generated_sds_products_report["header"]["total_data_volume"] == expected_result["header"]["total_data_volume"]
 
         expected_result_products = {}
 
@@ -228,17 +191,14 @@ class TestReports(unittest.TestCase):
             }
 
         for product in generated_sds_products_report["products"]:
-            self.assertTrue(product["name"] in expected_result_products)
-            self.assertEqual(
-                product["files_produced"],
-                expected_result_products[product["name"]]["files_produced"],
-            )
-            self.assertEqual(
-                product["volume"], expected_result_products[product["name"]]["volume"]
-            )
+            assert product["name"] in expected_result_products
+            assert product["files_produced"] == expected_result_products[product["name"]]["files_produced"]
+            assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
-    def test_daac_outgoing_products_report(self):
-        self.assertTrue(issubclass(DaacOutgoingProducts, Report))
+    def test_daac_outgoing_products_report(self, mocker: MockerFixture):
+        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+
+        assert issubclass(DaacOutgoingProducts, Report)
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
 
@@ -249,7 +209,7 @@ class TestReports(unittest.TestCase):
 
         cls = getattr(module, report_name)
 
-        self.assertTrue(issubclass(cls, Report))
+        assert issubclass(cls, Report)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -268,21 +228,10 @@ class TestReports(unittest.TestCase):
 
         daac_outgoing_products_report = json.loads(daac_outgoing_products_report)
 
-        self.assertEqual(
-            daac_outgoing_products_report["root_name"], expected_result["root_name"]
-        )
-        self.assertEqual(
-            daac_outgoing_products_report["header"]["data_received_time_range"],
-            expected_result["header"]["data_received_time_range"],
-        )
-        self.assertEqual(
-            daac_outgoing_products_report["header"]["total_products_produced"],
-            expected_result["header"]["total_products_produced"],
-        )
-        self.assertEqual(
-            daac_outgoing_products_report["header"]["total_data_volume"],
-            expected_result["header"]["total_data_volume"],
-        )
+        assert daac_outgoing_products_report["root_name"] == expected_result["root_name"]
+        assert daac_outgoing_products_report["header"]["data_received_time_range"] == expected_result["header"]["data_received_time_range"]
+        assert daac_outgoing_products_report["header"]["total_products_produced"] == expected_result["header"]["total_products_produced"]
+        assert daac_outgoing_products_report["header"]["total_data_volume"] == expected_result["header"]["total_data_volume"]
 
         expected_result_products = {}
 
@@ -293,17 +242,14 @@ class TestReports(unittest.TestCase):
             }
 
         for product in daac_outgoing_products_report["products"]:
-            self.assertIn(product["name"], expected_result_products)
-            self.assertEqual(
-                product["products_delivered"],
-                expected_result_products[product["name"]]["products_delivered"],
-            )
-            self.assertEqual(
-                product["volume"], expected_result_products[product["name"]]["volume"]
-            )
+            assert product["name"] in expected_result_products
+            assert product["products_delivered"] == expected_result_products[product["name"]]["products_delivered"]
+            assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
-    def test_data_accountability_report_1(self):
-        self.assertTrue(issubclass(DataAccountabilityReport, Report))
+    def test_data_accountability_report_1(self, mocker: MockerFixture):
+        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+
+        assert issubclass(DataAccountabilityReport, Report)
 
         # make sure all reports are subclasses of the Report class when getting importing via the import_module
 
@@ -314,7 +260,7 @@ class TestReports(unittest.TestCase):
 
         cls = getattr(module, report_name)
 
-        self.assertTrue(issubclass(cls, Report))
+        assert issubclass(cls, Report)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -345,7 +291,7 @@ class TestReports(unittest.TestCase):
         expected_obs = sort_observations(expected_obs)
         actual_obs = sort_observations(actual_obs)
 
-        self.assertEqual(len(expected_obs), len(actual_obs))
+        assert len(expected_obs) == len(actual_obs)
 
         generator = ReportsGenerator(
             "2021-01-01T00:00:00Z", "2025-01-01T23:59:00Z", mime="json"
@@ -364,27 +310,12 @@ class TestReports(unittest.TestCase):
 
         dar_report = json.loads(dar_report)
 
-        self.assertEqual(dar_report["root_name"], expected_result["root_name"])
-        self.assertEqual(
-            dar_report["header"]["data_received_time_range"],
-            expected_result["header"]["data_received_time_range"],
-        )
-        self.assertEqual(
-            dar_report["header"]["total_incoming_data_files"],
-            expected_result["header"]["total_incoming_data_files"],
-        )
-        self.assertEqual(
-            dar_report["header"]["total_incoming_data_volume"],
-            expected_result["header"]["total_incoming_data_volume"],
-        )
-        self.assertEqual(
-            dar_report["header"]["total_products_produced_files"],
-            expected_result["header"]["total_products_produced_files"],
-        )
-        self.assertEqual(
-            dar_report["header"]["total_products_produced_volume"],
-            expected_result["header"]["total_products_produced_volume"],
-        )
+        assert dar_report["root_name"] == expected_result["root_name"]
+        assert dar_report["header"]["data_received_time_range"] == expected_result["header"]["data_received_time_range"]
+        assert dar_report["header"]["total_incoming_data_files"] == expected_result["header"]["total_incoming_data_files"]
+        assert dar_report["header"]["total_incoming_data_volume"] == expected_result["header"]["total_incoming_data_volume"]
+        assert dar_report["header"]["total_products_produced_files"] == expected_result["header"]["total_products_produced_files"]
+        assert dar_report["header"]["total_products_produced_volume"] == expected_result["header"]["total_products_produced_volume"]
 
         expected_result_products = {
             "incoming_nen_products": {},
@@ -416,69 +347,21 @@ class TestReports(unittest.TestCase):
 
         # check incoming_nen_products
         for product in dar_report["incoming_nen_products"]:
-            self.assertTrue(
-                product["name"] in expected_result_products["incoming_nen_products"]
-            )
-            self.assertEqual(
-                product["num_ingested"],
-                expected_result_products["incoming_nen_products"][product["name"]][
-                    "num_ingested"
-                ],
-            )
-            self.assertEqual(
-                product["volume"],
-                expected_result_products["incoming_nen_products"][product["name"]][
-                    "volume"
-                ],
-            )
+            assert product["name"] in expected_result_products["incoming_nen_products"]
+            assert product["num_ingested"] == expected_result_products["incoming_nen_products"][product["name"]]["num_ingested"]
+            assert product["volume"] == expected_result_products["incoming_nen_products"][product["name"]]["volume"]
         # check incoming_ancillary_products
         for product in dar_report["incoming_ancillary_products"]:
-            self.assertTrue(
-                product["name"] in expected_result_products["incoming_ancillary_products"]
-            )
-            self.assertEqual(
-                product["num_ingested"],
-                expected_result_products["incoming_ancillary_products"][product["name"]][
-                    "num_ingested"
-                ],
-            )
-            self.assertEqual(
-                product["volume"],
-                expected_result_products["incoming_ancillary_products"][product["name"]][
-                    "volume"
-                ],
-            )
+            assert product["name"] in expected_result_products["incoming_ancillary_products"]
+            assert product["num_ingested"] == expected_result_products["incoming_ancillary_products"][product["name"]]["num_ingested"]
+            assert product["volume"] == expected_result_products["incoming_ancillary_products"][product["name"]]["volume"]
         # check generated_sds_products
         for product in dar_report["generated_sds_products"]:
-            self.assertIn(
-                product["name"], expected_result_products["generated_sds_products"]
-            )
-            self.assertEqual(
-                product["files_produced"],
-                expected_result_products["generated_sds_products"][product["name"]][
-                    "files_produced"
-                ],
-            )
-            self.assertEqual(
-                product["volume"],
-                expected_result_products["generated_sds_products"][product["name"]][
-                    "volume"
-                ],
-            )
+            assert product["name"] in expected_result_products["generated_sds_products"]
+            assert product["files_produced"] == expected_result_products["generated_sds_products"][product["name"]]["files_produced"]
+            assert product["volume"] == expected_result_products["generated_sds_products"][product["name"]]["volume"]
         # check daac_outgoing_products
         for product in dar_report["daac_outgoing_products"]:
-            self.assertTrue(
-                product["name"] in expected_result_products["daac_outgoing_products"]
-            )
-            self.assertEqual(
-                product["products_delivered"],
-                expected_result_products["daac_outgoing_products"][product["name"]][
-                    "products_delivered"
-                ],
-            )
-            self.assertEqual(
-                product["volume"],
-                expected_result_products["daac_outgoing_products"][product["name"]][
-                    "volume"
-                ],
-            )
+            assert product["name"] in expected_result_products["daac_outgoing_products"]
+            assert product["products_delivered"] == expected_result_products["daac_outgoing_products"][product["name"]]["products_delivered"]
+            assert product["volume"] == expected_result_products["daac_outgoing_products"][product["name"]]["volume"]

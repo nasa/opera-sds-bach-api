@@ -106,10 +106,3 @@ def create_app(object_name):
 
     # Import and register the different asset bundles
     return app
-
-
-if __name__ == "__main__":
-    env = os.environ.get("FLASK_ENV", "development")
-    app = create_app(f"accountability_api.settings.{env.capitalize()}Config")
-
-    app.run(host="0.0.0.0", port=8875)

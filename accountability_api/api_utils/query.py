@@ -3,9 +3,11 @@ import traceback
 from typing import Union, List, Dict, Tuple
 
 from elasticsearch.exceptions import NotFoundError
+from hysds_commons.elasticsearch_utils import ElasticsearchUtility
 from more_itertools import always_iterable
 
-from accountability_api.api_utils import GRQ_ES, JOBS_ES
+from accountability_api import es_connection
+from accountability_api.api_utils import JOBS_ES
 from accountability_api.api_utils import metadata as consts
 from accountability_api.api_utils.processing import format_l0b_data
 
@@ -13,7 +15,7 @@ LOGGER = logging.getLogger()
 
 
 def run_query(
-    es=GRQ_ES,
+    es=None,
     body=None,
     doc_type=None,
     q=None,
@@ -22,6 +24,7 @@ def run_query(
     index=consts.PRODUCTS_INDEX,
     **kwargs
 ):
+    es = es or es_connection.get_grq_es()
 
     if sort:
         if q and body is None:
@@ -47,7 +50,7 @@ def run_query(
 
 
 def run_query_with_scroll(
-    es=GRQ_ES,
+    es=None,
     body=None,
     doc_type=None,
     q=None,
@@ -74,6 +77,8 @@ def run_query_with_scroll(
     :param kwargs:
     :return:
     """
+    es = es or es_connection.get_grq_es()
+
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll
     params = {
@@ -541,8 +546,15 @@ def get_product(product_id, index=None):
 
 
 def get_num_docs_in_index(
-    index, start=None, end=None, time_key=None, es=GRQ_ES, **kwargs
+        index,
+        start=None,
+        end=None,
+        time_key=None,
+        es=None,
+        **kwargs
 ):
+    es = es or es_connection.get_grq_es()
+
     query = {"query": {"bool": {"must": [], "filter": []}}}
     if index in list(consts.ACCOUNTABILITY_INDEXES.values()):
         query = add_range_filter(

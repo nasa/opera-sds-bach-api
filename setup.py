@@ -45,6 +45,7 @@ setup(
         "pyparsing>=2.4.7",
         "pyrsistent>=0.17.3",
         "pytest>=6.1.1",
+        "pytest-mock>=3.7.0",
         "python-dateutil>=2.8.1",
         "pytz>=2020.1",
         "requests>=2.24.0",

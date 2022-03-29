@@ -1,3 +1,5 @@
+import traceback
+
 from .report import Report
 from accountability_api.api_utils import utils, query, processing
 from accountability_api.api_utils import metadata as consts
@@ -77,7 +79,8 @@ class IncomingFiles(Report):
                     {"name": index, "num_ingested": num_products, "volume": volume}
                 )
             except Exception:
-                print("could not find index")
+                traceback.print_exc()
+                print(f"An exception has occurred. Returning 0 results for index {index}")
                 products.append({"name": index, "num_ingested": 0, "volume": 0})
 
         self._total_incoming_data_file_num = total_products_produced
