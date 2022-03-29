@@ -1,7 +1,45 @@
 # bach-api
 API to support the Accountability UIs for OPERA with HySDS
 
+# Getting started
+
+## Prerequisites
+
+1. Git.
+2. Python (see .python-version).
+4. A fork of the repo (for any contributions).
+5. A clone of the `opera-sds-bach-api` repo.
+
+## Installation
+
+1. Create a python virtual environment.
+   1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
+3. Activate the virtual environment and run `pip install -e .` from the project root to install the workspace dependencies.
+
+# Running locally
+
+1. Run Elasticsearch (On Mozart. See [opera-sds-pcm project homepage](https://github.com/nasa/opera-sds-pcm)).
+2. Under the project root, create a `celeryconfig.py` file. See snippet below. Update placeholders as needed.
+
+    ```python
+    # celeryconfig.py
+   
+    JOBS_ES_URL = "http://127.0.0.1:9200"
+    
+    GRQ_AWS_ES = False
+    GRQ_ES_HOST = "127.0.0.1"
+    AWS_REGION = "us-west-2"
+    GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
+    
+    GRQ_ES_USER = "<user>"
+    GRQ_ES_PWD = "<password>"
+    ```
+3. Run `flask run -p 8875` or `python run.py` to start the development server.
+4. Make API calls to endpoints under `http://localhost:8875/`
+
 ## Files required to run in `docker`
+
+The following files are required to run `opera-sds-bach-api` in docker. Refer to the `docker run` command in this document for where the app expects these files.
 
 ### Sample `app.conf.ini`
     [default]
@@ -81,22 +119,6 @@ API to support the Accountability UIs for OPERA with HySDS
 
 #### Assumptions
 External Rabbit-MQ port is internal Rabbit-MQ port retrieved from `celeryconfig.py` + 1
-
-#### local testing
-
-When running locally, `celeryconfig.py` should look like the following. Place this file at `$PROJECT_HOME`.
-
-```python
-JOBS_ES_URL = "http://127.0.0.1:9200"
-
-GRQ_AWS_ES = False
-GRQ_ES_HOST = "127.0.0.1"
-AWS_REGION = "us-west-2"
-GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
-
-GRQ_ES_USER = "<user>"
-GRQ_ES_PWD = "<password>"
-```
 
 ### Directory `logs` to keep log files
 
