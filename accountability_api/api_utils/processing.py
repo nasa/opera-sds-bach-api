@@ -5,7 +5,9 @@ from dateutil import parser
 LOGGER = logging.getLogger()
 
 
-def gt(dt_str):
+def gt(dt_str: str):
+    """Parse an ISO datetime string, dropping the tz_info."""
+
     dt, _, us = dt_str.partition(".")
     dt = datetime.strptime(dt, "%Y-%m-%dT%H:%M:%S")
     us = int(us.rstrip("Z"), 10)
