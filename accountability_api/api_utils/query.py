@@ -1,6 +1,6 @@
 import logging
 import traceback
-from typing import Union, List, Dict, Tuple
+from typing import Union, List, Dict, Tuple, Optional
 
 from elasticsearch.exceptions import NotFoundError
 from hysds_commons.elasticsearch_utils import ElasticsearchUtility
@@ -15,11 +15,10 @@ LOGGER = logging.getLogger()
 
 
 def run_query(
-    es=None,
-    body=None,
-    doc_type=None,
-    q=None,
-    sort=None,
+    es: Optional[ElasticsearchUtility] = None,
+    body: Optional[Dict] = None,
+    doc_type: Optional[str] = None,
+    sort: Optional[List[str]] = None,
     size=500,
     index=consts.PRODUCTS_INDEX,
     **kwargs
@@ -27,34 +26,16 @@ def run_query(
     es = es or es_connection.get_grq_es()
 
     if sort:
-        if q and body is None:
-            return es.search(
-                index=index, doc_type=doc_type, sort=sort, size=size, q=q, params=kwargs
-            )
-        try:
-            return es.search(
-                index=index,
-                body=body,
-                doc_type=doc_type,
-                sort=sort,
-                size=size,
-                params=kwargs,
-            )
-        except Exception as e:
-            raise (e)
-    if q and body is None:
-        return es.search(index=index, doc_type=doc_type, size=size, q=q, params=kwargs)
-    return es.search(
-        index=index, body=body, doc_type=doc_type, size=size, params=kwargs
-    )
+        return es.search(index=index, body=body, doc_type=doc_type, sort=sort, size=size, params=kwargs)
+    else:
+        return es.search(index=index, body=body, doc_type=doc_type, size=size, params=kwargs)
 
 
 def run_query_with_scroll(
-    es=None,
-    body=None,
-    doc_type=None,
-    q=None,
-    sort=None,
+    es: Optional[ElasticsearchUtility] = None,
+    body: Optional[Dict] = None,
+    doc_type: Optional[str] = None,
+    sort: Optional[List[str]] = None,
     size=-1,
     index=consts.PRODUCTS_INDEX,
     **kwargs
@@ -522,15 +503,14 @@ def process_product(doc):
     doc = doc.get("_source")
 
 
-def get_product(product_id, index=None):
+def get_product(product_id: str, index=consts.PRODUCTS_INDEX):
     """
     Get product doc based on ID
     :param product_id:
+    :param index:
     :return:
     """
-    LOGGER.debug("Getting product with id {}".format(product_id))
-    if index is None:
-        index = consts.PRODUCTS_INDEX
+    LOGGER.debug(f"Getting product with id {product_id}")
     query = {"query": {"bool": {"must": [{"match": {"id": product_id}}]}}}
     try:
         exclude = ["metadata.context.context"]
