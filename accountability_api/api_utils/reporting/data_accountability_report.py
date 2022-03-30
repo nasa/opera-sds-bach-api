@@ -92,8 +92,8 @@ class DataAccountabilityReport(Report):
             "header": {
                 "time_of_report": self._creation_time,
                 "data_received_time_range": "{}-{}".format(
-                    utils.split_extra_except_t(self._start_datetime),
-                    utils.split_extra_except_t(self._end_datetime),
+                    utils.to_iso_format_truncated(self._start_datetime),
+                    utils.to_iso_format_truncated(self._end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -134,8 +134,8 @@ class DataAccountabilityReport(Report):
         return "dar_{}_{}_{}_{}.{}".format(
             self._report_type,
             self._creation_time,
-            utils.split_extra_except_t(self._start_datetime),
-            utils.split_extra_except_t(self._end_datetime),
+            utils.to_iso_format_truncated(self._start_datetime),
+            utils.to_iso_format_truncated(self._end_datetime),
             output_format,
         )
 

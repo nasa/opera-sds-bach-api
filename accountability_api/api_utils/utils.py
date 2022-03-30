@@ -1,5 +1,7 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
+from typing import Dict
+
 import math
 from jsonschema import validate, ValidationError, SchemaError
 from lxml import etree, objectify
@@ -7,7 +9,24 @@ from lxml import etree, objectify
 LOGGER = logging.getLogger()
 
 
-def determain_dt_format(input_str):
+def determine_dt_format(input_str: str):
+    """
+    Returns a full datetime format string for the given ISO-like datetime string.
+
+    Supports datetime strings with month + day of the month, and day of the year.
+
+    NOTE
+    * Month must be zero-padded.
+    * Day of month must be zero-padded.
+    * Day of year must be zero-padded.
+    * hour must be 24-hour clock and zero-padded.
+    * minute must be zero-padded.
+    * second must be zero-padded.
+    * microsecond must be zero-padded to 6 digits.
+
+    See https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+    """
+
     # ensure this is a T in the input_str
     if "T" not in input_str:
         raise Exception("Must have a T in the datetime.")
@@ -58,12 +77,12 @@ def determain_dt_format(input_str):
     return dt_format
 
 
-def from_iso_to_dt(input_str):
-    dt_format = determain_dt_format(input_str)
+def from_iso_to_dt(input_str: str):
+    dt_format = determine_dt_format(input_str)
     return datetime.strptime(input_str, dt_format)
 
 
-def from_dt_to_iso(input_dt, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
+def from_dt_to_iso(input_dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
     return input_dt.strftime(custom_format)
 
 
@@ -71,33 +90,53 @@ def from_dt_to_iso(input_dt, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
 #     return datetime.strptime(input_str, format)
 
 
-def set_transfer_status(doc):
+def set_transfer_status(doc: Dict):
     if "daac_delivery_status" in doc:
         if doc["daac_delivery_status"] == "SUCCESS":
             doc["transfer_status"] = "cnm_r_success"
         else:
             doc["transfer_status"] = "cnm_r_failure"
-    else:
-        if "daac_CNM_S_status" in doc:
-            if doc["daac_CNM_S_status"] == "SUCCESS":
-                doc["transfer_status"] = "cnm_s_success"
-            else:
-                doc["transfer_status"] = "cnm_s_failure"
+    elif "daac_CNM_S_status" in doc:
+        if doc["daac_CNM_S_status"] == "SUCCESS":
+            doc["transfer_status"] = "cnm_s_success"
         else:
-            doc["transfer_status"] = "unknown"
+            doc["transfer_status"] = "cnm_s_failure"
+    else:
+        doc["transfer_status"] = "unknown"
     return doc
 
 
-def split_extra_except_t(dt):
+def to_iso_format_truncated(dt: str):
+    """
+    Converts the given ISO-like datetime string to the truncated representation.
+
+    Additionally, the resulting string loses any fractional seconds and time zone offset.
+
+    See https://en.wikipedia.org/wiki/ISO_8601#Truncated_representations
+    """
+    dt = dt if dt[-1] != "Z" else dt[:-1]  # drop time zone offset Z
+
     split_dt = dt.split("T")
-    half1 = "".join(split_dt[0].split("-"))
-    half2 = "".join(split_dt[1].split(":")).split(".")[0]
-    return "T".join([half1, half2])
+    date_half = "".join(split_dt[0].split("-"))
+    time_half = "".join(split_dt[1].split(":")).split(".")[0]  # drop fractional seconds
+
+    # drop any remaining time zone offset
+    time_half = time_half.split("+")[0]
+    time_half = time_half.split("-")[0]
+
+    return "T".join([date_half, time_half])
 
 
-def from_td_to_str(input_td):
+def from_td_to_str(input_td: timedelta):
+    """
+    Returns a string representation of the timedelta.
+
+    Example 1: "001T01:01:01"
+    Example 2: "-001T01:01:01"
+    """
     days = input_td.days
     seconds = input_td.seconds
+
     hours = 0
     minutes = 0
 
@@ -109,15 +148,10 @@ def from_td_to_str(input_td):
         minutes += 1
         seconds -= 60
 
-    sign = days < 0
+    sign = "-" if days < 0 else ""
+    days = abs(days)
 
-    return "{}{}T{}:{}:{}".format(
-        "-" if sign else "",
-        "{:03d}".format(abs(days)).rjust(3),
-        hours if hours >= 10 else "0" + str(hours),
-        minutes if minutes >= 10 else "0" + str(minutes),
-        seconds if seconds >= 10 else "0" + str(seconds),
-    )
+    return f"{sign}{days:03d}T{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def add_value_to_path(root, path, value):
