@@ -12,7 +12,7 @@ class Report(ABC):
 
     """
 
-    def __init__(self, title, start_date, end_date, timestamp, **kwargs):
+    def __init__(self, title: str, start_date: str, end_date: str, timestamp: str, **kwargs):
         self._title = title
         self._creation_time = timestamp
         self._start_datetime = start_date

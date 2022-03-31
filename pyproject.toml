@@ -68,3 +68,5 @@ test = [
 minversion = "7.1"
 testpaths = ["tests/unit"]
 addopts = "--cov --cov-report xml --cov-report term --cov-report html"
+# "--cov" messes with the debugger. Use "--no-cov" to restore debugger behavior
+#addopts = "--no-cov"
