@@ -1,3 +1,5 @@
+from unittest import mock
+
 import pytest
 from pytest_mock import MockerFixture
 
@@ -6,6 +8,9 @@ from accountability_api.api_utils import query
 
 class ElasticsearchUtilityStub:
     def search(self, **kwargs):
+        pass
+
+    def get_count(self, **kwargs):
         pass
 
 
@@ -136,6 +141,16 @@ def test_get_product_no_hits(mocker: MockerFixture, elasticsearch_no_hits):
     assert retrieved_product is None
 
 
+def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub):
+    # ARRANGE
+    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
+
+    # ACT
+    # ASSERT
+    assert query.get_num_docs_in_index("*") == 123
+
+
 def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.run_query", return_value=elasticsearch_index_non_empty)
@@ -145,3 +160,15 @@ def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty)
 
     # ASSERT
     assert total == 2
+
+
+def test_get_num_docs(mocker: MockerFixture, elasticsearch_utility_stub):
+    # ARRANGE
+    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
+
+    # ACT
+    index_alias_to_count = query.get_num_docs({"test_index_label": "test_index_name"})
+
+    # ASSERT
+    assert index_alias_to_count["test_index_label"] == 123

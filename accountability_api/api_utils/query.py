@@ -626,15 +626,14 @@ def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, 
     return docs
 
 
-def get_num_docs(index_dict, start=None, end=None, **kwargs):
+def get_num_docs(index_dict: Dict, start=None, end=None, **kwargs):
     docs_count = {}
     for name in index_dict:
         docs_count[name] = 0
         for index in always_iterable(index_dict[name]):
             if index:
                 try:
-                    docs_count[name] += get_num_docs_in_index(
-                        index, start, end, **kwargs)
+                    docs_count[name] += get_num_docs_in_index(index, start, end, **kwargs)
                 except NotFoundError:
                     logging.error(f"Index ({index}) was not found. Is the index name valid? Does it exist?")
     return docs_count
