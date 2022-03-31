@@ -166,3 +166,39 @@ def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: Mocke
         {"id": "grq_1_l3_dswx_hls", "count": 1}
     ]
 
+
+def test_DataIndex_get(test_client: FlaskClient, mocker: MockerFixture, monkeypatch):
+    # ARRANGE
+    mocker.patch("accountability_api.api_utils.get_grq_es", return_value=elasticsearch_utility_stub)
+    get_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_docs", return_value=[{
+        "daac_delivery_status": "SUCCESS",
+        "test_extra_attribute": "dummy_value"
+    }])
+    monkeypatch.setattr("accountability_api.v2.data.consts.ANCILLARY_INDEXES", {})
+    monkeypatch.setattr("accountability_api.v2.data.consts.PRODUCT_INDEXES", {
+        "test_index_label": "test_index_name"
+    })
+
+    # ACT
+    response: TestResponse = test_client.get("/data/test_index_label")  # note the index_name path param
+    data = json.loads(response.data.decode(response.charset))
+
+    # ASSERT
+    get_docs_args = {
+        "time_key": "created_at",
+        "start": None,
+        "end": None,
+        "size": 40,
+        "metadata_tile_id": None,
+        "metadata_sensor": None
+    }
+    get_docs_mock.assert_called_once_with("test_index_name", **get_docs_args)
+
+    assert response.status_code == 200
+    assert len(data) == 1
+
+    # check transfer status
+    assert data[0]["transfer_status"] == "cnm_r_success"
+
+    # check minimization
+    assert "test_extra_attribute" not in data[0]
