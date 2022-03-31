@@ -43,7 +43,7 @@ class TestReports:
         pass
 
     def test_incoming_nen_files_report(self, mocker: MockerFixture):
-        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+        mocker.patch("accountability_api.api_utils.get_grq_es", return_value=ElasticsearchUtilityStub())
 
         assert issubclass(IncomingFiles, Report)
 
@@ -93,7 +93,7 @@ class TestReports:
             assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
     def test_incoming_ancillary_files_report(self, mocker: MockerFixture):
-        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+        mocker.patch("accountability_api.api_utils.get_grq_es", return_value=ElasticsearchUtilityStub())
 
         assert issubclass(IncomingFiles, Report)
 
@@ -145,7 +145,7 @@ class TestReports:
             assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
     def test_generated_sds_products_(self, mocker: MockerFixture):
-        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+        mocker.patch("accountability_api.api_utils.get_grq_es", return_value=ElasticsearchUtilityStub())
 
         assert issubclass(GeneratedSdsProducts, Report)
 
@@ -196,7 +196,7 @@ class TestReports:
             assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
     def test_daac_outgoing_products_report(self, mocker: MockerFixture):
-        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+        mocker.patch("accountability_api.api_utils.get_grq_es", return_value=ElasticsearchUtilityStub())
 
         assert issubclass(DaacOutgoingProducts, Report)
 
@@ -247,7 +247,7 @@ class TestReports:
             assert product["volume"] == expected_result_products[product["name"]]["volume"]
 
     def test_data_accountability_report_1(self, mocker: MockerFixture):
-        mocker.patch("accountability_api.es_connection.get_grq_es", return_value=ElasticsearchUtilityStub())
+        mocker.patch("accountability_api.api_utils.get_grq_es", return_value=ElasticsearchUtilityStub())
 
         assert issubclass(DataAccountabilityReport, Report)
 

@@ -68,7 +68,7 @@ def elasticsearch_index_non_empty():
 
 def test_run_query_with_sort(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
-    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
 
     spy = mocker.spy(elasticsearch_utility_stub, "search")
 
@@ -94,7 +94,7 @@ def test_run_query_with_sort(mocker: MockerFixture, elasticsearch_utility_stub):
 
 def test_run_query_no_sort(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
-    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
 
     spy = mocker.spy(elasticsearch_utility_stub, "search")
 
@@ -143,7 +143,7 @@ def test_get_product_no_hits(mocker: MockerFixture, elasticsearch_no_hits):
 
 def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
-    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
     mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
 
     # ACT
@@ -164,7 +164,7 @@ def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty)
 
 def test_get_num_docs(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
-    mocker.patch("accountability_api.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
     mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
 
     # ACT
