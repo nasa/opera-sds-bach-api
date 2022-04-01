@@ -13,29 +13,39 @@ API to support the Accountability UIs for OPERA with HySDS
 ## Installation
 
 1. Create a python virtual environment.
-   1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
-3. Activate the virtual environment and run `pip install -e .` from the project root to install the workspace dependencies.
+    1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
+1Activate the virtual environment and run `pip install -e .` from the project root to install the workspace dependencies.
 
 # Running locally
 
 1. Run Elasticsearch (On Mozart. See [opera-sds-pcm project homepage](https://github.com/nasa/opera-sds-pcm)).
-2. Under the project root, create a `celeryconfig.py` file. See snippet below. Update placeholders as needed.
+1Under the project root, create a `celeryconfig.py` file. See snippet below. Update placeholders as needed.
 
-    ```python
-    # celeryconfig.py
+   ```python
+   # celeryconfig.py
    
-    JOBS_ES_URL = "http://127.0.0.1:9200"
-    
-    GRQ_AWS_ES = False
-    GRQ_ES_HOST = "127.0.0.1"
-    AWS_REGION = "us-west-2"
-    GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
-    
-    GRQ_ES_USER = "<user>"
-    GRQ_ES_PWD = "<password>"
+   JOBS_ES_URL = "http://127.0.0.1:9200"
+   
+   GRQ_AWS_ES = False
+   GRQ_ES_HOST = "127.0.0.1"
+   AWS_REGION = "us-west-2"
+   GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
+   
+   GRQ_ES_USER = "<user>"
+   GRQ_ES_PWD = "<password>"
+   ```
+1. Run either the following commands to start the development server. 
+    * Flask development mode:
+      These commands guarantee development mode is fully enabled, in addition to the interactive debugger and reloader.
+      See the official Flask documentation for how this works (https://flask.palletsprojects.com/en/2.0.x/cli/)
+    ```bash
+    export FLASK_ENV=development
+    export FLASK_APP="accountability_api:create_app('accountability_api.settings.DevelopmentConfig')"
+    flask run -p 8875
     ```
-3. Run `flask run -p 8875` or `python run.py` to start the development server.
-4. Make API calls to endpoints under `http://localhost:8875/`
+    * External debugger (IDE), run `python run_debug.py`.
+      See Flask documentation (https://flask.palletsprojects.com/en/2.0.x/debugging/)
+1. Make API calls to endpoints under `http://localhost:8875/`
 
 ## Files required to run in `docker`
 
