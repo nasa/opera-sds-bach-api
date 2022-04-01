@@ -24,6 +24,7 @@ def test_Data_get(test_client: FlaskClient, mocker: MockerFixture, elasticsearch
     # ARRANGE
     mocker.patch("accountability_api.api_utils.get_grq_es", return_value=elasticsearch_utility_stub)
     get_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_docs", return_value=[{
+        "dataset_level": "L3",
         "daac_delivery_status": "SUCCESS",
         "test_extra_attribute": "dummy_value"
     }])
@@ -171,6 +172,7 @@ def test_DataIndex_get(test_client: FlaskClient, mocker: MockerFixture, monkeypa
     # ARRANGE
     mocker.patch("accountability_api.api_utils.get_grq_es", return_value=elasticsearch_utility_stub)
     get_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_docs", return_value=[{
+        "dataset_level": "L3",
         "daac_delivery_status": "SUCCESS",
         "test_extra_attribute": "dummy_value"
     }])

@@ -91,6 +91,10 @@ def from_dt_to_iso(input_dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
 
 
 def set_transfer_status(doc: Dict):
+    if doc["dataset_level"] != "L3":
+        doc["transfer_status"] = "not_applicable"
+        return doc
+
     if "daac_delivery_status" in doc:
         if doc["daac_delivery_status"] == "SUCCESS":
             doc["transfer_status"] = "cnm_r_success"
@@ -103,6 +107,7 @@ def set_transfer_status(doc: Dict):
             doc["transfer_status"] = "cnm_s_failure"
     else:
         doc["transfer_status"] = "unknown"
+
     return doc
 
 
