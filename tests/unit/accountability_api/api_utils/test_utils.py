@@ -2,10 +2,13 @@ from datetime import datetime, timedelta
 import unittest
 
 from accountability_api.api_utils.utils import (
-    determine_dt_format,
-    from_iso_to_dt,
     magnitude,
-    get_orbit_range_list, from_dt_to_iso, set_transfer_status, to_iso_format_truncated, from_td_to_str,
+    get_orbit_range_list,
+    from_iso_to_dt,
+    from_dt_to_iso,
+    set_transfer_status,
+    to_iso_format_truncated,
+    from_td_to_str,
 )
 
 
@@ -108,29 +111,12 @@ class TestUtils(unittest.TestCase):
         )
         return
 
-    def test_determine_dt_format(self):
-        # year, month, day, Z
-        assert determine_dt_format("1970-01-01T00:00:00.000000Z") == "%Y-%m-%dT%H:%M:%S.%fZ"
-        assert determine_dt_format("1970-01-01T00:00:00Z") == "%Y-%m-%dT%H:%M:%SZ"
-        assert determine_dt_format("1970-01-01T00:00Z") == "%Y-%m-%dT%H:%MZ"
-
-        # year, month, day
-        assert determine_dt_format("1970-01-01T00:00:00.000000") == "%Y-%m-%dT%H:%M:%S.%f"
-        assert determine_dt_format("1970-01-01T00:00:00") == "%Y-%m-%dT%H:%M:%S"
-        assert determine_dt_format("1970-01-01T00:00") == "%Y-%m-%dT%H:%M"
-
-        # year, day of year, Z
-        assert determine_dt_format("1970001T00:00:00:00.000000Z") == "%Y-%jT%H:%M:%S.%fZ"
-        assert determine_dt_format("1970001T00:00:00:00Z") == "%Y-%jT%H:%M:%SZ"
-        assert determine_dt_format("1970001T00:00:00Z") == "%Y-%jT%H:%M:%SZ"
-
-        # year, day of year
-        assert determine_dt_format("1970001T00:00:00:00.000000") == "%Y-%jT%H:%M:%S.%f"
-        assert determine_dt_format("1970001T00:00:00:00") == "%Y-%jT%H:%M:%S"
-        assert determine_dt_format("1970001T00:00:00") == "%Y-%jT%H:%M:%S"
-
     def test_from_iso_to_dt(self):
         assert from_iso_to_dt("1970-01-01T00:00:00.000000Z") == datetime(1970, 1, 1)
+        assert from_iso_to_dt("1970-01-01T00:00:00.000000") == datetime(1970, 1, 1)
+
+        assert from_iso_to_dt("1970-001T00:00:00.000000Z") == datetime(1970, 1, 1)
+        assert from_iso_to_dt("1970-001T00:00:00.000000") == datetime(1970, 1, 1)
 
     def test_from_dt_to_iso(self):
         assert from_dt_to_iso(datetime(1970, 1, 1)) == "1970-01-01T00:00:00.000000Z"

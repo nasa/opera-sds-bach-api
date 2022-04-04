@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict
 
+import dateutil.parser
 import math
 from jsonschema import validate, ValidationError, SchemaError
 from lxml import etree, objectify
@@ -9,9 +10,9 @@ from lxml import etree, objectify
 LOGGER = logging.getLogger()
 
 
-def determine_dt_format(input_str: str):
+def from_iso_to_dt(dt_str: str):
     """
-    Returns a full datetime format string for the given ISO-like datetime string.
+    Returns a datetime for the given ISO-like datetime string.
 
     Supports datetime strings with month + day of the month, and day of the year.
 
@@ -22,72 +23,13 @@ def determine_dt_format(input_str: str):
     * hour must be 24-hour clock and zero-padded.
     * minute must be zero-padded.
     * second must be zero-padded.
-    * microsecond must be zero-padded to 6 digits.
-
-    See https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
+    * microsecond, if present, must be zero-padded to 6 digits maximum.
     """
-
-    # ensure this is a T in the input_str
-    if "T" not in input_str:
-        raise Exception("Must have a T in the datetime.")
-    # split the datetime
-    split_dt = input_str.split("T")
-    # grab the date
-    date = split_dt[0]
-    # check if it has a doy
-    has_doy = False
-    if len(date.split("-")) < 3:
-        has_doy = True
-
-    # grab the time
-    time = split_dt[1]
-    # check if there are seconds
-    has_seconds = False
-    if len(time.split(":")) > 2:
-        has_seconds = True
-
-    # check if there are milliseconds
-    time_split = time.split(".")
-
-    has_ms = False
-    has_z = False
-    if len(time_split) > 1:
-        has_ms = True
-    if "Z" in time:
-        has_z = True
-
-    # build the dt formating string
-    dt_format = "%Y"
-    if has_doy:
-        dt_format += "-%jT"
-    else:
-        dt_format += "-%m-%dT"
-
-    if has_seconds:
-        dt_format += "%H:%M:%S"
-    else:
-        dt_format += "%H:%M"
-
-    if has_ms:
-        dt_format += ".%f"
-
-    if has_z:
-        dt_format += "Z"
-
-    return dt_format
+    return dateutil.parser.isoparse(dt_str).replace(tzinfo=None)
 
 
-def from_iso_to_dt(input_str: str):
-    dt_format = determine_dt_format(input_str)
-    return datetime.strptime(input_str, dt_format)
-
-
-def from_dt_to_iso(input_dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
-    return input_dt.strftime(custom_format)
-
-
-# def from_iso_to_dt(input_str, format="%Y-%m-%dT%H:%M:%S.%fZ"):
-#     return datetime.strptime(input_str, format)
+def from_dt_to_iso(dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
+    return dt.strftime(custom_format)
 
 
 def set_transfer_status(doc: Dict):
@@ -111,7 +53,7 @@ def set_transfer_status(doc: Dict):
     return doc
 
 
-def to_iso_format_truncated(dt: str):
+def to_iso_format_truncated(dt_str: str):
     """
     Converts the given ISO-like datetime string to the truncated representation.
 
@@ -119,9 +61,9 @@ def to_iso_format_truncated(dt: str):
 
     See https://en.wikipedia.org/wiki/ISO_8601#Truncated_representations
     """
-    dt = dt if dt[-1] != "Z" else dt[:-1]  # drop time zone offset Z
+    dt_str = dt_str if dt_str[-1] != "Z" else dt_str[:-1]  # drop time zone offset Z
 
-    split_dt = dt.split("T")
+    split_dt = dt_str.split("T")
     date_half = "".join(split_dt[0].split("-"))
     time_half = "".join(split_dt[1].split(":")).split(".")[0]  # drop fractional seconds
 
