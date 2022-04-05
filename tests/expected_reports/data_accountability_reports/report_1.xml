@@ -1,7 +1,7 @@
 <DATA_ACCOUNTABILITY_REPORT>
 	<header>
 		<time_of_report>2021-12-09T16:26:07</time_of_report>
-		<data_recieved_time_range>20210101T000000-20250101T235900</data_recieved_time_range>
+		<data_received_time_range>20210101T000000-20250101T235900</data_received_time_range>
 		<crid/>
 		<venue>local</venue>
 		<processing_mode/>
@@ -201,7 +201,7 @@
 			<volume>221</volume>
 		</item>
 	</incoming_nen_products>
-	<incoming_gds_products>
+	<incoming_ancillary_products>
 		<item>
 			<name>COP</name>
 			<num_ingested>3</num_ingested>
@@ -277,5 +277,5 @@
 			<num_ingested>1</num_ingested>
 			<volume>8025</volume>
 		</item>
-	</incoming_gds_products>
+	</incoming_ancillary_products>
 </DATA_ACCOUNTABILITY_REPORT>

@@ -31,7 +31,10 @@ class DataAccountabilityReport(Report):
         self._reports = {}
 
     def populate_data(self):
-        # DOP = DaacOutgoingProducts GSP = GeneratedSdsProducts IFN = IncomingFilesNen IFG = IncomingFilesGDS
+        # DOP = DaacOutgoingProducts
+        # GSP = GeneratedSdsProducts
+        # IFS = IncomingFilesSdp
+        # IFA = IncomingFilesAncillary
         DOP_report = DaacOutgoingProducts(
             self._title,
             self._start_datetime,
@@ -46,35 +49,35 @@ class DataAccountabilityReport(Report):
             self._creation_time,
             detailed=self._detailed,
         )
-        IFN_report = IncomingFiles(
+        IFS_report = IncomingFiles(
             self._title,
             self._start_datetime,
             self._end_datetime,
             self._creation_time,
-            report_type="nen",
+            report_type="sdp",
         )
-        IFG_report = IncomingFiles(
+        IFA_report = IncomingFiles(
             self._title,
             self._start_datetime,
             self._end_datetime,
             self._creation_time,
-            report_type="gds_ancillary",
+            report_type="ancillary",
         )
 
         reports = {}
 
         reports["daac_outgoing_products"] = DOP_report._get_daac_outgoing_products()
         reports["generated_sds_products"] = GSP_report._get_generated_products()
-        reports["incoming_nen_products"] = IFN_report._get_incoming_products()
-        reports["incoming_gds_products"] = IFG_report._get_incoming_products()
+        reports["incoming_nen_products"] = IFS_report._get_incoming_products()
+        reports["incoming_ancillary_products"] = IFA_report._get_incoming_products()
 
         self._total_incoming_data_file_num += (
-            IFN_report._total_incoming_data_file_num
-            + IFN_report._total_incoming_data_file_num
+            IFS_report._total_incoming_data_file_num
+            + IFS_report._total_incoming_data_file_num
         )
         self._total_incoming_data_file_volume += (
-            IFN_report._total_incoming_data_file_volume
-            + IFN_report._total_incoming_data_file_volume
+            IFS_report._total_incoming_data_file_volume
+            + IFS_report._total_incoming_data_file_volume
         )
         self._total_products_produced_num += GSP_report._total_products_produced_num
         self._total_products_produced_volume += GSP_report._total_products_volume
@@ -88,9 +91,9 @@ class DataAccountabilityReport(Report):
             "root_name": root_name,
             "header": {
                 "time_of_report": self._creation_time,
-                "data_recieved_time_range": "{}-{}".format(
-                    utils.split_extra_except_t(self._start_datetime),
-                    utils.split_extra_except_t(self._end_datetime),
+                "data_received_time_range": "{}-{}".format(
+                    utils.to_iso_format_truncated(self._start_datetime),
+                    utils.to_iso_format_truncated(self._end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -103,7 +106,7 @@ class DataAccountabilityReport(Report):
             "daac_outgoing_products": self._reports["daac_outgoing_products"],
             "generated_sds_products": self._reports["generated_sds_products"],
             "incoming_nen_products": self._reports["incoming_nen_products"],
-            "incoming_gds_products": self._reports["incoming_gds_products"],
+            "incoming_ancillary_products": self._reports["incoming_ancillary_products"],
         }
 
     def get_data(self):
@@ -131,8 +134,8 @@ class DataAccountabilityReport(Report):
         return "dar_{}_{}_{}_{}.{}".format(
             self._report_type,
             self._creation_time,
-            utils.split_extra_except_t(self._start_datetime),
-            utils.split_extra_except_t(self._end_datetime),
+            utils.to_iso_format_truncated(self._start_datetime),
+            utils.to_iso_format_truncated(self._end_datetime),
             output_format,
         )
 

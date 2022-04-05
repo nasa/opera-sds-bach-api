@@ -1,10 +1,9 @@
 from __future__ import division
 
 import logging
-import json
 
-from flask_restx import Namespace, Resource, reqparse, fields
 from flask import request, make_response
+from flask_restx import Namespace, Resource, reqparse, fields
 
 from accountability_api.api_utils.reporting.reports_generator import ReportsGenerator
 
@@ -119,20 +118,16 @@ class CreateReport(Resource):
                 crid=self._crid
             )
             filename = reports_generator.filename
-            if self._mimetype == "json":
-                json_data = json.dumps(report, indent=2)
-                response = make_response(json_data)
-            else:
-                response = make_response(report)
+            response = make_response(report)
 
             response.headers["content-type"] = self._mimetype
             response.headers["filename"] = filename
-            LOGGER.info("return report: {}".format(filename))
+            LOGGER.info(f"return report: {filename}")
             return response
         except Exception as e:
-            LOGGER.exception("error while generating report: {}".format(reportName))
+            LOGGER.exception(f"error while generating report: {reportName}")
             return {
-                "message": "cannot generate {}".format(reportName),
+                "message": f"cannot generate {reportName}",
                 "details": str(e),
             }, 500
 
@@ -152,9 +147,9 @@ class CreateReport(Resource):
         try:
             gen_report, json_data = self.__get_report()
         except Exception as e:
-            LOGGER.exception("error while generating report: {}".format(reportType))
+            LOGGER.exception(f"error while generating report: {reportType}")
             return {
-                "message": "cannot generate {}".format(reportType),
+                "message": f"cannot generate {reportType}",
                 "details": str(e),
             }, 500
         if gen_report is None:

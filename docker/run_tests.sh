@@ -38,7 +38,7 @@ python accountability_api/load_es_data.py $(pwd)/tests/mozart_es_data/ mozart
 flake8 --output-file=/tmp/flake8.log
 
 # run unit tests
-pytest --ignore=lambda --junit-xml=/tmp/pytest_unit.xml
+pytest --ignore=lambda tests/unit/ --junit-xml=/tmp/pytest_unit.xml
 
 # run code coverage
 # pytest --ignore=lambda --cov=accountability_api tests/ --cov-report=html:/tmp/coverage.html

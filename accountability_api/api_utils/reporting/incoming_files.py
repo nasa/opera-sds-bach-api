@@ -1,3 +1,5 @@
+import traceback
+
 from .report import Report
 from accountability_api.api_utils import utils, query, processing
 from accountability_api.api_utils import metadata as consts
@@ -10,7 +12,7 @@ class IncomingFiles(Report):
     """
 
     def __init__(
-        self, title, start_date, end_date, timestamp, report_type="nen", **kwargs
+        self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs
     ):
         super(IncomingFiles, self).__init__(
             title, start_date, end_date, timestamp, **kwargs
@@ -33,12 +35,11 @@ class IncomingFiles(Report):
 
         indexes = {}
 
-        if self._report_type == "nen":
-            indexes = consts.INCOMING_NEN_PRODUCTS
-        elif self._report_type == "gds_ancillary":
-            indexes = consts.INCOMING_GDS_ANCILLARY_FILES
+        if self._report_type == "sdp":
+            indexes = consts.INCOMING_SDP_PRODUCTS
+        elif self._report_type == "ancillary":
+            indexes = consts.INCOMING_ANCILLARY_FILES
 
-        # Go through each index in the incoming_nen_products indexes
         products = []
 
         total_products_produced = 0
@@ -78,7 +79,8 @@ class IncomingFiles(Report):
                     {"name": index, "num_ingested": num_products, "volume": volume}
                 )
             except Exception:
-                print("could not find index")
+                traceback.print_exc()
+                print(f"An exception has occurred. Returning 0 results for index {index}")
                 products.append({"name": index, "num_ingested": 0, "volume": 0})
 
         self._total_incoming_data_file_num = total_products_produced
@@ -88,18 +90,18 @@ class IncomingFiles(Report):
 
     def get_dict_format(self):
         root_name = ""
-        if self._report_type == "nen":
-            root_name = "INCOMING_NEN_PRODUCTS_REPORT"
-        elif self._report_type == "gds_ancillary":
-            root_name = "INCOMING_GDS_PRODUCTS_REPORT"
+        if self._report_type == "sdp":
+            root_name = "INCOMING_SDP_PRODUCTS_REPORT"
+        elif self._report_type == "ancillary":
+            root_name = "INCOMING_ANCILLARY_PRODUCTS_REPORT"
 
         return {
             "root_name": root_name,
             "header": {
                 "time_of_report": self._creation_time,
-                "data_recieved_time_range": "{}-{}".format(
-                    utils.split_extra_except_t(self._start_datetime),
-                    utils.split_extra_except_t(self._end_datetime),
+                "data_received_time_range": "{}-{}".format(
+                    utils.to_iso_format_truncated(self._start_datetime),
+                    utils.to_iso_format_truncated(self._end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,

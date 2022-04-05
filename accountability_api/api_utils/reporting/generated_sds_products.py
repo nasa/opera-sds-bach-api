@@ -29,9 +29,9 @@ class GeneratedSdsProducts(Report):
     def _get_generated_products(self):
 
         indexes = {}
+        indexes = consts.GENERATED_PRODUCTS
 
         # Go through each index in the GENERATED_PRODUCTS indexes
-        indexes = consts.GENERATED_PRODUCTS
         products = []
 
         total_products_produced = 0
@@ -89,9 +89,9 @@ class GeneratedSdsProducts(Report):
             "root_name": root_name,
             "header": {
                 "time_of_report": self._creation_time,
-                "data_recieved_time_range": "{}-{}".format(
-                    utils.split_extra_except_t(self._start_datetime),
-                    utils.split_extra_except_t(self._end_datetime),
+                "data_received_time_range": "{}-{}".format(
+                    utils.to_iso_format_truncated(self._start_datetime),
+                    utils.to_iso_format_truncated(self._end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
