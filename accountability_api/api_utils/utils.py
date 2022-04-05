@@ -1,5 +1,8 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timedelta
+from typing import Dict
+
+import dateutil.parser
 import math
 from jsonschema import validate, ValidationError, SchemaError
 from lxml import etree, objectify
@@ -7,97 +10,80 @@ from lxml import etree, objectify
 LOGGER = logging.getLogger()
 
 
-def determain_dt_format(input_str):
-    # ensure this is a T in the input_str
-    if "T" not in input_str:
-        raise Exception("Must have a T in the datetime.")
-    # split the datetime
-    split_dt = input_str.split("T")
-    # grab the date
-    date = split_dt[0]
-    # check if it has a doy
-    has_doy = False
-    if len(date.split("-")) < 3:
-        has_doy = True
+def from_iso_to_dt(dt_str: str):
+    """
+    Returns a datetime for the given ISO-like datetime string.
 
-    # grab the time
-    time = split_dt[1]
-    # check if there are seconds
-    has_seconds = False
-    if len(time.split(":")) > 2:
-        has_seconds = True
+    Supports datetime strings with month + day of the month, and day of the year.
 
-    # check if there are milliseconds
-    time_split = time.split(".")
-
-    has_ms = False
-    has_z = False
-    if len(time_split) > 1:
-        has_ms = True
-    if "Z" in time:
-        has_z = True
-
-    # build the dt formating string
-    dt_format = "%Y"
-    if has_doy:
-        dt_format += "-%jT"
-    else:
-        dt_format += "-%m-%dT"
-
-    if has_seconds:
-        dt_format += "%H:%M:%S"
-    else:
-        dt_format += "%H:%M"
-
-    if has_ms:
-        dt_format += ".%f"
-
-    if has_z:
-        dt_format += "Z"
-
-    return dt_format
+    NOTE
+    * Month must be zero-padded.
+    * Day of month must be zero-padded.
+    * Day of year must be zero-padded.
+    * hour must be 24-hour clock and zero-padded.
+    * minute must be zero-padded.
+    * second must be zero-padded.
+    * microsecond, if present, must be zero-padded to 6 digits maximum.
+    """
+    return dateutil.parser.isoparse(dt_str).replace(tzinfo=None)
 
 
-def from_iso_to_dt(input_str):
-    dt_format = determain_dt_format(input_str)
-    return datetime.strptime(input_str, dt_format)
+def from_dt_to_iso(dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
+    return dt.strftime(custom_format)
 
 
-def from_dt_to_iso(input_dt, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
-    return input_dt.strftime(custom_format)
+def set_transfer_status(doc: Dict):
+    if doc["dataset_level"] != "L3":
+        doc["transfer_status"] = "not_applicable"
+        return doc
 
-
-# def from_iso_to_dt(input_str, format="%Y-%m-%dT%H:%M:%S.%fZ"):
-#     return datetime.strptime(input_str, format)
-
-
-def set_transfer_status(doc):
     if "daac_delivery_status" in doc:
         if doc["daac_delivery_status"] == "SUCCESS":
             doc["transfer_status"] = "cnm_r_success"
         else:
             doc["transfer_status"] = "cnm_r_failure"
-    else:
-        if "daac_CNM_S_status" in doc:
-            if doc["daac_CNM_S_status"] == "SUCCESS":
-                doc["transfer_status"] = "cnm_s_success"
-            else:
-                doc["transfer_status"] = "cnm_s_failure"
+    elif "daac_CNM_S_status" in doc:
+        if doc["daac_CNM_S_status"] == "SUCCESS":
+            doc["transfer_status"] = "cnm_s_success"
         else:
-            doc["transfer_status"] = "unknown"
+            doc["transfer_status"] = "cnm_s_failure"
+    else:
+        doc["transfer_status"] = "unknown"
+
     return doc
 
 
-def split_extra_except_t(dt):
-    split_dt = dt.split("T")
-    half1 = "".join(split_dt[0].split("-"))
-    half2 = "".join(split_dt[1].split(":")).split(".")[0]
-    return "T".join([half1, half2])
+def to_iso_format_truncated(dt_str: str):
+    """
+    Converts the given ISO-like datetime string to the truncated representation.
+
+    Additionally, the resulting string loses any fractional seconds and time zone offset.
+
+    See https://en.wikipedia.org/wiki/ISO_8601#Truncated_representations
+    """
+    dt_str = dt_str if dt_str[-1] != "Z" else dt_str[:-1]  # drop time zone offset Z
+
+    split_dt = dt_str.split("T")
+    date_half = "".join(split_dt[0].split("-"))
+    time_half = "".join(split_dt[1].split(":")).split(".")[0]  # drop fractional seconds
+
+    # drop any remaining time zone offset
+    time_half = time_half.split("+")[0]
+    time_half = time_half.split("-")[0]
+
+    return "T".join([date_half, time_half])
 
 
-def from_td_to_str(input_td):
+def from_td_to_str(input_td: timedelta):
+    """
+    Returns a string representation of the timedelta.
+
+    Example 1: "001T01:01:01"
+    Example 2: "-001T01:01:01"
+    """
     days = input_td.days
     seconds = input_td.seconds
+
     hours = 0
     minutes = 0
 
@@ -109,15 +95,10 @@ def from_td_to_str(input_td):
         minutes += 1
         seconds -= 60
 
-    sign = days < 0
+    sign = "-" if days < 0 else ""
+    days = abs(days)
 
-    return "{}{}T{}:{}:{}".format(
-        "-" if sign else "",
-        "{:03d}".format(abs(days)).rjust(3),
-        hours if hours >= 10 else "0" + str(hours),
-        minutes if minutes >= 10 else "0" + str(minutes),
-        seconds if seconds >= 10 else "0" + str(seconds),
-    )
+    return f"{sign}{days:03d}T{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 
 def add_value_to_path(root, path, value):

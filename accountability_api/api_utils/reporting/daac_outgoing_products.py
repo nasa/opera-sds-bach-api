@@ -31,7 +31,7 @@ class DaacOutgoingProducts(Report):
     def _get_daac_outgoing_products(self):
 
         indexes = {}
-        indexes = consts.GENERATED_PRODUCTS
+        indexes = consts.OUTGOING_PRODUCTS_TO_DAAC
 
         # Go through each index in the incoming_nen_products indexes
         products = []
@@ -108,9 +108,9 @@ class DaacOutgoingProducts(Report):
             "root_name": root_name,
             "header": {
                 "time_of_report": self._creation_time,
-                "data_recieved_time_range": "{}-{}".format(
-                    utils.split_extra_except_t(self._start_datetime),
-                    utils.split_extra_except_t(self._end_datetime),
+                "data_received_time_range": "{}-{}".format(
+                    utils.to_iso_format_truncated(self._start_datetime),
+                    utils.to_iso_format_truncated(self._end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,

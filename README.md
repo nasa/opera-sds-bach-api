@@ -1,6 +1,56 @@
-# accountability-ui-api
-API to support the UIs for OPERA with HySDS
+# bach-api
+API to support the Accountability UIs for OPERA with HySDS
+
+# Getting started
+
+## Prerequisites
+
+1. Git.
+2. Python (see .python-version).
+4. A fork of the repo (for any contributions).
+5. A clone of the `opera-sds-bach-api` repo.
+
+## Installation
+
+1. Create a python virtual environment.
+    1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
+1Activate the virtual environment and run `pip install -e .` from the project root to install the workspace dependencies.
+
+# Running locally
+
+1. Run Elasticsearch (On Mozart. See [opera-sds-pcm project homepage](https://github.com/nasa/opera-sds-pcm)).
+1Under the project root, create a `celeryconfig.py` file. See snippet below. Update placeholders as needed.
+
+   ```python
+   # celeryconfig.py
+   
+   JOBS_ES_URL = "http://127.0.0.1:9200"
+   
+   GRQ_AWS_ES = False
+   GRQ_ES_HOST = "127.0.0.1"
+   AWS_REGION = "us-west-2"
+   GRQ_ES_URL = "https://<mozart_ip>/grq_es/"
+   
+   GRQ_ES_USER = "<user>"
+   GRQ_ES_PWD = "<password>"
+   ```
+1. Run either the following commands to start the development server. 
+    * Flask development mode:
+      These commands guarantee development mode is fully enabled, in addition to the interactive debugger and reloader.
+      See the official Flask documentation for how this works (https://flask.palletsprojects.com/en/2.0.x/cli/)
+    ```bash
+    export FLASK_ENV=development
+    export FLASK_APP="accountability_api:create_app('accountability_api.settings.DevelopmentConfig')"
+    flask run -p 8875
+    ```
+    * External debugger (IDE), run `python run_debug.py`.
+      See Flask documentation (https://flask.palletsprojects.com/en/2.0.x/debugging/)
+1. Make API calls to endpoints under `http://localhost:8875/`
+
 ## Files required to run in `docker`
+
+The following files are required to run `opera-sds-bach-api` in docker. Refer to the `docker run` command in this document for where the app expects these files.
+
 ### Sample `app.conf.ini`
     [default]
     FLASK_HOST = 0.0.0.0
@@ -15,10 +65,12 @@ API to support the UIs for OPERA with HySDS
     VENUE = local
     JOB_CONTAINER_NAME = container-sds-accountability_accountability-sciflo:core-v3.0.1
     swagger_base = /api
+
     [LOGGING]
     LOG_LEVEL = INFO
     LOG_INTERVAL_HOUR = 12
     LOG_BACKUP_COUNT = 30
+
     [dev]
     DEBUG = True
     
@@ -29,6 +81,7 @@ API to support the UIs for OPERA with HySDS
     FLASK_APP_NAME = ACCOUNTABILITY API
     PDR_SERVER = http://137.78.112.40:5000
     LOG_LEVEL = INFO
+
 #### `app.conf.ini` Explanation
 | Name | Description | Default Value |
 |---|---|---|
@@ -55,10 +108,12 @@ API to support the UIs for OPERA with HySDS
 | DEBUG | [boolean] |NA. mandatory|
 | FLASK_HOST | [0.0.0.0] |NA. mandatory|
 | FLASK_PORT | [integer] |NA. mandatory|
+
 ### `.netrc`
     machine 127.0.0.1 login <rabbit-mq-username> password <rabbit-mq-password>
     macdef init
 - the permissions of `.netrc` needs to be `400`
+
 ### `celeryconfig.py`
 - using the existing config from factotum machine. 
 - keys in use
@@ -71,9 +126,12 @@ API to support the UIs for OPERA with HySDS
 |MOZART_URL|to extract Mozart IP|
 |TOSCA_URL|to extract GRQ IP|
 |REDIS_INSTANCE_METRICS_URL|to extract Kibana IP|
+
 #### Assumptions
 External Rabbit-MQ port is internal Rabbit-MQ port retrieved from `celeryconfig.py` + 1
+
 ### Directory `logs` to keep log files
+
 #### `docker` command to start the server
         docker run --rm --name <docker_ps_name> \
           -v /absolute/path/to/.netrc:/home/ops/.netrc:z  \
@@ -81,6 +139,7 @@ External Rabbit-MQ port is internal Rabbit-MQ port retrieved from `celeryconfig.
           -v /absolute/path/to/app.conf.ini:/home/ops/accountability-ui-api/accountability_api/app.conf.ini:ro  \
           -v /absolute/path/to/logs:/home/ops/accountability-ui-api/logs:z  \
           -d --net="host" <image-name>:<tag> ;
+
 ### NOTES
 - This project requires `boto3` and `botocore`. But they are not part of the installation instruction as `hysds/pge-base:v3.0.0-rc.4` already has them installed.
 - This project assumes aws key and secret are set in default location. 

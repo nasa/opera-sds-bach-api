@@ -3,8 +3,11 @@ import os
 import logging
 
 from flask import Flask
+from flask_compress import Compress
 from flask_cors import CORS  # , cross_origin
 from flask_restx import apidoc
+
+compress = Compress()
 
 
 class ReverseProxied(object):
@@ -99,14 +102,7 @@ def create_app(object_name):
     # limiter.init_app(app)
     # mail.init_app(app)
 
+    compress.init_app(app)
+
     # Import and register the different asset bundles
     return app
-
-
-if __name__ == "__main__":
-    # Import the config for the proper environment using the
-    # shell var FLASK_ENV
-    env = os.environ.get("FLASK_ENV", "development")
-    app = create_app("accountability_api.settings.%sConfig" % env.capitalize())
-
-    app.run()

@@ -1,63 +1,41 @@
-# from accountability_api.api_utils.utils import (
-#     get_orbit_range_list,
-#     ElasticsearchResultDictWrapper,
-# )
-import os
 import logging
 import traceback
-import json
+from typing import Union, List, Dict, Tuple, Optional
 
-from accountability_api.api_utils import GRQ_ES, JOBS_ES
+from elasticsearch.exceptions import NotFoundError
+from hysds_commons.elasticsearch_utils import ElasticsearchUtility
+from more_itertools import always_iterable
+
+from accountability_api import es_connection
+from accountability_api.api_utils import JOBS_ES
 from accountability_api.api_utils import metadata as consts
-from accountability_api.api_utils.processing import (
-    format_downlink_data,
-    format_track_frame_data,
-    format_l0b_data,
-)
+from accountability_api.api_utils.processing import format_l0b_data
 
 LOGGER = logging.getLogger()
 
 
 def run_query(
-    es=GRQ_ES,
-    body=None,
-    doc_type=None,
-    q=None,
-    sort=None,
+    es: Optional[ElasticsearchUtility] = None,
+    body: Optional[Dict] = None,
+    doc_type: Optional[str] = None,
+    sort: Optional[List[str]] = None,
     size=500,
     index=consts.PRODUCTS_INDEX,
     **kwargs
 ):
+    es = es or es_connection.get_grq_es()
 
     if sort:
-        if q and body is None:
-            return es.search(
-                index=index, doc_type=doc_type, sort=sort, size=size, q=q, params=kwargs
-            )
-        try:
-            return es.search(
-                index=index,
-                body=body,
-                doc_type=doc_type,
-                sort=sort,
-                size=size,
-                params=kwargs,
-            )
-        except Exception as e:
-            raise (e)
-    if q and body is None:
-        return es.search(index=index, doc_type=doc_type, size=size, q=q, params=kwargs)
-    return es.search(
-        index=index, body=body, doc_type=doc_type, size=size, params=kwargs
-    )
+        return es.search(index=index, body=body, doc_type=doc_type, sort=sort, size=size, params=kwargs)
+    else:
+        return es.search(index=index, body=body, doc_type=doc_type, size=size, params=kwargs)
 
 
 def run_query_with_scroll(
-    es=GRQ_ES,
-    body=None,
-    doc_type=None,
-    q=None,
-    sort=None,
+    es: Optional[ElasticsearchUtility] = None,
+    body: Optional[Dict] = None,
+    doc_type: Optional[str] = None,
+    sort: Optional[List[str]] = None,
     size=-1,
     index=consts.PRODUCTS_INDEX,
     **kwargs
@@ -80,6 +58,8 @@ def run_query_with_scroll(
     :param kwargs:
     :return:
     """
+    es = es or es_connection.get_grq_es()
+
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll
     params = {
@@ -198,7 +178,7 @@ def _construct_sub_filter(field_name, start=None, stop=None, sub_filter={}):
     return sub_filter
 
 
-def add_range_filter(query=None, time_key=None, start=None, stop=None):
+def add_range_filter(query: Dict, time_key=None, start=None, stop=None) -> Dict:
     _filter = _construct_sub_filter(field_name=time_key, start=start, stop=stop)
 
     if "filter" not in query["query"]["bool"]:
@@ -212,19 +192,19 @@ def add_range_filter(query=None, time_key=None, start=None, stop=None):
     return query
 
 
-def add_query_find(query=None, field_name=None, value=None):
+def add_query_find(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     query["query"]["bool"]["should"].append(new_filter)
     return query
 
 
-def add_query_match(query=None, field_name=None, value=None):
+def add_query_match(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     query["query"]["bool"]["must"].append(new_filter)
     return query
 
 
-def add_query_filter(query=None, field_name=None, value=None):
+def add_query_filter(query: Dict, field_name=None, value=None) -> Dict:
     new_filter = {"match": {field_name: value}}
     if "filter" not in query["query"]["bool"]:
         query["query"]["bool"]["filter"] = []
@@ -232,219 +212,6 @@ def add_query_filter(query=None, field_name=None, value=None):
     query["query"]["bool"]["filter"].append(new_filter)
     return query
 
-
-def get_downlink_data(
-    size=40,
-    work_start=None,
-    work_end=None,
-    start=None,
-    end=None,
-    time_key=None,
-    vcid=None,
-    ldf_filename=None,
-    obs_id=None,
-    **kwargs
-):
-    """
-    Gets LDFs status doc by filtering based on the provided criteria. If none are provided it gets all the docs.
-    :param size:
-    :return:
-    """
-    LOGGER.debug(
-        "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
-    )
-    index = consts.ANCILLARY_INDEXES["LDF"]
-    filter_path = ["hits.hits._id", "hits.hits._source"]
-    query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}, "_source": []}
-
-    sort = "creation_timestamp:desc"
-    try:
-        if start and end:
-            # add created_at range filter
-            query = add_range_filter(
-                query=query, time_key=time_key, start=start, stop=end
-            )
-        elif start:
-            query = add_range_filter(
-                query=query, time_key=time_key, start=start, stop=None
-            )
-        elif end:
-            query = add_range_filter(
-                query=query, time_key=time_key, start=None, stop=end
-            )
-        # if work_start and work_end:
-        #     query = add_range_filter(
-        #         query=query, time_key="created_at", start=work_start, stop=work_end
-        #     )
-        # elif work_start:
-        #     query = add_range_filter(
-        #         query=query, time_key="created_at", start=work_start, stop=None
-        #     )
-        # elif work_end:
-        #     query = add_range_filter(
-        #         query=query, time_key="created_at", start=None, stop=work_end
-        #     )
-
-        if vcid:
-            query = add_query_filter(query=query, field_name="vcid", value=vcid)
-
-        if ldf_filename:
-            query = add_query_filter(
-                query=query, field_name="ldf_id", value=ldf_filename
-            )
-
-        if obs_id:
-            obs_query = {"query": {"bool": {"must": []}}, "_source": []}
-            # add obs_id filter
-
-            obs_query = add_query_filter(
-                query=obs_query, field_name="metadata.observation_ids", value=obs_id
-            )
-
-            obs_results = (
-                run_query(
-                    index=consts.PRODUCT_INDEXES["DATATAKE_STATE_CONFIGS"],
-                    sort=sort,
-                    size=size,
-                    body=obs_query,
-                    **kwargs
-                )
-                .get("hits")
-                .get("hits")
-            )
-
-            for result in obs_results:
-                source = result["_source"]
-                metadata = source["metadata"]
-                if (
-                    "l0a_rrst_product_paths" in metadata
-                    and len(metadata["l0a_rrst_product_paths"]) > 0
-                ):
-                    for l0a in metadata["l0a_rrst_product_paths"]:
-                        query = add_query_filter(
-                            query=query,
-                            field_name="L0A_L_RRST_id",
-                            value=os.path.basename(l0a),
-                        )
-        result = run_query(index=index, sort=sort, size=size, body=query, **kwargs)
-
-        # Remove this when the orbit status is fixed
-        tmpresult = result.get("hits").get("hits")
-        ldf_tree = {}
-        for entry in tmpresult:
-            ldf = entry["_source"]["id"]
-            workflow_start = entry["_source"]["creation_timestamp"]
-            state_config_results = run_query(
-                index="grq_*_ldf-*",
-                body={
-                    "query": {
-                        "bool": {
-                            "must": [
-                                {"match": {"metadata.ldf_name": ldf.split("_LDF")[0]}}
-                            ]
-                        }
-                    }
-                },
-            )
-            # print(state_config_results)
-            results = list(
-                map(
-                    lambda x: (x["_id"], x["_source"]),
-                    state_config_results["hits"]["hits"],
-                )
-            )
-            for state_config, sc_source in results:
-                state_config_results = run_query(
-                    index=consts.PRODUCT_INDEXES["L0A_L_RRST"],
-                    body={
-                        "query": {
-                            "bool": {
-                                "must": [
-                                    {
-                                        "match": {
-                                            "metadata.accountability.L0A_L_RRST_PP.trigger_dataset_ids": state_config
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    },
-                )
-                # print(ldf)
-                # print(state_config_results)
-                if len(state_config_results["hits"]["hits"]) == 0:
-                    ldf_tree[ldf] = {
-                        "workflow_start": workflow_start,
-                        state_config: {state_config: sc_source},
-                    }
-                else:
-                    for res in state_config_results["hits"]["hits"]:
-                        source = res["_source"]
-                        if ldf not in ldf_tree:
-                            ldf_tree[ldf] = {
-                                "workflow_start": workflow_start,
-                                state_config: {
-                                    source["metadata"]["accountability"][
-                                        "L0A_L_RRST_PP"
-                                    ]["outputs"][0]: source
-                                },
-                            }
-                        elif state_config not in ldf_tree[ldf]:
-                            ldf_tree[ldf] = {
-                                "workflow_start": workflow_start,
-                                state_config: {
-                                    source["metadata"]["accountability"][
-                                        "L0A_L_RRST_PP"
-                                    ]["outputs"][0]: source
-                                },
-                            }
-                        else:
-                            ldf_tree[ldf][state_config][
-                                source["metadata"]["accountability"]["L0A_L_RRST_PP"][
-                                    "outputs"
-                                ][0]
-                            ] = source
-                            ldf_tree[ldf]["workflow_start"] = workflow_start
-                    state_config_results = run_query(
-                        index=consts.PRODUCT_INDEXES["L0A_L_RRST_PP"],
-                        body={
-                            "query": {
-                                "bool": {
-                                    "must": [
-                                        {
-                                            "match": {
-                                                "metadata.accountability.L0A_L_RRST_PP.trigger_dataset_id": state_config
-                                            }
-                                        }
-                                    ]
-                                }
-                            }
-                        },
-                    )
-                    for res in state_config_results["hits"]["hits"]:
-                        source = res["_source"]
-                        if ldf not in ldf_tree:
-                            ldf_tree[ldf] = {
-                                "workflow_start": workflow_start,
-                                state_config: {source["id"]: source},
-                            }
-                        elif state_config not in ldf_tree[ldf]:
-                            ldf_tree[ldf] = {
-                                "workflow_start": workflow_start,
-                                state_config: {source["id"]: source},
-                            }
-                        elif source["id"] in ldf_tree[ldf][state_config]:
-                            continue
-                        else:
-                            ldf_tree[ldf][state_config][source["id"]] = source
-                            ldf_tree[ldf]["workflow_start"] = workflow_start
-            # print(ldf_tree)
-        resulting_data = format_downlink_data(ldf_tree)
-        return resulting_data
-    except Exception as e:
-        LOGGER.error("Error occurred while getting LDFs: {}".format(e))
-        LOGGER.error(traceback.format_exc())
-        return []
 
 
 def get_obs_data(
@@ -613,93 +380,6 @@ def grab_rslc_children(rslc_id, cycle_sec="", cycle_ref=""):
     return hits
 
 
-def get_track_frame_data(
-    size=40,
-    cycle_sec=None,
-    cycle_ref=None,
-    track=None,
-    frame=None,
-    obs_id=None,
-    l0b_rrsd_id=None,
-    **kwargs
-):
-    """
-    Gets LDFs status doc by filtering based on the provided criteria. If none are provided it gets all the docs.
-    :param size:
-    :return:
-    """
-    LOGGER.debug(
-        "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
-    )
-    index = consts.PRODUCT_INDEXES["L0B_L_RRSD"]
-    filter_path = ["hits.hits._id", "hits.hits._source"]
-    query = {"query": {"bool": {"must": [{"match": {"_index": index}}]}}}
-
-    sort = "creation_timestamp:desc"
-    _filter = {}
-    # sort = ""
-    try:
-        # this happens during the L0B querys
-        if l0b_rrsd_id:
-            query = add_query_match(query=query, field_name="_id", value=l0b_rrsd_id)
-
-        # add obs_id
-        if obs_id:
-            query = add_query_filter(
-                query=query, field_name="metadata.OBS_ID", value=obs_id
-            )
-
-        l0b_results = run_query(index=index, body=query, sort=sort, size=size, **kwargs)
-
-        l0b_tree = {}
-        for entry in l0b_results.get("hits").get("hits"):
-            metadata = entry["_source"]["metadata"]
-            if "OBS_ID" not in metadata:
-                continue
-            obs_id = metadata["OBS_ID"]
-            l0b_id = entry["_id"]
-            if l0b_id not in l0b_tree:
-                l0b_tree[l0b_id] = {
-                    "observation_id": obs_id,
-                    "workflow_start": entry["_source"]["creation_timestamp"],
-                    "L1_L_RSLC": {},
-                }
-
-                rslcs = grab_l0b_rrsd_rslc_children(l0b_id, track=track, frame=frame)
-
-                for rslc in rslcs:
-                    rslc_id = rslc["id"]
-                    del rslc["id"]
-                    l0b_tree[l0b_id]["L1_L_RSLC"][rslc_id] = rslc
-
-                    children = grab_rslc_children(
-                        rslc_id, cycle_sec=cycle_sec, cycle_ref=cycle_ref
-                    )
-
-                    rslc_dict = l0b_tree[l0b_id]["L1_L_RSLC"]
-
-                    if rslc_id not in rslc_dict:
-                        rslc_dict[rslc_id] = {}
-
-                    for child in children:
-                        source = child["_source"]
-                        dataset = source["dataset"]
-
-                        if dataset not in rslc_dict[rslc_id]:
-                            rslc_dict[rslc_id][dataset] = {}
-
-                        rslc_dict[rslc_id][dataset][child["_id"]] = source
-
-        with open("f.json", "w") as p:
-            json.dump(l0b_tree, p)
-
-        return format_track_frame_data(l0b_tree)
-    except Exception as e:
-        LOGGER.error("Error occurred while getting Observations: {}".format(e))
-        LOGGER.error(traceback.format_exc())
-        return []
-
-
 def flatten_doc(doc, skip_keys=list(), parent_key=""):
     flatten_dict = {}
     for key in doc:
@@ -823,15 +503,14 @@ def process_product(doc):
     doc = doc.get("_source")
 
 
-def get_product(product_id, index=None):
+def get_product(product_id: str, index=consts.PRODUCTS_INDEX):
     """
     Get product doc based on ID
     :param product_id:
+    :param index:
     :return:
     """
-    LOGGER.debug("Getting product with id {}".format(product_id))
-    if index is None:
-        index = consts.PRODUCTS_INDEX
+    LOGGER.debug(f"Getting product with id {product_id}")
     query = {"query": {"bool": {"must": [{"match": {"id": product_id}}]}}}
     try:
         exclude = ["metadata.context.context"]
@@ -847,8 +526,15 @@ def get_product(product_id, index=None):
 
 
 def get_num_docs_in_index(
-    index, start=None, end=None, time_key=None, es=GRQ_ES, **kwargs
+        index,
+        start=None,
+        end=None,
+        time_key=None,
+        es=None,
+        **kwargs
 ):
+    es = es or es_connection.get_grq_es()
+
     query = {"query": {"bool": {"must": [], "filter": []}}}
     if index in list(consts.ACCOUNTABILITY_INDEXES.values()):
         query = add_range_filter(
@@ -867,7 +553,7 @@ def get_num_docs_in_index(
     return result
 
 
-def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwargs):
+def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
     """
     Get docs within particular index between a certain time range
     :param index:
@@ -901,6 +587,17 @@ def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwa
                 query=query, time_key="creation_timestamp", start=start, stop=end
             )
 
+    if "metadata_tile_id" in kwargs:
+        if kwargs.get("metadata_tile_id"):
+            query = add_query_match(query=query, field_name="metadata.tile_id.keyword", value=kwargs["metadata_tile_id"])
+        # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
+        del kwargs['metadata_tile_id']
+    if "metadata_sensor" in kwargs:
+        if kwargs.get("metadata_sensor"):
+            query = add_query_match(query=query, field_name="metadata.sensor.keyword", value=kwargs["metadata_sensor"])
+        # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
+        del kwargs['metadata_sensor']
+
     while _from <= _to:
         result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)
         total = result.get("hits").get("total").get("value")
@@ -910,34 +607,33 @@ def get_docs_in_index(index, size=40, start=None, end=None, time_key=None, **kwa
     return docs, total
 
 
-def get_docs(index, start=None, end=None, source=None, size=40, **kwargs):
+def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=40, **kwargs) -> List[Dict]:
+    """
+    Get docs within particular indexes between a certain time range
+    :param indexes: a single index name or list of index names
+    :param index:
+    :param start:
+    :param end:
+    :param size:
+    :return:
+    """
     docs = []
-    if isinstance(index, list):
-        for partial in index:
-            result, total = get_docs_in_index(
-                partial, start=start, end=end, size=size, **kwargs
-            )
-            docs.extend(result)
-    else:
+    for partial in always_iterable(indexes):
         result, total = get_docs_in_index(
-            index, start=start, end=end, size=size, **kwargs
+            partial, start=start, end=end, size=size, **kwargs
         )
         docs.extend(result)
     return docs
 
 
-def get_num_docs(index_dict, start=None, end=None, **kwargs):
+def get_num_docs(index_dict: Dict, start=None, end=None, **kwargs):
     docs_count = {}
     for name in index_dict:
         docs_count[name] = 0
-        if isinstance(index_dict[name], list):
-            for index in index_dict[name]:
-                if index:
-                    docs_count[name] += get_num_docs_in_index(
-                        index, start, end, **kwargs
-                    )
-        else:
-            index = index_dict[name]
+        for index in always_iterable(index_dict[name]):
             if index:
-                docs_count[name] = get_num_docs_in_index(index, start, end, **kwargs)
+                try:
+                    docs_count[name] += get_num_docs_in_index(index, start, end, **kwargs)
+                except NotFoundError:
+                    logging.error(f"Index ({index}) was not found. Is the index name valid? Does it exist?")
     return docs_count

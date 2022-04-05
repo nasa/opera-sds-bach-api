@@ -21,7 +21,7 @@ parser.add_argument(
     type=str,
     location="args",
     required=False,
-    help="Please provide a valid product ID.",
+    help="Please provide a valid ISO UTC datetime",
 )
 parser.add_argument(
     "end",
@@ -29,7 +29,7 @@ parser.add_argument(
     type=str,
     location="args",
     required=False,
-    help="Please provide a valid product ID.",
+    help="Please provide a valid ISO UTC datetime",
 )
 parser.add_argument(
     "size",

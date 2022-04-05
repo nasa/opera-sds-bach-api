@@ -1,3 +1,7 @@
+import logging
+from typing import List
+
+from elasticsearch.exceptions import NotFoundError
 from flask_restx import Namespace, Resource, reqparse
 from accountability_api.api_utils import query
 from accountability_api.api_utils import metadata as consts
@@ -79,6 +83,30 @@ parser.add_argument(
     required=False,
     help="Please provide a valid size.",
 )
+parser.add_argument(
+    "category",
+    dest="category",
+    type=str,
+    location="args",
+    required=False,
+    help="Data category. ( incoming | outgoing | all )",
+)
+parser.add_argument(
+    "metadata.tile_id",
+    dest="metadata_tile_id",
+    type=str,
+    location="args",
+    required=False,
+    help="Tile ID."
+)
+parser.add_argument(
+    "metadata.sensor",
+    dest="metadata_sensor",
+    type=str,
+    location="args",
+    required=False,
+    help="Sensor."
+)
 
 
 @api.route("/list")
@@ -105,8 +133,13 @@ class ListDataTypeCounts(Resource):
         args = parser.parse_args()
 
         indexes = {}
-        indexes.update(consts.ANCILLARY_INDEXES)
-        indexes.update(consts.PRODUCT_INDEXES)
+        if args.get('category') == 'incoming':
+            indexes.update(consts.INCOMING_SDP_PRODUCTS)
+        elif args.get('category') == 'outgoing':
+            indexes.update(consts.OUTGOING_PRODUCTS_TO_DAAC)
+        else:
+            indexes.update(consts.INCOMING_SDP_PRODUCTS)
+            indexes.update(consts.OUTGOING_PRODUCTS_TO_DAAC)
 
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
@@ -119,7 +152,10 @@ class ListDataTypeCounts(Resource):
             workflow_start=workflow_start_datetime,
             workflow_end=workflow_end_datetime,
         )
-        return count
+        results = []
+        for c in count:
+            results.append({"id": c, "count": count[c]})
+        return results
 
 
 @api.route("/<path:index_name>")
@@ -156,14 +192,18 @@ class DataIndex(Resource):
                     time_key="created_at",
                     start=start_dt,
                     end=end_dt,
+                    size=size,
+                    metadata_tile_id=args["metadata_tile_id"],
+                    metadata_sensor=args["metadata_sensor"]
                     # workflow_start=workflow_start_dt,
                     # workflow_end=workflow_end_dt,
-                    size=size,
                 )
                 docs.extend(results)
 
         for i in range(len(docs)):
             docs[i] = set_transfer_status(docs[i])
+
+        docs = minimize_docs(docs)
 
         return docs
 
@@ -198,20 +238,43 @@ class Data(Resource):
                 index = indexes[name]
                 if not size:
                     size = 40
-                docs.extend(
-                    query.get_docs(
-                        index,
-                        start=start_datetime,
-                        end=end_datetime,
-                        size=size,
-                        # to be used later
-                        # workflow_start=workflow_start_dt,
-                        # workflow_end=workflow_end_dt,
+                try:
+                    docs.extend(
+                        query.get_docs(
+                            index,
+                            start=start_datetime,
+                            end=end_datetime,
+                            size=size,
+                            metadata_tile_id=args["metadata_tile_id"],
+                            metadata_sensor=args["metadata_sensor"]
+                            # to be used later
+                            # workflow_start=workflow_start_dt,
+                            # workflow_end=workflow_end_dt,
+                        )
                     )
-                )
+                except NotFoundError:
+                    logging.error(f"Index ({index}) was not found. Is the index name valid? Does it exist?")
+
         if len(docs) > 0:
             if not isinstance(docs, list):
                 docs = [docs]
             docs = list(map(set_transfer_status, docs))
 
+        docs = minimize_docs(docs)
+
         return docs
+
+
+def minimize_docs(docs: List) -> List:
+    """Filter out redundant data from the request"""
+    for i, doc in enumerate(docs):
+        docs[i] = {
+            "id": doc.get("id"),
+            "dataset_type": doc.get("dataset_type"),
+            "metadata": {
+                "FileName": doc.get("metadata", {}).get("FileName"),
+                "ProductReceivedTime": doc.get("metadata", {}).get("ProductReceivedTime")
+            },
+            "transfer_status": doc.get("transfer_status")
+        }
+    return docs

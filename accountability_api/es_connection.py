@@ -20,16 +20,17 @@ def get_mozart_es(es_url, logger=None):
     return MOZART_ES
 
 
-def get_grq_es(logger=None):
+def get_grq_es(logger=None) -> ElasticsearchUtility:
     global GRQ_ES
 
     if GRQ_ES is None:
         aws_es = app.conf.get("GRQ_AWS_ES", False)
-        es_host = app.conf["GRQ_ES_HOST"]
-        es_url = app.conf["GRQ_ES_URL"]
-        region = app.conf["AWS_REGION"]
 
         if aws_es is True:
+            es_host = app.conf["GRQ_ES_HOST"]
+            es_url = app.conf["GRQ_ES_URL"]
+            region = app.conf["AWS_REGION"]
+
             aws_auth = BotoAWSRequestsAuth(
                 aws_host=es_host, aws_region=region, aws_service="es"
             )
@@ -43,5 +44,15 @@ def get_grq_es(logger=None):
                 ssl_show_warn=False,
             )
         else:
-            GRQ_ES = ElasticsearchUtility(es_url, logger)
+            es_url = app.conf["GRQ_ES_URL"]
+            GRQ_ES = ElasticsearchUtility(
+                es_url=es_url,
+                logger= logger,
+                # NOTE: devs adjust this locally to connect to own Elasticsearch.
+                # http_auth=(app.conf["GRQ_ES_USER"], app.conf["GRQ_ES_PWD"]),
+                # connection_class=RequestsHttpConnection,
+                # use_ssl=True,
+                # verify_certs=False,
+                # ssl_show_warn=False,
+            )
     return GRQ_ES
