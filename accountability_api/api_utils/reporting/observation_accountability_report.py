@@ -116,7 +116,7 @@ class ObservationAccountabilityReport(Report):
         body = self.add_universal_query_params(body)
 
         try:
-            results = query.run_query(
+            results = query.run_query_with_scroll(
                 index=consts.ACCOUNTABILITY_INDEXES["COP"],
                 body=body,
                 doc_type="_doc",
@@ -152,7 +152,7 @@ class ObservationAccountabilityReport(Report):
 
         obs_body = self.add_universal_query_params(obs_body)
 
-        obs_results = query.run_query(
+        obs_results = query.run_query_with_scroll(
             index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=obs_body
         )
 

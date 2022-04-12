@@ -34,6 +34,7 @@ def run_query(
 def run_query_with_scroll(
     es: Optional[ElasticsearchUtility] = None,
     body: Optional[Dict] = None,
+    q: Optional[str] = None,
     doc_type: Optional[str] = None,
     sort: Optional[List[str]] = None,
     size=-1,
@@ -79,7 +80,7 @@ def run_query_with_scroll(
         pass
     params.update(kwargs)  # copy all other arguments.
     primary_result = es.search(**params)  # initial result.
-    total_size = primary_result["hits"]["total"]
+    total_size = primary_result["hits"]["total"]["value"]
     if size != -1:  # caller only wants some results
         total_size = size  # updating the target size
     current_size = len(primary_result["hits"]["hits"])

@@ -61,7 +61,7 @@ class DaacOutgoingProducts(Report):
             num_products = 0
 
             try:
-                results = query.run_query(
+                results = query.run_query_with_scroll(
                     index=indexes[index], body=body, doc_type="_doc"
                 )
                 volume = self._get_processed_volume(

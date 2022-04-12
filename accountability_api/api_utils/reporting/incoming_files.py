@@ -63,7 +63,7 @@ class IncomingFiles(Report):
             body = self.add_universal_query_params(body)
 
             try:
-                results = query.run_query(
+                results = query.run_query_with_scroll(
                     index=indexes[index], body=body, doc_type="_doc"
                 )
 
