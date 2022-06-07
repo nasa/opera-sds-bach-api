@@ -11,12 +11,8 @@ class IncomingFiles(Report):
 
     """
 
-    def __init__(
-        self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs
-    ):
-        super(IncomingFiles, self).__init__(
-            title, start_date, end_date, timestamp, **kwargs
-        )
+    def __init__(self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs):
+        super(IncomingFiles, self).__init__(title, start_date, end_date, timestamp, **kwargs)
         self._report_type = report_type
         self._total_incoming_data_file_num = 0
         self._total_incoming_data_file_volume = 0
@@ -131,9 +127,11 @@ class IncomingFiles(Report):
         return super().to_csv()
 
     def get_filename(self, output_format):
-        return "incoming_{}_files_{}_{}.{}".format(
-            self._report_type, self._start_datetime, self._end_datetime, output_format
-        )
+        """
+        Constructs a filename in the format: incoming_<report_type>_files_<start>_<end>.<ext>.
+        For example, "incoming_sdp_19700101T000000_20220101T000000.csv"
+        """
+        return f"incoming_{self._report_type}_files_{self._start_datetime}_{self._end_datetime}.{output_format}"
 
     def generate_report(self, output_format=None):
         return super().generate_report(output_format=output_format)
