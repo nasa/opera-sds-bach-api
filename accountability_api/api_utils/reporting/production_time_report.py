@@ -1,21 +1,20 @@
 import base64
-import io
-import statistics
 import tempfile
 import zipfile
 from datetime import datetime
 from pathlib import Path
 
+import elasticsearch.exceptions
 import pandas as pd
 from flask import current_app
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
-from pandas import DataFrame, Timedelta
+from pandas import DataFrame
 
 from accountability_api.api_utils import query
 from accountability_api.api_utils.reporting.report import Report
 
 # Pandas options
+from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
+
 pd.set_option('display.max_rows', None)  # control the number of rows printed
 pd.set_option('display.max_columns', None)  # Breakpoint for truncate view. `None` value means unlimited.
 pd.set_option('display.width', None)   # control the printed line length. `None` value will auto-detect the width.
@@ -29,33 +28,37 @@ class ProductionTimeReport(Report):
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        generated_products = query.get_docs(indexes=["grq_1_l3_dswx_hls"], start=self.start_datetime, end=self.end_datetime)
+        try:
+            sds_product_index = "grq_1_l3_dswx_hls"
+            product_docs = query.get_docs(indexes=[sds_product_index], start=self.start_datetime, end=self.end_datetime)
+        except elasticsearch.exceptions.NotFoundError as e:
+            current_app.logger.warning(f"An exception {type(e)} occurred while querying index {sds_product_index} for products. Does the index exists?")
 
         if output_format == "application/zip":
-            report_df = ProductionTimeReport.es_to_report_df(generated_products, report_type)
+            report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
 
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
-            with tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True) as tmp_report_csv:
-                current_app.logger.info(f"{tmp_report_csv.name=}")
+            tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
+            current_app.logger.info(f"{tmp_report_csv.name=}")
 
-                tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
-                tmp_report_csv.flush()
+            tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+            tmp_report_csv.flush()
 
-                # create zip. send zip.
-                with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
-                    report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
+            # create zip. send zip.
+            with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
+                report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
 
-                    # write histogram files, convert columns to filenames
-                    for i, row in report_df.iterrows():
-                        tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                        histogram_b64: str = report_df.at[i, 'histogram']
-                        tmp_histogram.write(base64.b64decode(histogram_b64))
-                        tmp_histogram.flush()
-                        report_zipfile.write(Path(tmp_histogram.name).name, arcname=self.get_filename("image/png"))
-                        report_df.at[i, 'histogram'] = Path(tmp_histogram.name).name
+                # write histogram files, convert columns to filenames
+                for i, row in report_df.iterrows():
+                    tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
+                    histogram_b64: str = report_df.at[i, 'histogram']
+                    tmp_histogram.write(base64.b64decode(histogram_b64))
+                    tmp_histogram.flush()
+                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=self.get_filename("image/png"))
+                    report_df.at[i, 'histogram'] = Path(tmp_histogram.name).name
             return tmp_report_zip
 
-        report_df = ProductionTimeReport.es_to_report_df(generated_products, report_type)
+        report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
 
         if output_format == "text/csv":
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
@@ -72,14 +75,14 @@ class ProductionTimeReport(Report):
             raise Exception(f"output format ({output_format}) is not supported.")
 
     @staticmethod
-    def es_to_report_df(generated_products_es: list[dict], report_type: str) -> DataFrame:
-        current_app.logger.info(f"Total generated products for report {len(generated_products_es)}")
-        if not generated_products_es:
-            return pd.DataFrame(generated_products_es)
+    def to_report_df(product_docs: list[dict], report_type: str) -> DataFrame:
+        current_app.logger.info(f"Total generated products for report {len(product_docs)}")
+        if not product_docs:
+            return pd.DataFrame(product_docs)
 
         # create initial data frame with raw report data
         production_times: list[dict] = []
-        for product in generated_products_es:
+        for product in product_docs:
             if not product.get("daac_CNM_S_timestamp"):
                 current_app.logger.info(f"No CNM-S data. skipping product. {product=}")
                 continue
@@ -99,7 +102,7 @@ class ProductionTimeReport(Report):
                 production_time.update({
                     "InputReceivedDateTime": datetime.fromtimestamp(input_received_ts).isoformat(),
                     "DaacAlertedDateTime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
-                    "ProductionTime": ProductionTimeReport.to_duration_isoformat(production_time_duration)
+                    "ProductionTime": to_duration_isoformat(production_time_duration)
                 })
             elif report_type == "summary":
                 production_time.update({
@@ -118,16 +121,20 @@ class ProductionTimeReport(Report):
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
             df_production_times_summary = pd.DataFrame(production_times)
-            production_time_durations = [x["ProductionTime"] for x in production_times]
-            histogram = ProductionTimeReport.create_histogram(production_time_durations, df_production_times_summary["OPERA Product Short Name"].iloc[0])
+            production_time_durations_hours = [x["ProductionTime"] / 60 / 60 for x in production_times]
+            histogram = create_histogram(
+                series=production_time_durations_hours,
+                title=f'{df_production_times_summary["OPERA Product Short Name"].iloc[0]} Production Times',
+                metric="Production Time",
+                unit="hours")
 
             df_production_times_summary = pd.DataFrame([{
                 "OPERA Product Short Name": df_production_times_summary["OPERA Product Short Name"].iloc[0],
                 "ProductionTime (count)": df_production_times_summary.size,
-                "ProductionTime (min)": ProductionTimeReport.to_duration_isoformat(df_production_times_summary["ProductionTime"].min()),
-                "ProductionTime (max)": ProductionTimeReport.to_duration_isoformat(df_production_times_summary["ProductionTime"].max()),
-                "ProductionTime (mean)": ProductionTimeReport.to_duration_isoformat(df_production_times_summary["ProductionTime"].mean()),
-                "ProductionTime (median)": ProductionTimeReport.to_duration_isoformat(df_production_times_summary["ProductionTime"].median()),
+                "ProductionTime (min)": to_duration_isoformat(df_production_times_summary["ProductionTime"].min()),
+                "ProductionTime (max)": to_duration_isoformat(df_production_times_summary["ProductionTime"].max()),
+                "ProductionTime (mean)": to_duration_isoformat(df_production_times_summary["ProductionTime"].mean()),
+                "ProductionTime (median)": to_duration_isoformat(df_production_times_summary["ProductionTime"].median()),
                 "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
             }])
 
@@ -135,48 +142,6 @@ class ProductionTimeReport(Report):
             return df_production_times_summary
         else:
             raise Exception(f"Unsupported report type. {report_type=}")
-
-    @staticmethod
-    def create_histogram(times_seconds: list[float], title: str) -> io.BytesIO:
-        current_app.logger.info(f"{len(times_seconds)=}")
-        times_hours = [sec / 60 / 60 for sec in times_seconds]
-
-        fig = Figure(layout='tight')
-        ax: Axes = fig.subplots()
-        ax.hist(times_hours, bins=len(times_hours))
-
-        xticks = [
-                # 0,
-                # numpy.percentile(a=times_hours, q=90),
-                statistics.mean(times_hours),
-                # 24
-            ]
-
-        # extreme edge case where only 1 product has been generated
-        if len(times_hours) >= 2:
-            xticks = xticks + [min(*times_hours), max(*times_hours)]
-
-        ax.set(
-            title=f"{title} Production Times",
-            xlabel="Production Time (hours)", xticks=xticks, xticklabels=[f"{x:.2f}" for x in xticks],
-            yticks=[], yticklabels=[])
-
-        ax.axvline(statistics.mean(times_hours), color='k', linestyle='dashed', linewidth=1, alpha=0.5)
-        for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
-                     ax.get_xticklabels() + ax.get_yticklabels()):
-            item.set_fontsize('xx-small')
-        histogram_img = io.BytesIO()
-        fig.savefig(histogram_img, format="png")
-
-        current_app.logger.info("Generated histogram")
-        return histogram_img
-
-    @staticmethod
-    def to_duration_isoformat(duration_seconds: float):
-        td: Timedelta = pd.Timedelta(f'{int(duration_seconds)} s')
-        hh = 24 * td.components.days + td.components.hours
-        hhmmss_format = f"{hh:02d}:{td.components.minutes:02d}:{td.components.seconds:02d}"
-        return hhmmss_format
 
     def get_filename(self, output_format):
         if output_format == "text/csv":
@@ -209,3 +174,5 @@ class ProductionTimeReport(Report):
 
     def to_csv(self):
         raise Exception
+
+
