@@ -287,7 +287,7 @@ class RetrievalTimeReport(Report):
         ax.set(
             title=f"{title} Retrieval Times",
             xlabel="Retrieval Time (hours)", xticks=xticks, xticklabels=[f"{x:.2f}" for x in xticks],
-            # yticks=[], yticklabels=[]
+            yticks=[], yticklabels=[]
         )
 
         ax.axvline(statistics.mean(times_hours), color='k', linestyle='dashed', linewidth=1, alpha=0.5)
