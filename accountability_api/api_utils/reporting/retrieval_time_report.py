@@ -4,6 +4,7 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
+import elasticsearch.exceptions
 import pandas as pd
 from flask import current_app
 from pandas import DataFrame
@@ -29,7 +30,11 @@ class RetrievalTimeReport(Report):
         input_products = []
         for incoming_sdp_product_index in metadata.INCOMING_SDP_PRODUCTS.values():
             current_app.logger.info(f"Querying index {incoming_sdp_product_index} for products")
-            input_products += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
+
+            try:
+                input_products += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
+            except elasticsearch.exceptions.NotFoundError as e:
+                current_app.logger.warning(f"An exception {type(e)} occurred while querying index {incoming_sdp_product_index} for products. Does the index exists?")
 
         if output_format == "application/zip":
             report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
