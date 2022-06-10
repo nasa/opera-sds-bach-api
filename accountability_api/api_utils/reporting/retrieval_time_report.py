@@ -338,13 +338,3 @@ class RetrievalTimeReport(Report):
 
     def to_csv(self):
         raise Exception
-
-
-class RetrievalTimeDetailedReport(RetrievalTimeReport):
-    def generate_report(self, output_format=None, report_type=None):
-        return RetrievalTimeReport.generate_report(self, output_format=output_format, report_type="detailed")
-
-
-class RetrievalTimeSummaryReport(RetrievalTimeReport):
-    def generate_report(self, output_format=None, report_type=None):
-        return RetrievalTimeReport.generate_report(self, output_format=output_format, report_type="summary")
