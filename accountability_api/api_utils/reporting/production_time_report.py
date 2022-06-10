@@ -209,3 +209,13 @@ class ProductionTimeReport(Report):
 
     def to_csv(self):
         raise Exception
+
+
+class ProductionTimeDetailedReport(ProductionTimeReport):
+    def generate_report(self, output_format=None, report_type=None):
+        return ProductionTimeReport.generate_report(self, output_format=output_format, report_type="detailed")
+
+
+class ProductionTimeSummaryReport(ProductionTimeReport):
+    def generate_report(self, output_format=None, report_type=None):
+        return ProductionTimeReport.generate_report(self, output_format=output_format, report_type="summary")
