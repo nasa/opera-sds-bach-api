@@ -602,10 +602,17 @@ def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, 
     while _from <= _to:
         result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)
         total = result.get("hits").get("total").get("value")
-        docs.extend(map(lambda doc: doc.get("_source"), result.get("hits").get("hits")))
+
+        docs.extend(map(lambda doc: map_doc_to_source(doc), result.get("hits").get("hits")))
         _from += size
         _to = total
     return docs, total
+
+
+def map_doc_to_source(doc: dict):
+    source: dict = doc["_source"]
+    source.update({"_id": doc["_id"]})
+    return source
 
 
 def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=40, **kwargs) -> List[Dict]:

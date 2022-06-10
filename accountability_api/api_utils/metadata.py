@@ -26,6 +26,17 @@ PRODUCT_INDEXES = {
 }
 """Map of product types to their Elasticsearch indexes."""
 
+INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
+    "L2_HLS_L30": "L3_DSWX_HLS",
+    "L2_HLS_S30": "L3_DSWX_HLS",
+}
+"""Map of input product types to their respective SDS product type."""
+
+SDS_PRODUCT_TYPE_TO_INPUT_PRODUCT_TYPES = {
+    "L3_DSWX_HLS": ["L2_HLS_L30", "L2_HLS_S30"]
+}
+"""Map of SDS product types to a list of input product types that they support. """
+
 ACCOUNTABILITY_INDEXES = {
     "DOWNLINK": "pass_accountability_catalog",
     "OBSERVATION": "observation_accountability_catalog",
