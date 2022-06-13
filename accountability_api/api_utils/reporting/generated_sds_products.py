@@ -12,7 +12,7 @@ class GeneratedSdsProducts(Report):
     def __init__(
         self, title, start_date, end_date, timestamp, detailed=False, **kwargs
     ):
-        super(GeneratedSdsProducts, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, detailed=detailed, **kwargs
         )
         self._total_products_produced_num = 0

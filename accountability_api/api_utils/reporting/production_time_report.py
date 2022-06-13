@@ -22,7 +22,7 @@ pd.set_option('display.max_colwidth', 10)  # Number of characters to print per c
 
 class ProductionTimeReport(Report):
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
-        super(ProductionTimeReport, self).__init__(title, start_date, end_date, timestamp, **kwargs)
+        super().__init__(title, start_date, end_date, timestamp, **kwargs)
 
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")

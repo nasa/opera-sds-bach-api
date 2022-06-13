@@ -12,7 +12,7 @@ class IncomingFiles(Report):
     """
 
     def __init__(self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs):
-        super(IncomingFiles, self).__init__(title, start_date, end_date, timestamp, **kwargs)
+        super().__init__(title, start_date, end_date, timestamp, **kwargs)
         self._report_type = report_type
         self._total_incoming_data_file_num = 0
         self._total_incoming_data_file_volume = 0

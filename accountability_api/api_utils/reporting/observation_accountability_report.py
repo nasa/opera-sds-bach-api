@@ -10,7 +10,7 @@ class ObservationAccountabilityReport(Report):
     """
 
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
-        super(ObservationAccountabilityReport, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, **kwargs
         )
         self._dt_format = "%Y-%m-%dT%H:%M:%S"

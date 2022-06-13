@@ -12,7 +12,7 @@ class DaacOutgoingProducts(Report):
     def __init__(
         self, title, start_date, end_date, timestamp, detailed=False, **kwargs
     ):
-        super(DaacOutgoingProducts, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, detailed=detailed, **kwargs
         )
         self._total_incoming_data_file_num = 0

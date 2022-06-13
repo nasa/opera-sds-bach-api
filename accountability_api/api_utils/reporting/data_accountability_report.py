@@ -19,7 +19,7 @@ class DataAccountabilityReport(Report):
     def __init__(
         self, title, start_date, end_date, timestamp, detailed=False, **kwargs
     ):
-        super(DataAccountabilityReport, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, detailed=detailed, **kwargs
         )
         self._detailed = detailed
