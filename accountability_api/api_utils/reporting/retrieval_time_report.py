@@ -58,7 +58,7 @@ class RetrievalTimeReport(Report):
                 current_app.logger.info(f"{tmp_report_csv.name=}")
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
-                tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+                tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
                 tmp_report_csv.flush()
 
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
@@ -71,7 +71,7 @@ class RetrievalTimeReport(Report):
             RetrievalTimeReport.rename_columns(report_df, report_type)
 
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
-            tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+            tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
@@ -95,6 +95,7 @@ class RetrievalTimeReport(Report):
 
         RetrievalTimeReport.augment_with_hls_spatial_info(granule_to_products_map, start, end)
         RetrievalTimeReport.augment_with_hls_info(product_name_to_product_map, start, end)
+        RetrievalTimeReport.augment_with_sds_product_info(granule_to_products_map, start, end)
 
         # create initial data frame with raw report data
         retrieval_times_seconds: list[dict] = []
@@ -133,8 +134,8 @@ class RetrievalTimeReport(Report):
                 retrieval_time_dict = {
                     "input_product_filename": product["metadata"]["FileName"],
                     "input_product_type": product["metadata"]["ProductType"],
-                    "opera_product_short_name": "TBD",
-                    "opera_product_filename": "TBD",
+                    "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get("ProductType", "Not Available Yet"),
+                    "opera_product_filename": product.get("sds_product", {}).get("_id", "Not Available Yet"),
                     "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
                     "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
                     "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
@@ -237,7 +238,7 @@ class RetrievalTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     @staticmethod
-    def augment_with_hls_info(product_name_to_product_map, start, end):
+    def augment_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
         hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
@@ -248,7 +249,7 @@ class RetrievalTimeReport(Report):
             product["hls"] = hls_doc
 
     @staticmethod
-    def augment_with_hls_spatial_info(granule_to_products_map, start, end):
+    def augment_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
         hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
@@ -256,6 +257,45 @@ class RetrievalTimeReport(Report):
             granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
             for product in granule_to_products_map.get(granule_id, []):
                 product["hls_spatial"] = hls_spatial_doc
+
+    @staticmethod
+    def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
+        current_app.logger.info("Adding SDS product information to products")
+
+        sds_product_docs: list[dict] = query.get_docs(indexes=["grq_1_l3_dswx_hls"], start=start, end=end)
+
+        # convert list to dict
+        sds_granule_to_sds_product_map: dict[tuple, dict] = {}
+        for sds_product in sds_product_docs:
+            sds_product_id = sds_product["_id"]  # example _id = OPERA_L3_DSWx_HLS_SENTINEL-2A_T07WDR_20220613T212529_v2.0_001
+
+            sds_product_type = metadata.sds_product_id_to_sds_product_type(sds_product_id)  # e.g. L3_DSWX_HLS
+            sensor = metadata.sds_product_id_to_sensor(sds_product_id)  # e.g. LANDSAT-8
+            tile_id = metadata.sds_product_id_to_tile_id(sds_product_id)
+            acquisition_ts = metadata.sds_product_id_to_acquisition_ts(sds_product_id)
+
+            sds_granule_id = (sds_product_type, sensor, tile_id, acquisition_ts)
+            if not sds_granule_to_sds_product_map.get(sds_granule_id):
+                sds_granule_to_sds_product_map[sds_granule_id] = sds_product
+
+        # map by granule
+        for granule_id, input_products in granule_to_input_products_map.items():
+            input_product_type = metadata.granule_id_to_input_product_type(granule_id)  # e.g. L2_HLS_S30
+
+            sds_product_type = metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[input_product_type]  # e.g. L3_DSWX_HLS
+            sensor = metadata.granule_id_to_sensor(granule_id)
+            tile_id = metadata.granule_id_to_tile_id(granule_id)
+            acquisition_ts = metadata.granule_id_to_acquisition_ts(granule_id)
+            acquisition_ts = datetime.strptime(acquisition_ts, '%Y%jT%H%M%S').strftime('%Y%m%dT%H%M%S')
+
+            sds_granule_id = (sds_product_type, sensor, tile_id, acquisition_ts)
+
+            # add SDS info where found
+            for product in input_products:
+                if sds_granule_to_sds_product_map.get(sds_granule_id):
+                    product["sds_product"] = sds_granule_to_sds_product_map[sds_granule_id]
+                else:
+                    current_app.logger.debug(f"Couldn't map input {granule_id=} to SDS product. Likely pending production.")
 
     @staticmethod
     def map_by_granule(product_docs: list[dict]):

@@ -56,7 +56,7 @@ class ProductionTimeReport(Report):
                 current_app.logger.info(f"{tmp_report_csv.name=}")
 
                 ProductionTimeReport.rename_columns(report_df, report_type)
-                tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+                tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
                 tmp_report_csv.flush()
 
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
@@ -69,7 +69,7 @@ class ProductionTimeReport(Report):
             ProductionTimeReport.rename_columns(report_df, report_type)
 
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
-            tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+            tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
