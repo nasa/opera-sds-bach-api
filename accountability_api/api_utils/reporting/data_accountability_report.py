@@ -37,29 +37,29 @@ class DataAccountabilityReport(Report):
         # IFA = IncomingFilesAncillary
         DOP_report = DaacOutgoingProducts(
             self._title,
-            self._start_datetime,
-            self._end_datetime,
+            self.start_datetime,
+            self.end_datetime,
             self._creation_time,
             detailed=self._detailed,
         )
         GSP_report = GeneratedSdsProducts(
             self._title,
-            self._start_datetime,
-            self._end_datetime,
+            self.start_datetime,
+            self.end_datetime,
             self._creation_time,
             detailed=self._detailed,
         )
         IFS_report = IncomingFiles(
             self._title,
-            self._start_datetime,
-            self._end_datetime,
+            self.start_datetime,
+            self.end_datetime,
             self._creation_time,
             report_type="sdp",
         )
         IFA_report = IncomingFiles(
             self._title,
-            self._start_datetime,
-            self._end_datetime,
+            self.start_datetime,
+            self.end_datetime,
             self._creation_time,
             report_type="ancillary",
         )
@@ -92,8 +92,8 @@ class DataAccountabilityReport(Report):
             "header": {
                 "time_of_report": self._creation_time,
                 "data_received_time_range": "{}-{}".format(
-                    utils.to_iso_format_truncated(self._start_datetime),
-                    utils.to_iso_format_truncated(self._end_datetime),
+                    utils.to_iso_format_truncated(self.start_datetime),
+                    utils.to_iso_format_truncated(self.end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -134,8 +134,8 @@ class DataAccountabilityReport(Report):
         return "dar_{}_{}_{}_{}.{}".format(
             self._report_type,
             self._creation_time,
-            utils.to_iso_format_truncated(self._start_datetime),
-            utils.to_iso_format_truncated(self._end_datetime),
+            utils.to_iso_format_truncated(self.start_datetime),
+            utils.to_iso_format_truncated(self.end_datetime),
             output_format,
         )
 

@@ -44,8 +44,8 @@ class IncomingFiles(Report):
         for index in indexes:
             product_creation = query.construct_range_object(
                 "creation_timestamp",
-                start_value=self._start_datetime,
-                stop_value=self._end_datetime,
+                start_value=self.start_datetime,
+                stop_value=self.end_datetime,
             )
             source_includes = [
                 "metadata.FileSize",
@@ -96,8 +96,8 @@ class IncomingFiles(Report):
             "header": {
                 "time_of_report": self._creation_time,
                 "data_received_time_range": "{}-{}".format(
-                    utils.to_iso_format_truncated(self._start_datetime),
-                    utils.to_iso_format_truncated(self._end_datetime),
+                    utils.to_iso_format_truncated(self.start_datetime),
+                    utils.to_iso_format_truncated(self.end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -131,7 +131,7 @@ class IncomingFiles(Report):
         Constructs a filename in the format: incoming_<report_type>_files_<start>_<end>.<ext>.
         For example, "incoming_sdp_19700101T000000_20220101T000000.csv"
         """
-        return f"incoming_{self._report_type}_files_{self._start_datetime}_{self._end_datetime}.{output_format}"
+        return f"incoming_{self._report_type}_files_{self.start_datetime}_{self.end_datetime}.{output_format}"
 
     def generate_report(self, output_format=None):
         return super().generate_report(output_format=output_format)
