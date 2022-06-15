@@ -38,30 +38,34 @@ class ProductionTimeReport(Report):
         if output_format == "application/zip":
             report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
 
-            tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
-            tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
-            current_app.logger.info(f"{tmp_report_csv.name=}")
-
-            tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
-            tmp_report_csv.flush()
-
             # create zip. send zip.
+            tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
-                report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
-
-                # write histogram files, convert columns to filenames
+                # write histogram files, convert histogram column to filenames
                 for i, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
                     histogram_b64: str = report_df.at[i, 'histogram']
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
-                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=self.get_filename("image/png"))
-                    report_df.at[i, 'histogram'] = Path(tmp_histogram.name).name
+                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df.at[i, "OPERA Product Short Name"])
+                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
+                    report_df.at[i, 'histogram'] = histogram_filename
+                report_df.drop(columns=["histogram"], inplace=True)  # single row, so just drop the column
+
+                tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
+                current_app.logger.info(f"{tmp_report_csv.name=}")
+
+                tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
+                tmp_report_csv.flush()
+
+                report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
             return tmp_report_zip
 
         report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
 
         if output_format == "text/csv":
+            report_df.drop(columns=["histogram"], inplace=True)
+
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
             tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
             tmp_report_csv.flush()
@@ -145,18 +149,27 @@ class ProductionTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     def get_filename(self, output_format):
+        start_datetime_normalized = self.start_datetime.replace(":", "")
+        end_datetime_normalized = self.end_datetime.replace(":", "")
+
         if output_format == "text/csv":
-            return f"production-time - {self.start_datetime} to {self.end_datetime}.csv"
+            return f"production-time - {start_datetime_normalized} to {end_datetime_normalized}.csv"
         elif output_format == "text/html":
-            return f"production-time - {self.start_datetime} to {self.end_datetime}.html"
+            return f"production-time - {start_datetime_normalized} to {end_datetime_normalized}.html"
         elif output_format == "application/json":
-            return f"production-time - {self.start_datetime} to {self.end_datetime}.json"
+            return f"production-time - {start_datetime_normalized} to {end_datetime_normalized}.json"
         elif output_format == "image/png":
-            return f"production-time - {self.start_datetime} to {self.end_datetime}.png"
+            return f"production-time - {start_datetime_normalized} to {end_datetime_normalized}.png"
         elif output_format == "application/zip":
-            return f"production-time - {self.start_datetime} to {self.end_datetime}.zip"
+            return f"production-time - {start_datetime_normalized} to {end_datetime_normalized}.zip"
         else:
             raise Exception(f"Output format not supported. {output_format=}")
+
+    def get_histogram_filename(self, sds_product_name):
+        start_datetime_normalized = self.start_datetime.replace(":", "")
+        end_datetime_normalized = self.end_datetime.replace(":", "")
+
+        return f"production-time - {sds_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
 
     def populate_data(self):
         raise Exception
