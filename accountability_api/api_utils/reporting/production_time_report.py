@@ -85,7 +85,7 @@ class ProductionTimeReport(Report):
     def to_report_df(product_docs: list[dict], report_type: str) -> DataFrame:
         current_app.logger.info(f"Total generated products for report {len(product_docs)}")
         if not product_docs:
-            return pd.DataFrame(product_docs)
+            return pd.DataFrame()
 
         # create initial data frame with raw report data
         production_times: list[dict] = []
@@ -120,6 +120,8 @@ class ProductionTimeReport(Report):
             else:
                 raise Exception(f"Unsupported report type. {report_type=}")
             production_times.append(production_time)
+        if not production_times:
+            return pd.DataFrame()
 
         if report_type == "detailed":
             # create data frame of raw data (log report)
