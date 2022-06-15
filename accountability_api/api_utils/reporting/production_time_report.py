@@ -15,10 +15,10 @@ from accountability_api.api_utils.reporting.report import Report
 # Pandas options
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
-pd.set_option('display.max_rows', None)  # control the number of rows printed
-pd.set_option('display.max_columns', None)  # Breakpoint for truncate view. `None` value means unlimited.
-pd.set_option('display.width', None)   # control the printed line length. `None` value will auto-detect the width.
-pd.set_option('display.max_colwidth', 10)  # Number of characters to print per column.
+pd.set_option("display.max_rows", None)  # control the number of rows printed
+pd.set_option("display.max_columns", None)  # Breakpoint for truncate view. `None` value means unlimited.
+pd.set_option("display.width", None)   # control the printed line length. `None` value will auto-detect the width.
+pd.set_option("display.max_colwidth", 10)  # Number of characters to print per column.
 
 
 class ProductionTimeReport(Report):
@@ -44,17 +44,18 @@ class ProductionTimeReport(Report):
                 # write histogram files, convert histogram column to filenames
                 for i, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df.at[i, 'histogram']
+                    histogram_b64: str = report_df.at[i, "histogram"]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df.at[i, "OPERA Product Short Name"])
+                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df.at[i, "opera_product_short_name"])
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df.at[i, 'histogram'] = histogram_filename
-                report_df.drop(columns=["histogram"], inplace=True)  # single row, so just drop the column
+                    report_df.at[i, "histogram"] = histogram_filename
+                ProductionTimeReport.drop_column(report_df, "histogram")  # single row, so just drop the column
 
                 tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
                 current_app.logger.info(f"{tmp_report_csv.name=}")
 
+                ProductionTimeReport.rename_columns(report_df, report_type)
                 tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
                 tmp_report_csv.flush()
 
@@ -64,14 +65,15 @@ class ProductionTimeReport(Report):
         report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
 
         if output_format == "text/csv":
-            report_df.drop(columns=["histogram"], inplace=True)
+            ProductionTimeReport.drop_column(report_df, "histogram")
+            ProductionTimeReport.rename_columns(report_df, report_type)
 
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
             tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            return report_df.to_json(orient='records', date_format='epoch', lines=False, index=True)
+            return report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
         elif output_format == "text/xml":
             return report_df.to_xml()
         elif output_format == "text/html":
@@ -99,22 +101,22 @@ class ProductionTimeReport(Report):
             daac_alerted_ts = datetime.fromisoformat(product["daac_CNM_S_timestamp"].removesuffix("Z")).timestamp()
             production_time_duration: float = daac_alerted_ts - input_received_ts
 
-            production_time = {
-                "OPERA Product File Name": product["metadata"]["FileName"],
-                "OPERA Product Short Name": product["metadata"]["ProductType"],
-            }
             if report_type == "detailed":
-                production_time.update({
-                    "InputReceivedDateTime": datetime.fromtimestamp(input_received_ts).isoformat(),
-                    "DaacAlertedDateTime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
-                    "ProductionTime": to_duration_isoformat(production_time_duration)
-                })
+                production_time = {
+                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_short_name": product["metadata"]["ProductType"],
+                    "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
+                    "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
+                    "production_time": to_duration_isoformat(production_time_duration)
+                }
             elif report_type == "summary":
-                production_time.update({
-                    "InputReceivedDateTime": input_received_ts,
-                    "DaacAlertedDateTime": daac_alerted_ts,
-                    "ProductionTime": production_time_duration
-                })
+                production_time = {
+                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_short_name": product["metadata"]["ProductType"],
+                    "input_received_datetime": input_received_ts,
+                    "daac_alerted_datetime": daac_alerted_ts,
+                    "production_time": production_time_duration
+                }
             else:
                 raise Exception(f"Unsupported report type. {report_type=}")
             production_times.append(production_time)
@@ -126,20 +128,20 @@ class ProductionTimeReport(Report):
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
             df_production_times_summary = pd.DataFrame(production_times)
-            production_time_durations_hours = [x["ProductionTime"] / 60 / 60 for x in production_times]
+            production_time_durations_hours = [x["production_time"] / 60 / 60 for x in production_times]
             histogram = create_histogram(
                 series=production_time_durations_hours,
-                title=f'{df_production_times_summary["OPERA Product Short Name"].iloc[0]} Production Times',
+                title=f'{df_production_times_summary["opera_product_short_name"].iloc[0]} Production Times',
                 metric="Production Time",
                 unit="hours")
 
             df_production_times_summary = pd.DataFrame([{
-                "OPERA Product Short Name": df_production_times_summary["OPERA Product Short Name"].iloc[0],
-                "ProductionTime (count)": df_production_times_summary.size,
-                "ProductionTime (min)": to_duration_isoformat(df_production_times_summary["ProductionTime"].min()),
-                "ProductionTime (max)": to_duration_isoformat(df_production_times_summary["ProductionTime"].max()),
-                "ProductionTime (mean)": to_duration_isoformat(df_production_times_summary["ProductionTime"].mean()),
-                "ProductionTime (median)": to_duration_isoformat(df_production_times_summary["ProductionTime"].median()),
+                "opera_product_short_name": df_production_times_summary["opera_product_short_name"].iloc[0],
+                "production_time_count": df_production_times_summary.size,
+                "production_time_min": to_duration_isoformat(df_production_times_summary["production_time"].min()),
+                "production_time_max": to_duration_isoformat(df_production_times_summary["production_time"].max()),
+                "production_time_mean": to_duration_isoformat(df_production_times_summary["production_time"].mean()),
+                "production_time_median": to_duration_isoformat(df_production_times_summary["production_time"].median()),
                 "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
             }])
 
@@ -170,6 +172,45 @@ class ProductionTimeReport(Report):
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
         return f"production-time - {sds_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
+
+    @staticmethod
+    def rename_columns(report_df: DataFrame, report_type: str):
+        if report_type == "summary":
+            return ProductionTimeReport.rename_summary_columns(report_df)
+        elif report_type == "detailed":
+            return ProductionTimeReport.rename_detailed_columns(report_df)
+        else:
+            raise Exception(f"Unrecognized report type. {report_type=}")
+
+    @staticmethod
+    def rename_detailed_columns(df: DataFrame):
+        df.rename(
+            columns={
+                "opera_product_filename": "OPERA Product File Name",
+                "opera_product_short_name": "OPERA Product Short Name",
+                "input_received_datetime": "Input Received Datetime",
+                "daac_alerted_datetime": "DAAC Alerted Datetime",
+                "production_time": "Production Time"
+            },
+            inplace=True)
+
+    @staticmethod
+    def rename_summary_columns(df: DataFrame):
+        df.rename(
+            columns={
+                "opera_product_short_name": "OPERA Product Short Name",
+                "production_time_count": "Production Time (count)",
+                "production_time_min": "Production Time (min)",
+                "production_time_max": "Production Time (max)",
+                "production_time_mean": "Production Time (mean)",
+                "production_time_median": "Production Time (median)",
+            },
+            inplace=True)
+
+    @staticmethod
+    def drop_column(df: DataFrame, column):
+        if column in df.columns:
+            df.drop(columns=[column], inplace=True)
 
     def populate_data(self):
         raise Exception

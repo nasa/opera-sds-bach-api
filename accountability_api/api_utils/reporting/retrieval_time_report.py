@@ -14,10 +14,10 @@ from accountability_api.api_utils.reporting.report import Report
 # Pandas options
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
-pd.set_option('display.max_rows', None)  # control the number of rows printed
-pd.set_option('display.max_columns', None)  # Breakpoint for truncate view. `None` value means unlimited.
-pd.set_option('display.width', None)   # control the printed line length. `None` value will auto-detect the width.
-pd.set_option('display.max_colwidth', 10)  # Number of characters to print per column.
+pd.set_option("display.max_rows", None)  # control the number of rows printed
+pd.set_option("display.max_columns", None)  # Breakpoint for truncate view. `None` value means unlimited.
+pd.set_option("display.width", None)   # control the printed line length. `None` value will auto-detect the width.
+pd.set_option("display.max_colwidth", 10)  # Number of characters to print per column.
 
 
 class RetrievalTimeReport(Report):
@@ -45,18 +45,19 @@ class RetrievalTimeReport(Report):
                 # write histogram files, convert histogram column to filenames
                 for i, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df.at[i, 'histogram']
+                    histogram_b64: str = report_df.at[i, "histogram"]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
                     histogram_filename = self.get_histogram_filename(
-                        sds_product_name=report_df.at[i, "OPERA Product Short Name"],
-                        input_product_name=report_df.at[i, "Input Product Short Name"])
+                        sds_product_name=report_df.at[i, "opera_product_short_name"],
+                        input_product_name=report_df.at[i, "input_product_short_name"])
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df.at[i, 'histogram'] = histogram_filename
+                    report_df.at[i, "histogram"] = histogram_filename
 
                 tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
                 current_app.logger.info(f"{tmp_report_csv.name=}")
 
+                RetrievalTimeReport.rename_columns(report_df, report_type)
                 tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
                 tmp_report_csv.flush()
 
@@ -66,14 +67,15 @@ class RetrievalTimeReport(Report):
         report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
 
         if output_format == "text/csv":
-            report_df.drop(columns=["histogram"], inplace=True)
+            RetrievalTimeReport.drop_column(report_df, "histogram")
+            RetrievalTimeReport.rename_columns(report_df, report_type)
 
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
             tmp_report_csv.write(report_df.to_csv().encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            return report_df.to_json(orient='records', date_format='epoch', lines=False, index=True)
+            return report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
         elif output_format == "text/xml":
             return report_df.to_xml()
         elif output_format == "text/html":
@@ -129,18 +131,20 @@ class RetrievalTimeReport(Report):
 
             if report_type == "detailed":
                 retrieval_time_dict = {
-                    "OPERA Product File Name": product["metadata"]["FileName"],
-                    "ProductType": product["metadata"]["ProductType"],
-                    "PublicAvailableDateTime": datetime.fromtimestamp(public_available_ts).isoformat(),
-                    "OperaDetectDateTime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
-                    "ProductReceivedDateTime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                    "RetrievalTime": to_duration_isoformat(retrieval_time)
+                    "input_product_filename": product["metadata"]["FileName"],
+                    "input_product_type": product["metadata"]["ProductType"],
+                    "opera_product_short_name": "TBD",
+                    "opera_product_filename": "TBD",
+                    "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
+                    "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
+                    "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
+                    "retrieval_time": to_duration_isoformat(retrieval_time)
                 }
             elif report_type == "summary":
                 retrieval_time_dict = {
-                    "OPERA Product File Name": product["metadata"]["FileName"],
-                    "ProductType": product["metadata"]["ProductType"],
-                    "RetrievalTime": retrieval_time
+                    "opera_product_filename": product["metadata"]["FileName"],
+                    "input_product_type": product["metadata"]["ProductType"],
+                    "retrieval_time": retrieval_time
                 }
             else:
                 raise Exception(f"Unsupported report type. {report_type=}")
@@ -154,7 +158,7 @@ class RetrievalTimeReport(Report):
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
             df_summary = pd.DataFrame(retrieval_times_seconds)
-            product_types = df_summary["ProductType"].unique()
+            product_types = df_summary["input_product_type"].unique()
             current_app.logger.debug(f"{product_types=}")
 
             current_app.logger.info("Processing recognized product types")
@@ -167,7 +171,7 @@ class RetrievalTimeReport(Report):
                     current_app.logger.debug(f"{input_product_type=}")
 
                     # filter by current input product type
-                    df_summary_input_product_type = df_summary[df_summary['ProductType'].apply(lambda x: x == input_product_type)]
+                    df_summary_input_product_type = df_summary[df_summary["input_product_type"].apply(lambda x: x == input_product_type)]
                     current_app.logger.debug(f"Found {len(df_summary_input_product_type)} {input_product_type} products")
 
                     if not len(df_summary_input_product_type):
@@ -175,7 +179,7 @@ class RetrievalTimeReport(Report):
                         continue
                     input_product_types_processed.append(input_product_type)
 
-                    retrieval_times_seconds: list[float] = df_summary_input_product_type["RetrievalTime"].to_numpy()
+                    retrieval_times_seconds: list[float] = df_summary_input_product_type["retrieval_time"].to_numpy()
                     retrieval_times_hours = [secs / 60 / 60 for secs in retrieval_times_seconds]
                     histogram = create_histogram(
                         series=retrieval_times_hours,
@@ -184,14 +188,14 @@ class RetrievalTimeReport(Report):
                         unit="hours")
 
                     df_summary_input_product_type = pd.DataFrame([{
-                        "OPERA Product Short Name": sds_product_type,  # e.g. L3_DSWX_HLS
-                        "Input Product Short Name": input_product_type,  # e.g. L2_HLS_L30
-                        "RetrievalTime (count)": len(df_summary_input_product_type),
-                        "RetrievalTime (P90)": to_duration_isoformat(df_summary_input_product_type["RetrievalTime"].quantile(q=0.9)),
-                        "RetrievalTime (min)": to_duration_isoformat(df_summary_input_product_type["RetrievalTime"].min()),
-                        "RetrievalTime (max)": to_duration_isoformat(df_summary_input_product_type["RetrievalTime"].max()),
-                        "RetrievalTime (mean)": to_duration_isoformat(df_summary_input_product_type["RetrievalTime"].mean()),
-                        "RetrievalTime (median)": to_duration_isoformat(df_summary_input_product_type["RetrievalTime"].median()),
+                        "opera_product_short_name": sds_product_type,  # e.g. L3_DSWX_HLS
+                        "input_product_short_name": input_product_type,  # e.g. L2_HLS_L30
+                        "retrieval_time_count": len(df_summary_input_product_type),
+                        "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].quantile(q=0.9)),
+                        "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].min()),
+                        "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].max()),
+                        "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].median()),
+                        "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].mean()),
                         "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
                     }])
                     df_retrieval_times_summary_entries.append(df_summary_input_product_type)
@@ -201,10 +205,10 @@ class RetrievalTimeReport(Report):
                 if len(input_product_types_processed) > 1:
                     current_app.logger.info(f"Creating ALL entry")
 
-                    df_summary_input_product_type_all = df_summary[df_summary['ProductType'].apply(lambda x: x in input_product_types)]
+                    df_summary_input_product_type_all = df_summary[df_summary["input_product_type"].apply(lambda x: x in input_product_types)]
                     current_app.logger.debug(f"Found {len(df_summary_input_product_type_all)} {input_product_types} products")
 
-                    retrieval_times_seconds: list[float] = df_summary_input_product_type_all["RetrievalTime"].to_numpy()
+                    retrieval_times_seconds: list[float] = df_summary_input_product_type_all["retrieval_time"].to_numpy()
                     retrieval_times_hours: list[float] = [secs / 60 / 60 for secs in retrieval_times_seconds]
                     histogram = create_histogram(
                         series=retrieval_times_hours,
@@ -213,14 +217,14 @@ class RetrievalTimeReport(Report):
                         unit="hours")
 
                     df_summary_input_product_type_all = pd.DataFrame([{
-                        "OPERA Product Short Name": sds_product_type,  # e.g. L3_DSWX_HLS
-                        "Input Product Short Name": "ALL",  # e.g. ALL = L2_HLS_L30 + L2_HLS_L30
-                        "RetrievalTime (count)": len(df_summary_input_product_type_all),
-                        "RetrievalTime (P90)": to_duration_isoformat(df_summary_input_product_type_all["RetrievalTime"].quantile(q=0.9)),
-                        "RetrievalTime (min)": to_duration_isoformat(df_summary_input_product_type_all["RetrievalTime"].min()),
-                        "RetrievalTime (max)": to_duration_isoformat(df_summary_input_product_type_all["RetrievalTime"].max()),
-                        "RetrievalTime (mean)": to_duration_isoformat(df_summary_input_product_type_all["RetrievalTime"].mean()),
-                        "RetrievalTime (median)": to_duration_isoformat(df_summary_input_product_type_all["RetrievalTime"].median()),
+                        "opera_product_short_name": sds_product_type,  # e.g. L3_DSWX_HLS
+                        "input_product_short_name": "ALL",  # e.g. ALL = L2_HLS_L30 + L2_HLS_L30
+                        "retrieval_time_count": len(df_summary_input_product_type_all),
+                        "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].quantile(q=0.9)),
+                        "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].min()),
+                        "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].max()),
+                        "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].median()),
+                        "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].mean()),
                         "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
                     }])
                     df_retrieval_times_summary_entries.append(df_summary_input_product_type_all)
@@ -293,6 +297,51 @@ class RetrievalTimeReport(Report):
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
         return f"production-time - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
+
+    @staticmethod
+    def rename_columns(report_df: DataFrame, report_type: str):
+        if report_type == "summary":
+            return RetrievalTimeReport.rename_summary_columns(report_df)
+        elif report_type == "detailed":
+            return RetrievalTimeReport.rename_detailed_columns(report_df)
+        else:
+            raise Exception(f"Unrecognized report type. {report_type=}")
+
+    @staticmethod
+    def rename_detailed_columns(report_df: DataFrame):
+        report_df.rename(
+            columns={
+                "input_product_filename": "Input Product Filename",
+                "input_product_type": "Input Product Type",
+                "opera_product_short_name": "OPERA Product Short Name",
+                "opera_product_filename": "OPERA Product Filename",
+                "public_available_datetime": "Public Available Datetime",
+                "opera_detect_datetime": "OPERA Detect Datetime",
+                "product_received_datetime": "Received Datetime",
+                "retrieval_time": "Retrieval Time"
+            },
+            inplace=True)
+
+    @staticmethod
+    def rename_summary_columns(report_df: DataFrame):
+        report_df.rename(
+            columns={
+                "opera_product_short_name": "OPERA Product Short Name",
+                "input_product_short_name": "Input Product Short Name",
+                "retrieval_time_count": "Retrieval Time (count)",
+                "retrieval_time_p90": "Retrieval Time (P90)",
+                "retrieval_time_min": "Retrieval Time (min)",
+                "retrieval_time_max": "Retrieval Time (max)",
+                "retrieval_time_median": "Retrieval Time (median)",
+                "retrieval_time_mean": "Retrieval Time (mean)",
+                "histogram": "Histogram"
+            },
+            inplace=True)
+
+    @staticmethod
+    def drop_column(df: DataFrame, column):
+        if column in df.columns:
+            df.drop(columns=[column], inplace=True)
 
     def populate_data(self):
         raise Exception
