@@ -236,7 +236,7 @@ def get_obs_data(
     LOGGER.debug(
         "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
     )
-    index = consts.PRODUCT_INDEXES["DATATAKE_STATE_CONFIGS"]
+    index = consts.PRODUCT_TYPE_TO_INDEX["DATATAKE_STATE_CONFIGS"]
     filter_path = ["hits.hits._id", "hits.hits._source"]
     query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}}
 
@@ -283,7 +283,7 @@ def get_obs_data(
                 {"match": {"metadata.OBS_ID": obs_id}}
             )
         l0b_results = (
-            run_query(index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=l0b_query)
+            run_query(index=consts.PRODUCT_TYPE_TO_INDEX["L0B_L_RRSD"], body=l0b_query)
             .get("hits")
             .get("hits")
         )
@@ -328,7 +328,7 @@ def get_result_ids(results):
 
 
 def grab_l0b_rrsd_rslc_children(l0b_id, track="", frame=""):
-    index = consts.PRODUCT_INDEXES["L1_L_RSLC"]
+    index = consts.PRODUCT_TYPE_TO_INDEX["L1_L_RSLC"]
     query = {
         "query": {
             "bool": {

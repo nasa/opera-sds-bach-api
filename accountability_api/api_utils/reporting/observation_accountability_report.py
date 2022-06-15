@@ -153,7 +153,7 @@ class ObservationAccountabilityReport(Report):
         obs_body = self.add_universal_query_params(obs_body)
 
         obs_results = query.run_query_with_scroll(
-            index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=obs_body
+            index=consts.PRODUCT_TYPE_TO_INDEX["L0B_L_RRSD"], body=obs_body
         )
 
         tmpresults = list(map(lambda doc: doc["_source"], obs_results["hits"]["hits"]))

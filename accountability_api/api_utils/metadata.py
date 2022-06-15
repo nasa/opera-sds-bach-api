@@ -10,8 +10,7 @@ PRODUCT_COUNTER = "ProductCounter"
 
 TIMER_INDEX = "timer_status"
 
-# TODO chrisjrd: finalize. Placing entries here because Bach UI uses it in the Data Summary > Incoming screen.
-ANCILLARY_INDEXES = {
+INPUT_PRODUCT_TYPE_TO_INDEX = {
     "HLS_L30": "grq_1_l2_hls_l30",
     "HLS_S30": "grq_1_l2_hls_s30"
 }
@@ -23,8 +22,8 @@ STATE_CONFIG_INDEXES = {
     "S30_STATE_CONFIG": "grq_1_l2_hls_s30-state-config"
 }
 
-PRODUCT_INDEXES = {
-    "DSWX_HLS": "grq_1_l3_dswx_hls"
+PRODUCT_TYPE_TO_INDEX = {
+    "L3_DSWX_HLS": "grq_1_l3_dswx_hls"
 }
 """Map of product types to their Elasticsearch indexes."""
 

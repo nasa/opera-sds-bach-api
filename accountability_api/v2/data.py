@@ -117,8 +117,8 @@ class ListDataTypes(Resource):
         Retrieve all filetypes and their indexes that we currently consider to be Ancillary files.
         """
         indexes = {}
-        indexes.update(consts.ANCILLARY_INDEXES)
-        indexes.update(consts.PRODUCT_INDEXES)
+        indexes.update(consts.INPUT_PRODUCT_TYPE_TO_INDEX)
+        indexes.update(consts.PRODUCT_TYPE_TO_INDEX)
 
         return indexes
 
@@ -169,8 +169,8 @@ class DataIndex(Resource):
         docs = []
 
         indexes = {}
-        indexes.update(consts.ANCILLARY_INDEXES)
-        indexes.update(consts.PRODUCT_INDEXES)
+        indexes.update(consts.INPUT_PRODUCT_TYPE_TO_INDEX)
+        indexes.update(consts.PRODUCT_TYPE_TO_INDEX)
 
         product_id = args.get("product_id", None)
         size = args.get("size", 40)
@@ -225,8 +225,8 @@ class Data(Resource):
         # workflow_end_dt = args.get("workflow_end", None)
 
         indexes = {}
-        indexes.update(consts.ANCILLARY_INDEXES)
-        indexes.update(consts.PRODUCT_INDEXES)
+        indexes.update(consts.INPUT_PRODUCT_TYPE_TO_INDEX)
+        indexes.update(consts.PRODUCT_TYPE_TO_INDEX)
 
         product_id = args.get("product_id", None)
         size = args.get("size")
