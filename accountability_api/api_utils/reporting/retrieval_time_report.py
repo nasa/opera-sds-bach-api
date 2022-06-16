@@ -1,4 +1,5 @@
 import base64
+import json
 import tempfile
 import zipfile
 from datetime import datetime
@@ -54,11 +55,13 @@ class RetrievalTimeReport(Report):
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
                     report_df.at[i, "histogram"] = histogram_filename
 
+                RetrievalTimeReport.rename_columns(report_df, report_type)
+                report_csv = report_df.to_csv(index=False)
+                report_csv = self.add_header_to_csv(report_csv, report_type)
+
                 tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
                 current_app.logger.info(f"{tmp_report_csv.name=}")
-
-                RetrievalTimeReport.rename_columns(report_df, report_type)
-                tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
+                tmp_report_csv.write(report_csv.encode("utf-8"))
                 tmp_report_csv.flush()
 
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
@@ -70,12 +73,22 @@ class RetrievalTimeReport(Report):
             RetrievalTimeReport.drop_column(report_df, "histogram")
             RetrievalTimeReport.rename_columns(report_df, report_type)
 
+            report_csv = report_df.to_csv(index=False)
+            report_csv = self.add_header_to_csv(report_csv, report_type)
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
-            tmp_report_csv.write(report_df.to_csv(index=False).encode("utf-8"))
+            tmp_report_csv.write(report_csv.encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            return report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
+            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
+            report_obj: list[dict] = json.loads(report_json)
+            header = self.get_header(report_type)
+
+            return json.dumps({
+                "header": header,
+                "payload": report_obj
+
+            })
         elif output_format == "text/xml":
             return report_df.to_xml()
         elif output_format == "text/html":
@@ -334,6 +347,43 @@ class RetrievalTimeReport(Report):
             return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.zip"
         else:
             raise Exception(f"Output format not supported. {output_format=}")
+
+    def get_header(self, report_type):
+        if report_type == "summary":
+            header = self.get_header_summary()
+        elif report_type == "detailed":
+            header = self.get_header_detailed()
+        else:
+            raise Exception(f"{report_type=}")
+        return header
+
+    def add_header_to_csv(self, report_csv, report_type):
+        header = self.get_header(report_type)
+        header_str = ""
+        for line in header:
+            for k, v in line.items():
+                header_str += f"{k}: {v}\n"
+        report_csv = header_str + report_csv
+        return report_csv
+
+    def get_header_detailed(self) -> list[dict[str, str]]:
+        header = [
+            {"Title": "OPERA Retrieval Time Log"},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"PublicAvailableDateTime": "datetime when the product was first made available to the public by the DAAC."},
+            {"OperaDetectDateTime": "datetime when the OPERA system first became aware of the product."},
+            {"ProductReceivedDateTime": "datetime when the product arrived in our system"}
+        ]
+        return header
+
+    def get_header_summary(self) -> list[dict[str, str]]:
+        header = [
+            {"Title": "OPERA Retrieval Time Summary"},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'}
+        ]
+        return header
 
     def get_histogram_filename(self, sds_product_name, input_product_name):
         start_datetime_normalized = self.start_datetime.replace(":", "")
