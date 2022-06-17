@@ -106,11 +106,11 @@ def sds_product_id_to_sds_product_type(sds_product_id: str):
 
 def sds_product_id_to_sensor(sds_product_id: str):
     # example _id = OPERA_L3_DSWx_HLS_SENTINEL-2A_T07WDR_20220613T212529_v2.0_001
-    if "_SENTINEL-2A" in sds_product_id:
+    if "_S2A" in sds_product_id:
         return "SENTINEL"
-    elif "_SENTINEL-2B" in sds_product_id:
+    elif "_S2B" in sds_product_id:
         return "SENTINEL"
-    elif "_LANDSAT-8" in sds_product_id:
+    elif "_L8" in sds_product_id:
         return "LANDSAT"
     else:
         raise Exception(f"Unable to map {sds_product_id=} to sensor")
