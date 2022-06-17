@@ -13,9 +13,9 @@ from pandas import DataFrame
 from accountability_api.api_utils import query
 from accountability_api.api_utils.reporting.report import Report
 
-# Pandas options
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
+# Pandas options
 pd.set_option("display.max_rows", None)  # control the number of rows printed
 pd.set_option("display.max_columns", None)  # Breakpoint for truncate view. `None` value means unlimited.
 pd.set_option("display.width", None)   # control the printed line length. `None` value will auto-detect the width.
@@ -45,10 +45,10 @@ class ProductionTimeReport(Report):
                 # write histogram files, convert histogram column to filenames
                 for i, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df.at[i, "histogram"]
+                    histogram_b64: str = row["histogram"]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df.at[i, "opera_product_short_name"])
+                    histogram_filename = self.get_histogram_filename(sds_product_name=row["opera_product_short_name"])
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
                     report_df.at[i, "histogram"] = histogram_filename
                 ProductionTimeReport.drop_column(report_df, "histogram")  # single row, so just drop the column
