@@ -10,15 +10,15 @@ class ObservationAccountabilityReport(Report):
     """
 
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
-        super(ObservationAccountabilityReport, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, **kwargs
         )
         self._dt_format = "%Y-%m-%dT%H:%M:%S"
-        self._start_datetime = utils.from_dt_to_iso(
-            utils.from_iso_to_dt(self._start_datetime), custom_format=self._dt_format
+        self.start_datetime = utils.from_dt_to_iso(
+            utils.from_iso_to_dt(self.start_datetime), custom_format=self._dt_format
         )
-        self._end_datetime = utils.from_dt_to_iso(
-            utils.from_iso_to_dt(self._end_datetime), custom_format=self._dt_format
+        self.end_datetime = utils.from_dt_to_iso(
+            utils.from_iso_to_dt(self.end_datetime), custom_format=self._dt_format
         )
         self._creation_time = utils.from_dt_to_iso(
             utils.from_iso_to_dt(self._creation_time), custom_format=self._dt_format
@@ -32,8 +32,8 @@ class ObservationAccountabilityReport(Report):
             "HEADER": {
                 "CONTENT_TYPE": self._content_type,
                 "CREATION_DATETIME": self._creation_time,
-                "START_DATETIME": self._start_datetime,
-                "END_DATETIME": self._end_datetime,
+                "START_DATETIME": self.start_datetime,
+                "END_DATETIME": self.end_datetime,
             },
             "OBSERVATION": self._observations,
         }
@@ -105,10 +105,10 @@ class ObservationAccountabilityReport(Report):
     def _get_observations_within_timeframe(self):
         # make sure that start_date and end_date are iso formatted
         r_start = query._construct_range_query(
-            "ref_start_datetime_iso", "gte", self._start_datetime
+            "ref_start_datetime_iso", "gte", self.start_datetime
         )
         r_end = query._construct_range_query(
-            "ref_end_datetime_iso", "lt", self._end_datetime
+            "ref_end_datetime_iso", "lt", self.end_datetime
         )
 
         body = {"query": {"bool": {"must": [r_start, r_end]}}}
@@ -116,7 +116,7 @@ class ObservationAccountabilityReport(Report):
         body = self.add_universal_query_params(body)
 
         try:
-            results = query.run_query(
+            results = query.run_query_with_scroll(
                 index=consts.ACCOUNTABILITY_INDEXES["COP"],
                 body=body,
                 doc_type="_doc",
@@ -152,8 +152,8 @@ class ObservationAccountabilityReport(Report):
 
         obs_body = self.add_universal_query_params(obs_body)
 
-        obs_results = query.run_query(
-            index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=obs_body
+        obs_results = query.run_query_with_scroll(
+            index=consts.PRODUCT_TYPE_TO_INDEX["L0B_L_RRSD"], body=obs_body
         )
 
         tmpresults = list(map(lambda doc: doc["_source"], obs_results["hits"]["hits"]))
@@ -185,7 +185,7 @@ class ObservationAccountabilityReport(Report):
 
     def get_filename(self, output_format):
         return "OAD_{}_{}_{}.{}".format(
-            self._content_type, self._start_datetime, self._end_datetime, output_format
+            self._content_type, self.start_datetime, self.end_datetime, output_format
         )
 
     def generate_report(self, output_format=None):

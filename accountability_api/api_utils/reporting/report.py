@@ -15,45 +15,30 @@ class Report(ABC):
     def __init__(self, title: str, start_date: str, end_date: str, timestamp: str, **kwargs):
         self._title = title
         self._creation_time = timestamp
-        self._start_datetime = start_date
-        self._end_datetime = end_date
+        self.start_datetime = start_date
+        self.end_datetime = end_date
 
         self._args = kwargs
 
-        self._crid = ""
-        self._venue = ""
-        self._processing_mode = ""
-        self._report_type = ""
+        self._crid = kwargs.get("crid", "")
+        self._venue = kwargs.get("venue", "")
+        self._processing_mode = kwargs.get("processing_mode", "")
+        self._report_type = kwargs.get("report_type", "")
 
-        for key, val in kwargs.items():
-            if key == "crid":
-                self._crid = val
-            elif key == "venue":
-                self._venue = val
-            elif key == "processing_mode":
-                self._processing_mode = val
-            elif key == "detailed":
-                if type(val) is bool:
-                    if val:
-                        self._report_type = "detailed"
-                    else:
-                        self._report_type = "brief"
-                elif type(val) is str:
-                    self._report_type = val
-            elif key == "report_type":
-                self._report_type = val
+        # override report_type if "detailed" arg is supplied
+        if type(kwargs.get("detailed")) is bool:
+            if kwargs["detailed"]:
+                self._report_type = "detailed"
+            else:
+                self._report_type = "brief"
+        elif type(kwargs.get("detailed")) is str:
+            self._report_type = kwargs["detailed"]
 
         self._dt_format = "%Y-%m-%dT%H:%M:%S"
 
-        self._creation_time = utils.from_iso_to_dt(self._creation_time).strftime(
-            self._dt_format
-        )
-        self._start_datetime = utils.from_iso_to_dt(self._start_datetime).strftime(
-            self._dt_format
-        )
-        self._end_datetime = utils.from_iso_to_dt(self._end_datetime).strftime(
-            self._dt_format
-        )
+        self._creation_time = utils.from_iso_to_dt(self._creation_time).strftime(self._dt_format)
+        self.start_datetime = utils.from_iso_to_dt(self.start_datetime).strftime(self._dt_format)
+        self.end_datetime = utils.from_iso_to_dt(self.end_datetime).strftime(self._dt_format)
 
         self.report = {}
 

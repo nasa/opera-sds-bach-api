@@ -1,14 +1,11 @@
 from __future__ import division
 
-import logging
-
-from flask import request, make_response
+from flask import request, make_response, current_app, send_file
 from flask_restx import Namespace, Resource, reqparse, fields
 
 from accountability_api.api_utils.reporting.reports_generator import ReportsGenerator
 
 api = Namespace("Reports", path="/reports", description="Report related operations")
-LOGGER = logging.getLogger(__name__)
 
 report_types = {
     "ObservationAccountabilityReport": "NISAR Observation Accountability Report for MS",
@@ -88,6 +85,7 @@ class CreateReport(Resource):
         Get detailed Reports
         """
         args = parser.parse_args()
+        current_app.logger.info(f"Report requested. {args=}")
 
         self._report_type = ""
 
@@ -117,15 +115,23 @@ class CreateReport(Resource):
                 venue=self._venue,
                 crid=self._crid
             )
-            filename = reports_generator.filename
-            response = make_response(report)
 
-            response.headers["content-type"] = self._mimetype
-            response.headers["filename"] = filename
-            LOGGER.info(f"return report: {filename}")
-            return response
+            current_app.logger.info(f"{self._mimetype=}")
+
+            if self._mimetype == "application/zip":
+                if not report:
+                    return make_response('', 204)
+                return send_file(report.name, as_attachment=True, download_name=reports_generator.filename)
+            if self._mimetype == "text/csv":
+                return send_file(report.name, as_attachment=True, download_name=reports_generator.filename)
+            if self._mimetype == "image/png":
+                if not report:
+                    return make_response('', 204)
+                return send_file(report.name, as_attachment=False)
+
+            return make_response(report)
         except Exception as e:
-            LOGGER.exception(f"error while generating report: {reportName}")
+            current_app.logger.exception(f"error while generating report: {reportName}")
             return {
                 "message": f"cannot generate {reportName}",
                 "details": str(e),
@@ -147,7 +153,7 @@ class CreateReport(Resource):
         try:
             gen_report, json_data = self.__get_report()
         except Exception as e:
-            LOGGER.exception(f"error while generating report: {reportType}")
+            current_app.logger.exception(f"error while generating report: {reportType}")
             return {
                 "message": f"cannot generate {reportType}",
                 "details": str(e),

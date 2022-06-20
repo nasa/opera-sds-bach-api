@@ -34,6 +34,7 @@ def run_query(
 def run_query_with_scroll(
     es: Optional[ElasticsearchUtility] = None,
     body: Optional[Dict] = None,
+    q: Optional[str] = None,
     doc_type: Optional[str] = None,
     sort: Optional[List[str]] = None,
     size=-1,
@@ -79,7 +80,7 @@ def run_query_with_scroll(
         pass
     params.update(kwargs)  # copy all other arguments.
     primary_result = es.search(**params)  # initial result.
-    total_size = primary_result["hits"]["total"]
+    total_size = primary_result["hits"]["total"]["value"]
     if size != -1:  # caller only wants some results
         total_size = size  # updating the target size
     current_size = len(primary_result["hits"]["hits"])
@@ -235,7 +236,7 @@ def get_obs_data(
     LOGGER.debug(
         "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
     )
-    index = consts.PRODUCT_INDEXES["DATATAKE_STATE_CONFIGS"]
+    index = consts.PRODUCT_TYPE_TO_INDEX["DATATAKE_STATE_CONFIGS"]
     filter_path = ["hits.hits._id", "hits.hits._source"]
     query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}}
 
@@ -282,7 +283,7 @@ def get_obs_data(
                 {"match": {"metadata.OBS_ID": obs_id}}
             )
         l0b_results = (
-            run_query(index=consts.PRODUCT_INDEXES["L0B_L_RRSD"], body=l0b_query)
+            run_query(index=consts.PRODUCT_TYPE_TO_INDEX["L0B_L_RRSD"], body=l0b_query)
             .get("hits")
             .get("hits")
         )
@@ -327,7 +328,7 @@ def get_result_ids(results):
 
 
 def grab_l0b_rrsd_rslc_children(l0b_id, track="", frame=""):
-    index = consts.PRODUCT_INDEXES["L1_L_RSLC"]
+    index = consts.PRODUCT_TYPE_TO_INDEX["L1_L_RSLC"]
     query = {
         "query": {
             "bool": {
@@ -601,10 +602,17 @@ def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, 
     while _from <= _to:
         result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)
         total = result.get("hits").get("total").get("value")
-        docs.extend(map(lambda doc: doc.get("_source"), result.get("hits").get("hits")))
+
+        docs.extend(map(lambda doc: map_doc_to_source(doc), result.get("hits").get("hits")))
         _from += size
         _to = total
     return docs, total
+
+
+def map_doc_to_source(doc: dict):
+    source: dict = doc["_source"]
+    source.update({"_id": doc["_id"]})
+    return source
 
 
 def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=40, **kwargs) -> List[Dict]:

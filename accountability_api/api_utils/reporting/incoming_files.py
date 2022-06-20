@@ -11,12 +11,8 @@ class IncomingFiles(Report):
 
     """
 
-    def __init__(
-        self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs
-    ):
-        super(IncomingFiles, self).__init__(
-            title, start_date, end_date, timestamp, **kwargs
-        )
+    def __init__(self, title, start_date, end_date, timestamp, report_type="sdp", **kwargs):
+        super().__init__(title, start_date, end_date, timestamp, **kwargs)
         self._report_type = report_type
         self._total_incoming_data_file_num = 0
         self._total_incoming_data_file_volume = 0
@@ -48,8 +44,8 @@ class IncomingFiles(Report):
         for index in indexes:
             product_creation = query.construct_range_object(
                 "creation_timestamp",
-                start_value=self._start_datetime,
-                stop_value=self._end_datetime,
+                start_value=self.start_datetime,
+                stop_value=self.end_datetime,
             )
             source_includes = [
                 "metadata.FileSize",
@@ -63,7 +59,7 @@ class IncomingFiles(Report):
             body = self.add_universal_query_params(body)
 
             try:
-                results = query.run_query(
+                results = query.run_query_with_scroll(
                     index=indexes[index], body=body, doc_type="_doc"
                 )
 
@@ -100,8 +96,8 @@ class IncomingFiles(Report):
             "header": {
                 "time_of_report": self._creation_time,
                 "data_received_time_range": "{}-{}".format(
-                    utils.to_iso_format_truncated(self._start_datetime),
-                    utils.to_iso_format_truncated(self._end_datetime),
+                    utils.to_iso_format_truncated(self.start_datetime),
+                    utils.to_iso_format_truncated(self.end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -131,9 +127,11 @@ class IncomingFiles(Report):
         return super().to_csv()
 
     def get_filename(self, output_format):
-        return "incoming_{}_files_{}_{}.{}".format(
-            self._report_type, self._start_datetime, self._end_datetime, output_format
-        )
+        """
+        Constructs a filename in the format: incoming_<report_type>_files_<start>_<end>.<ext>.
+        For example, "incoming_sdp_19700101T000000_20220101T000000.csv"
+        """
+        return f"incoming_{self._report_type}_files_{self.start_datetime}_{self.end_datetime}.{output_format}"
 
     def generate_report(self, output_format=None):
         return super().generate_report(output_format=output_format)

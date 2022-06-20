@@ -12,7 +12,7 @@ class DaacOutgoingProducts(Report):
     def __init__(
         self, title, start_date, end_date, timestamp, detailed=False, **kwargs
     ):
-        super(DaacOutgoingProducts, self).__init__(
+        super().__init__(
             title, start_date, end_date, timestamp, detailed=detailed, **kwargs
         )
         self._total_incoming_data_file_num = 0
@@ -42,8 +42,8 @@ class DaacOutgoingProducts(Report):
         for index in indexes:
             product_creation = query.construct_range_object(
                 "creation_timestamp",
-                start_value=self._start_datetime,
-                stop_value=self._end_datetime,
+                start_value=self.start_datetime,
+                stop_value=self.end_datetime,
             )
             source_includes = ["metadata.FileSize"]
 
@@ -61,7 +61,7 @@ class DaacOutgoingProducts(Report):
             num_products = 0
 
             try:
-                results = query.run_query(
+                results = query.run_query_with_scroll(
                     index=indexes[index], body=body, doc_type="_doc"
                 )
                 volume = self._get_processed_volume(
@@ -109,8 +109,8 @@ class DaacOutgoingProducts(Report):
             "header": {
                 "time_of_report": self._creation_time,
                 "data_received_time_range": "{}-{}".format(
-                    utils.to_iso_format_truncated(self._start_datetime),
-                    utils.to_iso_format_truncated(self._end_datetime),
+                    utils.to_iso_format_truncated(self.start_datetime),
+                    utils.to_iso_format_truncated(self.end_datetime),
                 ),
                 "crid": self._crid,
                 "venue": self._venue,
@@ -141,7 +141,7 @@ class DaacOutgoingProducts(Report):
 
     def get_filename(self, output_format):
         return "OFTD_{}_{}_{}.{}".format(
-            self._report_type, self._start_datetime, self._end_datetime, output_format
+            self._report_type, self.start_datetime, self.end_datetime, output_format
         )
 
     def generate_report(self, output_format=None):

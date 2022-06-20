@@ -60,7 +60,7 @@ class ListProducts(Resource):
         """
         Retrieve all filetypes and their indexes that we currently consider to be Product files.
         """
-        product_indexes = consts.PRODUCT_INDEXES
+        product_indexes = consts.PRODUCT_TYPE_TO_INDEX
         return product_indexes
 
 
@@ -73,7 +73,7 @@ class ListProductCounts(Resource):
         """
         args = parser.parse_args()
 
-        product_indexes = consts.PRODUCT_INDEXES
+        product_indexes = consts.PRODUCT_TYPE_TO_INDEX
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
         count = query.get_num_docs(
@@ -98,8 +98,8 @@ class AncillaryIndex(Resource):
         end_datetime = args.get("end_datetime", None)
         size = args.get("size", 40)
 
-        if index_name in consts.PRODUCT_INDEXES:
-            index = consts.PRODUCT_INDEXES[index_name]
+        if index_name in consts.PRODUCT_TYPE_TO_INDEX:
+            index = consts.PRODUCT_TYPE_TO_INDEX[index_name]
             docs.extend(
                 query.get_docs(index, start=start_datetime, end=end_datetime, size=size)
             )
