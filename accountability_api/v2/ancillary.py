@@ -49,7 +49,7 @@ class ListAncillaries(Resource):
         """
         Retrieve all filetypes and their indexes that we currently consider to be Ancillary files.
         """
-        ancillary_indexes = consts.ANCILLARY_INDEXES
+        ancillary_indexes = consts.INPUT_PRODUCT_TYPE_TO_INDEX
         return ancillary_indexes
 
 
@@ -62,7 +62,7 @@ class ListAncillaryCounts(Resource):
         """
         args = parser.parse_args()
 
-        ancillary_indexes = consts.ANCILLARY_INDEXES
+        ancillary_indexes = consts.INPUT_PRODUCT_TYPE_TO_INDEX
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
         count = query.get_num_docs(
@@ -90,8 +90,8 @@ class AncillaryIndex(Resource):
             end_datetime = args.get("end_datetime", None)
             size = args.get("size", 40)
 
-            if index_name in consts.ANCILLARY_INDEXES:
-                index = consts.ANCILLARY_INDEXES[index_name]
+            if index_name in consts.INPUT_PRODUCT_TYPE_TO_INDEX:
+                index = consts.INPUT_PRODUCT_TYPE_TO_INDEX[index_name]
                 docs.extend(
                     query.get_docs(index, start_datetime, end_datetime, size=size)
                 )
@@ -114,8 +114,8 @@ class Ancillary(Resource):
         end_datetime = args.get("end_datetime", None)
         size = args.get("size", 40)
 
-        for name in consts.ANCILLARY_INDEXES:
-            index = consts.ANCILLARY_INDEXES[name]
+        for name in consts.INPUT_PRODUCT_TYPE_TO_INDEX:
+            index = consts.INPUT_PRODUCT_TYPE_TO_INDEX[name]
 
             docs.extend(query.get_docs(index, start_datetime, end_datetime, size=size))
             # retrieve docs for each index

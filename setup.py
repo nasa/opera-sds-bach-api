@@ -36,16 +36,15 @@ setup(
         "jsonschema>=3.2.0",
         "lxml>=4.5.2",
         "MarkupSafe>=2.0.0",
+        "matplotlib==3.5.1",
         "more_itertools>=8.12.0",
-        "numpy>=1.20.3",
+        "numpy>=1.22.4",
         "packaging>=20.4",
         "pandas>=1.3.5",
         "pluggy>=0.13.1",
         "py>=1.9.0",
         "pyparsing>=2.4.7",
         "pyrsistent>=0.17.3",
-        "pytest>=6.1.1",
-        "pytest-mock>=3.7.0",
         "python-dateutil>=2.8.1",
         "pytz>=2020.1",
         "requests>=2.24.0",
@@ -57,4 +56,16 @@ setup(
         "xmltodict>=0.11.0",
         "zipp>=3.4.0",
     ],
+    extras_require={
+        'test': [
+            "pytest>=7.1.1",
+            "pytest-mock>=3.7.0",
+            "coverage",
+            "pytest-cov",
+            "prov-es@https://github.com/hysds/prov_es/archive/refs/tags/v0.2.2.tar.gz",
+            "osaka@https://github.com/hysds/osaka/archive/refs/tags/v1.1.0.tar.gz",
+            "hysds-commons@https://github.com/hysds/hysds_commons/archive/refs/tags/v1.0.9.tar.gz",
+            "hysds@https://github.com/hysds/hysds/archive/refs/tags/v1.1.5.tar.gz"
+        ]
+    }
 )
