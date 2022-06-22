@@ -28,8 +28,8 @@ def test_Data_get(test_client: FlaskClient, mocker: MockerFixture, elasticsearch
         "daac_delivery_status": "SUCCESS",
         "test_extra_attribute": "dummy_value"
     }])
-    monkeypatch.setattr("accountability_api.v2.data.consts.ANCILLARY_INDEXES", {})
-    monkeypatch.setattr("accountability_api.v2.data.consts.PRODUCT_INDEXES", {
+    monkeypatch.setattr("accountability_api.v2.data.consts.INPUT_PRODUCT_TYPE_TO_INDEX", {})
+    monkeypatch.setattr("accountability_api.v2.data.consts.PRODUCT_TYPE_TO_INDEX", {
         "test_index_label": "test_index_name"
     })
 
@@ -69,7 +69,7 @@ def test_ListDataTypes_get(test_client: FlaskClient):
     assert response.status_code == 200
     assert len(data) == 3
     assert data == {
-        "DSWX_HLS": "grq_1_l3_dswx_hls",
+        "L3_DSWX_HLS": "grq_1_l3_dswx_hls",
         "HLS_L30": "grq_1_l2_hls_l30",
         "HLS_S30": "grq_1_l2_hls_s30"
     }
@@ -176,8 +176,8 @@ def test_DataIndex_get(test_client: FlaskClient, mocker: MockerFixture, monkeypa
         "daac_delivery_status": "SUCCESS",
         "test_extra_attribute": "dummy_value"
     }])
-    monkeypatch.setattr("accountability_api.v2.data.consts.ANCILLARY_INDEXES", {})
-    monkeypatch.setattr("accountability_api.v2.data.consts.PRODUCT_INDEXES", {
+    monkeypatch.setattr("accountability_api.v2.data.consts.INPUT_PRODUCT_TYPE_TO_INDEX", {})
+    monkeypatch.setattr("accountability_api.v2.data.consts.PRODUCT_TYPE_TO_INDEX", {
         "test_index_label": "test_index_name"
     })
 
