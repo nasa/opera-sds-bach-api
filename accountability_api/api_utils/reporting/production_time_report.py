@@ -188,7 +188,7 @@ class ProductionTimeReport(Report):
         header = [
             {"Title": "OPERA Production Time Log"},
             {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
         ]
         return header
 
@@ -196,9 +196,9 @@ class ProductionTimeReport(Report):
         header = [
             {"Title": "OPERA Production Time Summary"},
             {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
             {"Notes": """Each row of the table below will correspond to an OPERA data product line.
-            Our Requirements are written to the average Production Time (column C).
+            Our Requirements are written to the average Production Time.
             hist(ProductionTime) refers to a histogram of the Production Times over the given period."""},
         ]
         return header

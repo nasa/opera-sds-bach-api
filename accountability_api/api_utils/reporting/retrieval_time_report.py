@@ -370,7 +370,7 @@ class RetrievalTimeReport(Report):
         header = [
             {"Title": "OPERA Retrieval Time Log"},
             {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
             {"PublicAvailableDateTime": "datetime when the product was first made available to the public by the DAAC."},
             {"OperaDetectDateTime": "datetime when the OPERA system first became aware of the product."},
             {"ProductReceivedDateTime": "datetime when the product arrived in our system"}
@@ -381,7 +381,7 @@ class RetrievalTimeReport(Report):
         header = [
             {"Title": "OPERA Retrieval Time Summary"},
             {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
             {"Notes": """Each row of the table below will nominally correspond to a single OPERA data product line.  If a product line has more than one input product type (such as for DSWX_HLS), each input type may have their own row, with another row for the total of that product line.
             Our Requirements are written against the 90th percentile of retrieval times.
             P_90() = 90th percentile of the values inside ()
