@@ -381,7 +381,11 @@ class RetrievalTimeReport(Report):
         header = [
             {"Title": "OPERA Retrieval Time Summary"},
             {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'}
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Notes": """Each row of the table below will nominally correspond to a single OPERA data product line.  If a product line has more than one input product type (such as for DSWX_HLS), each input type may have their own row, with another row for the total of that product line.
+            Our Requirements are written against the 90th percentile of retrieval times.
+            P_90() = 90th percentile of the values inside ()
+            hist(RetrievalTime) refers to a histogram of the Retrieval Times over the given period."""}
         ]
         return header
 
