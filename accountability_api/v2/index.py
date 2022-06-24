@@ -62,7 +62,7 @@ class Index(Resource):
             }
         else:
             body["query"]["match_all"] = {}
-        result = query.run_query(index=path, size=0, body=body)
+        result = query.run_query_with_scroll(index=path, size=0, body=body)
         return [
             {"dataset_type": i["key"], "count": i["doc_count"], "children": []}
             for i in result["aggregations"]["dataset_types"]["buckets"]
