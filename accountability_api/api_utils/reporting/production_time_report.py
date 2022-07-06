@@ -187,16 +187,16 @@ class ProductionTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Log"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
         ]
         return header
 
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Summary"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'}
         ]
         return header
 
