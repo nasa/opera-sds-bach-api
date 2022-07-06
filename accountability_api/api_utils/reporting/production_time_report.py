@@ -187,19 +187,16 @@ class ProductionTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Log"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
         ]
         return header
 
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Summary"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%dT%H%M%S")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%dT%H%M%S")}'},
-            {"Notes": """Each row of the table below will correspond to an OPERA data product line.
-            Our Requirements are written to the average Production Time.
-            hist(ProductionTime) refers to a histogram of the Production Times over the given period."""},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
         ]
         return header
 
