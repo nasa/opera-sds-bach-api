@@ -389,7 +389,7 @@ class RetrievalTimeReport(Report):
         start_datetime_normalized = self.start_datetime.replace(":", "")
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
-        return f"production-time - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
+        return f"retrieval-time - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
 
     @staticmethod
     def rename_columns(report_df: DataFrame, report_type: str):

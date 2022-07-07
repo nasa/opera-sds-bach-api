@@ -1,8 +1,10 @@
 import traceback
 
-from .report import Report
-from accountability_api.api_utils import utils, query, processing
+import dateutil.parser
+
 from accountability_api.api_utils import metadata as consts
+from accountability_api.api_utils import utils, query, processing
+from .report import Report
 
 
 class IncomingFiles(Report):
@@ -94,11 +96,8 @@ class IncomingFiles(Report):
         return {
             "root_name": root_name,
             "header": {
-                "time_of_report": self._creation_time,
-                "data_received_time_range": "{}-{}".format(
-                    utils.to_iso_format_truncated(self.start_datetime),
-                    utils.to_iso_format_truncated(self.end_datetime),
-                ),
+                "time_of_report": dateutil.parser.isoparse(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "data_received_time_range": f"{self.start_datetime}Z - {self.end_datetime}Z",
                 "crid": self._crid,
                 "venue": self._venue,
                 "processing_mode": self._processing_mode,
