@@ -87,11 +87,11 @@ class Report(ABC):
 
     @abstractmethod
     def get_dict_format(self):
-        return {}
+        pass
 
     @abstractmethod
     def to_xml(self):
-        return ""
+        pass
 
     @abstractmethod
     def to_csv(self):
@@ -100,4 +100,4 @@ class Report(ABC):
 
     @abstractmethod
     def get_filename(self, output_format):
-        return "*.{}".format(output_format)
+        pass
