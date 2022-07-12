@@ -51,7 +51,8 @@ class RetrievalTimeReport(Report):
                     tmp_histogram.flush()
                     histogram_filename = self.get_histogram_filename(
                         sds_product_name=row["opera_product_short_name"],
-                        input_product_name=row["input_product_short_name"])
+                        input_product_name=row["input_product_short_name"],
+                        report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
                     report_df.at[i, "histogram"] = histogram_filename
 
@@ -64,7 +65,7 @@ class RetrievalTimeReport(Report):
                 tmp_report_csv.write(report_csv.encode("utf-8"))
                 tmp_report_csv.flush()
 
-                report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename("text/csv"))
+                report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename_by_report_type("text/csv", report_type))
             return tmp_report_zip
 
         report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
@@ -331,20 +332,18 @@ class RetrievalTimeReport(Report):
         product_name_to_product_map = {product["_id"]: product for product in product_docs}
         return product_name_to_product_map
 
-    def get_filename(self, output_format):
+    def get_filename_by_report_type(self, output_format, report_type):
         start_datetime_normalized = self.start_datetime.replace(":", "")
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
         if output_format == "text/csv":
-            return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.csv"
+            return f"retrieval-time-{report_type} - {start_datetime_normalized} to {end_datetime_normalized}.csv"
         elif output_format == "text/html":
-            return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.html"
+            return f"retrieval-time-{report_type} - {start_datetime_normalized} to {end_datetime_normalized}.html"
         elif output_format == "application/json":
-            return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.json"
-        elif output_format == "image/png":
-            return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.png"
+            return f"retrieval-time-{report_type} - {start_datetime_normalized} to {end_datetime_normalized}.json"
         elif output_format == "application/zip":
-            return f"retrieval-time - {start_datetime_normalized} to {end_datetime_normalized}.zip"
+            return f"retrieval-time-{report_type} - {start_datetime_normalized} to {end_datetime_normalized}.zip"
         else:
             raise Exception(f"Output format not supported. {output_format=}")
 
@@ -369,8 +368,8 @@ class RetrievalTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Log"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
             {"PublicAvailableDateTime": "datetime when the product was first made available to the public by the DAAC."},
             {"OperaDetectDateTime": "datetime when the OPERA system first became aware of the product."},
             {"ProductReceivedDateTime": "datetime when the product arrived in our system"}
@@ -380,16 +379,16 @@ class RetrievalTimeReport(Report):
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Summary"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y%m%dT%H%M%S")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y%m%d")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y%m%d")}'}
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
         ]
         return header
 
-    def get_histogram_filename(self, sds_product_name, input_product_name):
+    def get_histogram_filename(self, sds_product_name, input_product_name, report_type):
         start_datetime_normalized = self.start_datetime.replace(":", "")
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
-        return f"production-time - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
+        return f"retrieval-time-{report_type} - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
 
     @staticmethod
     def rename_columns(report_df: DataFrame, report_type: str):
