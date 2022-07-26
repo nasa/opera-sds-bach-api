@@ -1,4 +1,4 @@
-from unittest import mock
+from unittest.mock import MagicMock
 
 import pytest
 from pytest_mock import MockerFixture
@@ -7,6 +7,8 @@ from accountability_api.api_utils import query
 
 
 class ElasticsearchUtilityStub:
+    es = MagicMock()
+
     def search(self, **kwargs):
         pass
 
@@ -25,6 +27,7 @@ def elasticsearch_single_product():
             "hits": {
                 "hits": [
                     {
+                        "_id": "dummy_id",
                         "_source": {
                             "mock": "yes"
                         }
@@ -52,11 +55,13 @@ def elasticsearch_index_non_empty():
                 },
                 "hits": [
                     {
+                        "_id": "dummy_id",
                         "_source": {
                             "mock": "yes"
                         }
                     },
                     {
+                        "_id": "dummy_id",
                         "_source": {
                             "mock": "yes"
                         }
@@ -68,12 +73,21 @@ def elasticsearch_index_non_empty():
 
 def test_run_query_with_sort(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
+    elasticsearch_utility_stub.es.search.return_value = {
+        "_scroll_id": None,
+        "hits": {
+            "total": {
+                "value": 1
+            },
+            "hits": [{"mock": "yes", "_id": "dummy_id"}]
+        }
+    }
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
 
-    spy = mocker.spy(elasticsearch_utility_stub, "search")
+    spy = mocker.spy(elasticsearch_utility_stub.es, "search")
 
     # ACT
-    query.run_query(
+    query.run_query_with_scroll(
         index="test_index",
         body="test_body",
         doc_type="test_doc_type",
@@ -87,19 +101,27 @@ def test_run_query_with_sort(mocker: MockerFixture, elasticsearch_utility_stub):
         body="test_body",
         doc_type="test_doc_type",
         sort=["test_sort_field:test_sort_direction"],  # checking for sort arg
-        size=-1,
-        params={}
+        size=10000,
+        scroll="30s"
     )
 
 
 def test_run_query_no_sort(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
+    elasticsearch_utility_stub.es.search.return_value = {
+        "_scroll_id": None,
+        "hits": {
+            "total": {
+                "value": 0
+            },
+            "hits": []
+        }
+    }
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
-
-    spy = mocker.spy(elasticsearch_utility_stub, "search")
+    spy = mocker.spy(elasticsearch_utility_stub.es, "search")
 
     # ACT
-    query.run_query(
+    query.run_query_with_scroll(
         index="test_index",
         body="test_body",
         doc_type="test_doc_type",
@@ -113,14 +135,14 @@ def test_run_query_no_sort(mocker: MockerFixture, elasticsearch_utility_stub):
         body="test_body",
         doc_type="test_doc_type",
         # note lack of sort arg
-        size=-1,
-        params={}
+        size=10000,
+        scroll="30s"
     )
 
 
 def test_get_product_with_hits(mocker: MockerFixture, elasticsearch_single_product):
     # ARRANGE
-    mocker.patch("accountability_api.api_utils.query.run_query", return_value=elasticsearch_single_product)
+    mocker.patch("accountability_api.api_utils.query.run_query_with_scroll", return_value=elasticsearch_single_product)
 
     # ACT
     retrieved_product = query.get_product("OPERA_L3_DSWx_HLS_SENTINEL-2A_T15SXR_20210907T163901_v2.0", index="grq_*_*")
@@ -132,7 +154,7 @@ def test_get_product_with_hits(mocker: MockerFixture, elasticsearch_single_produ
 def test_get_product_no_hits(mocker: MockerFixture, elasticsearch_no_hits):
     # ARRANGE
     from accountability_api.api_utils import query
-    mocker.patch("accountability_api.api_utils.query.run_query", return_value=elasticsearch_no_hits)
+    mocker.patch("accountability_api.api_utils.query.run_query_with_scroll", return_value=elasticsearch_no_hits)
 
     # ACT
     retrieved_product = query.get_product("OPERA_L3_DSWx_HLS_LANDSAT-8_T22VEQ_20210905T143156_v2.0", index="grq_*_*")
@@ -153,7 +175,7 @@ def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub
 
 def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty):
     # ARRANGE
-    mocker.patch("accountability_api.api_utils.query.run_query", return_value=elasticsearch_index_non_empty)
+    mocker.patch("accountability_api.api_utils.query.run_query_with_scroll", return_value=elasticsearch_index_non_empty)
 
     # ACT
     docs, total = query.get_docs_in_index("grq_1_l3_dswx_hls", start=None, end=None, size=50, time_key=None)

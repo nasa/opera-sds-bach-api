@@ -9,7 +9,6 @@ from more_itertools import always_iterable
 from accountability_api import es_connection
 from accountability_api.api_utils import JOBS_ES
 from accountability_api.api_utils import metadata as consts
-from accountability_api.api_utils.processing import format_l0b_data
 
 LOGGER = logging.getLogger()
 
@@ -24,6 +23,7 @@ def run_query(
     **kwargs
 ):
     es = es or es_connection.get_grq_es()
+    es = es.es or es_connection.get_grq_es().es
 
     if sort:
         return es.search(index=index, body=body, doc_type=doc_type, sort=sort, size=size, params=kwargs)
@@ -60,6 +60,7 @@ def run_query_with_scroll(
     :return:
     """
     es = es or es_connection.get_grq_es()
+    es = es.es or es_connection.get_grq_es().es
 
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll
@@ -214,87 +215,6 @@ def add_query_filter(query: Dict, field_name=None, value=None) -> Dict:
     return query
 
 
-
-def get_obs_data(
-    size=40,
-    obs_start=None,
-    obs_end=None,
-    start=None,
-    end=None,
-    time_key=None,
-    obs_id=None,
-    dt_id=None,
-    processing_type=None,
-    cycle=None,
-    **kwargs
-):
-    """
-    Gets LDFs status doc by filtering based on the provided criteria. If none are provided it gets all the docs.
-    :param size:
-    :return:
-    """
-    LOGGER.debug(
-        "Getting LDFs statuses with paramters: {}".format(json.dumps(locals()))
-    )
-    index = consts.PRODUCT_TYPE_TO_INDEX["DATATAKE_STATE_CONFIGS"]
-    filter_path = ["hits.hits._id", "hits.hits._source"]
-    query = {"query": {"bool": {"must": [{"term": {"_index": index}}]}}}
-
-    sort = "creation_time:desc"
-    _filter = {}
-    # sort = ""
-    datatake_state_configs = []
-    try:
-        # add datetime filters
-        if start and end:
-            query = add_range_filter(
-                query=query, time_key=time_key, start=start, stop=end
-            )
-        elif start:
-            query = add_range_filter(
-                query=query, time_key=time_key, start=start, stop=None
-            )
-        elif end:
-            query = add_range_filter(
-                query=query, time_key=time_key, start=None, stop=end
-            )
-        datatake_state_configs = (
-            run_query(index=index, sort=sort, size=size, body=query, **kwargs)
-            .get("hits")
-            .get("hits")
-        )
-    except Exception as e:
-        LOGGER.error("Error occurred while getting Observations: {}".format(e))
-        LOGGER.error(traceback.format_exc())
-        return []
-
-    results = {}
-
-    for dt_state_config in datatake_state_configs:
-        last_modified = dt_state_config["_source"]["@timestamp"]
-        id = dt_state_config["_source"]["metadata"]["datatake_id"]
-        obs_ids = dt_state_config["_source"]["metadata"]["observation_ids"]
-        l0b_query = {"query": {"bool": {"should": []}}}
-        if id not in results:
-            results[id] = {}
-        for obs_id in obs_ids:
-            results[id][obs_id] = {}
-            l0b_query["query"]["bool"]["should"].append(
-                {"match": {"metadata.OBS_ID": obs_id}}
-            )
-        l0b_results = (
-            run_query(index=consts.PRODUCT_TYPE_TO_INDEX["L0B_L_RRSD"], body=l0b_query)
-            .get("hits")
-            .get("hits")
-        )
-
-        for result in l0b_results:
-            obs_id = result["_source"]["metadata"]["OBS_ID"]
-            results[id][obs_id] = result["_source"]
-
-    return format_l0b_data(results)
-
-
 def get_result_ids(results):
     hits = results.get("hits").get("hits")
 
@@ -325,60 +245,6 @@ def get_result_ids(results):
         )
     else:
         return []
-
-
-def grab_l0b_rrsd_rslc_children(l0b_id, track="", frame=""):
-    index = consts.PRODUCT_TYPE_TO_INDEX["L1_L_RSLC"]
-    query = {
-        "query": {
-            "bool": {
-                "must": [
-                    {"match": {"metadata.accountability.L1_L_RSLC.inputs": l0b_id}}
-                ]
-            }
-        }
-    }
-
-    if track:
-        query = add_query_match(
-            query=query, field_name="metadata.RelativeOrbitNumber", value=int(track)
-        )
-
-    if frame:
-        query = add_query_match(
-            query=query, field_name="metadata.FrameNumber", value=int(frame)
-        )
-
-    results = run_query(index=index, body=query)
-
-    return get_result_ids(results)
-
-
-def grab_rslc_children(rslc_id, cycle_sec="", cycle_ref=""):
-    index = "grq_*_l*_l_*"
-    query = {"query": {"bool": {"should": [], "must": []}}}
-
-    for dataset in consts.RSLC_CHILDREN:
-        query = add_query_find(
-            query=query,
-            field_name="metadata.accountability.{}.inputs".format(dataset),
-            value=rslc_id,
-        )
-
-        # if cycle_ref:
-        #     query = add_query_filter(
-        #         query=query, field_name="metadata.ReferenceCycleNumber", value=cycle_ref
-        #     )
-        # if cycle_sec:
-        #     query = add_query_filter(
-        #         query=query, field_name="metadata.SecondaryCycleNumber", value=cycle_sec
-        #     )
-
-    results = run_query(index=index, body=query)
-
-    hits = results.get("hits").get("hits")
-
-    return hits
 
 
 def flatten_doc(doc, skip_keys=list(), parent_key=""):
@@ -424,7 +290,7 @@ def get_job(job_id):
             "traceback",
             "job.job_info.duration",
         ]
-        result = run_query(
+        result = run_query_with_scroll(
             index=index, body=query, es=JOBS_ES, _source_include=source_includes
         )
         result = list(map(lambda doc: doc["_source"], result["hits"]["hits"]))
@@ -451,7 +317,7 @@ def get_jobs_by_status(job_status):
         "size": 10,
         "sort": [{"@timestamp": {"order": "desc"}}],
     }
-    job_query = run_query(es=JOBS_ES, index="job_status-current", body=body, size=10)
+    job_query = run_query_with_scroll(es=JOBS_ES, index="job_status-current", body=body, size=10)
     # return job_query.get("hits")
     arr = []
     total = job_query["hits"]["total"]
@@ -492,7 +358,7 @@ def get_job_by_uuid(uuid):
         "sort": [],
         "aggs": {},
     }
-    result = run_query(
+    result = run_query_with_scroll(
         index=index, body=query, es=JOBS_ES, _source_include=source_includes
     )
     if result["hits"]["total"] > 0:
@@ -515,7 +381,7 @@ def get_product(product_id: str, index=consts.PRODUCTS_INDEX):
     query = {"query": {"bool": {"must": [{"match": {"id": product_id}}]}}}
     try:
         exclude = ["metadata.context.context"]
-        result = run_query(index=index, body=query, _source_excludes=exclude)
+        result = run_query_with_scroll(index=index, body=query, _source_excludes=exclude)
         result = list(map(lambda doc: doc["_source"], result["hits"]["hits"]))
         if len(result) > 0:
             return result[0]
@@ -531,7 +397,7 @@ def get_num_docs_in_index(
         start=None,
         end=None,
         time_key=None,
-        es=None,
+        es: Optional[ElasticsearchUtility] = None,
         **kwargs
 ):
     es = es or es_connection.get_grq_es()
@@ -564,10 +430,6 @@ def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, 
     :return:
     """
     query = {}
-    _from = 0
-    _to = _from + size
-    docs = list()
-    total = 0
     if start and end:
         query = {"query": {"bool": {"must": [{"match": {"_index": index}}]}}}
 
@@ -599,13 +461,11 @@ def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, 
         # removing from kwargs so this is not passed as an Elasticsearch client property downstream.
         del kwargs['metadata_sensor']
 
-    while _from <= _to:
-        result = run_query(index=index, size=size, body=query, from_=_from, **kwargs)
-        total = result.get("hits").get("total").get("value")
+    result = run_query_with_scroll(index=index, size=size, body=query, **kwargs)
+    total = result.get("hits").get("total").get("value")
 
-        docs.extend(map(lambda doc: map_doc_to_source(doc), result.get("hits").get("hits")))
-        _from += size
-        _to = total
+    docs = [map_doc_to_source(doc) for doc in result.get("hits", {}).get("hits", [])]
+
     return docs, total
 
 
