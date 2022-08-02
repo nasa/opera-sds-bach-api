@@ -11,19 +11,19 @@ PRODUCT_COUNTER = "ProductCounter"
 TIMER_INDEX = "timer_status"
 
 INPUT_PRODUCT_TYPE_TO_INDEX = {
-    "HLS_L30": "grq_1_l2_hls_l30",
-    "HLS_S30": "grq_1_l2_hls_s30"
+    "HLS_L30": "grq_*_l2_hls_l30",
+    "HLS_S30": "grq_*_l2_hls_s30"
 }
 
 # TODO chrisjrd: finalize. Currently, the opera_state_config index does not behave like normal *-state-config indexes
 #  and so cannot be added to this map.
 STATE_CONFIG_INDEXES = {
-    "L30_STATE_CONFIG": "grq_1_l2_hls_l30-state-config",
-    "S30_STATE_CONFIG": "grq_1_l2_hls_s30-state-config"
+    "L30_STATE_CONFIG": "grq_*_l2_hls_l30-state-config",
+    "S30_STATE_CONFIG": "grq_*_l2_hls_s30-state-config"
 }
 
 PRODUCT_TYPE_TO_INDEX = {
-    "L3_DSWX_HLS": "grq_1_l3_dswx_hls"
+    "L3_DSWX_HLS": "grq_*_l3_dswx_hls"
 }
 """Map of product types to their Elasticsearch indexes."""
 
@@ -45,8 +45,8 @@ ACCOUNTABILITY_INDEXES = {
 }
 
 INCOMING_SDP_PRODUCTS = {
-    "HLS_L30": "grq_1_l2_hls_l30",
-    "HLS_S30": "grq_1_l2_hls_s30"
+    "HLS_L30": "grq_*_l2_hls_l30",
+    "HLS_S30": "grq_*_l2_hls_s30"
 }
 
 # TODO chrisjrd: finalize.
@@ -54,11 +54,11 @@ INCOMING_ANCILLARY_FILES = {
 }
 
 GENERATED_PRODUCTS = {
-    "DSWX_HLS": "grq_1_l3_dswx_hls"
+    "DSWX_HLS": "grq_*_l3_dswx_hls"
 }
 
 OUTGOING_PRODUCTS_TO_DAAC = {
-    "DSWX_HLS": "grq_1_l3_dswx_hls"
+    "DSWX_HLS": "grq_*_l3_dswx_hls"
 }
 
 RSLC_CHILDREN = []
