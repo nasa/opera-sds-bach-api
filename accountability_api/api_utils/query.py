@@ -425,7 +425,7 @@ def get_num_docs_in_index(
     return result
 
 
-def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
+def get_docs_in_index(index: str, size=-1, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
     """
     Get docs within particular index between a certain time range
     :param index:
