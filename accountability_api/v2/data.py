@@ -68,7 +68,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "size",
-    default=40,
+    default=-1,
     dest="size",
     type=int,
     location="args",
@@ -173,7 +173,7 @@ class DataIndex(Resource):
         indexes.update(consts.PRODUCT_TYPE_TO_INDEX)
 
         product_id = args.get("product_id", None)
-        size = args.get("size", 40)
+        size = args.get("size")
 
         if args.get("product_id"):
             docs = query.get_product(product_id)
@@ -182,8 +182,6 @@ class DataIndex(Resource):
             end_dt = args.get("end_datetime", None)
             # workflow_start_dt = args.get("workflow_start", None)
             # workflow_end_dt = args.get("workflow_end", None)
-            if not size:
-                size = 40
 
             if index_name in indexes:
                 index = indexes[index_name]
@@ -236,8 +234,6 @@ class Data(Resource):
         else:
             for name in indexes:
                 index = indexes[name]
-                if not size:
-                    size = 40
                 try:
                     docs.extend(
                         query.get_docs(
