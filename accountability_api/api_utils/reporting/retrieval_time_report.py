@@ -11,6 +11,7 @@ from flask import current_app
 from pandas import DataFrame
 
 from accountability_api.api_utils import query, metadata
+from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
 from accountability_api.api_utils.reporting.report import Report
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
@@ -279,7 +280,8 @@ class RetrievalTimeReport(Report):
     def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
-        sds_product_docs: list[dict] = query.get_docs(indexes=["grq_1_l3_dswx_hls"], start=start, end=end)
+        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
+        sds_product_docs: list[dict] = query.get_docs(indexes=[sds_product_index], start=start, end=end)
 
         # convert list to dict
         sds_granule_to_sds_product_map: dict[tuple, dict] = {}

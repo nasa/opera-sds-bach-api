@@ -16,8 +16,8 @@ def test_generate_report_json_sdp(mocker: MockerFixture):
 
     # ASSERT
     assert report["root_name"] == "INCOMING_SDP_PRODUCTS_REPORT"
-    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00"
-    assert report["header"]["data_received_time_range"] == "19700101T000000-19700102T000000"
+    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00Z"
+    assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) > 0
     for product in report["products"]:
         assert product["name"] in ["HLS_S30", "HLS_L30"]
@@ -33,8 +33,8 @@ def test_generate_report_dict_sdp(mocker: MockerFixture):
 
     # ASSERT
     assert report["root_name"] == "INCOMING_SDP_PRODUCTS_REPORT"
-    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00"
-    assert report["header"]["data_received_time_range"] == "19700101T000000-19700102T000000"
+    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00Z"
+    assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) > 0
     for product in report["products"]:
         assert product["name"] in ["HLS_S30", "HLS_L30"]
@@ -71,8 +71,8 @@ def test_generate_report_json_ancillary(mocker: MockerFixture):
 
     # ASSERT
     assert report["root_name"] == "INCOMING_ANCILLARY_PRODUCTS_REPORT"
-    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00"
-    assert report["header"]["data_received_time_range"] == "19700101T000000-19700102T000000"
+    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00Z"
+    assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) == 0
 
 
@@ -92,8 +92,8 @@ def test_generate_report_dict_ancillary(mocker: MockerFixture):
 
     # ASSERT
     assert report["root_name"] == "INCOMING_ANCILLARY_PRODUCTS_REPORT"
-    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00"
-    assert report["header"]["data_received_time_range"] == "19700101T000000-19700102T000000"
+    assert report["header"]["time_of_report"] == "1970-01-03T00:00:00Z"
+    assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) == 0
 
 
