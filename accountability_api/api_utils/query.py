@@ -84,8 +84,13 @@ def run_query_with_scroll(
     total_size = primary_result["hits"]["total"]["value"]
     if size != -1:  # caller only wants some results
         total_size = size  # updating the target size
+
     current_size = len(primary_result["hits"]["hits"])
-    scroll_id = primary_result["_scroll_id"]
+
+    scroll_id = primary_result.get("_scroll_id")
+    if not scroll_id:
+        return primary_result
+
     while current_size < total_size:  # need to scroll
         scrolled_result = es.scroll(scroll_id=scroll_id, scroll=scroll_timeout)
         scroll_id = scrolled_result["_scroll_id"]
@@ -420,7 +425,7 @@ def get_num_docs_in_index(
     return result
 
 
-def get_docs_in_index(index: str, size=40, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
+def get_docs_in_index(index: str, size=-1, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
     """
     Get docs within particular index between a certain time range
     :param index:
@@ -475,7 +480,7 @@ def map_doc_to_source(doc: dict):
     return source
 
 
-def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=40, **kwargs) -> List[Dict]:
+def get_docs(indexes: Union[str, List[str]], start=None, end=None, source=None, size=-1, **kwargs) -> List[Dict]:
     """
     Get docs within particular indexes between a certain time range
     :param indexes: a single index name or list of index names

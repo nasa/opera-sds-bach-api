@@ -33,7 +33,7 @@ parser.add_argument(
 )
 parser.add_argument(
     "size",
-    default=40,
+    default=-1,
     dest="size",
     type=int,
     location="args",
@@ -88,7 +88,7 @@ class AncillaryIndex(Resource):
         else:
             start_datetime = args.get("start_datetime", None)
             end_datetime = args.get("end_datetime", None)
-            size = args.get("size", 40)
+            size = args.get("size")
 
             if index_name in consts.INPUT_PRODUCT_TYPE_TO_INDEX:
                 index = consts.INPUT_PRODUCT_TYPE_TO_INDEX[index_name]
@@ -112,7 +112,7 @@ class Ancillary(Resource):
 
         start_datetime = args.get("start_datetime", None)
         end_datetime = args.get("end_datetime", None)
-        size = args.get("size", 40)
+        size = args.get("size")
 
         for name in consts.INPUT_PRODUCT_TYPE_TO_INDEX:
             index = consts.INPUT_PRODUCT_TYPE_TO_INDEX[name]
