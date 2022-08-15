@@ -44,8 +44,7 @@ class ProductionTimeReport(Report):
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                i = 0  # WORKAROUND: iterrows() is not returning the index properly
-                for _, row in report_df.iterrows():
+                for i, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
                     histogram_b64: str = row["histogram"]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
@@ -53,7 +52,6 @@ class ProductionTimeReport(Report):
                     histogram_filename = self.get_histogram_filename(sds_product_name=row["opera_product_short_name"], report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
                     report_df.at[i, "histogram"] = histogram_filename
-                    i = i + 1
                 ProductionTimeReport.drop_column(report_df, "histogram")  # single row, so just drop the column
 
                 ProductionTimeReport.rename_columns(report_df, report_type)
