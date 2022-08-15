@@ -45,17 +45,17 @@ class RetrievalTimeReport(Report):
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i, row in report_df.iterrows():
+                for i in range(len(report_df)):
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = row["histogram"]
+                    histogram_b64: str = report_df["histogram"].values[i]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
                     histogram_filename = self.get_histogram_filename(
-                        sds_product_name=row["opera_product_short_name"],
-                        input_product_name=row["input_product_short_name"],
+                        sds_product_name=report_df["opera_product_short_name"].values[i],
+                        input_product_name=report_df["input_product_short_name"].values[i],
                         report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df.at[i, "histogram"] = histogram_filename
+                    report_df["histogram"].values[i] = histogram_filename
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
                 report_csv = report_df.to_csv(index=False)
