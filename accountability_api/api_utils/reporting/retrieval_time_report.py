@@ -46,17 +46,17 @@ class RetrievalTimeReport(Report):
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
                 i = 0  # WORKAROUND: iterrows() is not returning the index properly
-                for i in range(len(report_df)):
+                for _, row in report_df.iterrows():
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df["histogram"].values[i]
+                    histogram_b64: str = row["histogram"]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
                     histogram_filename = self.get_histogram_filename(
-                        sds_product_name=report_df["opera_product_short_name"].values[i],
-                        input_product_name=report_df["input_product_short_name"].values[i],
+                        sds_product_name=row["opera_product_short_name"],
+                        input_product_name=row["input_product_short_name"],
                         report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df["histogram"].values[i] = histogram_filename
+                    report_df.at[i, "histogram"] = histogram_filename
                     i = i + 1
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
