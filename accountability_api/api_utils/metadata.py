@@ -97,7 +97,7 @@ def granule_id_to_sensor(granule_id):
 
 
 def sds_product_id_to_sds_product_type(sds_product_id: str):
-    # example _id = OPERA_L3_DSWx_HLS_SENTINEL-2A_T07WDR_20220613T212529_v2.0_001
+    # example _id = OPERA_L3_DSWx_HLS_T57NVH_20220117T000429Z_20220117T000429Z_S2A_30_v2.0
     if sds_product_id.startswith("OPERA_L3_DSWx_HLS"):
         return "L3_DSWX_HLS"
     else:
@@ -105,7 +105,7 @@ def sds_product_id_to_sds_product_type(sds_product_id: str):
 
 
 def sds_product_id_to_sensor(sds_product_id: str):
-    # example _id = OPERA_L3_DSWx_HLS_SENTINEL-2A_T07WDR_20220613T212529_v2.0_001
+    # example _id = OPERA_L3_DSWx_HLS_T57NVH_20220117T000429Z_20220117T000429Z_S2A_30_v2.0
     if "_S2A" in sds_product_id:
         return "SENTINEL"
     elif "_S2B" in sds_product_id:
