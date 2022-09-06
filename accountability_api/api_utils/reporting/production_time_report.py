@@ -155,7 +155,7 @@ class ProductionTimeReport(Report):
 
             df_production_times_summary = pd.DataFrame([{
                 "opera_product_short_name": df_production_times_summary["opera_product_short_name"].iloc[0],
-                "production_time_count": df_production_times_summary.size,
+                "production_time_count": len(df_production_times_summary),
                 "production_time_min": to_duration_isoformat(df_production_times_summary["production_time"].min()),
                 "production_time_max": to_duration_isoformat(df_production_times_summary["production_time"].max()),
                 "production_time_mean": to_duration_isoformat(df_production_times_summary["production_time"].mean()),
