@@ -112,6 +112,8 @@ def sds_product_id_to_sensor(sds_product_id: str):
         return "SENTINEL"
     elif "_L8" in sds_product_id:
         return "LANDSAT"
+    elif "_L9" in sds_product_id:
+        return "LANDSAT"
     else:
         raise Exception(f"Unable to map {sds_product_id=} to sensor")
 
