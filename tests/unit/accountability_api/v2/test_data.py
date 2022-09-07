@@ -41,7 +41,7 @@ def test_Data_get(test_client: FlaskClient, mocker: MockerFixture, elasticsearch
     get_docs_args = {
         "start": None,
         "end": None,
-        "size": 40,
+        "size": -1,
         "metadata_tile_id": None,
         "metadata_sensor": None
     }
@@ -69,18 +69,18 @@ def test_ListDataTypes_get(test_client: FlaskClient):
     assert response.status_code == 200
     assert len(data) == 3
     assert data == {
-        "L3_DSWX_HLS": "grq_1_l3_dswx_hls",
-        "HLS_L30": "grq_1_l2_hls_l30",
-        "HLS_S30": "grq_1_l2_hls_s30"
+        "L3_DSWX_HLS": "grq_*_l3_dswx_hls",
+        "HLS_L30": "grq_*_l2_hls_l30",
+        "HLS_S30": "grq_*_l2_hls_s30"
     }
 
 
 def test_ListDataTypeCounts_get_all(test_client: FlaskClient, mocker: MockerFixture):
     # ARRANGE
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
-        "grq_1_l3_dswx_hls": 1,
-        "grq_1_l2_hls_l30": 2,
-        "grq_1_l2_hls_s30": 3
+        "grq_*_l3_dswx_hls": 1,
+        "grq_*_l2_hls_l30": 2,
+        "grq_*_l2_hls_s30": 3
     })
 
     # ACT
@@ -95,25 +95,25 @@ def test_ListDataTypeCounts_get_all(test_client: FlaskClient, mocker: MockerFixt
         "workflow_end": None
     }
     get_num_docs_mock.assert_called_once_with({
-        "HLS_L30": "grq_1_l2_hls_l30",
-        "HLS_S30": "grq_1_l2_hls_s30",
-        "DSWX_HLS": "grq_1_l3_dswx_hls"
+        "HLS_L30": "grq_*_l2_hls_l30",
+        "HLS_S30": "grq_*_l2_hls_s30",
+        "DSWX_HLS": "grq_*_l3_dswx_hls"
     }, **get_docs_args)
 
     assert response.status_code == 200
     assert len(data) == 3
     assert data == [
-        {"id": "grq_1_l3_dswx_hls", "count": 1},
-        {"id": "grq_1_l2_hls_l30", "count": 2},
-        {"id": "grq_1_l2_hls_s30", "count": 3}
+        {"id": "grq_*_l3_dswx_hls", "count": 1},
+        {"id": "grq_*_l2_hls_l30", "count": 2},
+        {"id": "grq_*_l2_hls_s30", "count": 3}
     ]
 
 
 def test_ListDataTypeCounts_get_incoming(test_client: FlaskClient, mocker: MockerFixture):
     # ARRANGE
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
-        "grq_1_l2_hls_l30": 2,
-        "grq_1_l2_hls_s30": 3
+        "grq_*_l2_hls_l30": 2,
+        "grq_*_l2_hls_s30": 3
     })
 
     # ACT
@@ -128,22 +128,22 @@ def test_ListDataTypeCounts_get_incoming(test_client: FlaskClient, mocker: Mocke
         "workflow_end": None
     }
     get_num_docs_mock.assert_called_once_with({
-        "HLS_L30": "grq_1_l2_hls_l30",
-        "HLS_S30": "grq_1_l2_hls_s30"
+        "HLS_L30": "grq_*_l2_hls_l30",
+        "HLS_S30": "grq_*_l2_hls_s30"
     }, **get_docs_args)
 
     assert response.status_code == 200
     assert len(data) == 2
     assert data == [
-        {"id": "grq_1_l2_hls_l30", "count": 2},
-        {"id": "grq_1_l2_hls_s30", "count": 3}
+        {"id": "grq_*_l2_hls_l30", "count": 2},
+        {"id": "grq_*_l2_hls_s30", "count": 3}
     ]
 
 
 def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: MockerFixture):
     # ARRANGE
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
-        "grq_1_l3_dswx_hls": 1
+        "grq_*_l3_dswx_hls": 1
     })
 
     # ACT
@@ -158,13 +158,13 @@ def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: Mocke
         "workflow_end": None
     }
     get_num_docs_mock.assert_called_once_with({
-        "DSWX_HLS": "grq_1_l3_dswx_hls"
+        "DSWX_HLS": "grq_*_l3_dswx_hls"
     }, **get_docs_args)
 
     assert response.status_code == 200
     assert len(data) == 1
     assert data == [
-        {"id": "grq_1_l3_dswx_hls", "count": 1}
+        {"id": "grq_*_l3_dswx_hls", "count": 1}
     ]
 
 
@@ -190,7 +190,7 @@ def test_DataIndex_get(test_client: FlaskClient, mocker: MockerFixture, monkeypa
         "time_key": "created_at",
         "start": None,
         "end": None,
-        "size": 40,
+        "size": -1,
         "metadata_tile_id": None,
         "metadata_sensor": None
     }

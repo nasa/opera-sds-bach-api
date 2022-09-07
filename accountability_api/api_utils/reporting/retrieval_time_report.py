@@ -11,6 +11,7 @@ from flask import current_app
 from pandas import DataFrame
 
 from accountability_api.api_utils import query, metadata
+from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
 from accountability_api.api_utils.reporting.report import Report
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
@@ -44,17 +45,17 @@ class RetrievalTimeReport(Report):
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i, row in report_df.iterrows():
+                for i in range(len(report_df)):
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = row["histogram"]
+                    histogram_b64: str = report_df["histogram"].values[i]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
                     histogram_filename = self.get_histogram_filename(
-                        sds_product_name=row["opera_product_short_name"],
-                        input_product_name=row["input_product_short_name"],
+                        sds_product_name=report_df["opera_product_short_name"].values[i],
+                        input_product_name=report_df["input_product_short_name"].values[i],
                         report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df.at[i, "histogram"] = histogram_filename
+                    report_df["histogram"].values[i] = histogram_filename
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
                 report_csv = report_df.to_csv(index=False)
@@ -279,7 +280,8 @@ class RetrievalTimeReport(Report):
     def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
-        sds_product_docs: list[dict] = query.get_docs(indexes=["grq_1_l3_dswx_hls"], start=start, end=end)
+        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
+        sds_product_docs: list[dict] = query.get_docs(indexes=[sds_product_index], start=start, end=end)
 
         # convert list to dict
         sds_granule_to_sds_product_map: dict[tuple, dict] = {}

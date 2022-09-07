@@ -11,6 +11,7 @@ from flask import current_app
 from pandas import DataFrame
 
 from accountability_api.api_utils import query
+from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
 from accountability_api.api_utils.reporting.report import Report
 
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
@@ -29,7 +30,7 @@ class ProductionTimeReport(Report):
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        sds_product_index = "grq_1_l3_dswx_hls"
+        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
         try:
             product_docs = query.get_docs(indexes=[sds_product_index], start=self.start_datetime, end=self.end_datetime)
         except elasticsearch.exceptions.NotFoundError as e:
@@ -43,14 +44,15 @@ class ProductionTimeReport(Report):
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i, row in report_df.iterrows():
+                for i in range(len(report_df)):
                     tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = row["histogram"]
+                    histogram_b64: str = report_df["histogram"].values[i]
                     tmp_histogram.write(base64.b64decode(histogram_b64))
                     tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(sds_product_name=row["opera_product_short_name"], report_type=report_type)
+                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df["opera_product_short_name"].values[i], report_type=report_type)
                     report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df.at[i, "histogram"] = histogram_filename
+                    report_df["histogram"].values[i] = histogram_filename
+
                 ProductionTimeReport.drop_column(report_df, "histogram")  # single row, so just drop the column
 
                 ProductionTimeReport.rename_columns(report_df, report_type)
@@ -153,7 +155,7 @@ class ProductionTimeReport(Report):
 
             df_production_times_summary = pd.DataFrame([{
                 "opera_product_short_name": df_production_times_summary["opera_product_short_name"].iloc[0],
-                "production_time_count": df_production_times_summary.size,
+                "production_time_count": len(df_production_times_summary),
                 "production_time_min": to_duration_isoformat(df_production_times_summary["production_time"].min()),
                 "production_time_max": to_duration_isoformat(df_production_times_summary["production_time"].max()),
                 "production_time_mean": to_duration_isoformat(df_production_times_summary["production_time"].mean()),
