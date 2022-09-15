@@ -114,9 +114,9 @@ class RetrievalTimeReport(Report):
 
         if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
             granule_to_products_map = RetrievalTimeReport.map_by_granule(l3_dswx_hls_input_product_docs)
-            RetrievalTimeReport.augment_with_hls_spatial_info(granule_to_products_map, start, end)
-            RetrievalTimeReport.augment_with_hls_info(product_name_to_product_map, start, end)
-            RetrievalTimeReport.augment_with_sds_product_info(granule_to_products_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(granule_to_products_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_hls_info(product_name_to_product_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_sds_product_info(granule_to_products_map, start, end)
 
         l2_cslc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_CSLC_S1")
         l2_rtc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_RTC_S1")
@@ -281,7 +281,7 @@ class RetrievalTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     @staticmethod
-    def augment_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
         hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
@@ -292,7 +292,7 @@ class RetrievalTimeReport(Report):
             product["hls"] = hls_doc
 
     @staticmethod
-    def augment_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
         hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
@@ -302,7 +302,7 @@ class RetrievalTimeReport(Report):
                 product["hls_spatial"] = hls_spatial_doc
 
     @staticmethod
-    def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
         sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
