@@ -307,7 +307,7 @@ class RetrievalTimeReport(Report):
         l3_dswx_hls_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
         l3_dswx_hls_sds_product_docs: list[dict] = query.get_docs(indexes=[l3_dswx_hls_sds_product_index], start=start, end=end)
         for sds_product in l3_dswx_hls_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]['L3_DSWX_HLS']["trigger_dataset_id"]
+            input_product_id = sds_product["metadata"]["accountability"]["L3_DSWX_HLS"]["trigger_dataset_id"]
             product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
     @staticmethod
@@ -317,13 +317,13 @@ class RetrievalTimeReport(Report):
         l2_cslc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"]
         l2_cslc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_cslc_s1_sds_product_index], start=start, end=end)
         for sds_product in l2_cslc_s1_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]['L2_CSLC_S1']["trigger_dataset_id"]
+            input_product_id = sds_product["metadata"]["accountability"]["L2_CSLC_S1"]["trigger_dataset_id"]
             product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
         l2_rtc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"]
         l2_rtc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_rtc_s1_sds_product_index], start=start, end=end)
         for sds_product in l2_rtc_s1_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]['L2_RTC_S1']["trigger_dataset_id"]
+            input_product_id = sds_product["metadata"]["accountability"]["L2_RTC_S1"]["trigger_dataset_id"]
             product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
     @staticmethod
