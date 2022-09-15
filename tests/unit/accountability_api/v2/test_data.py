@@ -67,11 +67,14 @@ def test_ListDataTypes_get(test_client: FlaskClient):
 
     # ASSERT
     assert response.status_code == 200
-    assert len(data) == 3
     assert data == {
         "L3_DSWX_HLS": "grq_*_l3_dswx_hls",
         "HLS_L30": "grq_*_l2_hls_l30",
-        "HLS_S30": "grq_*_l2_hls_s30"
+        "HLS_S30": "grq_*_l2_hls_s30",
+
+        "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+        "L2_RTC_S1": "grq_*_l2_rtc_s1",
+        "L1_S1_SLC": "grq_*_l1_s1_slc",
     }
 
 
@@ -80,7 +83,11 @@ def test_ListDataTypeCounts_get_all(test_client: FlaskClient, mocker: MockerFixt
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
         "grq_*_l3_dswx_hls": 1,
         "grq_*_l2_hls_l30": 2,
-        "grq_*_l2_hls_s30": 3
+        "grq_*_l2_hls_s30": 3,
+
+        "grq_*_l2_cslc_s1": 4,
+        "grq_*_l2_rtc_s1": 5,
+        "grq_*_l1_s1_slc": 6
     })
 
     # ACT
@@ -97,15 +104,21 @@ def test_ListDataTypeCounts_get_all(test_client: FlaskClient, mocker: MockerFixt
     get_num_docs_mock.assert_called_once_with({
         "HLS_L30": "grq_*_l2_hls_l30",
         "HLS_S30": "grq_*_l2_hls_s30",
-        "DSWX_HLS": "grq_*_l3_dswx_hls"
+        "DSWX_HLS": "grq_*_l3_dswx_hls",
+
+        "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+        "L2_RTC_S1": "grq_*_l2_rtc_s1",
+        "L1_S1_SLC": "grq_*_l1_s1_slc",
     }, **get_docs_args)
 
     assert response.status_code == 200
-    assert len(data) == 3
     assert data == [
         {"id": "grq_*_l3_dswx_hls", "count": 1},
         {"id": "grq_*_l2_hls_l30", "count": 2},
-        {"id": "grq_*_l2_hls_s30", "count": 3}
+        {"id": "grq_*_l2_hls_s30", "count": 3},
+        {"id": "grq_*_l2_cslc_s1", "count": 4},
+        {"id": "grq_*_l2_rtc_s1", "count": 5},
+        {"id": "grq_*_l1_s1_slc", "count": 6},
     ]
 
 
@@ -113,7 +126,9 @@ def test_ListDataTypeCounts_get_incoming(test_client: FlaskClient, mocker: Mocke
     # ARRANGE
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
         "grq_*_l2_hls_l30": 2,
-        "grq_*_l2_hls_s30": 3
+        "grq_*_l2_hls_s30": 3,
+        "grq_*_l1_s1_slc": 6,
+
     })
 
     # ACT
@@ -129,21 +144,24 @@ def test_ListDataTypeCounts_get_incoming(test_client: FlaskClient, mocker: Mocke
     }
     get_num_docs_mock.assert_called_once_with({
         "HLS_L30": "grq_*_l2_hls_l30",
-        "HLS_S30": "grq_*_l2_hls_s30"
+        "HLS_S30": "grq_*_l2_hls_s30",
+        "L1_S1_SLC": "grq_*_l1_s1_slc"
     }, **get_docs_args)
 
     assert response.status_code == 200
-    assert len(data) == 2
     assert data == [
         {"id": "grq_*_l2_hls_l30", "count": 2},
-        {"id": "grq_*_l2_hls_s30", "count": 3}
+        {"id": "grq_*_l2_hls_s30", "count": 3},
+        {"id": "grq_*_l1_s1_slc", "count": 6},
     ]
 
 
 def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: MockerFixture):
     # ARRANGE
     get_num_docs_mock: MagicMock = mocker.patch("accountability_api.api_utils.query.get_num_docs", return_value={
-        "grq_*_l3_dswx_hls": 1
+        "grq_*_l3_dswx_hls": 1,
+        "grq_*_l2_cslc_s1": 4,
+        "grq_*_l2_rtc_s1": 5,
     })
 
     # ACT
@@ -158,13 +176,16 @@ def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: Mocke
         "workflow_end": None
     }
     get_num_docs_mock.assert_called_once_with({
-        "DSWX_HLS": "grq_*_l3_dswx_hls"
+        "DSWX_HLS": "grq_*_l3_dswx_hls",
+        "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+        "L2_RTC_S1": "grq_*_l2_rtc_s1"
     }, **get_docs_args)
 
     assert response.status_code == 200
-    assert len(data) == 1
     assert data == [
-        {"id": "grq_*_l3_dswx_hls", "count": 1}
+        {"id": "grq_*_l3_dswx_hls", "count": 1},
+        {"id": "grq_*_l2_cslc_s1", "count": 4},
+        {"id": "grq_*_l2_rtc_s1", "count": 5}
     ]
 
 
