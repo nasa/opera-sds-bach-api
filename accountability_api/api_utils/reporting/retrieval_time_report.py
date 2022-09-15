@@ -107,19 +107,19 @@ class RetrievalTimeReport(Report):
         # group products by filename, group products by granule
         product_name_to_product_map = RetrievalTimeReport.map_by_name(product_docs)
 
-        sds_product_to_input_products_map = defaultdict(list)
+        sds_product_type_to_input_products_map = defaultdict(list)
         for product in product_docs:
             for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[product["dataset_type"]]:
-                sds_product_to_input_products_map[sds_product_type].append(product)
+                sds_product_type_to_input_products_map[sds_product_type].append(product)
 
-        if l3_dswx_hls_input_product_docs := sds_product_to_input_products_map.get("L3_DSWX_HLS"):
+        if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
             granule_to_products_map = RetrievalTimeReport.map_by_granule(l3_dswx_hls_input_product_docs)
             RetrievalTimeReport.augment_with_hls_spatial_info(granule_to_products_map, start, end)
             RetrievalTimeReport.augment_with_hls_info(product_name_to_product_map, start, end)
             RetrievalTimeReport.augment_with_sds_product_info(granule_to_products_map, start, end)
 
-        l2_cslc_s1_input_product_docs = sds_product_to_input_products_map.get("L2_CSLC_S1")
-        l2_rtc_s1_input_product_docs = sds_product_to_input_products_map.get("L2_RTC_S1")
+        l2_cslc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_CSLC_S1")
+        l2_rtc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
             product_docs_dict = {product["_id"]: product for product in product_docs}
             # TODO chrisjrd: augment with "slc_spatial" info
@@ -342,7 +342,7 @@ class RetrievalTimeReport(Report):
                     current_app.logger.debug(f"Couldn't map input {granule_id=} to SDS product. Likely pending production.")
 
     @staticmethod
-    def augment_slc_products_with_sds_product_info(product_docs_dict, start, end):
+    def augment_slc_products_with_sds_product_info(product_docs_dict: dict[str, dict], start, end):
         l2_cslc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"]
         l2_cslc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_cslc_s1_sds_product_index], start=start, end=end)
         for sds_product in l2_cslc_s1_sds_product_docs:
