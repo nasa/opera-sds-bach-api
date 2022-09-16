@@ -102,6 +102,7 @@ class RetrievalTimeReport(Report):
     def to_report_df(product_docs: list[dict], report_type: str, start, end) -> DataFrame:
         current_app.logger.info(f"Total generated products for report {len(product_docs)}")
         if not product_docs:
+            # EDGE CASE: no products in data store
             return pd.DataFrame()
 
         # group products by filename, group products by granule
@@ -112,12 +113,14 @@ class RetrievalTimeReport(Report):
             for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[product["dataset_type"]]:
                 sds_product_type_to_input_products_map[sds_product_type].append(product)
 
+        # map L3_DSWX_HLS input products with ancillary information needed for report
         if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
             granule_to_products_map = RetrievalTimeReport.map_by_granule(l3_dswx_hls_input_product_docs)
             RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(granule_to_products_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_hls_info(product_id_to_product_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_sds_product_info(product_id_to_product_map, start, end)
 
+        # map L2_CSLC_S1 and L2_RTC_S1 input products with ancillary information needed for report
         l2_cslc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_CSLC_S1")
         l2_rtc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
@@ -129,6 +132,8 @@ class RetrievalTimeReport(Report):
         retrieval_times_seconds: list[dict] = []
         for product in product_docs:
             current_app.logger.debug(f'{product["_id"]=}')
+
+            # gather important timestamps for subsequent aggregations
 
             if not product.get("hls") or not product.get("hls_spatial"):
                 current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
@@ -143,7 +148,6 @@ class RetrievalTimeReport(Report):
             if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
                 opera_detect_dt = product_received_dt
             else:
-                # add PublicAvailableDateTime information
                 opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
             opera_detect_ts = opera_detect_dt.timestamp()
             current_app.logger.debug(f"{opera_detect_dt=!s}")
@@ -157,6 +161,8 @@ class RetrievalTimeReport(Report):
 
             retrieval_time = product_received_ts - public_available_ts
             current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
+
+            # create report data frame record depending on report type
 
             if report_type == "detailed":
                 retrieval_time_dict = {
@@ -181,6 +187,7 @@ class RetrievalTimeReport(Report):
             current_app.logger.debug("---")
 
         if not retrieval_times_seconds:
+            # EDGE CASE: input products exist, but output products do not
             return pd.DataFrame()
 
         if report_type == "detailed":
@@ -205,11 +212,13 @@ class RetrievalTimeReport(Report):
                 sds_product_type, input_product_type = k
                 sds_product_type_to_input_product_types[sds_product_type].append(input_product_type)
 
+            # loop through output/input product type combinations and aggregate statistics into dataframe rows
+
             df_retrieval_times_summary_entries = []
             for sds_product_type, input_product_types in sds_product_type_to_input_product_types.items():
                 current_app.logger.info(f"{sds_product_type=}")
 
-                input_product_types_processed = []
+                input_product_types_processed = []  # used to handle special ALL row entry
                 for input_product_type in input_product_types:
                     current_app.logger.debug(f"{input_product_type=}")
 
