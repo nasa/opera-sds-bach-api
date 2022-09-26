@@ -4,6 +4,7 @@ import tempfile
 import zipfile
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import elasticsearch.exceptions
 import pandas as pd
@@ -99,73 +100,96 @@ class RetrievalTimeReport(Report):
             raise Exception(f"output format ({output_format}) is not supported.")
 
     @staticmethod
-    def to_report_df(product_docs: list[dict], report_type: str, start, end) -> DataFrame:
-        current_app.logger.info(f"Total generated products for report {len(product_docs)}")
-        if not product_docs:
+    def to_report_df(dataset_docs: list[dict], report_type: str, start, end) -> DataFrame:
+        current_app.logger.info(f"Total generated datasets for report {len(dataset_docs)}")
+        if not dataset_docs:
             return pd.DataFrame()
 
         # group products by filename, group products by granule
-        product_name_to_product_map = RetrievalTimeReport.map_by_name(product_docs)
-        granule_to_products_map = RetrievalTimeReport.map_by_granule(product_docs)
+        dataset_id_to_dataset_map = RetrievalTimeReport.map_by_name(dataset_docs)
 
-        RetrievalTimeReport.augment_with_hls_spatial_info(granule_to_products_map, start, end)
-        RetrievalTimeReport.augment_with_hls_info(product_name_to_product_map, start, end)
-        RetrievalTimeReport.augment_with_sds_product_info(granule_to_products_map, start, end)
+        RetrievalTimeReport.augment_with_hls_spatial_info(dataset_id_to_dataset_map, start, end)
+        RetrievalTimeReport.augment_with_hls_info(dataset_id_to_dataset_map, start, end)
+        RetrievalTimeReport.augment_with_sds_product_info(dataset_id_to_dataset_map, start, end)
+
+        dataset_docs = list(dataset_id_to_dataset_map.values())
 
         # create initial data frame with raw report data
         retrieval_times_seconds: list[dict] = []
-        for product in product_docs:
-            current_app.logger.debug(f'{product["_id"]=}')
+        for dataset in dataset_docs:
+            current_app.logger.debug(f'{dataset["_id"]=}')
 
-            if not product.get("hls") or not product.get("hls_spatial"):
-                current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
+            products = []
+            if dataset["metadata"].get("Files"):
+                for product in dataset["metadata"]["Files"]:
+                    nested_product = {"metadata": product}
 
-            if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
-                product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                    if product.get("hls"):
+                        nested_product["hls"] = product["hls"]
+
+                    if product.get("hls_spatial"):
+                        nested_product["hls_spatial"] = product["hls_spatial"]
+
+                    if product.get("sds_product"):
+                        nested_product["sds_product"] = product["sds_product"]
+
+                    nested_product["metadata"]["ProductReceivedTime"] = dataset["metadata"]["ProductReceivedTime"]
+                    nested_product["metadata"]["ProductType"] = dataset["metadata"]["ProductType"]
+
+                    products.append(nested_product)
             else:
-                product_received_dt = datetime.fromisoformat(product["hls"]["download_datetime"].removesuffix("Z"))
-            product_received_ts = product_received_dt.timestamp()
-            current_app.logger.debug(f"{product_received_dt=!s}")
+                products = [dataset]
 
-            if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
-                opera_detect_dt = product_received_dt
-            else:
-                # add PublicAvailableDateTime information
-                opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
-            opera_detect_ts = opera_detect_dt.timestamp()
-            current_app.logger.debug(f"{opera_detect_dt=!s}")
+            for product in products:
+                if not product.get("hls") or not product.get("hls_spatial"):
+                    current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
 
-            if not product.get("hls_spatial"):  # possible in dev when skipping download job by direct file upload
-                public_available_dt = opera_detect_dt
-            else:
-                public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
-            public_available_ts = public_available_dt.timestamp()
-            current_app.logger.debug(f"{public_available_dt=!s}")
+                if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
+                    product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                else:
+                    product_received_dt = datetime.fromisoformat(product["hls"]["download_datetime"].removesuffix("Z"))
+                product_received_ts = product_received_dt.timestamp()
+                current_app.logger.debug(f"{product_received_dt=!s}")
 
-            retrieval_time = product_received_ts - public_available_ts
-            current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
+                if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
+                    opera_detect_dt = product_received_dt
+                else:
+                    # add PublicAvailableDateTime information
+                    opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
+                opera_detect_ts = opera_detect_dt.timestamp()
+                current_app.logger.debug(f"{opera_detect_dt=!s}")
 
-            if report_type == "detailed":
-                retrieval_time_dict = {
-                    "input_product_filename": product["metadata"]["FileName"],
-                    "input_product_type": product["metadata"]["ProductType"],
-                    "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get("ProductType", "Not Available Yet"),
-                    "opera_product_filename": product.get("sds_product", {}).get("_id", "Not Available Yet"),
-                    "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
-                    "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
-                    "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                    "retrieval_time": to_duration_isoformat(retrieval_time)
-                }
-            elif report_type == "summary":
-                retrieval_time_dict = {
-                    "opera_product_filename": product["metadata"]["FileName"],
-                    "input_product_type": product["metadata"]["ProductType"],
-                    "retrieval_time": retrieval_time
-                }
-            else:
-                raise Exception(f"Unsupported report type. {report_type=}")
-            retrieval_times_seconds.append(retrieval_time_dict)
-            current_app.logger.debug("---")
+                if not product.get("hls_spatial"):  # possible in dev when skipping download job by direct file upload
+                    public_available_dt = opera_detect_dt
+                else:
+                    public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                public_available_ts = public_available_dt.timestamp()
+                current_app.logger.debug(f"{public_available_dt=!s}")
+
+                retrieval_time = product_received_ts - public_available_ts
+                current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
+
+                if report_type == "detailed":
+                    retrieval_time_dict = {
+                        "input_product_filename": product["metadata"]["FileName"],
+                        "input_product_type": product["metadata"]["ProductType"],
+                        "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get("ProductType", "Not Available Yet"),
+                        "opera_product_filename": product.get("sds_product", {}).get("_id", "Not Available Yet"),
+                        "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
+                        "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
+                        "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
+                        "retrieval_time": to_duration_isoformat(retrieval_time)
+                    }
+                elif report_type == "summary":
+                    retrieval_time_dict = {
+                        "opera_product_filename": product["metadata"]["FileName"],
+                        "input_product_type": product["metadata"]["ProductType"],
+                        "retrieval_time": retrieval_time
+                    }
+                else:
+                    raise Exception(f"Unsupported report type. {report_type=}")
+                retrieval_times_seconds.append(retrieval_time_dict)
+                current_app.logger.debug("---")
 
         if not retrieval_times_seconds:
             return pd.DataFrame()
@@ -256,28 +280,35 @@ class RetrievalTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     @staticmethod
-    def augment_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
+    def augment_with_hls_info(granule_id_to_granule_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
         hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
         for hls_doc in hls_docs:
             hls_doc_id = hls_doc["_id"]  # filename
             product_name = hls_doc_id[0:len(hls_doc_id) - 1 - hls_doc_id[::-1].index(".")]  # strip extension to get product name
-            product = product_name_to_product_map.get(product_name, {})
-            product["hls"] = hls_doc
+            granule_id = product_name[0:len(product_name) - 1 - product_name[::-1].index(".")]  # strip band/QA mask to get granule ID
+            granule = granule_id_to_granule_map.get(granule_id, {})
+            if not granule:
+                break
+            for input_product in granule["metadata"]["Files"]:
+                input_product["hls"] = hls_doc
 
     @staticmethod
-    def augment_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
+    def augment_with_hls_spatial_info(granule_id_to_granule_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
         hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
         for hls_spatial_doc in hls_spatial_docs:
             granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
-            for product in granule_to_products_map.get(granule_id, []):
-                product["hls_spatial"] = hls_spatial_doc
+            granule = granule_id_to_granule_map.get(granule_id, {})
+            if not granule:
+                break
+            for input_product in granule["metadata"]["Files"]:
+                input_product["hls_spatial"] = hls_spatial_doc
 
     @staticmethod
-    def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
+    def augment_with_sds_product_info(granule_id_to_granule_map: dict[str, dict[str, Any]], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
         sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
@@ -298,7 +329,7 @@ class RetrievalTimeReport(Report):
                 sds_granule_to_sds_product_map[sds_granule_id] = sds_product
 
         # map by granule
-        for granule_id, input_products in granule_to_input_products_map.items():
+        for granule_id, granule in granule_id_to_granule_map.items():
             input_product_type = metadata.granule_id_to_input_product_type(granule_id)  # e.g. L2_HLS_S30
 
             sds_product_type = metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[input_product_type]  # e.g. L3_DSWX_HLS
@@ -310,11 +341,11 @@ class RetrievalTimeReport(Report):
             sds_granule_id = (sds_product_type, sensor, tile_id, acquisition_ts)
 
             # add SDS info where found
-            for product in input_products:
-                if sds_granule_to_sds_product_map.get(sds_granule_id):
-                    product["sds_product"] = sds_granule_to_sds_product_map[sds_granule_id]
-                else:
-                    current_app.logger.debug(f"Couldn't map input {granule_id=} to SDS product. Likely pending production.")
+            if sds_granule_to_sds_product_map.get(sds_granule_id):
+                for input_product in granule["metadata"]["Files"]:
+                    input_product["sds_product"] = sds_granule_to_sds_product_map[sds_granule_id]
+            else:
+                current_app.logger.debug(f"Couldn't {granule_id=} to SDS product. Likely pending production.")
 
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
@@ -329,10 +360,9 @@ class RetrievalTimeReport(Report):
         return granule_to_products_map
 
     @staticmethod
-    def map_by_name(product_docs: list[dict]):
-        # filename minus extension
-        product_name_to_product_map = {product["_id"]: product for product in product_docs}
-        return product_name_to_product_map
+    def map_by_name(dataset_docs: list[dict]):
+        dataset_id_to_dataset_map = {dataset["_id"]: dataset for dataset in dataset_docs}
+        return dataset_id_to_dataset_map
 
     def get_filename_by_report_type(self, output_format, report_type):
         start_datetime_normalized = self.start_datetime.replace(":", "")

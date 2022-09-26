@@ -15,13 +15,6 @@ INPUT_PRODUCT_TYPE_TO_INDEX = {
     "HLS_S30": "grq_*_l2_hls_s30"
 }
 
-# TODO chrisjrd: finalize. Currently, the opera_state_config index does not behave like normal *-state-config indexes
-#  and so cannot be added to this map.
-STATE_CONFIG_INDEXES = {
-    "L30_STATE_CONFIG": "grq_*_l2_hls_l30-state-config",
-    "S30_STATE_CONFIG": "grq_*_l2_hls_s30-state-config"
-}
-
 PRODUCT_TYPE_TO_INDEX = {
     "L3_DSWX_HLS": "grq_*_l3_dswx_hls"
 }
