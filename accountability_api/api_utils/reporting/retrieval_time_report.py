@@ -2,6 +2,7 @@ import base64
 import json
 import tempfile
 import zipfile
+from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
@@ -11,7 +12,6 @@ from flask import current_app
 from pandas import DataFrame
 
 from accountability_api.api_utils import query, metadata
-from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
 from accountability_api.api_utils.reporting.report import Report
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
@@ -36,7 +36,7 @@ class RetrievalTimeReport(Report):
             try:
                 input_products += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
             except elasticsearch.exceptions.NotFoundError as e:
-                current_app.logger.warning(f"An exception {type(e)} occurred while querying index {incoming_sdp_product_index} for products. Does the index exists?")
+                current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {incoming_sdp_product_index} for products. Do the indexes exists?")
 
         if output_format == "application/zip":
             report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
@@ -102,20 +102,38 @@ class RetrievalTimeReport(Report):
     def to_report_df(product_docs: list[dict], report_type: str, start, end) -> DataFrame:
         current_app.logger.info(f"Total generated products for report {len(product_docs)}")
         if not product_docs:
+            # EDGE CASE: no products in data store
             return pd.DataFrame()
 
         # group products by filename, group products by granule
-        product_name_to_product_map = RetrievalTimeReport.map_by_name(product_docs)
-        granule_to_products_map = RetrievalTimeReport.map_by_granule(product_docs)
+        product_id_to_product_map = RetrievalTimeReport.map_by_id(product_docs)
 
-        RetrievalTimeReport.augment_with_hls_spatial_info(granule_to_products_map, start, end)
-        RetrievalTimeReport.augment_with_hls_info(product_name_to_product_map, start, end)
-        RetrievalTimeReport.augment_with_sds_product_info(granule_to_products_map, start, end)
+        sds_product_type_to_input_products_map = defaultdict(list)
+        for product in product_docs:
+            for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[product["dataset_type"]]:
+                sds_product_type_to_input_products_map[sds_product_type].append(product)
+
+        # map L3_DSWX_HLS input products with ancillary information needed for report
+        if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
+            granule_to_products_map = RetrievalTimeReport.map_by_granule(l3_dswx_hls_input_product_docs)
+            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(granule_to_products_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_hls_info(product_id_to_product_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_sds_product_info(product_id_to_product_map, start, end)
+
+        # map L2_CSLC_S1 and L2_RTC_S1 input products with ancillary information needed for report
+        l2_cslc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_CSLC_S1")
+        l2_rtc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_RTC_S1")
+        if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
+            # TODO chrisjrd: augment with "slc_spatial" info
+            # TODO chrisjrd: augment with slc info
+            RetrievalTimeReport.augment_slc_products_with_sds_product_info(product_id_to_product_map, start, end)
 
         # create initial data frame with raw report data
         retrieval_times_seconds: list[dict] = []
         for product in product_docs:
             current_app.logger.debug(f'{product["_id"]=}')
+
+            # gather important timestamps for subsequent aggregations
 
             if not product.get("hls") or not product.get("hls_spatial"):
                 current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
@@ -130,7 +148,6 @@ class RetrievalTimeReport(Report):
             if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
                 opera_detect_dt = product_received_dt
             else:
-                # add PublicAvailableDateTime information
                 opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
             opera_detect_ts = opera_detect_dt.timestamp()
             current_app.logger.debug(f"{opera_detect_dt=!s}")
@@ -144,6 +161,8 @@ class RetrievalTimeReport(Report):
 
             retrieval_time = product_received_ts - public_available_ts
             current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
+
+            # create report data frame record depending on report type
 
             if report_type == "detailed":
                 retrieval_time_dict = {
@@ -168,6 +187,7 @@ class RetrievalTimeReport(Report):
             current_app.logger.debug("---")
 
         if not retrieval_times_seconds:
+            # EDGE CASE: input products exist, but output products do not
             return pd.DataFrame()
 
         if report_type == "detailed":
@@ -180,12 +200,25 @@ class RetrievalTimeReport(Report):
             product_types = df_summary["input_product_type"].unique()
             current_app.logger.debug(f"{product_types=}")
 
+            sds_product_type_input_product_type_to_products_map = defaultdict(list)
+            for product in product_docs:
+                product_combination_tuple = (product["sds_product"]["dataset_type"], product["dataset_type"])
+                sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(product)
+
             current_app.logger.info("Processing recognized product types")
+
+            sds_product_type_to_input_product_types = defaultdict(list)
+            for k in sds_product_type_input_product_type_to_products_map.keys():
+                sds_product_type, input_product_type = k
+                sds_product_type_to_input_product_types[sds_product_type].append(input_product_type)
+
+            # loop through output/input product type combinations and aggregate statistics into dataframe rows
+
             df_retrieval_times_summary_entries = []
-            for sds_product_type, input_product_types in metadata.SDS_PRODUCT_TYPE_TO_INPUT_PRODUCT_TYPES.items():
+            for sds_product_type, input_product_types in sds_product_type_to_input_product_types.items():
                 current_app.logger.info(f"{sds_product_type=}")
 
-                input_product_types_processed = []
+                input_product_types_processed = []  # used to handle special ALL row entry
                 for input_product_type in input_product_types:
                     current_app.logger.debug(f"{input_product_type=}")
 
@@ -256,7 +289,7 @@ class RetrievalTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     @staticmethod
-    def augment_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
         hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
@@ -267,7 +300,7 @@ class RetrievalTimeReport(Report):
             product["hls"] = hls_doc
 
     @staticmethod
-    def augment_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
         hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
@@ -277,44 +310,30 @@ class RetrievalTimeReport(Report):
                 product["hls_spatial"] = hls_spatial_doc
 
     @staticmethod
-    def augment_with_sds_product_info(granule_to_input_products_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_sds_product_info(product_id_to_product_map: dict[str, dict], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
-        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
-        sds_product_docs: list[dict] = query.get_docs(indexes=[sds_product_index], start=start, end=end)
+        l3_dswx_hls_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
+        l3_dswx_hls_sds_product_docs: list[dict] = query.get_docs(indexes=[l3_dswx_hls_sds_product_index], start=start, end=end)
+        for sds_product in l3_dswx_hls_sds_product_docs:
+            input_product_id = sds_product["metadata"]["accountability"]["L3_DSWX_HLS"]["trigger_dataset_id"]
+            product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
-        # convert list to dict
-        sds_granule_to_sds_product_map: dict[tuple, dict] = {}
-        for sds_product in sds_product_docs:
-            sds_product_id = sds_product["_id"]  # example _id = OPERA_L3_DSWx_HLS_SENTINEL-2A_T07WDR_20220613T212529_v2.0_001
+    @staticmethod
+    def augment_slc_products_with_sds_product_info(product_id_to_product_map: dict[str, dict], start, end):
+        current_app.logger.info("Adding SDS product information to products")
 
-            sds_product_type = metadata.sds_product_id_to_sds_product_type(sds_product_id)  # e.g. L3_DSWX_HLS
-            sensor = metadata.sds_product_id_to_sensor(sds_product_id)  # e.g. LANDSAT-8
-            tile_id = metadata.sds_product_id_to_tile_id(sds_product_id)
-            acquisition_ts = metadata.sds_product_id_to_acquisition_ts(sds_product_id)
+        l2_cslc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"]
+        l2_cslc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_cslc_s1_sds_product_index], start=start, end=end)
+        for sds_product in l2_cslc_s1_sds_product_docs:
+            input_product_id = sds_product["metadata"]["accountability"]["L2_CSLC_S1"]["trigger_dataset_id"]
+            product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
-            sds_granule_id = (sds_product_type, sensor, tile_id, acquisition_ts)
-            if not sds_granule_to_sds_product_map.get(sds_granule_id):
-                sds_granule_to_sds_product_map[sds_granule_id] = sds_product
-
-        # map by granule
-        for granule_id, input_products in granule_to_input_products_map.items():
-            input_product_type = metadata.granule_id_to_input_product_type(granule_id)  # e.g. L2_HLS_S30
-
-            sds_product_type = metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[input_product_type]  # e.g. L3_DSWX_HLS
-            sensor = metadata.granule_id_to_sensor(granule_id)
-            tile_id = metadata.granule_id_to_tile_id(granule_id)
-            acquisition_ts = metadata.granule_id_to_acquisition_ts(granule_id)
-            acquisition_ts = datetime.strptime(acquisition_ts, '%Y%jT%H%M%S').strftime('%Y%m%dT%H%M%S')
-
-            sds_granule_id = (sds_product_type, sensor, tile_id, acquisition_ts)
-
-            # add SDS info where found
-            for product in input_products:
-                if sds_granule_to_sds_product_map.get(sds_granule_id):
-                    product["sds_product"] = sds_granule_to_sds_product_map[sds_granule_id]
-                else:
-                    current_app.logger.debug(f"Couldn't map input {granule_id=} to SDS product. Likely pending production.")
+        l2_rtc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"]
+        l2_rtc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_rtc_s1_sds_product_index], start=start, end=end)
+        for sds_product in l2_rtc_s1_sds_product_docs:
+            input_product_id = sds_product["metadata"]["accountability"]["L2_RTC_S1"]["trigger_dataset_id"]
+            product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
@@ -329,7 +348,7 @@ class RetrievalTimeReport(Report):
         return granule_to_products_map
 
     @staticmethod
-    def map_by_name(product_docs: list[dict]):
+    def map_by_id(product_docs: list[dict]):
         # filename minus extension
         product_name_to_product_map = {product["_id"]: product for product in product_docs}
         return product_name_to_product_map

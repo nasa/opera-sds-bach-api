@@ -10,8 +10,7 @@ import pandas as pd
 from flask import current_app
 from pandas import DataFrame
 
-from accountability_api.api_utils import query
-from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
+from accountability_api.api_utils import query, metadata
 from accountability_api.api_utils.reporting.report import Report
 
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
@@ -30,11 +29,11 @@ class ProductionTimeReport(Report):
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
+        sds_product_indexes = metadata.PRODUCT_TYPE_TO_INDEX.values()
         try:
-            product_docs = query.get_docs(indexes=[sds_product_index], start=self.start_datetime, end=self.end_datetime)
+            product_docs = query.get_docs(indexes=sds_product_indexes, start=self.start_datetime, end=self.end_datetime)
         except elasticsearch.exceptions.NotFoundError as e:
-            current_app.logger.warning(f"An exception {type(e)} occurred while querying index {sds_product_index} for products. Does the index exists?")
+            current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {sds_product_indexes} for products. Do the indexes exists?")
             product_docs = []
 
         if output_format == "application/zip":
