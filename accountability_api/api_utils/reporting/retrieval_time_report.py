@@ -202,7 +202,13 @@ class RetrievalTimeReport(Report):
 
             sds_product_type_input_product_type_to_products_map = defaultdict(list)
             for product in product_docs:
-                product_combination_tuple = (product["sds_product"]["dataset_type"], product["dataset_type"])
+                if not product.get("sds_product"):
+                    # handle edge case where an input product could not be mapped to an output product
+                    #  can happen if PGE execution fails
+                    current_app.logger.warning(f'Could not map {product["id"]} to an output product.')
+                    product_combination_tuple = ("Not Available Yet", product["dataset_type"])
+                else:
+                    product_combination_tuple = (product["sds_product"]["dataset_type"], product["dataset_type"])
                 sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(product)
 
             current_app.logger.info("Processing recognized product types")
