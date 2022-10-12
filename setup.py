@@ -22,7 +22,7 @@ setup(
         "click>=8.0.0",
         "dicttoxml>=1.7.4",
         "elasticsearch>=7.0.0,<8.0.0",
-        "Flask>=2.0.0",
+        "Flask==2.1.*",  #  WORKAROUND: Flask>=2.2.x references internal Werkzeug function which breaks flask-restx
         "Flask-Compress>=1.11",
         "Flask-Cors>=3.0.10",
         "flask-restx>=0.5.1",
@@ -52,7 +52,7 @@ setup(
         "six>=1.15.0",
         "toml>=0.10.1",
         "urllib3>=1.25.10",
-        "Werkzeug>=2.0.0",
+        "Werkzeug==2.1.*",  #  WORKAROUND: Werkzeug>=2.2.x marks internal function as internal  which breaks flask-restx
         "xmltodict>=0.11.0",
         "zipp>=3.4.0",
     ],
