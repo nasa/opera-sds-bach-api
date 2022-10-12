@@ -118,7 +118,7 @@ class ProductionTimeReport(Report):
 
             if report_type == "detailed":
                 production_time = {
-                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
                     "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
@@ -126,7 +126,7 @@ class ProductionTimeReport(Report):
                 }
             elif report_type == "summary":
                 production_time = {
-                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": input_received_ts,
                     "daac_alerted_datetime": daac_alerted_ts,
@@ -235,7 +235,7 @@ class ProductionTimeReport(Report):
     def rename_detailed_columns(df: DataFrame):
         df.rename(
             columns={
-                "opera_product_filename": "OPERA Product File Name",
+                "opera_product_name": "OPERA Product File Name",
                 "opera_product_short_name": "OPERA Product Short Name",
                 "input_received_datetime": "Input Received Datetime",
                 "daac_alerted_datetime": "DAAC Alerted Datetime",

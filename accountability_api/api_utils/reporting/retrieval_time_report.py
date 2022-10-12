@@ -166,10 +166,10 @@ class RetrievalTimeReport(Report):
 
             if report_type == "detailed":
                 retrieval_time_dict = {
-                    "input_product_filename": product["metadata"]["FileName"],
+                    "input_product_name": product["metadata"]["FileName"],
                     "input_product_type": product["metadata"]["ProductType"],
                     "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get("ProductType", "Not Available Yet"),
-                    "opera_product_filename": product.get("sds_product", {}).get("_id", "Not Available Yet"),
+                    "opera_product_name": product.get("sds_product", {}).get("_id", "Not Available Yet"),
                     "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
                     "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
                     "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
@@ -177,7 +177,7 @@ class RetrievalTimeReport(Report):
                 }
             elif report_type == "summary":
                 retrieval_time_dict = {
-                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_name": product["metadata"]["FileName"],
                     "input_product_type": product["metadata"]["ProductType"],
                     "retrieval_time": retrieval_time
                 }
@@ -322,7 +322,7 @@ class RetrievalTimeReport(Report):
         l3_dswx_hls_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
         l3_dswx_hls_sds_product_docs: list[dict] = query.get_docs(indexes=[l3_dswx_hls_sds_product_index], start=start, end=end)
         for sds_product in l3_dswx_hls_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]["L3_DSWX_HLS"]["trigger_dataset_id"]
+            input_product_id = sds_product["metadata"]["accountability"]["L3_DSWx_HLS"]["trigger_dataset_id"]
             product_id_to_product_map[input_product_id]["sds_product"] = sds_product
 
     @staticmethod
@@ -430,10 +430,10 @@ class RetrievalTimeReport(Report):
     def rename_detailed_columns(report_df: DataFrame):
         report_df.rename(
             columns={
-                "input_product_filename": "Input Product Filename",
+                "input_product_name": "Input Product Name",
                 "input_product_type": "Input Product Type",
                 "opera_product_short_name": "OPERA Product Short Name",
-                "opera_product_filename": "OPERA Product Filename",
+                "opera_product_name": "OPERA Product Name",
                 "public_available_datetime": "Public Available Datetime",
                 "opera_detect_datetime": "OPERA Detect Datetime",
                 "product_received_datetime": "Received Datetime",

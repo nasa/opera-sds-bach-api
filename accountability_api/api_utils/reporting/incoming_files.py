@@ -101,7 +101,7 @@ class IncomingFiles(Report):
                 "crid": self._crid,
                 "venue": self._venue,
                 "processing_mode": self._processing_mode,
-                "total_products_produced": self._total_incoming_data_file_num,
+                "total_granules_ingested": self._total_incoming_data_file_num,
                 "total_data_volume": self._total_incoming_data_file_volume,
             },
             "products": self._products,
