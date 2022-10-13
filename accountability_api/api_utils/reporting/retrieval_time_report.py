@@ -106,7 +106,7 @@ class RetrievalTimeReport(Report):
             return pd.DataFrame()
 
         # group products by filename, group products by granule
-        dataset_id_to_dataset_map = RetrievalTimeReport.map_by_name(dataset_docs)
+        dataset_id_to_dataset_map = RetrievalTimeReport.map_by_id(dataset_docs)
 
         sds_product_type_to_input_products_map = defaultdict(list)
         for product in dataset_docs:
@@ -115,8 +115,7 @@ class RetrievalTimeReport(Report):
 
         # map L3_DSWX_HLS input products with ancillary information needed for report
         if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
-            granule_to_products_map = RetrievalTimeReport.map_by_granule(l3_dswx_hls_input_product_docs)
-            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(granule_to_products_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(dataset_id_to_dataset_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_hls_info(dataset_id_to_dataset_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
 
@@ -157,10 +156,7 @@ class RetrievalTimeReport(Report):
                 products = [dataset]
 
             for product in products:
-                current_app.logger.debug(f'{product["_id"]=}')
-
                 # gather important timestamps for subsequent aggregations
-
                 if not product.get("hls") or not product.get("hls_spatial"):
                     current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
 
@@ -324,42 +320,49 @@ class RetrievalTimeReport(Report):
             raise Exception(f"Unsupported report type. {report_type=}")
 
     @staticmethod
-    def augment_hls_products_with_hls_info(product_name_to_product_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_info(dataset_id_to_dataset_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
         hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
         for hls_doc in hls_docs:
             hls_doc_id = hls_doc["_id"]  # filename
             product_name = hls_doc_id[0:len(hls_doc_id) - 1 - hls_doc_id[::-1].index(".")]  # strip extension to get product name
-            granule_id = product_name[0:len(product_name) - 1 - product_name[::-1].index(".")]  # strip band/QA mask to get granule ID
-            granule = product_name_to_product_map.get(granule_id, {})
+            dataset_id = granule_id = product_name[0:len(product_name) - 1 - product_name[::-1].index(".")]  # strip band/QA mask to get granule ID
+            granule = dataset = dataset_id_to_dataset_map.get(dataset_id, {})
             if not granule:
                 continue
             for input_product in granule["metadata"]["Files"]:
                 input_product["hls"] = hls_doc
 
     @staticmethod
-    def augment_hls_products_with_hls_spatial_info(granule_to_products_map: dict[str, list[dict]], start, end):
+    def augment_hls_products_with_hls_spatial_info(dataset_id_to_datasets_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
         hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
         for hls_spatial_doc in hls_spatial_docs:
-            granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
-            granule = granule_to_products_map.get(granule_id, {})
+            dataset_id = granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
+            granule = dataset = dataset_id_to_datasets_map.get(dataset_id, {})
             if not granule:
                 continue
             for input_product in granule["metadata"]["Files"]:
                 input_product["hls_spatial"] = hls_spatial_doc
 
     @staticmethod
-    def augment_hls_products_with_sds_product_info(product_id_to_product_map: dict[str, dict], start, end):
+    def augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map: dict[str, dict], start, end):
         current_app.logger.info("Adding SDS product information to products")
 
         l3_dswx_hls_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
         l3_dswx_hls_sds_product_docs: list[dict] = query.get_docs(indexes=[l3_dswx_hls_sds_product_index], start=start, end=end)
         for sds_product in l3_dswx_hls_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]["L3_DSWx_HLS"]["trigger_dataset_id"]
-            product_id_to_product_map[input_product_id]["sds_product"] = sds_product
+            input_dataset_id = sds_product["metadata"]["accountability"]["L3_DSWx_HLS"]["trigger_dataset_id"]
+
+            # add SDS info where found
+            granule = input_dataset = dataset_id_to_dataset_map.get(input_dataset_id, {})
+            if not granule:
+                current_app.logger.debug(f"Couldn't map {input_dataset_id=} to SDS product. Likely pending production.")
+                continue
+            for input_product in granule["metadata"]["Files"]:
+                input_product["sds_product"] = sds_product
 
     @staticmethod
     def augment_slc_products_with_sds_product_info(product_id_to_product_map: dict[str, dict], start, end):
@@ -381,8 +384,7 @@ class RetrievalTimeReport(Report):
     def map_by_granule(product_docs: list[dict]):
         granule_to_products_map = {}
         for product in product_docs:
-            product_id: str = product["_id"]  # filename minus extension
-            granule_id = product_id[0:len(product_id) - 1 - product_id[::-1].index(".")]  # strip band to get granule
+            granule_id = product_id = product["_id"]  # filename minus extension
 
             if not granule_to_products_map.get(granule_id):
                 granule_to_products_map[granule_id] = []
@@ -390,10 +392,9 @@ class RetrievalTimeReport(Report):
         return granule_to_products_map
 
     @staticmethod
-    def map_by_id(product_docs: list[dict]):
-        # filename minus extension
-        product_name_to_product_map = {product["_id"]: product for product in product_docs}
-        return product_name_to_product_map
+    def map_by_id(dataset_docs: list[dict]):
+        dataset_id_to_datasets_map = {dataset["_id"]: dataset for dataset in dataset_docs}
+        return dataset_id_to_datasets_map
 
     def get_filename_by_report_type(self, output_format, report_type):
         start_datetime_normalized = self.start_datetime.replace(":", "")
