@@ -20,7 +20,7 @@ def test_generate_report_json_sdp(mocker: MockerFixture):
     assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) > 0
     for product in report["products"]:
-        assert product["name"] in ["HLS_S30", "HLS_L30"]
+        assert product["name"] in ["HLS_S30", "HLS_L30", "L1_S1_SLC"]
 
 
 def test_generate_report_dict_sdp(mocker: MockerFixture):
@@ -37,7 +37,7 @@ def test_generate_report_dict_sdp(mocker: MockerFixture):
     assert report["header"]["data_received_time_range"] == "1970-01-01T00:00:00Z - 1970-01-02T00:00:00Z"
     assert len(report["products"]) > 0
     for product in report["products"]:
-        assert product["name"] in ["HLS_S30", "HLS_L30"]
+        assert product["name"] in ["HLS_S30", "HLS_L30", "L1_S1_SLC"]
 
 
 def test_generate_report_csv_sdp(mocker: MockerFixture):
@@ -51,7 +51,8 @@ def test_generate_report_csv_sdp(mocker: MockerFixture):
     # ASSERT
     assert report == "name\tnum_ingested\tvolume\n" \
                      "HLS_L30\t0\t0\n" \
-                     "HLS_S30\t0\t0\n"
+                     "HLS_S30\t0\t0\n" \
+                     "L1_S1_SLC\t0\t0\n"
 
 
 def test_generate_report_json_ancillary(mocker: MockerFixture):

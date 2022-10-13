@@ -114,7 +114,7 @@ class DaacOutgoingProducts(Report):
                 "crid": self._crid,
                 "venue": self._venue,
                 "processing_mode": self._processing_mode,
-                "total_products_produced": self._total_products_delivered,
+                "total_products_published": self._total_products_delivered,
                 "total_data_volume": self._total_products_volume,
             },
             "products": self._products,
