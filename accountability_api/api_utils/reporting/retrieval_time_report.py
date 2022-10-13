@@ -157,9 +157,6 @@ class RetrievalTimeReport(Report):
 
             for product in products:
                 # gather important timestamps for subsequent aggregations
-                if not product.get("hls") or not product.get("hls_spatial"):
-                    current_app.logger.warning("HLS info unavailable. Did you skip query + download jobs?")
-
                 if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
                     product_received_dt = datetime.fromisoformat(
                         product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
