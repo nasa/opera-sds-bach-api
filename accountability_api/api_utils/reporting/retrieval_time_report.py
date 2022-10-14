@@ -105,23 +105,22 @@ class RetrievalTimeReport(Report):
             # EDGE CASE: no products in data store
             return pd.DataFrame()
 
-        # group products by filename, group products by granule
         dataset_id_to_dataset_map = RetrievalTimeReport.map_by_id(dataset_docs)
 
-        sds_product_type_to_input_products_map = defaultdict(list)
-        for product in dataset_docs:
-            for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[product["dataset_type"]]:
-                sds_product_type_to_input_products_map[sds_product_type].append(product)
+        sds_product_type_to_input_datasets_map = defaultdict(list)
+        for dataset in dataset_docs:
+            for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
+                sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
 
         # map L3_DSWX_HLS input products with ancillary information needed for report
-        if l3_dswx_hls_input_product_docs := sds_product_type_to_input_products_map.get("L3_DSWX_HLS"):
+        if sds_product_type_to_input_datasets_map.get("L3_DSWX_HLS"):
             RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(dataset_id_to_dataset_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_hls_info(dataset_id_to_dataset_map, start, end)
             RetrievalTimeReport.augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
 
         # map L2_CSLC_S1 and L2_RTC_S1 input products with ancillary information needed for report
-        l2_cslc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_CSLC_S1")
-        l2_rtc_s1_input_product_docs = sds_product_type_to_input_products_map.get("L2_RTC_S1")
+        l2_cslc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_CSLC_S1")
+        l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
             # TODO chrisjrd: augment with "slc_spatial" info
             # TODO chrisjrd: augment with slc info
@@ -130,11 +129,11 @@ class RetrievalTimeReport(Report):
         dataset_docs = list(dataset_id_to_dataset_map.values())
 
         # create initial data frame with raw report data
+        products = []
         retrieval_times_seconds: list[dict] = []
         for dataset in dataset_docs:
             current_app.logger.debug(f'{dataset["_id"]=}')
 
-            products = []
             if dataset["metadata"].get("Files"):
                 for product in dataset["metadata"]["Files"]:
                     nested_product = {"metadata": product}
@@ -150,10 +149,11 @@ class RetrievalTimeReport(Report):
 
                     nested_product["metadata"]["ProductReceivedTime"] = dataset["metadata"]["ProductReceivedTime"]
                     nested_product["metadata"]["ProductType"] = dataset["metadata"]["ProductType"]
+                    nested_product["dataset_type"] = dataset["dataset_type"]
 
                     products.append(nested_product)
             else:
-                products = [dataset]
+                products.append(dataset)
 
             for product in products:
                 # gather important timestamps for subsequent aggregations
@@ -189,8 +189,7 @@ class RetrievalTimeReport(Report):
                     retrieval_time_dict = {
                         "input_product_name": product["metadata"]["FileName"],
                         "input_product_type": product["metadata"]["ProductType"],
-                        "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get(
-                            "ProductType", "Not Available Yet"),
+                        "opera_product_short_name": product.get("sds_product", {}).get("metadata", {}).get("ProductType", "Not Available Yet"),
                         "opera_product_name": product.get("sds_product", {}).get("_id", "Not Available Yet"),
                         "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
                         "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
@@ -223,15 +222,15 @@ class RetrievalTimeReport(Report):
             current_app.logger.debug(f"{product_types=}")
 
             sds_product_type_input_product_type_to_products_map = defaultdict(list)
-            for product in dataset_docs:
-                if not product.get("sds_product"):
+            for dataset in dataset_docs:
+                if not dataset.get("sds_product"):
                     # handle edge case where an input product could not be mapped to an output product
                     #  can happen if PGE execution fails
-                    current_app.logger.warning(f'Could not map {product["id"]} to an output product.')
-                    product_combination_tuple = ("Not Available Yet", product["dataset_type"])
+                    current_app.logger.warning(f'Could not map {dataset["id"]} to an output product.')
+                    product_combination_tuple = ("Not Available Yet", dataset["dataset_type"])
                 else:
-                    product_combination_tuple = (product["sds_product"]["dataset_type"], product["dataset_type"])
-                sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(product)
+                    product_combination_tuple = (dataset["sds_product"]["dataset_type"], dataset["dataset_type"])
+                sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(dataset)
 
             current_app.logger.info("Processing recognized product types")
 
@@ -341,6 +340,7 @@ class RetrievalTimeReport(Report):
             granule = dataset = dataset_id_to_datasets_map.get(dataset_id, {})
             if not granule:
                 continue
+            granule["hls_spatial"] = hls_spatial_doc
             for input_product in granule["metadata"]["Files"]:
                 input_product["hls_spatial"] = hls_spatial_doc
 
@@ -358,6 +358,7 @@ class RetrievalTimeReport(Report):
             if not granule:
                 current_app.logger.debug(f"Couldn't map {input_dataset_id=} to SDS product. Likely pending production.")
                 continue
+            granule["sds_product"] = sds_product
             for input_product in granule["metadata"]["Files"]:
                 input_product["sds_product"] = sds_product
 
