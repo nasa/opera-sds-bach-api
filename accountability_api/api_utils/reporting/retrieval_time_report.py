@@ -157,11 +157,9 @@ class RetrievalTimeReport(Report):
 
             for product in products:
                 # gather important timestamps for subsequent aggregations
-                if not product.get("hls"):  # possible in dev when skipping download job by direct file upload
-                    product_received_dt = datetime.fromisoformat(
-                        product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
-                else:
-                    product_received_dt = datetime.fromisoformat(product["hls"]["download_datetime"].removesuffix("Z"))
+
+                product_received_dt = datetime.fromisoformat(
+                    product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
                 product_received_ts = product_received_dt.timestamp()
                 current_app.logger.debug(f"{product_received_dt=!s}")
 
