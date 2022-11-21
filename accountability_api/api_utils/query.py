@@ -420,10 +420,7 @@ def get_num_docs_in_index(
     search_results = es.search(body=query, index=index, doc_type="_doc")["hits"]["hits"]
     result = 0
     for search_result in search_results:
-        if search_result["_source"]["metadata"].get("Files"):
-            result += len(search_result["_source"]["metadata"].get("Files"))
-        else:
-            result += 1
+        result += 1
     return result
 
 
