@@ -97,9 +97,7 @@ def test_ListDataTypeCounts_get_all(test_client: FlaskClient, mocker: MockerFixt
     # ASSERT
     get_docs_args = {
         "start": None,
-        "end": None,
-        "workflow_start": None,
-        "workflow_end": None
+        "end": None
     }
     get_num_docs_mock.assert_called_once_with({
         "HLS_L30": "grq_*_l2_hls_l30",
@@ -138,9 +136,7 @@ def test_ListDataTypeCounts_get_incoming(test_client: FlaskClient, mocker: Mocke
     # ASSERT
     get_docs_args = {
         "start": None,
-        "end": None,
-        "workflow_start": None,
-        "workflow_end": None
+        "end": None
     }
     get_num_docs_mock.assert_called_once_with({
         "HLS_L30": "grq_*_l2_hls_l30",
@@ -171,9 +167,7 @@ def test_ListDataTypeCounts_get_outgoing(test_client: FlaskClient, mocker: Mocke
     # ASSERT
     get_docs_args = {
         "start": None,
-        "end": None,
-        "workflow_start": None,
-        "workflow_end": None
+        "end": None
     }
     get_num_docs_mock.assert_called_once_with({
         "DSWX_HLS": "grq_*_l3_dswx_hls",
