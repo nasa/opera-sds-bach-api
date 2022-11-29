@@ -3,7 +3,7 @@ import os
 from logging.handlers import TimedRotatingFileHandler
 
 from accountability_api.singleton_base import Singleton
-from configuration_obj import ConfigurationObj
+from accountability_api.configuration_obj import ConfigurationObj
 from gunicorn.glogging import Logger as GloggingLogger
 
 
@@ -90,7 +90,7 @@ class GetLoggerDetails(metaclass=Singleton):
             os.path.dirname(os.path.realpath(__file__)),
             "..",
             "logs",
-            "bach-api-flask.log",
+            "bach-api.log",
         )
         try:
             self.log_interval_hr = int(self.log_interval_hr)
