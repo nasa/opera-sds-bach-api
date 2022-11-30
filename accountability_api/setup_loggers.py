@@ -88,10 +88,12 @@ class GetLoggerDetails(metaclass=Singleton):
         )
         self.log_file_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)),
-            "..",
+            "..",  # ~/sciflo/ops/bach-api (project root)
+            "..",  # ~/sciflo/ops/
+            "..",  # ~/sciflo/
             "logs",
             "bach-api.log",
-        )
+        )  # file must exist on the file system
         try:
             self.log_interval_hr = int(self.log_interval_hr)
         except:
