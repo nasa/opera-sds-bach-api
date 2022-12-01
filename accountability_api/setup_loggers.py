@@ -91,7 +91,7 @@ class GetLoggerDetails(metaclass=Singleton):
             "..",  # ~/sciflo/ops/bach-api (project root)
             "..",  # ~/sciflo/ops/
             "..",  # ~/sciflo/
-            "logs",
+            "log",
             "bach-api.log",
         )  # file must exist on the file system
         try:
