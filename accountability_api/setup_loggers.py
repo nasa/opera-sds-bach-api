@@ -36,6 +36,7 @@ class GunicornLogger(GloggingLogger):
         fh.setFormatter(self._logger_config.log_format)
         self.access_log.addHandler(fh)
 
+        # enables writing to the log file specified in class GetLoggerDetails
         fh2 = self.__generate_handler()
         fh2.setLevel(self.error_log.level)
         fh2.setFormatter(self._logger_config.log_format)

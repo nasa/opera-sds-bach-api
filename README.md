@@ -47,6 +47,29 @@ API to support the Accountability UIs for OPERA with HySDS
       See Flask documentation (https://flask.palletsprojects.com/en/2.0.x/debugging/)
 1. Make API calls to endpoints under `http://localhost:8875/`
 
+## Run using gunicorn
+
+`gunicorn` can be used to run bach-api. In formal environments, bach-api runs via `gunicorn`, making this the most preferred method of running bach-api to simulate formal deployments of it.
+
+To run using gunicorn, install `gunicorn` in an activated python virtual environment. Then issue the following command.
+
+```shell
+gunicorn -w4 -b 0.0.0.0:8875 --timeout=3600 \
+        --logger-class accountability_api.setup_loggers.GunicornLogger \
+        --access-logfile - \
+        --enable-stdio-inheritance \
+        --graceful-timeout=3600 --log-level=debug \
+        --limit-request-line=0 \
+        'accountability_api:create_app("accountability_api.settings.Config")'
+
+```
+
+`--access-logfile -` outputs logs to stdout. `-` means log to stdout.
+`enable_stdio_inheritance` will capture stdout (i.e. python `print(...)`) on a buffer. See gunicorn documentation note on `PYTHONUNBUFFERED`
+NOTE `--error-logfile -` is the default. `-` means log to stderr.
+
+Config values like the ones used in the command above can be observed in the `gunicorn` terminal output.
+
 ## Files required to run in `docker`
 
 The following files are required to run `opera-sds-bach-api` in docker. Refer to the `docker run` command in this document for where the app expects these files.
