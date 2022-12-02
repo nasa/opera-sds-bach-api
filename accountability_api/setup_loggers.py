@@ -94,7 +94,7 @@ class GetLoggerDetails(metaclass=Singleton):
             "..",  # ~/sciflo/
             "log",
             "bach-api.log",
-        )  # file must exist on the file system
+        )
         try:
             self.log_interval_hr = int(self.log_interval_hr)
         except:
