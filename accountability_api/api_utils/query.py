@@ -417,7 +417,7 @@ def get_num_docs_in_index(
             query=query, time_key="creation_timestamp", start=start, stop=end
         )
     query["query"]["bool"]["must"].append({"term": {"_index": index}})
-    search_results = es.search(body=query, index=index, doc_type="_doc")["hits"]["hits"]
+    search_results = run_query_with_scroll(body=query, index=index, doc_type="_doc", _source=False)["hits"]["hits"]
     result = 0
     for search_result in search_results:
         result += 1
