@@ -129,10 +129,10 @@ class RetrievalTimeReport(Report):
         dataset_docs = list(dataset_id_to_dataset_map.values())
 
         # create initial data frame with raw report data
-        products = []
         retrieval_times_seconds: list[dict] = []
         for dataset in dataset_docs:
             current_app.logger.debug(f'{dataset["_id"]=}')
+            products = []
 
             if dataset["metadata"].get("Files"):
                 for product in dataset["metadata"]["Files"]:
