@@ -58,7 +58,7 @@ setup(
     ],
     extras_require={
         'test': [
-            "pytest>=7.1.1",
+            "pytest>=7.2.0",
             "pytest-mock>=3.7.0",
             "coverage",
             "pytest-cov",
