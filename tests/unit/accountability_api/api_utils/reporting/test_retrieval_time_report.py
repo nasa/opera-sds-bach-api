@@ -52,7 +52,7 @@ def test_to_report_df__when_empty_db(test_client):
     assert_frame_equal(report_df, pandas.DataFrame())
 
 
-def test_to_report_df__when_no_output_products__and_detailed_report(test_client, mocker: MockerFixture):
+def test_to_report_df__when_detailed_report__and_no_output_products(test_client, mocker: MockerFixture):
     # ARRANGE
     report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
     mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
@@ -80,3 +80,44 @@ def test_to_report_df__when_no_output_products__and_detailed_report(test_client,
 
     # ASSERT
     assert_frame_equal(report_df, pandas.DataFrame())
+
+
+def test_to_report_df__when_detailed_report__and_has_output_products__but_no_cnms(test_client, mocker: MockerFixture):
+    # ARRANGE
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_info", MagicMock())
+
+    def dummy_augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, *args, **kwargs):
+        dataset_id_to_dataset_map["dummy_id"]["sds_products"] = {"L3_DSWX_HLS": []}
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_sds_product_info", dummy_augment_hls_products_with_sds_product_info)
+
+    # ACT
+    report_df = report.to_report_df(
+        dataset_docs=[
+            {
+                "_id": "dummy_id",
+                "dataset_type": "L2_HLS_L30",
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_input_product_name",
+                    "ProductType": "dummy_input_product_short_name"
+                }
+            }
+        ],
+        report_type="detailed",
+        start="1970-01-01",
+        end="1970-01-01"
+    )
+
+    # ASSERT
+    first_row = report_df.to_dict(orient="records")[0]
+    assert first_row["input_product_name"] == "dummy_input_product_name"
+    assert first_row["input_product_type"] == "dummy_input_product_short_name"
+    assert first_row['opera_product_short_name'] == 'Not Available Yet'
+    assert first_row['opera_product_name'] == 'Not Available Yet'
+    assert first_row['public_available_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['opera_detect_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['product_received_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['retrieval_time'] == '00:00:00'
