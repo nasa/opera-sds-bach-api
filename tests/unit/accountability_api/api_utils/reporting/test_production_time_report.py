@@ -8,7 +8,7 @@ from pytest_mock import MockerFixture
 from accountability_api.api_utils.reporting.production_time_detailed_report import ProductionTimeDetailedReport
 
 
-def test_generate_report_json_empty(test_client, mocker: MockerFixture):
+def test_generate_report__when_json_and_empty(test_client, mocker: MockerFixture):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.get_docs", MagicMock())
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
@@ -20,7 +20,7 @@ def test_generate_report_json_empty(test_client, mocker: MockerFixture):
     assert json.loads(json_report)["payload"] == []
 
 
-def test_generate_report_csv_empty(test_client, mocker: MockerFixture):
+def test_generate_report__when_csv__and_empty(test_client, mocker: MockerFixture):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.get_docs", MagicMock())
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
@@ -38,7 +38,7 @@ def test_generate_report_csv_empty(test_client, mocker: MockerFixture):
         )
 
 
-def test_to_report_df_empty_db(test_client):
+def test_to_report_df__when_empty_db(test_client):
     # ARRANGE
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
 
@@ -49,7 +49,7 @@ def test_to_report_df_empty_db(test_client):
     assert_frame_equal(report_df, pandas.DataFrame())
 
 
-def test_to_report_df_no_reportable_products(test_client):
+def test_to_report_df__when_no_reportable_products(test_client):
     # ARRANGE
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
 
@@ -60,7 +60,7 @@ def test_to_report_df_no_reportable_products(test_client):
     assert_frame_equal(report_df, pandas.DataFrame())
 
 
-def test_to_report_df_reportable_products_detailed(test_client):
+def test_to_report_df__when_reportable_products__and_detailed_report(test_client):
     # ARRANGE
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
 
@@ -86,7 +86,7 @@ def test_to_report_df_reportable_products_detailed(test_client):
     assert first_row["production_time"] == "00:00:00"
 
 
-def test_to_report_df_reportable_products_summary(test_client):
+def test_to_report_df__when_reportable_products__and_summary_report(test_client):
     # ARRANGE
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
 
@@ -129,3 +129,51 @@ def test_to_report_df_reportable_products_summary(test_client):
     assert first_row["production_time_max"] == "03:00:00"
     assert first_row["production_time_mean"] == "02:00:00"
     assert first_row["production_time_median"] == "02:00:00"
+
+
+def test_to_report_df__when_reportable_products__and_summary_report__and_multiple_product_types(test_client):
+    # ARRANGE
+    report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+
+    # ACT
+    report_df = report.to_report_df(
+        product_docs=[
+            {
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_opera_product_name",
+                    "ProductType": "dummy_opera_product_short_name_a"
+                }
+            },
+            {
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_opera_product_name",
+                    "ProductType": "dummy_opera_product_short_name_a"
+                }
+            },
+            {
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_opera_product_name",
+                    "ProductType": "dummy_opera_product_short_name_b"
+                }
+            }
+        ],
+        report_type="summary"
+    )
+
+    # ASSERT
+    report_dicts = report_df.to_dict(orient="records")
+
+    first_row = report_dicts[0]
+    assert first_row["opera_product_short_name"] == "dummy_opera_product_short_name_a"
+    assert first_row["production_time_count"] == 2
+
+    second_row = report_dicts[1]
+    assert second_row["opera_product_short_name"] == "dummy_opera_product_short_name_b"
+    assert second_row["production_time_count"] == 1
+
