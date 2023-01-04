@@ -1,0 +1,123 @@
+import json
+from unittest.mock import MagicMock
+
+import pandas
+from pandas.testing import assert_frame_equal
+from pytest_mock import MockerFixture
+
+from accountability_api.api_utils.reporting.retrieval_time_detailed_report import RetrievalTimeDetailedReport
+
+
+def test_generate_report__when_json_and_empty(test_client, mocker: MockerFixture):
+    # ARRANGE
+    mocker.patch("accountability_api.api_utils.query.get_docs", MagicMock())
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+
+    # ACT
+    json_report = report.generate_report("application/json")
+
+    # ASSERT
+    assert json.loads(json_report)["payload"] == []
+
+
+def test_generate_report__when_csv__and_empty(test_client, mocker: MockerFixture):
+    # ARRANGE
+    mocker.patch("accountability_api.api_utils.query.get_docs", MagicMock())
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+
+    # ACT
+    csv_report = report.generate_report("text/csv")
+
+    # ASSERT
+    with open(csv_report.name) as fp:
+        assert fp.read() == (
+            "Title: OPERA Retrieval Time Log\n"
+            "Date of Report: 1970-01-01T00:00:00Z\n"
+            "Period of Coverage (AcquisitionTime): 1970-01-01T00:00:00Z - 1970-01-01T00:00:00Z\n"
+            "PublicAvailableDateTime: datetime when the product was first made available to the public by the DAAC.\n"
+            "OperaDetectDateTime: datetime when the OPERA system first became aware of the product.\n"
+            "ProductReceivedDateTime: datetime when the product arrived in our system\n"
+            "\n"
+        )
+
+
+def test_to_report_df__when_empty_db(test_client):
+    # ARRANGE
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+
+    # ACT
+    report_df = report.to_report_df(dataset_docs=[], report_type="detailed", start="1970-01-01", end="1970-01-01")
+
+    # ASSERT
+    assert_frame_equal(report_df, pandas.DataFrame())
+
+
+def test_to_report_df__when_detailed_report__and_no_output_products(test_client, mocker: MockerFixture):
+    # ARRANGE
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_info", MagicMock())
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_sds_product_info", MagicMock())
+
+    # ACT
+    report_df = report.to_report_df(
+        dataset_docs=[
+            {
+                "_id": "dummy_id",
+                "dataset_type": "L2_HLS_L30",
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_opera_product_name",
+                    "ProductType": "dummy_opera_product_short_name"
+                }
+            }
+        ],
+        report_type="detailed",
+        start="1970-01-01",
+        end="1970-01-01"
+    )
+
+    # ASSERT
+    assert_frame_equal(report_df, pandas.DataFrame())
+
+
+def test_to_report_df__when_detailed_report__and_has_output_products__but_no_cnms(test_client, mocker: MockerFixture):
+    # ARRANGE
+    report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_info", MagicMock())
+
+    def dummy_augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, *args, **kwargs):
+        dataset_id_to_dataset_map["dummy_id"]["sds_products"] = {"L3_DSWX_HLS": []}
+    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_sds_product_info", dummy_augment_hls_products_with_sds_product_info)
+
+    # ACT
+    report_df = report.to_report_df(
+        dataset_docs=[
+            {
+                "_id": "dummy_id",
+                "dataset_type": "L2_HLS_L30",
+                "daac_CNM_S_timestamp": "1970-01-01",
+                "metadata": {
+                    "ProductReceivedTime": "1970-01-01",
+                    "FileName": "dummy_input_product_name",
+                    "ProductType": "dummy_input_product_short_name"
+                }
+            }
+        ],
+        report_type="detailed",
+        start="1970-01-01",
+        end="1970-01-01"
+    )
+
+    # ASSERT
+    first_row = report_df.to_dict(orient="records")[0]
+    assert first_row["input_product_name"] == "dummy_input_product_name"
+    assert first_row["input_product_type"] == "dummy_input_product_short_name"
+    assert first_row['opera_product_short_name'] == 'Not Available Yet'
+    assert first_row['opera_product_name'] == 'Not Available Yet'
+    assert first_row['public_available_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['opera_detect_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['product_received_datetime'] == '1970-01-01T00:00:00'
+    assert first_row['retrieval_time'] == '00:00:00'
