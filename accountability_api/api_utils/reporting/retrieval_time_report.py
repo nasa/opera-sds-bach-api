@@ -119,12 +119,12 @@ class RetrievalTimeReport(Report):
             RetrievalTimeReport.augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
 
         # map L2_CSLC_S1 and L2_RTC_S1 input products with ancillary information needed for report
-        l2_cslc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_CSLC_S1")
-        l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
-        if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
+        #l2_cslc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_CSLC_S1")
+        #l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
+        #if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
             # TODO chrisjrd: augment with "slc_spatial" info
-            RetrievalTimeReport.augment_slc_products_with_slc_info(dataset_id_to_dataset_map, start, end)
-            RetrievalTimeReport.augment_slc_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
+            #RetrievalTimeReport.augment_slc_products_with_slc_info(dataset_id_to_dataset_map, start, end)
+            #RetrievalTimeReport.augment_slc_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
 
         dataset_docs = list(dataset_id_to_dataset_map.values())
 
