@@ -65,6 +65,12 @@ OUTGOING_PRODUCTS_TO_DAAC = {
     "L2_RTC_S1": "grq_*_l2_rtc_s1"
 }
 
+TRANSFERABLE_PRODUCT_TYPES = [
+    "L3_DSWx_HLS",
+    "L2_CSLC_S1",
+    "L2_RTC_S1"
+]
+
 RSLC_CHILDREN = []
 
 MOZART_INDEXES = {"JOB_STATUS": "job_status-current", "TIMER": "timer_status"}
