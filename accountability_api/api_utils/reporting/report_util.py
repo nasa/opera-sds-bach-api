@@ -20,7 +20,7 @@ def create_histogram(*, series: list[float], title: str, metric: str, unit: str)
 
     fig = Figure(layout='tight')
     ax: Axes = fig.subplots()
-    ax.hist(series, bins=len(series))
+    ax.hist(series, bins='auto')
 
     xticks = [statistics.mean(series)]
 

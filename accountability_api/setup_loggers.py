@@ -3,7 +3,7 @@ import os
 from logging.handlers import TimedRotatingFileHandler
 
 from accountability_api.singleton_base import Singleton
-from configuration_obj import ConfigurationObj
+from accountability_api.configuration_obj import ConfigurationObj
 from gunicorn.glogging import Logger as GloggingLogger
 
 
@@ -36,6 +36,7 @@ class GunicornLogger(GloggingLogger):
         fh.setFormatter(self._logger_config.log_format)
         self.access_log.addHandler(fh)
 
+        # enables writing to the log file specified in class GetLoggerDetails
         fh2 = self.__generate_handler()
         fh2.setLevel(self.error_log.level)
         fh2.setFormatter(self._logger_config.log_format)
@@ -88,9 +89,11 @@ class GetLoggerDetails(metaclass=Singleton):
         )
         self.log_file_path = os.path.join(
             os.path.dirname(os.path.realpath(__file__)),
-            "..",
-            "logs",
-            "bach-api-flask.log",
+            "..",  # ~/sciflo/ops/bach-api (project root)
+            "..",  # ~/sciflo/ops/
+            "..",  # ~/sciflo/
+            "log",
+            "bach-api.log",
         )
         try:
             self.log_interval_hr = int(self.log_interval_hr)

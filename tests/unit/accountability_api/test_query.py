@@ -166,11 +166,19 @@ def test_get_product_no_hits(mocker: MockerFixture, elasticsearch_no_hits):
 def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
-    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
+    mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
+        "hits": {
+            "hits": [
+                {"_source": {"metadata": {}}},
+                {"_source": {"metadata": {}}},
+                {"_source": {"metadata": {}}}
+            ]
+        }
+    })
 
     # ACT
     # ASSERT
-    assert query.get_num_docs_in_index("*") == 123
+    assert query.get_num_docs_in_index("*") == 3
 
 
 def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty):
@@ -187,10 +195,18 @@ def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty)
 def test_get_num_docs(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
-    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=123)
+    mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
+        "hits": {
+            "hits": [
+                {"_source": {"metadata": {}}},
+                {"_source": {"metadata": {}}},
+                {"_source": {"metadata": {}}}
+            ]
+        }
+    })
 
     # ACT
     index_alias_to_count = query.get_num_docs({"test_index_label": "test_index_name"})
 
     # ASSERT
-    assert index_alias_to_count["test_index_label"] == 123
+    assert index_alias_to_count["test_index_label"] == 3

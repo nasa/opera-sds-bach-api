@@ -12,29 +12,28 @@ TIMER_INDEX = "timer_status"
 
 INPUT_PRODUCT_TYPE_TO_INDEX = {
     "HLS_L30": "grq_*_l2_hls_l30",
-    "HLS_S30": "grq_*_l2_hls_s30"
-}
-
-# TODO chrisjrd: finalize. Currently, the opera_state_config index does not behave like normal *-state-config indexes
-#  and so cannot be added to this map.
-STATE_CONFIG_INDEXES = {
-    "L30_STATE_CONFIG": "grq_*_l2_hls_l30-state-config",
-    "S30_STATE_CONFIG": "grq_*_l2_hls_s30-state-config"
+    "HLS_S30": "grq_*_l2_hls_s30",
+    "L1_S1_SLC": "grq_*_l1_s1_slc",
 }
 
 PRODUCT_TYPE_TO_INDEX = {
-    "L3_DSWX_HLS": "grq_*_l3_dswx_hls"
+    "L3_DSWX_HLS": "grq_*_l3_dswx_hls",
+    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+    "L2_RTC_S1": "grq_*_l2_rtc_s1"
 }
 """Map of product types to their Elasticsearch indexes."""
 
 INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
-    "L2_HLS_L30": "L3_DSWX_HLS",
-    "L2_HLS_S30": "L3_DSWX_HLS",
+    "L2_HLS_L30": ["L3_DSWX_HLS"],
+    "L2_HLS_S30": ["L3_DSWX_HLS"],
+    "L1_S1_SLC": ["L2_CSLC_S1", "L2_RTC_S1"]
 }
 """Map of input product types to their respective SDS product type."""
 
 SDS_PRODUCT_TYPE_TO_INPUT_PRODUCT_TYPES = {
-    "L3_DSWX_HLS": ["L2_HLS_L30", "L2_HLS_S30"]
+    "L3_DSWX_HLS": ["L2_HLS_L30", "L2_HLS_S30"],
+    "L2_CSLC_S1": ["L1_S1_SLC"],
+    "L2_RTC_S1": ["L1_S1_SLC"]
 }
 """Map of SDS product types to a list of input product types that they support. """
 
@@ -46,7 +45,8 @@ ACCOUNTABILITY_INDEXES = {
 
 INCOMING_SDP_PRODUCTS = {
     "HLS_L30": "grq_*_l2_hls_l30",
-    "HLS_S30": "grq_*_l2_hls_s30"
+    "HLS_S30": "grq_*_l2_hls_s30",
+    "L1_S1_SLC": "grq_*_l1_s1_slc"
 }
 
 # TODO chrisjrd: finalize.
@@ -54,12 +54,22 @@ INCOMING_ANCILLARY_FILES = {
 }
 
 GENERATED_PRODUCTS = {
-    "DSWX_HLS": "grq_*_l3_dswx_hls"
+    "DSWX_HLS": "grq_*_l3_dswx_hls",
+    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+    "L2_RTC_S1": "grq_*_l2_rtc_s1"
 }
 
 OUTGOING_PRODUCTS_TO_DAAC = {
-    "DSWX_HLS": "grq_*_l3_dswx_hls"
+    "DSWX_HLS": "grq_*_l3_dswx_hls",
+    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
+    "L2_RTC_S1": "grq_*_l2_rtc_s1"
 }
+
+TRANSFERABLE_PRODUCT_TYPES = [
+    "L3_DSWx_HLS",
+    "L2_CSLC_S1",
+    "L2_RTC_S1"
+]
 
 RSLC_CHILDREN = []
 
@@ -100,13 +110,28 @@ def sds_product_id_to_sds_product_type(sds_product_id: str):
     # example _id = OPERA_L3_DSWx_HLS_T57NVH_20220117T000429Z_20220117T000429Z_S2A_30_v2.0
     if sds_product_id.startswith("OPERA_L3_DSWx_HLS"):
         return "L3_DSWX_HLS"
+    # example _id = OPERA_L2_CSLC_S1A_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
+    if sds_product_id.startswith("OPERA_L2_CSLC_S1A"):
+        return "L2_CSLC_S1"
+    # example _id = OPERA_L2_RTC_S1A_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
+    if sds_product_id.startswith("OPERA_L2_RTC_S1A"):
+        return "L2_RTC_S1"
+    # example _id = OPERA_L2_RTC_S1B_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
+    if sds_product_id.startswith("OPERA_L2_RTC_S1B"):
+        return "L2_RTC_S1"
     else:
         raise Exception(f"Unable to map {sds_product_id=} to an SDS product type")
 
 
 def sds_product_id_to_sensor(sds_product_id: str):
     # example _id = OPERA_L3_DSWx_HLS_T57NVH_20220117T000429Z_20220117T000429Z_S2A_30_v2.0
-    if "_S2A" in sds_product_id:
+    # example _id = OPERA_L2_CSLC_S1A_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
+    # example _id = OPERA_L2_CSLC_S1B_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
+    if "_S1A" in sds_product_id:
+        return "SENTINEL"
+    if "_S1B" in sds_product_id:
+        return "SENTINEL"
+    elif "_S2A" in sds_product_id:
         return "SENTINEL"
     elif "_S2B" in sds_product_id:
         return "SENTINEL"

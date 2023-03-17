@@ -412,16 +412,15 @@ def get_num_docs_in_index(
         query = add_range_filter(
             query=query, time_key="created_at", start=start, stop=end
         )
-    elif index in list(consts.STATE_CONFIG_INDEXES.values()):
-        query = add_range_filter(
-            query=query, time_key="creation_time", start=start, stop=end
-        )
     else:
         query = add_range_filter(
             query=query, time_key="creation_timestamp", start=start, stop=end
         )
     query["query"]["bool"]["must"].append({"term": {"_index": index}})
-    result = es.get_count(body=query, index=index, doc_type="_doc")
+    search_results = run_query_with_scroll(body=query, index=index, doc_type="_doc", _source=False)["hits"]["hits"]
+    result = 0
+    for search_result in search_results:
+        result += 1
     return result
 
 

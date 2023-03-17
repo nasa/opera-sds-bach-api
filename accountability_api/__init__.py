@@ -1,6 +1,6 @@
 # from builtins import object
-import os
 import logging
+import sys
 
 from flask import Flask
 from flask_compress import Compress
@@ -76,9 +76,20 @@ def create_app(object_name):
     # register converters
     # app.url_map.converters['list'] = ListConverter
 
-    # set debug logging level
-    if app.config.get("DEBUG", False):
-        app.logger.setLevel(logging.DEBUG)
+    if sys.argv[0].endswith("gunicorn"):
+        # use gunicorn logging integration
+        gunicorn_logger = logging.getLogger('gunicorn.error')
+
+        # integrate root logger. handle any code that is using python logging
+        logging.getLogger().handlers = gunicorn_logger.handlers
+        logging.getLogger().setLevel(gunicorn_logger.level)
+
+        # apply log level to flask logger
+        app.logger.setLevel(gunicorn_logger.level)
+    else:
+        # using flask command or run_debug.py
+        if app.config.get("DEBUG", False):
+            app.logger.setLevel(logging.DEBUG)
 
     from accountability_api.v2 import blueprint as v2_blueprint
 

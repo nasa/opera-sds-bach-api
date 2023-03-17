@@ -149,8 +149,8 @@ class ListDataTypeCounts(Resource):
             indexes,
             start=start_datetime,
             end=end_datetime,
-            workflow_start=workflow_start_datetime,
-            workflow_end=workflow_end_datetime,
+            # workflow_start=workflow_start_datetime,
+            # workflow_end=workflow_end_datetime,
         )
         results = []
         for c in count:

@@ -41,8 +41,6 @@ class GeneratedSdsProducts(Report):
 
         for index in indexes:
             time_key = "creation_timestamp"
-            if index in list(consts.STATE_CONFIG_INDEXES.keys()):
-                time_key = "creation_time"
             product_creation = query.construct_range_object(
                 time_key,
                 start_value=self.start_datetime,

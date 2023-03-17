@@ -1,17 +1,6 @@
 from flask import Blueprint, render_template
 from flask_restx import Api, apidoc
 from .reports import api as reports_api
-from .index import api as index_api
-from .job import api as job_api
-from .product import api as product_api
-from .ancillary import api as ancillary_api
-
-from .timer_monitor import api as timer_api
-from .rabbit_mq import api as rabbit_mq_api
-
-# from .support_names import api as names_api
-from .api_config import api as basic_config_api
-from .file_contents import api as log_stream_api
 
 from .data import api as data_api
 
@@ -78,14 +67,5 @@ def custom_ui():
 
 
 # Register namespaces
-api.add_namespace(log_stream_api)
 api.add_namespace(reports_api)
-api.add_namespace(index_api)
-api.add_namespace(job_api)
-api.add_namespace(product_api)
-api.add_namespace(ancillary_api)
-api.add_namespace(timer_api)
-api.add_namespace(rabbit_mq_api)
-# api.add_namespace(names_api)
-api.add_namespace(basic_config_api)
 api.add_namespace(data_api)

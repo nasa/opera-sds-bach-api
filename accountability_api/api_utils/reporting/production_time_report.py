@@ -1,8 +1,11 @@
 import base64
 import json
+import operator
 import tempfile
 import zipfile
+from collections import defaultdict
 from datetime import datetime
+from functools import reduce
 from pathlib import Path
 
 import elasticsearch.exceptions
@@ -10,8 +13,7 @@ import pandas as pd
 from flask import current_app
 from pandas import DataFrame
 
-from accountability_api.api_utils import query
-from accountability_api.api_utils.metadata import PRODUCT_TYPE_TO_INDEX
+from accountability_api.api_utils import query, metadata
 from accountability_api.api_utils.reporting.report import Report
 
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
@@ -30,11 +32,11 @@ class ProductionTimeReport(Report):
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        sds_product_index = PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
+        sds_product_indexes = metadata.PRODUCT_TYPE_TO_INDEX.values()
         try:
-            product_docs = query.get_docs(indexes=[sds_product_index], start=self.start_datetime, end=self.end_datetime)
+            product_docs = query.get_docs(indexes=sds_product_indexes, start=self.start_datetime, end=self.end_datetime)
         except elasticsearch.exceptions.NotFoundError as e:
-            current_app.logger.warning(f"An exception {type(e)} occurred while querying index {sds_product_index} for products. Does the index exists?")
+            current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {sds_product_indexes} for products. Do the indexes exists?")
             product_docs = []
 
         if output_format == "application/zip":
@@ -104,7 +106,7 @@ class ProductionTimeReport(Report):
             return pd.DataFrame()
 
         # create initial data frame with raw report data
-        production_times: list[dict] = []
+        product_type_to_production_times = defaultdict(list[dict])
         for product in product_docs:
             if not product.get("daac_CNM_S_timestamp"):
                 current_app.logger.info(f"No CNM-S data. skipping product. {product=}")
@@ -119,7 +121,7 @@ class ProductionTimeReport(Report):
 
             if report_type == "detailed":
                 production_time = {
-                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
                     "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
@@ -127,7 +129,7 @@ class ProductionTimeReport(Report):
                 }
             elif report_type == "summary":
                 production_time = {
-                    "opera_product_filename": product["metadata"]["FileName"],
+                    "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": input_received_ts,
                     "daac_alerted_datetime": daac_alerted_ts,
@@ -135,33 +137,37 @@ class ProductionTimeReport(Report):
                 }
             else:
                 raise Exception(f"Unsupported report type. {report_type=}")
-            production_times.append(production_time)
-        if not production_times:
+            product_type_to_production_times[product["metadata"]["ProductType"]].append(production_time)
+        if not product_type_to_production_times:
             return pd.DataFrame()
 
         if report_type == "detailed":
             # create data frame of raw data (log report)
-            df_production_times_log = pd.DataFrame(production_times)
+            df_production_times_log = pd.DataFrame(reduce(operator.add, product_type_to_production_times.values()))
             return df_production_times_log
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
-            df_production_times_summary = pd.DataFrame(production_times)
-            production_time_durations_hours = [x["production_time"] / 60 / 60 for x in production_times]
-            histogram = create_histogram(
-                series=production_time_durations_hours,
-                title=f'{df_production_times_summary["opera_product_short_name"].iloc[0]} Production Times',
-                metric="Production Time",
-                unit="hours")
+            production_time_summary_rows = []
+            for product_type, production_times in product_type_to_production_times.items():
+                df_production_times_summary_row = pd.DataFrame(production_times)
+                production_time_durations_hours = [x["production_time"] / 60 / 60 for x in production_times]
+                histogram = create_histogram(
+                    series=production_time_durations_hours,
+                    title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
+                    metric="Production Time",
+                    unit="hours")
 
-            df_production_times_summary = pd.DataFrame([{
-                "opera_product_short_name": df_production_times_summary["opera_product_short_name"].iloc[0],
-                "production_time_count": len(df_production_times_summary),
-                "production_time_min": to_duration_isoformat(df_production_times_summary["production_time"].min()),
-                "production_time_max": to_duration_isoformat(df_production_times_summary["production_time"].max()),
-                "production_time_mean": to_duration_isoformat(df_production_times_summary["production_time"].mean()),
-                "production_time_median": to_duration_isoformat(df_production_times_summary["production_time"].median()),
-                "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
-            }])
+                production_time_summary_row = {
+                    "opera_product_short_name": df_production_times_summary_row["opera_product_short_name"].iloc[0],
+                    "production_time_count": len(df_production_times_summary_row),
+                    "production_time_min": to_duration_isoformat(df_production_times_summary_row["production_time"].min()),
+                    "production_time_max": to_duration_isoformat(df_production_times_summary_row["production_time"].max()),
+                    "production_time_mean": to_duration_isoformat(df_production_times_summary_row["production_time"].mean()),
+                    "production_time_median": to_duration_isoformat(df_production_times_summary_row["production_time"].median()),
+                    "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
+                }
+                production_time_summary_rows.append(production_time_summary_row)
+            df_production_times_summary = pd.DataFrame(production_time_summary_rows)
 
             current_app.logger.info("Generated report")
             return df_production_times_summary
@@ -236,7 +242,7 @@ class ProductionTimeReport(Report):
     def rename_detailed_columns(df: DataFrame):
         df.rename(
             columns={
-                "opera_product_filename": "OPERA Product File Name",
+                "opera_product_name": "OPERA Product File Name",
                 "opera_product_short_name": "OPERA Product Short Name",
                 "input_received_datetime": "Input Received Datetime",
                 "daac_alerted_datetime": "DAAC Alerted Datetime",

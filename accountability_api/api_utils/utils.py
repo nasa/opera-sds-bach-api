@@ -7,6 +7,8 @@ import math
 from jsonschema import validate, ValidationError, SchemaError
 from lxml import etree, objectify
 
+from accountability_api.api_utils.metadata import TRANSFERABLE_PRODUCT_TYPES
+
 LOGGER = logging.getLogger()
 
 
@@ -33,7 +35,7 @@ def from_dt_to_iso(dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
 
 
 def set_transfer_status(doc: Dict):
-    if doc["dataset_level"] != "L3":
+    if not doc["dataset_type"] in TRANSFERABLE_PRODUCT_TYPES:
         doc["transfer_status"] = "not_applicable"
         return doc
 
