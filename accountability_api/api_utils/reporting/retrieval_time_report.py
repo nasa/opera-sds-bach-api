@@ -410,17 +410,29 @@ class RetrievalTimeReport(Report):
         l2_cslc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_cslc_s1_sds_product_index], start=start, end=end)
         for sds_product in l2_cslc_s1_sds_product_docs:
             input_product_id = sds_product["metadata"]["accountability"]["L2_CSLC_S1"]["trigger_dataset_id"]
-            if not product_id_to_product_map[input_product_id].get("sds_products"):
-                product_id_to_product_map[input_product_id]["sds_products"] = defaultdict(list)
-            product_id_to_product_map[input_product_id]["sds_products"][sds_product["dataset_type"]].append(sds_product)
+
+            # add SDS info where found
+            input_product = product_id_to_product_map.get(input_product_id, {})
+            if not input_product:
+                current_app.logger.debug(f"Couldn't map {input_product_id=} to SDS product. Likely pending production.")
+                continue
+            if not input_product.get("sds_products"):
+                input_product["sds_products"] = defaultdict(list)
+            input_product["sds_products"][sds_product["dataset_type"]].append(sds_product)
 
         l2_rtc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"]
         l2_rtc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_rtc_s1_sds_product_index], start=start, end=end)
         for sds_product in l2_rtc_s1_sds_product_docs:
             input_product_id = sds_product["metadata"]["accountability"]["L2_RTC_S1"]["trigger_dataset_id"]
-            if not product_id_to_product_map[input_product_id].get("sds_products"):
-                product_id_to_product_map[input_product_id]["sds_products"] = defaultdict(list)
-            product_id_to_product_map[input_product_id]["sds_products"][sds_product["dataset_type"]].append(sds_product)
+
+            # add SDS info where found
+            input_product = product_id_to_product_map.get(input_product_id, {})
+            if not input_product:
+                current_app.logger.debug(f"Couldn't map {input_product_id=} to SDS product. Likely pending production.")
+                continue
+            if not input_product.get("sds_products"):
+                input_product["sds_products"] = defaultdict(list)
+            input_product["sds_products"][sds_product["dataset_type"]].append(sds_product)
 
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
