@@ -215,12 +215,23 @@ class RetrievalTimeReport(Report):
                                 }
                                 retrieval_time_dicts.append(retrieval_time_dict)
                 elif report_type == "summary":
-                    retrieval_time_dict = {
-                        "opera_product_name": product["metadata"]["FileName"],
-                        "input_product_type": product["metadata"]["ProductType"],
-                        "retrieval_time": retrieval_time
-                    }
-                    retrieval_time_dicts.append(retrieval_time_dict)
+                    if product.get("sds_products"):
+                        for sds_product_type in product["sds_products"].keys():
+                            retrieval_time_dict = {
+                                "opera_product_name": product["metadata"]["FileName"],
+                                "input_product_type": product["metadata"]["ProductType"],
+                                "output_product_type": sds_product_type,
+                                "retrieval_time": retrieval_time
+                            }
+                            retrieval_time_dicts.append(retrieval_time_dict)
+                    else:  # no output products (yet?)
+                        retrieval_time_dict = {
+                            "opera_product_name": product["metadata"]["FileName"],
+                            "input_product_type": product["metadata"]["ProductType"],
+                            "output_product_type": "Not Available Yet",
+                            "retrieval_time": retrieval_time
+                        }
+                        retrieval_time_dicts.append(retrieval_time_dict)
                 else:
                     raise Exception(f"Unsupported report type. {report_type=}")
                 for retrieval_time_dict in retrieval_time_dicts:
@@ -272,7 +283,13 @@ class RetrievalTimeReport(Report):
                     current_app.logger.debug(f"{input_product_type=}")
 
                     # filter by current input product type
-                    df_summary_input_product_type = df_summary[df_summary["input_product_type"].apply(lambda x: x == input_product_type)]
+                    df_summary_input_product_type = df_summary[
+                        (
+                            df_summary["input_product_type"].apply(lambda x: x == input_product_type)
+                        ) & (
+                            df_summary["output_product_type"].apply(lambda x: x == sds_product_type)
+                        )
+                    ]
                     current_app.logger.debug(f"Found {len(df_summary_input_product_type)} {input_product_type} products")
 
                     if not len(df_summary_input_product_type):
@@ -306,7 +323,13 @@ class RetrievalTimeReport(Report):
                 if len(input_product_types_processed) > 1:
                     current_app.logger.info(f"Creating ALL entry")
 
-                    df_summary_input_product_type_all = df_summary[df_summary["input_product_type"].apply(lambda x: x in input_product_types)]
+                    df_summary_input_product_type_all = df_summary[
+                        (
+                            df_summary["input_product_type"].apply(lambda x: x in input_product_types)
+                         ) & (
+                            df_summary["output_product_type"].apply(lambda x: x == sds_product_type)
+                        )
+                    ]
                     current_app.logger.debug(f"Found {len(df_summary_input_product_type_all)} {input_product_types} products")
 
                     retrieval_times_seconds: list[float] = df_summary_input_product_type_all["retrieval_time"].to_numpy()
