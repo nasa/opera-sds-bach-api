@@ -22,7 +22,8 @@ def create_histogram(*, series: list[float], title: str, metric: str, unit: str)
     ax: Axes = fig.subplots()
     ax.hist(series, bins='auto')
 
-    xticks = [statistics.mean(series)]
+    p90 = statistics.quantiles(series, n=100, method='inclusive')[90]
+    xticks = [p90]
 
     # extreme edge case where singleton series is passed
     if len(series) >= 2:
@@ -33,7 +34,7 @@ def create_histogram(*, series: list[float], title: str, metric: str, unit: str)
         xlabel=f"{metric} ({unit})", xticks=xticks, xticklabels=[f"{x:.2f}" for x in xticks],
         yticks=[], yticklabels=[])
 
-    ax.axvline(statistics.mean(series), color='k', linestyle='dashed', linewidth=1, alpha=0.5)
+    ax.axvline(p90, color='k', linestyle='dashed', linewidth=1, alpha=0.5)
     for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
                  ax.get_xticklabels() + ax.get_yticklabels()):
         item.set_fontsize('xx-small')
