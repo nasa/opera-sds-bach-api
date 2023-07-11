@@ -231,8 +231,6 @@ class RetrievalTimeReport(Report):
             # loop through output/input product type combinations and aggregate statistics into dataframe rows
 
             df_retrieval_times_summary_entries = []
-
-            input_product_types_processed = []  # used to handle special ALL row entry
             for input_product_type in product_types:
                 current_app.logger.debug(f"{input_product_type=}")
 
@@ -247,7 +245,6 @@ class RetrievalTimeReport(Report):
                 if not len(df_summary_input_product_type):
                     current_app.logger.debug("0 products. Skipping to next input product type")
                     continue
-                input_product_types_processed.append(input_product_type)
 
                 retrieval_times_seconds: list[float] = df_summary_input_product_type["retrieval_time"].to_numpy()
                 retrieval_times_hours = [secs / 60 / 60 for secs in retrieval_times_seconds]
@@ -268,38 +265,6 @@ class RetrievalTimeReport(Report):
                     "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
                 }])
                 df_retrieval_times_summary_entries.append(df_summary_input_product_type)
-
-            # filter by SDS product type to combine aggregations for their respective input product types
-            # prevent redundant ALL row when only 1 input product type was processed
-            if len(input_product_types_processed) > 1:
-                current_app.logger.info(f"Creating ALL entry")
-
-                df_summary_input_product_type_all = df_summary[
-                    (
-                        df_summary["input_product_type"].apply(lambda x: x in product_types)
-                     )
-                ]
-                current_app.logger.debug(f"Found {len(df_summary_input_product_type_all)} products")
-
-                retrieval_times_seconds: list[float] = df_summary_input_product_type_all["retrieval_time"].to_numpy()
-                retrieval_times_hours: list[float] = [secs / 60 / 60 for secs in retrieval_times_seconds]
-                histogram = create_histogram(
-                    series=retrieval_times_hours,
-                    title=f"Retrieval Times",
-                    metric="Retrieval Time",
-                    unit="hours")
-
-                df_summary_input_product_type_all = pd.DataFrame([{
-                    "input_product_short_name": "ALL",  # e.g. ALL = L2_HLS_L30 + L2_HLS_L30
-                    "retrieval_time_count": len(df_summary_input_product_type_all),
-                    "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].quantile(q=0.9)),
-                    "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].min()),
-                    "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].max()),
-                    "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].median()),
-                    "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].mean()),
-                    "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
-                }])
-                df_retrieval_times_summary_entries.append(df_summary_input_product_type_all)
 
             df_summary = pd.concat(df_retrieval_times_summary_entries)
 
