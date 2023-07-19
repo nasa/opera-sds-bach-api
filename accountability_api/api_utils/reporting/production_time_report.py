@@ -108,24 +108,25 @@ class ProductionTimeReport(Report):
         # create initial data frame with raw report data
         product_type_to_production_times = defaultdict(list[dict])
         for product in product_docs:
-            if not product.get("daac_CNM_S_timestamp"):
-                current_app.logger.info(f"No CNM-S data. skipping product. {product=}")
-                continue
-
             product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
             product_received_ts = product_received_dt.timestamp()
             input_received_ts = product_received_ts
 
-            daac_alerted_ts = datetime.fromisoformat(product["daac_CNM_S_timestamp"].removesuffix("Z")).timestamp()
-            production_time_duration: float = daac_alerted_ts - input_received_ts
+            daac_cnm_s_timestamp = product.get("daac_CNM_S_timestamp")
+            if not daac_cnm_s_timestamp:
+                daac_alerted_ts = None
+                production_time_duration = None
+            else:
+                daac_alerted_ts = datetime.fromisoformat(daac_cnm_s_timestamp.removesuffix("Z")).timestamp()
+                production_time_duration: float = daac_alerted_ts - input_received_ts
 
             if report_type == "detailed":
                 production_time = {
                     "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
-                    "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat(),
-                    "production_time": to_duration_isoformat(production_time_duration)
+                    "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat() if daac_alerted_ts else daac_alerted_ts,
+                    "production_time": to_duration_isoformat(production_time_duration) if production_time_duration else production_time_duration
                 }
             elif report_type == "summary":
                 production_time = {
@@ -149,8 +150,16 @@ class ProductionTimeReport(Report):
             # create data frame of aggregate data (summary report)
             production_time_summary_rows = []
             for product_type, production_times in product_type_to_production_times.items():
+                # filter out NULL production times when aggregating
                 df_production_times_summary_row = pd.DataFrame(production_times)
-                production_time_durations_hours = [x["production_time"] / 60 / 60 for x in production_times]
+                df_production_times_summary_row = df_production_times_summary_row[
+                    (
+                        df_production_times_summary_row["production_time"].apply(lambda x: x is not None)
+                    )
+                ]
+
+                # ignore NULL production times for histogram generation
+                production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None]
                 histogram = create_histogram(
                     series=production_time_durations_hours,
                     title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
