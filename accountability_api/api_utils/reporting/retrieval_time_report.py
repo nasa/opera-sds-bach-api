@@ -277,7 +277,7 @@ class RetrievalTimeReport(Report):
     def augment_hls_products_with_hls_info(dataset_id_to_dataset_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
-        hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
+        hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog-*"], start=start, end=end)
         for hls_doc in hls_docs:
             hls_doc_id = hls_doc["_id"]  # filename
             product_name = hls_doc_id[0:len(hls_doc_id) - 1 - hls_doc_id[::-1].index(".")]  # strip extension to get product name
@@ -292,7 +292,7 @@ class RetrievalTimeReport(Report):
     def augment_hls_products_with_hls_spatial_info(dataset_id_to_datasets_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
-        hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
+        hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog-*"], start=start, end=end)
         for hls_spatial_doc in hls_spatial_docs:
             dataset_id = granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
             granule = dataset = dataset_id_to_datasets_map.get(dataset_id, {})
@@ -306,7 +306,7 @@ class RetrievalTimeReport(Report):
     def augment_slc_products_with_slc_info(dataset_id_to_dataset_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding SLC information to products")
 
-        slc_docs: list[dict] = query.get_docs(indexes=["slc_catalog"], start=start, end=end)
+        slc_docs: list[dict] = query.get_docs(indexes=["slc_catalog-*"], start=start, end=end)
         for slc_doc in slc_docs:
             slc_doc_id = slc_doc["_id"]  # filename
             product_name = slc_doc_id[0:len(slc_doc_id) - 1 - slc_doc_id[::-1].index(".")]  # strip extension to get product name
