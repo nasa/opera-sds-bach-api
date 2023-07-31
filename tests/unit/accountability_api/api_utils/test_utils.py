@@ -123,22 +123,22 @@ class TestUtils(unittest.TestCase):
         assert from_dt_to_iso(datetime(1970, 1, 1), custom_format="%Y-%m-%dT%H:%M:%SZ") == "1970-01-01T00:00:00Z"
 
     def test_set_transfer_status(self):
-        es_doc_source = {"dataset_level": "L3", "daac_delivery_status": "SUCCESS"}
+        es_doc_source = {"dataset_level": "L3", "daac_delivery_status": "SUCCESS", "dataset_type": "L3_DSWx_HLS"}
         assert set_transfer_status(es_doc_source)["transfer_status"] == "cnm_r_success"
 
-        es_doc_source = {"dataset_level": "L3", "daac_delivery_status": "NOT_SUCCESS"}
+        es_doc_source = {"dataset_level": "L3", "daac_delivery_status": "NOT_SUCCESS", "dataset_type": "L3_DSWx_HLS"}
         assert set_transfer_status(es_doc_source)["transfer_status"] == "cnm_r_failure"
 
-        es_doc_source = {"dataset_level": "L3", "daac_CNM_S_status": "SUCCESS"}
+        es_doc_source = {"dataset_level": "L3", "daac_CNM_S_status": "SUCCESS", "dataset_type": "L3_DSWx_HLS"}
         assert set_transfer_status(es_doc_source)["transfer_status"] == "cnm_s_success"
 
-        es_doc_source = {"dataset_level": "L3", "daac_CNM_S_status": "NOT_SUCCESS"}
+        es_doc_source = {"dataset_level": "L3", "daac_CNM_S_status": "NOT_SUCCESS", "dataset_type": "L3_DSWx_HLS"}
         assert set_transfer_status(es_doc_source)["transfer_status"] == "cnm_s_failure"
 
-        es_doc_source = {"dataset_level": "L3"}  # note lack of any status
+        es_doc_source = {"dataset_level": "L3", "dataset_type": "L3_DSWx_HLS"}  # note lack of any status
         assert set_transfer_status(es_doc_source)["transfer_status"] == "unknown"
 
-        es_doc_source = {"dataset_level": "L2"}  # note L2 dataset_level
+        es_doc_source = {"dataset_level": "L2", "dataset_type": "test_dataset_type_unknown"}  # note L2 dataset_level
         assert set_transfer_status(es_doc_source)["transfer_status"] == "not_applicable"
 
     def test_to_iso_format_truncated(self):

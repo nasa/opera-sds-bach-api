@@ -32,7 +32,7 @@ class ProductionTimeReport(Report):
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        sds_product_indexes = metadata.PRODUCT_TYPE_TO_INDEX.values()
+        sds_product_indexes = reduce(operator.add, metadata.PRODUCT_TYPE_TO_INDEX.values())
         try:
             product_docs = query.get_docs(indexes=sds_product_indexes, start=self.start_datetime, end=self.end_datetime)
         except elasticsearch.exceptions.NotFoundError as e:

@@ -1,9 +1,11 @@
 import base64
 import json
+import operator
 import tempfile
 import zipfile
 from collections import defaultdict
 from datetime import datetime, timedelta
+from functools import reduce
 from pathlib import Path
 
 import elasticsearch.exceptions
@@ -30,7 +32,7 @@ class RetrievalTimeReport(Report):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
         input_products = []
-        for incoming_sdp_product_index in metadata.INCOMING_SDP_PRODUCTS.values():
+        for incoming_sdp_product_index in reduce(operator.add, metadata.INCOMING_SDP_PRODUCTS.values()):
             current_app.logger.info(f"Querying index {incoming_sdp_product_index} for products")
 
             try:

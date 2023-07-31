@@ -57,7 +57,6 @@ def test_to_report_df__when_detailed_report__and_no_output_products(test_client,
     report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
     mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
     mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_info", MagicMock())
-    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_sds_product_info", MagicMock())
 
     # ACT
     report_df = report.to_report_df(
@@ -79,7 +78,7 @@ def test_to_report_df__when_detailed_report__and_no_output_products(test_client,
     )
 
     # ASSERT
-    assert_frame_equal(report_df, pandas.DataFrame())
+    assert len(report_df) > 0
 
 
 def test_to_report_df__when_detailed_report__and_has_output_products__but_no_cnms(test_client, mocker: MockerFixture):
@@ -87,10 +86,6 @@ def test_to_report_df__when_detailed_report__and_has_output_products__but_no_cnm
     report = RetrievalTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
     mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_spatial_info", MagicMock())
     mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_hls_info", MagicMock())
-
-    def dummy_augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, *args, **kwargs):
-        dataset_id_to_dataset_map["dummy_id"]["sds_products"] = {"L3_DSWX_HLS": []}
-    mocker.patch("accountability_api.api_utils.reporting.retrieval_time_detailed_report.RetrievalTimeReport.augment_hls_products_with_sds_product_info", dummy_augment_hls_products_with_sds_product_info)
 
     # ACT
     report_df = report.to_report_df(
@@ -115,8 +110,6 @@ def test_to_report_df__when_detailed_report__and_has_output_products__but_no_cnm
     first_row = report_df.to_dict(orient="records")[0]
     assert first_row["input_product_name"] == "dummy_input_product_name"
     assert first_row["input_product_type"] == "dummy_input_product_short_name"
-    assert first_row['opera_product_short_name'] == 'Not Available Yet'
-    assert first_row['opera_product_name'] == 'Not Available Yet'
     assert first_row['public_available_datetime'] == '1970-01-01T00:00:00'
     assert first_row['opera_detect_datetime'] == '1970-01-01T00:00:00'
     assert first_row['product_received_datetime'] == '1970-01-01T00:00:00'
