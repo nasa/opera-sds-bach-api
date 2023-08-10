@@ -60,7 +60,8 @@ def run_query_with_scroll(
     :return:
     """
     es = es or es_connection.get_grq_es()
-    es = es.es or es_connection.get_grq_es().es
+    if hasattr(es, "es"):
+        es = es.es
 
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll

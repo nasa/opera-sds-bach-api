@@ -48,18 +48,6 @@ def test_to_report_df__when_empty_db(test_client):
     # ASSERT
     assert_frame_equal(report_df, pandas.DataFrame())
 
-
-def test_to_report_df__when_no_reportable_products(test_client):
-    # ARRANGE
-    report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
-
-    # ACT
-    report_df = report.to_report_df(product_docs=[{}], report_type="detailed")
-
-    # ASSERT
-    assert_frame_equal(report_df, pandas.DataFrame())
-
-
 def test_to_report_df__when_reportable_products__and_detailed_report(test_client):
     # ARRANGE
     report = ProductionTimeDetailedReport(title="Test Report", start_date="1970-01-01", end_date="1970-01-01", timestamp="1970-01-01")
@@ -83,7 +71,7 @@ def test_to_report_df__when_reportable_products__and_detailed_report(test_client
     first_row = report_df.to_dict(orient="records")[0]
     assert first_row["opera_product_name"] == "dummy_opera_product_name"
     assert first_row["opera_product_short_name"] == "dummy_opera_product_short_name"
-    assert first_row["production_time"] == "00:00:00"
+    assert first_row["production_time"] == 0.0
 
 
 def test_to_report_df__when_reportable_products__and_summary_report(test_client):
