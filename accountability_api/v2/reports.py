@@ -55,7 +55,7 @@ parser.add_argument("daac", type=str, default="all", location="args")
 parser.add_argument("crid", type=str, default="", location="args")
 parser.add_argument("processingMode", type=str, default="", location="args")
 parser.add_argument("venue", type=str, default="local", location="args")
-parser.add_argument("enableHistograms", default="false", choices=["false", "true"], location="args")
+parser.add_argument("enableHistograms", type=str, default="false", choices=["false", "true"], location="args")
 
 
 def makeResponse(data, status="OK", code=200, message="Success!", result_json=None):
