@@ -27,36 +27,39 @@ pd.set_option("display.max_colwidth", 10)  # Number of characters to print per c
 class RetrievalTimeReport(Report):
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
         super().__init__(title, start_date, end_date, timestamp, **kwargs)
+        self._report_options = kwargs["report_options"]
 
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        input_products = []
-        for incoming_sdp_product_index in reduce(operator.add, metadata.INCOMING_SDP_PRODUCTS.values()):
+        product_docs = []
+        input_product_indexes = reduce(operator.add, metadata.INCOMING_SDP_PRODUCTS.values())
+        for incoming_sdp_product_index in input_product_indexes:
             current_app.logger.info(f"Querying index {incoming_sdp_product_index} for products")
 
             try:
-                input_products += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
+                product_docs += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
             except elasticsearch.exceptions.NotFoundError as e:
                 current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {incoming_sdp_product_index} for products. Do the indexes exists?")
 
         if output_format == "application/zip":
-            report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
+            report_df = RetrievalTimeReport.to_report_df(product_docs, report_type, start=self.start_datetime, end=self.end_datetime, report_options=self._report_options)
 
             # create zip. send zip.
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i in range(len(report_df)):
-                    tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df["histogram"].values[i]
-                    tmp_histogram.write(base64.b64decode(histogram_b64))
-                    tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(
-                        input_product_name=report_df["input_product_short_name"].values[i],
-                        report_type=report_type)
-                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df["histogram"].values[i] = histogram_filename
+                if self._report_options["generate_histograms"]:
+                    for i in range(len(report_df)):
+                        tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
+                        histogram_b64: str = report_df["histogram"].values[i]
+                        tmp_histogram.write(base64.b64decode(histogram_b64))
+                        tmp_histogram.flush()
+                        histogram_filename = self.get_histogram_filename(
+                            input_product_name=report_df["input_product_short_name"].values[i],
+                            report_type=report_type)
+                        report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
+                        report_df["histogram"].values[i] = histogram_filename
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
                 report_csv = report_df.to_csv(index=False)
@@ -70,14 +73,16 @@ class RetrievalTimeReport(Report):
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename_by_report_type("text/csv", report_type))
             return tmp_report_zip
 
-        report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
+        report_df = RetrievalTimeReport.to_report_df(product_docs, report_type, start=self.start_datetime, end=self.end_datetime, report_options=self._report_options)
 
         if output_format == "text/csv":
-            RetrievalTimeReport.drop_column(report_df, "histogram")
+            if self._report_options["generate_histograms"]:
+                RetrievalTimeReport.drop_column(report_df, "histogram")
             RetrievalTimeReport.rename_columns(report_df, report_type)
 
             report_csv = report_df.to_csv(index=False)
             report_csv = self.add_header_to_csv(report_csv, report_type)
+
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
             tmp_report_csv.write(report_csv.encode("utf-8"))
             tmp_report_csv.flush()
@@ -100,7 +105,7 @@ class RetrievalTimeReport(Report):
             raise Exception(f"output format ({output_format}) is not supported.")
 
     @staticmethod
-    def to_report_df(dataset_docs: list[dict], report_type: str, start, end) -> DataFrame:
+    def to_report_df(dataset_docs: list[dict], report_type: str, start, end, report_options: dict) -> DataFrame:
         current_app.logger.info(f"Total generated datasets for report {len(dataset_docs)}")
         if not dataset_docs:  # EDGE CASE: no products in data store
             return pd.DataFrame()
@@ -226,52 +231,54 @@ class RetrievalTimeReport(Report):
             return df_retrieval_times_log
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
-            df_summary = pd.DataFrame(retrieval_times_seconds)
-            product_types = df_summary["input_product_type"].unique()
+            df_retrieval_times_summary = pd.DataFrame(retrieval_times_seconds)
+            product_types = df_retrieval_times_summary["input_product_type"].unique()
             current_app.logger.debug(f"{product_types=}")
 
             # loop through output/input product type combinations and aggregate statistics into dataframe rows
 
-            df_retrieval_times_summary_entries = []
+            df_retrieval_times_summary_rows = []
             for input_product_type in product_types:
                 current_app.logger.debug(f"{input_product_type=}")
 
                 # filter by current input product type
-                df_summary_input_product_type = df_summary[
+                df_retrieval_time_summary_row = df_retrieval_times_summary[
                     (
-                        df_summary["input_product_type"].apply(lambda x: x == input_product_type)
+                        df_retrieval_times_summary["input_product_type"].apply(lambda x: x == input_product_type)
                     )
                 ]
-                current_app.logger.debug(f"Found {len(df_summary_input_product_type)} {input_product_type} products")
+                current_app.logger.debug(f"Found {len(df_retrieval_time_summary_row)} {input_product_type} products")
 
-                if not len(df_summary_input_product_type):
+                if not len(df_retrieval_time_summary_row):
                     current_app.logger.debug("0 products. Skipping to next input product type")
                     continue
 
-                retrieval_times_seconds: list[float] = df_summary_input_product_type["retrieval_time"].to_numpy()
+                retrieval_times_seconds: list[float] = df_retrieval_time_summary_row["retrieval_time"].to_numpy()
                 retrieval_times_hours = [secs / 60 / 60 for secs in retrieval_times_seconds]
-                histogram = create_histogram(
-                    series=retrieval_times_hours,
-                    title=f"{input_product_type} Retrieval Times",
-                    metric="Retrieval Time",
-                    unit="hours")
 
-                df_summary_input_product_type = pd.DataFrame([{
+                retrieval_time_summary_row = {
                     "input_product_short_name": input_product_type,  # e.g. L2_HLS_L30
-                    "retrieval_time_count": len(df_summary_input_product_type),
-                    "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].quantile(q=0.9)),
-                    "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].min()),
-                    "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].max()),
-                    "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].median()),
-                    "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].mean()),
-                    "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
-                }])
-                df_retrieval_times_summary_entries.append(df_summary_input_product_type)
+                    "retrieval_time_count": len(df_retrieval_time_summary_row),
+                    "retrieval_time_p90": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].quantile(q=0.9)),
+                    "retrieval_time_min": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].min()),
+                    "retrieval_time_max": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].max()),
+                    "retrieval_time_median": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].median()),
+                    "retrieval_time_mean": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].mean()),
+                }
+                if report_options["generate_histograms"]:
+                    histogram = create_histogram(
+                        series=retrieval_times_hours,
+                        title=f"{input_product_type} Retrieval Times",
+                        metric="Retrieval Time",
+                        unit="hours")
+                    retrieval_time_summary_row.update({"histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")})
+                df_retrieval_time_summary_row = pd.DataFrame([retrieval_time_summary_row])
+                df_retrieval_times_summary_rows.append(df_retrieval_time_summary_row)
 
-            df_summary = pd.concat(df_retrieval_times_summary_entries)
+            df_retrieval_times_summary = pd.concat(df_retrieval_times_summary_rows)
 
             current_app.logger.info("Generated report")
-            return df_summary
+            return df_retrieval_times_summary
         else:
             raise Exception(f"Unsupported report type. {report_type=}")
 
@@ -424,8 +431,7 @@ class RetrievalTimeReport(Report):
                 "retrieval_time_min": "Retrieval Time (min)",
                 "retrieval_time_max": "Retrieval Time (max)",
                 "retrieval_time_median": "Retrieval Time (median)",
-                "retrieval_time_mean": "Retrieval Time (mean)",
-                "histogram": "Histogram"
+                "retrieval_time_mean": "Retrieval Time (mean)"
             },
             inplace=True)
 

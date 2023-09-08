@@ -42,6 +42,7 @@ reportModel = api.model(
         "crid": fields.String,
         "processingMode": fields.String,
         "venue": fields.String,
+        "enableHistograms": fields.String
     },
 )
 
@@ -54,6 +55,7 @@ parser.add_argument("daac", type=str, default="all", location="args")
 parser.add_argument("crid", type=str, default="", location="args")
 parser.add_argument("processingMode", type=str, default="", location="args")
 parser.add_argument("venue", type=str, default="local", location="args")
+parser.add_argument("enableHistograms", default="false", choices=["false", "true"], location="args")
 
 
 def makeResponse(data, status="OK", code=200, message="Success!", result_json=None):
@@ -105,6 +107,10 @@ class CreateReport(Resource):
         self._end = args["endDateTime"]
         self._mimetype = args["mime"]
 
+        self._report_options = {
+            "generate_histograms": args["enableHistograms"] == "true"
+        }
+
         try:
             reports_generator = ReportsGenerator(self._start, self._end, mime=self._mimetype)
             report = reports_generator.generate_report(
@@ -113,7 +119,8 @@ class CreateReport(Resource):
                 output_format=self._mimetype,
                 processing_mode=self._processing_mode,
                 venue=self._venue,
-                crid=self._crid
+                crid=self._crid,
+                report_options=self._report_options
             )
 
             current_app.logger.info(f"{self._mimetype=}")
