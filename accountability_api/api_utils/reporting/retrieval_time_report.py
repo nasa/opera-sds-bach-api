@@ -88,7 +88,7 @@ class RetrievalTimeReport(Report):
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
+            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False)
             report_obj: list[dict] = json.loads(report_json)
             header = self.get_header(report_type)
 
