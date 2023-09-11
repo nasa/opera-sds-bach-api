@@ -55,9 +55,7 @@ class ProductionTimeReport(Report):
                         histogram_b64: str = report_df["histogram"].values[i]
                         tmp_histogram.write(base64.b64decode(histogram_b64))
                         tmp_histogram.flush()
-                        histogram_filename = self.get_histogram_filename(
-                            sds_product_name=report_df["opera_product_short_name"].values[i],
-                            report_type=report_type)
+                        histogram_filename = self.get_histogram_filename(sds_product_name=report_df["opera_product_short_name"].values[i], report_type=report_type)
                         report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
                         report_df["histogram"].values[i] = histogram_filename
 
