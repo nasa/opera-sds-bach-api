@@ -16,11 +16,11 @@ def to_duration_isoformat(duration_seconds: float):
 
 
 def create_histogram(*, series: list[float], title: str, metric: str, unit: str) -> io.BytesIO:
-    current_app.logger.info(f"{len(series)=}")
+    current_app.logger.info(f"{title=}, {len(series)=}")
 
     fig = Figure(layout='tight')
     ax: Axes = fig.subplots()
-    ax.hist(series, bins='auto')
+    ax.hist(series, bins="fd" if len(series) <= 1000 else "rice")
 
     # handle extreme edge case where singleton or empty series is passed
     if len(series) >= 2:
@@ -41,6 +41,7 @@ def create_histogram(*, series: list[float], title: str, metric: str, unit: str)
                  ax.get_xticklabels() + ax.get_yticklabels()):
         item.set_fontsize('xx-small')
     histogram_img = io.BytesIO()
+    current_app.logger.info(f"Saving histogram figure")
     fig.savefig(histogram_img, format="png")
 
     current_app.logger.info("Generated histogram")
