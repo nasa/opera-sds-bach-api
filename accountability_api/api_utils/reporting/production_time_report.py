@@ -15,7 +15,6 @@ from pandas import DataFrame
 
 from accountability_api.api_utils import query, metadata
 from accountability_api.api_utils.reporting.report import Report
-
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
 # Pandas options
@@ -28,34 +27,37 @@ pd.set_option("display.max_colwidth", 10)  # Number of characters to print per c
 class ProductionTimeReport(Report):
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
         super().__init__(title, start_date, end_date, timestamp, **kwargs)
+        self._report_options = kwargs["report_options"]
 
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
+        product_docs = []
         sds_product_indexes = reduce(operator.add, metadata.PRODUCT_TYPE_TO_INDEX.values())
-        try:
-            product_docs = query.get_docs(indexes=sds_product_indexes, start=self.start_datetime, end=self.end_datetime)
-        except elasticsearch.exceptions.NotFoundError as e:
-            current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {sds_product_indexes} for products. Do the indexes exists?")
-            product_docs = []
+        for sdp_product_index in sds_product_indexes:
+            current_app.logger.info(f"Querying index {sdp_product_index} for products")
+
+            try:
+                product_docs += query.get_docs(indexes=[sdp_product_index], start=self.start_datetime, end=self.end_datetime)
+            except elasticsearch.exceptions.NotFoundError as e:
+                current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {sds_product_indexes} for products. Do the indexes exists?")
 
         if output_format == "application/zip":
-            report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
+            report_df = ProductionTimeReport.to_report_df(product_docs, report_type, self._report_options)
 
             # create zip. send zip.
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i in range(len(report_df)):
-                    tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df["histogram"].values[i]
-                    tmp_histogram.write(base64.b64decode(histogram_b64))
-                    tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(sds_product_name=report_df["opera_product_short_name"].values[i], report_type=report_type)
-                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df["histogram"].values[i] = histogram_filename
-
-                ProductionTimeReport.drop_column(report_df, "histogram")  # single row, so just drop the column
+                if self._report_options["generate_histograms"]:
+                    for i in range(len(report_df)):
+                        tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
+                        histogram_b64: str = report_df["histogram"].values[i]
+                        tmp_histogram.write(base64.b64decode(histogram_b64))
+                        tmp_histogram.flush()
+                        histogram_filename = self.get_histogram_filename(sds_product_name=report_df["opera_product_short_name"].values[i], report_type=report_type)
+                        report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
+                        report_df["histogram"].values[i] = histogram_filename
 
                 ProductionTimeReport.rename_columns(report_df, report_type)
                 report_csv = report_df.to_csv(index=False)
@@ -69,10 +71,11 @@ class ProductionTimeReport(Report):
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename_by_report_type("text/csv", report_type))
             return tmp_report_zip
 
-        report_df = ProductionTimeReport.to_report_df(product_docs, report_type)
+        report_df = ProductionTimeReport.to_report_df(product_docs, report_type, self._report_options)
 
         if output_format == "text/csv":
-            ProductionTimeReport.drop_column(report_df, "histogram")
+            if self._report_options["generate_histograms"]:
+                ProductionTimeReport.drop_column(report_df, "histogram")
             ProductionTimeReport.rename_columns(report_df, report_type)
 
             report_csv = report_df.to_csv(index=False)
@@ -83,7 +86,7 @@ class ProductionTimeReport(Report):
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
+            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False)
             report_obj: list[dict] = json.loads(report_json)
             header = self.get_header(report_type)
 
@@ -100,7 +103,7 @@ class ProductionTimeReport(Report):
             raise Exception(f"output format ({output_format}) is not supported.")
 
     @staticmethod
-    def to_report_df(product_docs: list[dict], report_type: str) -> DataFrame:
+    def to_report_df(product_docs: list[dict], report_type: str, report_options: dict) -> DataFrame:
         current_app.logger.info(f"Total generated products for report {len(product_docs)}")
         if not product_docs:
             return pd.DataFrame()
@@ -121,7 +124,7 @@ class ProductionTimeReport(Report):
                 production_time_duration: float = daac_alerted_ts - input_received_ts
 
             if report_type == "detailed":
-                production_time = {
+                production_time_dict = {
                     "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
@@ -129,7 +132,7 @@ class ProductionTimeReport(Report):
                     "production_time": to_duration_isoformat(production_time_duration) if production_time_duration else production_time_duration
                 }
             elif report_type == "summary":
-                production_time = {
+                production_time_dict = {
                     "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": input_received_ts,
@@ -138,7 +141,7 @@ class ProductionTimeReport(Report):
                 }
             else:
                 raise Exception(f"Unsupported report type. {report_type=}")
-            product_type_to_production_times[product["metadata"]["ProductType"]].append(production_time)
+            product_type_to_production_times[product["metadata"]["ProductType"]].append(production_time_dict)
         if not product_type_to_production_times:
             return pd.DataFrame()
 
@@ -160,11 +163,6 @@ class ProductionTimeReport(Report):
 
                 # ignore NULL production times for histogram generation
                 production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None]
-                histogram = create_histogram(
-                    series=production_time_durations_hours,
-                    title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
-                    metric="Production Time",
-                    unit="hours")
 
                 production_time_summary_row = {
                     "opera_product_short_name": df_production_times_summary_row["opera_product_short_name"].iloc[0],
@@ -172,9 +170,16 @@ class ProductionTimeReport(Report):
                     "production_time_min": to_duration_isoformat(df_production_times_summary_row["production_time"].min()),
                     "production_time_max": to_duration_isoformat(df_production_times_summary_row["production_time"].max()),
                     "production_time_mean": to_duration_isoformat(df_production_times_summary_row["production_time"].mean()),
-                    "production_time_median": to_duration_isoformat(df_production_times_summary_row["production_time"].median()),
-                    "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
+                    "production_time_median": to_duration_isoformat(df_production_times_summary_row["production_time"].median())
                 }
+                if report_options["generate_histograms"]:
+                    histogram = create_histogram(
+                        series=production_time_durations_hours,
+                        title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
+                        metric="Production Time",
+                        unit="hours")
+                    production_time_summary_row.update({"histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")})
+
                 production_time_summary_rows.append(production_time_summary_row)
             df_production_times_summary = pd.DataFrame(production_time_summary_rows)
 
@@ -248,8 +253,8 @@ class ProductionTimeReport(Report):
             raise Exception(f"Unrecognized report type. {report_type=}")
 
     @staticmethod
-    def rename_detailed_columns(df: DataFrame):
-        df.rename(
+    def rename_detailed_columns(report_df: DataFrame):
+        report_df.rename(
             columns={
                 "opera_product_name": "OPERA Product File Name",
                 "opera_product_short_name": "OPERA Product Short Name",
@@ -260,8 +265,8 @@ class ProductionTimeReport(Report):
             inplace=True)
 
     @staticmethod
-    def rename_summary_columns(df: DataFrame):
-        df.rename(
+    def rename_summary_columns(report_df: DataFrame):
+        report_df.rename(
             columns={
                 "opera_product_short_name": "OPERA Product Short Name",
                 "production_time_count": "Production Time (count)",

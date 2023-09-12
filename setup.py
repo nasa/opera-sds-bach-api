@@ -40,7 +40,7 @@ setup(
         "more_itertools>=8.12.0",
         "numpy>=1.22.4",
         "packaging>=20.4",
-        "pandas>=1.3.5",
+        "pandas>=1.3.5,<=2.1.0",
         "pluggy>=0.13.1",
         "py>=1.9.0",
         "pyparsing>=2.4.7",
