@@ -11,15 +11,15 @@ PRODUCT_COUNTER = "ProductCounter"
 TIMER_INDEX = "timer_status"
 
 INPUT_PRODUCT_TYPE_TO_INDEX = {
-    "HLS_L30": "grq_*_l2_hls_l30",
-    "HLS_S30": "grq_*_l2_hls_s30",
-    "L1_S1_SLC": "grq_*_l1_s1_slc",
+    "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
+    "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
+    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"]
 }
 
 PRODUCT_TYPE_TO_INDEX = {
-    "L3_DSWX_HLS": "grq_*_l3_dswx_hls",
-    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
-    "L2_RTC_S1": "grq_*_l2_rtc_s1"
+    "L3_DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
+    "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
 }
 """Map of product types to their Elasticsearch indexes."""
 
@@ -44,9 +44,9 @@ ACCOUNTABILITY_INDEXES = {
 }
 
 INCOMING_SDP_PRODUCTS = {
-    "HLS_L30": "grq_*_l2_hls_l30",
-    "HLS_S30": "grq_*_l2_hls_s30",
-    "L1_S1_SLC": "grq_*_l1_s1_slc"
+    "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
+    "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
+    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"]
 }
 
 # TODO chrisjrd: finalize.
@@ -54,15 +54,15 @@ INCOMING_ANCILLARY_FILES = {
 }
 
 GENERATED_PRODUCTS = {
-    "DSWX_HLS": "grq_*_l3_dswx_hls",
-    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
-    "L2_RTC_S1": "grq_*_l2_rtc_s1"
+    "DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
+    "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
 }
 
 OUTGOING_PRODUCTS_TO_DAAC = {
-    "DSWX_HLS": "grq_*_l3_dswx_hls",
-    "L2_CSLC_S1": "grq_*_l2_cslc_s1",
-    "L2_RTC_S1": "grq_*_l2_rtc_s1"
+    "DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
+    "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
 }
 
 TRANSFERABLE_PRODUCT_TYPES = [

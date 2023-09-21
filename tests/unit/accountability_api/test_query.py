@@ -168,6 +168,7 @@ def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
     mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
         "hits": {
+            "total": {"value": 3},
             "hits": [
                 {"_source": {"metadata": {}}},
                 {"_source": {"metadata": {}}},
@@ -197,6 +198,7 @@ def test_get_num_docs(mocker: MockerFixture, elasticsearch_utility_stub):
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
     mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
         "hits": {
+            "total": {"value": 3},
             "hits": [
                 {"_source": {"metadata": {}}},
                 {"_source": {"metadata": {}}},

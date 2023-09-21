@@ -16,28 +16,32 @@ def to_duration_isoformat(duration_seconds: float):
 
 
 def create_histogram(*, series: list[float], title: str, metric: str, unit: str) -> io.BytesIO:
-    current_app.logger.info(f"{len(series)=}")
+    current_app.logger.info(f"{title=}, {len(series)=}")
 
     fig = Figure(layout='tight')
     ax: Axes = fig.subplots()
-    ax.hist(series, bins='auto')
+    ax.hist(series, bins="fd" if len(series) <= 1000 else "rice")
 
-    xticks = [statistics.mean(series)]
-
-    # extreme edge case where singleton series is passed
+    # handle extreme edge case where singleton or empty series is passed
     if len(series) >= 2:
-        xticks = xticks + [min(*series), max(*series)]
+        p90 = statistics.quantiles(series, n=100, method='inclusive')[90]
+        xticks = [min(*series), max(*series)] + [p90]
+        ax.axvline(p90, color='k', linestyle='dashed', linewidth=1, alpha=0.5)
+    elif len(series) == 1:
+        xticks = series
+    else:
+        xticks = []
 
     ax.set(
         title=title,
         xlabel=f"{metric} ({unit})", xticks=xticks, xticklabels=[f"{x:.2f}" for x in xticks],
         yticks=[], yticklabels=[])
 
-    ax.axvline(statistics.mean(series), color='k', linestyle='dashed', linewidth=1, alpha=0.5)
     for item in ([ax.title, ax.xaxis.label, ax.yaxis.label] +
                  ax.get_xticklabels() + ax.get_yticklabels()):
         item.set_fontsize('xx-small')
     histogram_img = io.BytesIO()
+    current_app.logger.info(f"Saving histogram figure")
     fig.savefig(histogram_img, format="png")
 
     current_app.logger.info("Generated histogram")

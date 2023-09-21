@@ -1,9 +1,11 @@
 import base64
 import json
+import operator
 import tempfile
 import zipfile
 from collections import defaultdict
-from datetime import datetime
+from datetime import datetime, timedelta
+from functools import reduce
 from pathlib import Path
 
 import elasticsearch.exceptions
@@ -11,7 +13,7 @@ import pandas as pd
 from flask import current_app
 from pandas import DataFrame
 
-from accountability_api.api_utils import query, metadata
+from accountability_api.api_utils import query, metadata, utils
 from accountability_api.api_utils.reporting.report import Report
 from accountability_api.api_utils.reporting.report_util import to_duration_isoformat, create_histogram
 
@@ -25,37 +27,39 @@ pd.set_option("display.max_colwidth", 10)  # Number of characters to print per c
 class RetrievalTimeReport(Report):
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
         super().__init__(title, start_date, end_date, timestamp, **kwargs)
+        self._report_options = kwargs["report_options"]
 
     def generate_report(self, output_format=None, report_type=None):
         current_app.logger.info(f"Generating report. {output_format=}, {self.__dict__=}")
 
-        input_products = []
-        for incoming_sdp_product_index in metadata.INCOMING_SDP_PRODUCTS.values():
+        product_docs = []
+        input_product_indexes = reduce(operator.add, metadata.INCOMING_SDP_PRODUCTS.values())
+        for incoming_sdp_product_index in input_product_indexes:
             current_app.logger.info(f"Querying index {incoming_sdp_product_index} for products")
 
             try:
-                input_products += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
+                product_docs += query.get_docs(indexes=[incoming_sdp_product_index], start=self.start_datetime, end=self.end_datetime)
             except elasticsearch.exceptions.NotFoundError as e:
                 current_app.logger.warning(f"An exception {type(e)} occurred while querying indexes {incoming_sdp_product_index} for products. Do the indexes exists?")
 
         if output_format == "application/zip":
-            report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
+            report_df = RetrievalTimeReport.to_report_df(product_docs, report_type, start=self.start_datetime, end=self.end_datetime, report_options=self._report_options)
 
             # create zip. send zip.
             tmp_report_zip = tempfile.NamedTemporaryFile(suffix=".zip", dir=".", delete=True)
             with zipfile.ZipFile(tmp_report_zip.name, "w") as report_zipfile:
                 # write histogram files, convert histogram column to filenames
-                for i in range(len(report_df)):
-                    tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
-                    histogram_b64: str = report_df["histogram"].values[i]
-                    tmp_histogram.write(base64.b64decode(histogram_b64))
-                    tmp_histogram.flush()
-                    histogram_filename = self.get_histogram_filename(
-                        sds_product_name=report_df["opera_product_short_name"].values[i],
-                        input_product_name=report_df["input_product_short_name"].values[i],
-                        report_type=report_type)
-                    report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
-                    report_df["histogram"].values[i] = histogram_filename
+                if self._report_options["generate_histograms"]:
+                    for i in range(len(report_df)):
+                        tmp_histogram = tempfile.NamedTemporaryFile(suffix=".png", dir=".", delete=True)
+                        histogram_b64: str = report_df["histogram"].values[i]
+                        tmp_histogram.write(base64.b64decode(histogram_b64))
+                        tmp_histogram.flush()
+                        histogram_filename = self.get_histogram_filename(
+                            input_product_name=report_df["input_product_short_name"].values[i],
+                            report_type=report_type)
+                        report_zipfile.write(Path(tmp_histogram.name).name, arcname=histogram_filename)
+                        report_df["histogram"].values[i] = histogram_filename
 
                 RetrievalTimeReport.rename_columns(report_df, report_type)
                 report_csv = report_df.to_csv(index=False)
@@ -69,20 +73,22 @@ class RetrievalTimeReport(Report):
                 report_zipfile.write(Path(tmp_report_csv.name).name, arcname=self.get_filename_by_report_type("text/csv", report_type))
             return tmp_report_zip
 
-        report_df = RetrievalTimeReport.to_report_df(input_products, report_type, start=self.start_datetime, end=self.end_datetime)
+        report_df = RetrievalTimeReport.to_report_df(product_docs, report_type, start=self.start_datetime, end=self.end_datetime, report_options=self._report_options)
 
         if output_format == "text/csv":
-            RetrievalTimeReport.drop_column(report_df, "histogram")
+            if self._report_options["generate_histograms"]:
+                RetrievalTimeReport.drop_column(report_df, "histogram")
             RetrievalTimeReport.rename_columns(report_df, report_type)
 
             report_csv = report_df.to_csv(index=False)
             report_csv = self.add_header_to_csv(report_csv, report_type)
+
             tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
             tmp_report_csv.write(report_csv.encode("utf-8"))
             tmp_report_csv.flush()
             return tmp_report_csv
         elif output_format == "application/json" or output_format == "json":
-            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False, index=True)
+            report_json = report_df.to_json(orient="records", date_format="epoch", lines=False)
             report_obj: list[dict] = json.loads(report_json)
             header = self.get_header(report_type)
 
@@ -99,10 +105,9 @@ class RetrievalTimeReport(Report):
             raise Exception(f"output format ({output_format}) is not supported.")
 
     @staticmethod
-    def to_report_df(dataset_docs: list[dict], report_type: str, start, end) -> DataFrame:
+    def to_report_df(dataset_docs: list[dict], report_type: str, start, end, report_options: dict) -> DataFrame:
         current_app.logger.info(f"Total generated datasets for report {len(dataset_docs)}")
-        if not dataset_docs:
-            # EDGE CASE: no products in data store
+        if not dataset_docs:  # EDGE CASE: no products in data store
             return pd.DataFrame()
 
         dataset_id_to_dataset_map = RetrievalTimeReport.map_by_id(dataset_docs)
@@ -114,17 +119,26 @@ class RetrievalTimeReport(Report):
 
         # map L3_DSWX_HLS input products with ancillary information needed for report
         if sds_product_type_to_input_datasets_map.get("L3_DSWX_HLS"):
-            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(dataset_id_to_dataset_map, start, end)
-            RetrievalTimeReport.augment_hls_products_with_hls_info(dataset_id_to_dataset_map, start, end)
-            RetrievalTimeReport.augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
+            RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(
+                dataset_id_to_dataset_map,
+                utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
+                end
+            )
+            RetrievalTimeReport.augment_hls_products_with_hls_info(
+                dataset_id_to_dataset_map,
+                utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
+                end
+            )
 
         # map L2_CSLC_S1 and L2_RTC_S1 input products with ancillary information needed for report
         l2_cslc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_CSLC_S1")
         l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
-            # TODO chrisjrd: augment with "slc_spatial" info
-            RetrievalTimeReport.augment_slc_products_with_slc_info(dataset_id_to_dataset_map, start, end)
-            RetrievalTimeReport.augment_slc_products_with_sds_product_info(dataset_id_to_dataset_map, start, end)
+            RetrievalTimeReport.augment_slc_products_with_slc_info(
+                dataset_id_to_dataset_map,
+                utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
+                end
+            )
 
         dataset_docs = list(dataset_id_to_dataset_map.values())
 
@@ -143,9 +157,6 @@ class RetrievalTimeReport(Report):
 
                     if product.get("hls_spatial"):
                         nested_product["hls_spatial"] = product["hls_spatial"]
-
-                    if product.get("sds_products"):
-                        nested_product["sds_products"] = product["sds_products"]
 
                     nested_product["metadata"]["ProductReceivedTime"] = dataset["metadata"]["ProductReceivedTime"]
                     nested_product["metadata"]["ProductType"] = dataset["metadata"]["ProductType"]
@@ -188,50 +199,22 @@ class RetrievalTimeReport(Report):
 
                 retrieval_time_dicts = []
                 if report_type == "detailed":
-                    for sds_product_type, sds_products in product.get("sds_products", {}).items():
-                        if not sds_products:
-                            retrieval_time_dict = {
-                                "input_product_name": product["metadata"]["FileName"],
-                                "input_product_type": product["metadata"]["ProductType"],
-                                "opera_product_short_name": "Not Available Yet",
-                                "opera_product_name": "Not Available Yet",
-                                "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
-                                "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
-                                "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                                "retrieval_time": to_duration_isoformat(retrieval_time)
-                            }
-                            retrieval_time_dicts.append(retrieval_time_dict)
-                        else:
-                            for sds_product in sds_products:
-                                retrieval_time_dict = {
-                                    "input_product_name": product["metadata"]["FileName"],
-                                    "input_product_type": product["metadata"]["ProductType"],
-                                    "opera_product_short_name": sds_product["metadata"]["ProductType"],
-                                    "opera_product_name": sds_product["_id"],
-                                    "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
-                                    "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
-                                    "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                                    "retrieval_time": to_duration_isoformat(retrieval_time)
-                                }
-                                retrieval_time_dicts.append(retrieval_time_dict)
+                    retrieval_time_dict = {
+                        "input_product_name": product["metadata"]["FileName"],
+                        "input_product_type": product["metadata"]["ProductType"],
+                        "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
+                        "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
+                        "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
+                        "retrieval_time": to_duration_isoformat(retrieval_time)
+                    }
+                    retrieval_time_dicts.append(retrieval_time_dict)
                 elif report_type == "summary":
-                    if product.get("sds_products"):
-                        for sds_product_type in product["sds_products"].keys():
-                            retrieval_time_dict = {
-                                "opera_product_name": product["metadata"]["FileName"],
-                                "input_product_type": product["metadata"]["ProductType"],
-                                "output_product_type": sds_product_type,
-                                "retrieval_time": retrieval_time
-                            }
-                            retrieval_time_dicts.append(retrieval_time_dict)
-                    else:  # no output products (yet?)
-                        retrieval_time_dict = {
-                            "opera_product_name": product["metadata"]["FileName"],
-                            "input_product_type": product["metadata"]["ProductType"],
-                            "output_product_type": "Not Available Yet",
-                            "retrieval_time": retrieval_time
-                        }
-                        retrieval_time_dicts.append(retrieval_time_dict)
+                    retrieval_time_dict = {
+                        "opera_product_name": product["metadata"]["FileName"],
+                        "input_product_type": product["metadata"]["ProductType"],
+                        "retrieval_time": retrieval_time
+                    }
+                    retrieval_time_dicts.append(retrieval_time_dict)
                 else:
                     raise Exception(f"Unsupported report type. {report_type=}")
                 for retrieval_time_dict in retrieval_time_dicts:
@@ -248,115 +231,54 @@ class RetrievalTimeReport(Report):
             return df_retrieval_times_log
         elif report_type == "summary":
             # create data frame of aggregate data (summary report)
-            df_summary = pd.DataFrame(retrieval_times_seconds)
-            product_types = df_summary["input_product_type"].unique()
+            df_retrieval_times_summary = pd.DataFrame(retrieval_times_seconds)
+            product_types = df_retrieval_times_summary["input_product_type"].unique()
             current_app.logger.debug(f"{product_types=}")
-
-            sds_product_type_input_product_type_to_products_map = defaultdict(list)
-            for dataset in dataset_docs:
-                if not dataset.get("sds_products"):
-                    # handle edge case where an input product could not be mapped to an output product
-                    #  can happen if PGE execution fails
-                    current_app.logger.warning(f'Could not map {dataset["id"]} to an output product.')
-                    product_combination_tuple = ("Not Available Yet", dataset["dataset_type"])
-                    sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(dataset)
-                else:
-                    for sds_product_type, sds_products in dataset["sds_products"].items():
-                        product_combination_tuple = (sds_products[0]["dataset_type"], dataset["dataset_type"])  # some input products may produce multiple of the same output product type. so grab the first one found
-                        sds_product_type_input_product_type_to_products_map[product_combination_tuple].append(dataset)
-
-            current_app.logger.info("Processing recognized product types")
-
-            sds_product_type_to_input_product_types = defaultdict(list)
-            for k in sds_product_type_input_product_type_to_products_map.keys():
-                sds_product_type, input_product_type = k
-                sds_product_type_to_input_product_types[sds_product_type].append(input_product_type)
 
             # loop through output/input product type combinations and aggregate statistics into dataframe rows
 
-            df_retrieval_times_summary_entries = []
-            for sds_product_type, input_product_types in sds_product_type_to_input_product_types.items():
-                current_app.logger.info(f"{sds_product_type=}")
+            df_retrieval_times_summary_rows = []
+            for input_product_type in product_types:
+                current_app.logger.debug(f"{input_product_type=}")
 
-                input_product_types_processed = []  # used to handle special ALL row entry
-                for input_product_type in input_product_types:
-                    current_app.logger.debug(f"{input_product_type=}")
+                # filter by current input product type
+                df_retrieval_time_summary_row = df_retrieval_times_summary[
+                    (
+                        df_retrieval_times_summary["input_product_type"].apply(lambda x: x == input_product_type)
+                    )
+                ]
+                current_app.logger.debug(f"Found {len(df_retrieval_time_summary_row)} {input_product_type} products")
 
-                    # filter by current input product type
-                    df_summary_input_product_type = df_summary[
-                        (
-                            df_summary["input_product_type"].apply(lambda x: x == input_product_type)
-                        ) & (
-                            df_summary["output_product_type"].apply(lambda x: x == sds_product_type)
-                        )
-                    ]
-                    current_app.logger.debug(f"Found {len(df_summary_input_product_type)} {input_product_type} products")
+                if not len(df_retrieval_time_summary_row):
+                    current_app.logger.debug("0 products. Skipping to next input product type")
+                    continue
 
-                    if not len(df_summary_input_product_type):
-                        current_app.logger.debug("0 products. Skipping to next input product type")
-                        continue
-                    input_product_types_processed.append(input_product_type)
+                retrieval_times_seconds: list[float] = df_retrieval_time_summary_row["retrieval_time"].to_numpy()
+                retrieval_times_hours = [secs / 60 / 60 for secs in retrieval_times_seconds]
 
-                    retrieval_times_seconds: list[float] = df_summary_input_product_type["retrieval_time"].to_numpy()
-                    retrieval_times_hours = [secs / 60 / 60 for secs in retrieval_times_seconds]
+                retrieval_time_summary_row = {
+                    "input_product_short_name": input_product_type,  # e.g. L2_HLS_L30
+                    "retrieval_time_count": len(df_retrieval_time_summary_row),
+                    "retrieval_time_p90": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].quantile(q=0.9)),
+                    "retrieval_time_min": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].min()),
+                    "retrieval_time_max": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].max()),
+                    "retrieval_time_median": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].median()),
+                    "retrieval_time_mean": to_duration_isoformat(df_retrieval_time_summary_row["retrieval_time"].mean()),
+                }
+                if report_options["generate_histograms"]:
                     histogram = create_histogram(
                         series=retrieval_times_hours,
                         title=f"{input_product_type} Retrieval Times",
                         metric="Retrieval Time",
                         unit="hours")
+                    retrieval_time_summary_row.update({"histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")})
+                df_retrieval_time_summary_row = pd.DataFrame([retrieval_time_summary_row])
+                df_retrieval_times_summary_rows.append(df_retrieval_time_summary_row)
 
-                    df_summary_input_product_type = pd.DataFrame([{
-                        "opera_product_short_name": sds_product_type,  # e.g. L3_DSWX_HLS
-                        "input_product_short_name": input_product_type,  # e.g. L2_HLS_L30
-                        "retrieval_time_count": len(df_summary_input_product_type),
-                        "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].quantile(q=0.9)),
-                        "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].min()),
-                        "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].max()),
-                        "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].median()),
-                        "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type["retrieval_time"].mean()),
-                        "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
-                    }])
-                    df_retrieval_times_summary_entries.append(df_summary_input_product_type)
-
-                # filter by SDS product type to combine aggregations for their respective input product types
-                # prevent redundant ALL row when only 1 input product type was processed
-                if len(input_product_types_processed) > 1:
-                    current_app.logger.info(f"Creating ALL entry")
-
-                    df_summary_input_product_type_all = df_summary[
-                        (
-                            df_summary["input_product_type"].apply(lambda x: x in input_product_types)
-                         ) & (
-                            df_summary["output_product_type"].apply(lambda x: x == sds_product_type)
-                        )
-                    ]
-                    current_app.logger.debug(f"Found {len(df_summary_input_product_type_all)} {input_product_types} products")
-
-                    retrieval_times_seconds: list[float] = df_summary_input_product_type_all["retrieval_time"].to_numpy()
-                    retrieval_times_hours: list[float] = [secs / 60 / 60 for secs in retrieval_times_seconds]
-                    histogram = create_histogram(
-                        series=retrieval_times_hours,
-                        title=f"{sds_product_type} Retrieval Times",
-                        metric="Retrieval Time",
-                        unit="hours")
-
-                    df_summary_input_product_type_all = pd.DataFrame([{
-                        "opera_product_short_name": sds_product_type,  # e.g. L3_DSWX_HLS
-                        "input_product_short_name": "ALL",  # e.g. ALL = L2_HLS_L30 + L2_HLS_L30
-                        "retrieval_time_count": len(df_summary_input_product_type_all),
-                        "retrieval_time_p90": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].quantile(q=0.9)),
-                        "retrieval_time_min": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].min()),
-                        "retrieval_time_max": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].max()),
-                        "retrieval_time_median": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].median()),
-                        "retrieval_time_mean": to_duration_isoformat(df_summary_input_product_type_all["retrieval_time"].mean()),
-                        "histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")
-                    }])
-                    df_retrieval_times_summary_entries.append(df_summary_input_product_type_all)
-
-            df_summary = pd.concat(df_retrieval_times_summary_entries)
+            df_retrieval_times_summary = pd.concat(df_retrieval_times_summary_rows)
 
             current_app.logger.info("Generated report")
-            return df_summary
+            return df_retrieval_times_summary
         else:
             raise Exception(f"Unsupported report type. {report_type=}")
 
@@ -364,7 +286,7 @@ class RetrievalTimeReport(Report):
     def augment_hls_products_with_hls_info(dataset_id_to_dataset_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS information to products")
 
-        hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog"], start=start, end=end)
+        hls_docs: list[dict] = query.get_docs(indexes=["hls_catalog-*"], start=start, end=end)
         for hls_doc in hls_docs:
             hls_doc_id = hls_doc["_id"]  # filename
             product_name = hls_doc_id[0:len(hls_doc_id) - 1 - hls_doc_id[::-1].index(".")]  # strip extension to get product name
@@ -379,7 +301,7 @@ class RetrievalTimeReport(Report):
     def augment_hls_products_with_hls_spatial_info(dataset_id_to_datasets_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding HLS spatial information to products")
 
-        hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog"], start=start, end=end)
+        hls_spatial_docs: list[dict] = query.get_docs(indexes=["hls_spatial_catalog-*"], start=start, end=end)
         for hls_spatial_doc in hls_spatial_docs:
             dataset_id = granule_id = hls_spatial_doc_id = hls_spatial_doc["_id"]  # filename minus extension minus band (i.e. granule)
             granule = dataset = dataset_id_to_datasets_map.get(dataset_id, {})
@@ -390,32 +312,10 @@ class RetrievalTimeReport(Report):
                 input_product["hls_spatial"] = hls_spatial_doc
 
     @staticmethod
-    def augment_hls_products_with_sds_product_info(dataset_id_to_dataset_map: dict[str, dict], start, end):
-        current_app.logger.info("Adding SDS product information to products")
-
-        l3_dswx_hls_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"]
-        l3_dswx_hls_sds_product_docs: list[dict] = query.get_docs(indexes=[l3_dswx_hls_sds_product_index], start=start, end=end)
-        for sds_product in l3_dswx_hls_sds_product_docs:
-            input_dataset_id = sds_product["metadata"]["accountability"]["L3_DSWx_HLS"]["trigger_dataset_id"]
-
-            # add SDS info where found
-            granule = input_dataset = dataset_id_to_dataset_map.get(input_dataset_id, {})
-            if not granule:
-                current_app.logger.debug(f"Couldn't map {input_dataset_id=} to SDS product. Likely pending production.")
-                continue
-            if not granule.get("sds_products"):
-                granule["sds_products"] = defaultdict(list)
-            granule["sds_products"][sds_product["dataset_type"]].append(sds_product)
-            for input_product in granule["metadata"]["Files"]:
-                if not input_product.get("sds_products"):
-                    input_product["sds_products"] = defaultdict(list)
-                input_product["sds_products"][sds_product["dataset_type"]].append(sds_product)
-
-    @staticmethod
     def augment_slc_products_with_slc_info(dataset_id_to_dataset_map: dict[str, list[dict]], start, end):
         current_app.logger.info("Adding SLC information to products")
 
-        slc_docs: list[dict] = query.get_docs(indexes=["slc_catalog"], start=start, end=end)
+        slc_docs: list[dict] = query.get_docs(indexes=["slc_catalog-*"], start=start, end=end)
         for slc_doc in slc_docs:
             slc_doc_id = slc_doc["_id"]  # filename
             product_name = slc_doc_id[0:len(slc_doc_id) - 1 - slc_doc_id[::-1].index(".")]  # strip extension to get product name
@@ -424,38 +324,6 @@ class RetrievalTimeReport(Report):
             if not granule:
                 continue
             granule["slc"] = slc_doc
-
-    @staticmethod
-    def augment_slc_products_with_sds_product_info(product_id_to_product_map: dict[str, dict], start, end):
-        current_app.logger.info("Adding SDS product information to products")
-
-        l2_cslc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"]
-        l2_cslc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_cslc_s1_sds_product_index], start=start, end=end)
-        for sds_product in l2_cslc_s1_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]["L2_CSLC_S1"]["trigger_dataset_id"]
-
-            # add SDS info where found
-            input_product = product_id_to_product_map.get(input_product_id, {})
-            if not input_product:
-                current_app.logger.debug(f"Couldn't map {input_product_id=} to SDS product. Likely pending production.")
-                continue
-            if not input_product.get("sds_products"):
-                input_product["sds_products"] = defaultdict(list)
-            input_product["sds_products"][sds_product["dataset_type"]].append(sds_product)
-
-        l2_rtc_s1_sds_product_index = metadata.PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"]
-        l2_rtc_s1_sds_product_docs: list[dict] = query.get_docs(indexes=[l2_rtc_s1_sds_product_index], start=start, end=end)
-        for sds_product in l2_rtc_s1_sds_product_docs:
-            input_product_id = sds_product["metadata"]["accountability"]["L2_RTC_S1"]["trigger_dataset_id"]
-
-            # add SDS info where found
-            input_product = product_id_to_product_map.get(input_product_id, {})
-            if not input_product:
-                current_app.logger.debug(f"Couldn't map {input_product_id=} to SDS product. Likely pending production.")
-                continue
-            if not input_product.get("sds_products"):
-                input_product["sds_products"] = defaultdict(list)
-            input_product["sds_products"][sds_product["dataset_type"]].append(sds_product)
 
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
@@ -525,11 +393,11 @@ class RetrievalTimeReport(Report):
         ]
         return header
 
-    def get_histogram_filename(self, sds_product_name, input_product_name, report_type):
+    def get_histogram_filename(self, input_product_name, report_type):
         start_datetime_normalized = self.start_datetime.replace(":", "")
         end_datetime_normalized = self.end_datetime.replace(":", "")
 
-        return f"retrieval-time-{report_type} - {sds_product_name} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
+        return f"retrieval-time-{report_type} - {input_product_name} - {start_datetime_normalized} to {end_datetime_normalized}.png"
 
     @staticmethod
     def rename_columns(report_df: DataFrame, report_type: str):
@@ -546,8 +414,6 @@ class RetrievalTimeReport(Report):
             columns={
                 "input_product_name": "Input Product Name",
                 "input_product_type": "Input Product Type",
-                "opera_product_short_name": "OPERA Product Short Name",
-                "opera_product_name": "OPERA Product Name",
                 "public_available_datetime": "Public Available Datetime",
                 "opera_detect_datetime": "OPERA Detect Datetime",
                 "product_received_datetime": "Received Datetime",
@@ -559,15 +425,13 @@ class RetrievalTimeReport(Report):
     def rename_summary_columns(report_df: DataFrame):
         report_df.rename(
             columns={
-                "opera_product_short_name": "OPERA Product Short Name",
                 "input_product_short_name": "Input Product Short Name",
                 "retrieval_time_count": "Retrieval Time (count)",
                 "retrieval_time_p90": "Retrieval Time (P90)",
                 "retrieval_time_min": "Retrieval Time (min)",
                 "retrieval_time_max": "Retrieval Time (max)",
                 "retrieval_time_median": "Retrieval Time (median)",
-                "retrieval_time_mean": "Retrieval Time (mean)",
-                "histogram": "Histogram"
+                "retrieval_time_mean": "Retrieval Time (mean)"
             },
             inplace=True)
 
