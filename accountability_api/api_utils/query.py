@@ -477,6 +477,7 @@ def get_docs_in_index(index: str, size=-1, start=None, end=None, time_key=None, 
 def map_doc_to_source(doc: dict):
     source: dict = doc["_source"]
     source.update({"_id": doc["_id"]})
+    source.update({"_index": doc["_index"]})
     return source
 
 
