@@ -114,8 +114,13 @@ class RetrievalTimeReport(Report):
 
         sds_product_type_to_input_datasets_map = defaultdict(list)
         for dataset in dataset_docs:
-            for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
-                sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            if dataset["_id"].startswith("OPERA_L2_RTC-S1"):
+                # for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["rtc_catalog"]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            else:
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
 
         # map L3_DSWX_HLS input products with ancillary information needed for report
         if sds_product_type_to_input_datasets_map.get("L3_DSWX_HLS"):
@@ -140,15 +145,32 @@ class RetrievalTimeReport(Report):
                 end
             )
 
-        dataset_docs = list(dataset_id_to_dataset_map.values())
+        l3_dswx_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L3_DSWX_S1")
+        if l3_dswx_s1_input_product_docs:
+            # TODO chrisjrd: augment with something
+            pass
+
+        # TODO chrisjrd: group DSWx-S1 input RTC into burst sets
+        pass
+        burst_cycle_index_to_burst_map = {}
+        for dataset in dataset_docs:
+            product = dataset
+            if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                if not burst_cycle_index_to_burst_map.get("mgrs_set_id_acquisition_ts_cycle_index"):
+                    burst_cycle_index_to_burst_map["mgrs_set_id_acquisition_ts_cycle_index"] = []
+                burst_cycle_index_to_burst_map["mgrs_set_id_acquisition_ts_cycle_index"].append(dataset)
+        for k in burst_cycle_index_to_burst_map:
+            burst_cycle_index_to_burst_map[k] = sorted(burst_cycle_index_to_burst_map[k], key=lambda burst: burst["creation_timestamp"], reverse=True)
+            burst_cycle_index_to_burst_map[k] = max(burst_cycle_index_to_burst_map[k], key=lambda burst: burst["creation_timestamp"])
 
         # create initial data frame with raw report data
+        dataset_docs = list(dataset_id_to_dataset_map.values())
         retrieval_times_seconds: list[dict] = []
         for dataset in dataset_docs:
             current_app.logger.debug(f'{dataset["_id"]=}')
             products = []
 
-            if dataset["metadata"].get("Files"):
+            if dataset.get("metadata", {}).get("Files"):
                 for product in dataset["metadata"]["Files"]:
                     nested_product = {"metadata": product}
 
@@ -169,28 +191,46 @@ class RetrievalTimeReport(Report):
             for product in products:
                 # gather important timestamps for subsequent aggregations
 
-                product_received_dt = datetime.fromisoformat(
-                    product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    # may or may not have been submitted for download
+                    if product.get("latest_creation_timestamp"):
+                        product_received_dt = datetime.fromisoformat(product["latest_creation_timestamp"].removesuffix("Z"))
+                    else:
+                        product_received_dt = datetime.fromisoformat(product["creation_timestamp"].removesuffix("Z"))
+                else:
+                    product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
                 product_received_ts = product_received_dt.timestamp()
                 current_app.logger.debug(f"{product_received_dt=!s}")
 
+                # get timestamps from catalog
                 if product.get("hls"):
                     opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
                 elif product.get("slc"):
                     opera_detect_dt = datetime.fromisoformat(product["slc"]["query_datetime"].removesuffix("Z"))
-                else:  # possible in dev when skipping download job by direct file upload
+                elif product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    opera_detect_dt = datetime.fromisoformat(product["query_datetime"].removesuffix("Z"))
+                else:  # possible in local dev
                     opera_detect_dt = product_received_dt
 
                 opera_detect_ts = opera_detect_dt.timestamp()
                 current_app.logger.debug(f"{opera_detect_dt=!s}")
 
                 if product.get("hls_spatial"):
-                    public_available_dt = datetime.fromisoformat(
-                        product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                    public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                elif product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    if product.get("latest_production_datetime"):
+                        public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
+                        latest_public_available_dt = datetime.fromisoformat(product["latest_production_datetime"].removesuffix("Z"))
+                    else:
+                        public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
                 else:  # possible in dev when skipping download job by direct file upload
                     public_available_dt = opera_detect_dt
                 public_available_ts = public_available_dt.timestamp()
                 current_app.logger.debug(f"{public_available_dt=!s}")
+                if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    if product.get("latest_production_datetime"):
+                        latest_public_available_ts = latest_public_available_dt.timestamp()
+
 
                 retrieval_time = product_received_ts - public_available_ts
                 current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
@@ -199,19 +239,36 @@ class RetrievalTimeReport(Report):
 
                 retrieval_time_dicts = []
                 if report_type == "detailed":
+                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                        input_product_name = product["_id"]
+                        input_product_type = "OPERA_L2_RTC-S1"
+                    else:
+                        input_product_name = product["metadata"]["FileName"]
+                        input_product_type = product["metadata"]["ProductType"]
                     retrieval_time_dict = {
-                        "input_product_name": product["metadata"]["FileName"],
-                        "input_product_type": product["metadata"]["ProductType"],
+                        "input_product_name": input_product_name,
+                        "input_product_type": input_product_type,
                         "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
                         "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
                         "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                        "retrieval_time": to_duration_isoformat(retrieval_time)
+                        "retrieval_time": to_duration_isoformat(retrieval_time),
                     }
+
+                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                        if product.get("latest_production_datetime"):
+                            retrieval_time_dict.update({"latest_public_available_datetime": datetime.fromtimestamp(latest_public_available_ts).isoformat()})
+
                     retrieval_time_dicts.append(retrieval_time_dict)
                 elif report_type == "summary":
+                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                        input_product_name = product["_id"]
+                        input_product_type = "OPERA_L2_RTC-S1"
+                    else:
+                        input_product_name = product["metadata"]["FileName"]
+                        input_product_type = product["metadata"]["ProductType"]
                     retrieval_time_dict = {
-                        "opera_product_name": product["metadata"]["FileName"],
-                        "input_product_type": product["metadata"]["ProductType"],
+                        "opera_product_name": input_product_name,
+                        "input_product_type": input_product_type,
                         "retrieval_time": retrieval_time
                     }
                     retrieval_time_dicts.append(retrieval_time_dict)

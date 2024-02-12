@@ -13,27 +13,33 @@ TIMER_INDEX = "timer_status"
 INPUT_PRODUCT_TYPE_TO_INDEX = {
     "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
     "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
-    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"]
+    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"],
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
 }
 
 PRODUCT_TYPE_TO_INDEX = {
     "L3_DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
     "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
-    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
+    "L3_DSWX_S1": ["grq_*_l3_dswx_s1", "grq_*_l3_dswx_s1-*"]
+
 }
 """Map of product types to their Elasticsearch indexes."""
 
 INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
     "L2_HLS_L30": ["L3_DSWX_HLS"],
     "L2_HLS_S30": ["L3_DSWX_HLS"],
-    "L1_S1_SLC": ["L2_CSLC_S1", "L2_RTC_S1"]
+    "L1_S1_SLC": ["L2_CSLC_S1", "L2_RTC_S1"],
+    "L2_RTC_S1": ["L3_DSWX_S1"],
+    "rtc_catalog": ["L3_DSWX_S1"],
 }
 """Map of input product types to their respective SDS product type."""
 
 SDS_PRODUCT_TYPE_TO_INPUT_PRODUCT_TYPES = {
     "L3_DSWX_HLS": ["L2_HLS_L30", "L2_HLS_S30"],
     "L2_CSLC_S1": ["L1_S1_SLC"],
-    "L2_RTC_S1": ["L1_S1_SLC"]
+    "L2_RTC_S1": ["L1_S1_SLC"],
+    "L3_DSWX_S1": ["L2_RTC_S1"]
 }
 """Map of SDS product types to a list of input product types that they support. """
 
@@ -46,7 +52,8 @@ ACCOUNTABILITY_INDEXES = {
 INCOMING_SDP_PRODUCTS = {
     "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
     "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
-    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"]
+    "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"],
+    "L2_RTC_S1": ["rtc_catalog-*"]
 }
 
 # TODO chrisjrd: finalize.
@@ -56,13 +63,15 @@ INCOMING_ANCILLARY_FILES = {
 GENERATED_PRODUCTS = {
     "DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
     "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
-    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
+    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"]
 }
 
 OUTGOING_PRODUCTS_TO_DAAC = {
     "DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
     "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
-    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
+    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"]
 }
 
 TRANSFERABLE_PRODUCT_TYPES = [
@@ -119,6 +128,9 @@ def sds_product_id_to_sds_product_type(sds_product_id: str):
     # example _id = OPERA_L2_RTC_S1B_IW_T64-135524-IW2_VV_20220501T015035Z_v0.1_20220501T015102Z
     if sds_product_id.startswith("OPERA_L2_RTC_S1B"):
         return "L2_RTC_S1"
+    # example _id = OPERA_L3_DSWx_S1_
+    if sds_product_id.startswith("OPERA_L3_DSWx_S1"):
+        return "L3_DSWX_S1"
     else:
         raise Exception(f"Unable to map {sds_product_id=} to an SDS product type")
 
