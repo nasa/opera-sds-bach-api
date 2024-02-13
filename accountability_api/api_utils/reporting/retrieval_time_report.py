@@ -190,8 +190,11 @@ class RetrievalTimeReport(Report):
 
             for product in products:
                 # gather important timestamps for subsequent aggregations
+                product_id = product.get("metadata", {}).get("id")
+                if not product_id:
+                    product_id = product["id"]
 
-                if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                if product_id.startswith("OPERA_L2_RTC-S1"):
                     # may or may not have been submitted for download
                     if product.get("latest_creation_timestamp"):
                         product_received_dt = datetime.fromisoformat(product["latest_creation_timestamp"].removesuffix("Z"))
@@ -207,7 +210,7 @@ class RetrievalTimeReport(Report):
                     opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
                 elif product.get("slc"):
                     opera_detect_dt = datetime.fromisoformat(product["slc"]["query_datetime"].removesuffix("Z"))
-                elif product["_id"].startswith("OPERA_L2_RTC-S1"):
+                elif product_id.startswith("OPERA_L2_RTC-S1"):
                     opera_detect_dt = datetime.fromisoformat(product["query_datetime"].removesuffix("Z"))
                 else:  # possible in local dev
                     opera_detect_dt = product_received_dt
@@ -217,7 +220,7 @@ class RetrievalTimeReport(Report):
 
                 if product.get("hls_spatial"):
                     public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
-                elif product["_id"].startswith("OPERA_L2_RTC-S1"):
+                elif product_id.startswith("OPERA_L2_RTC-S1"):
                     if product.get("latest_production_datetime"):
                         public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
                         latest_public_available_dt = datetime.fromisoformat(product["latest_production_datetime"].removesuffix("Z"))
@@ -227,7 +230,7 @@ class RetrievalTimeReport(Report):
                     public_available_dt = opera_detect_dt
                 public_available_ts = public_available_dt.timestamp()
                 current_app.logger.debug(f"{public_available_dt=!s}")
-                if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                if product_id.startswith("OPERA_L2_RTC-S1"):
                     if product.get("latest_production_datetime"):
                         latest_public_available_ts = latest_public_available_dt.timestamp()
 
@@ -239,7 +242,7 @@ class RetrievalTimeReport(Report):
 
                 retrieval_time_dicts = []
                 if report_type == "detailed":
-                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
                     else:
@@ -254,13 +257,13 @@ class RetrievalTimeReport(Report):
                         "retrieval_time": to_duration_isoformat(retrieval_time),
                     }
 
-                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
                         if product.get("latest_production_datetime"):
                             retrieval_time_dict.update({"latest_public_available_datetime": datetime.fromtimestamp(latest_public_available_ts).isoformat()})
 
                     retrieval_time_dicts.append(retrieval_time_dict)
                 elif report_type == "summary":
-                    if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
                     else:
