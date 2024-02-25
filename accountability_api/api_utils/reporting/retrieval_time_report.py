@@ -115,8 +115,7 @@ class RetrievalTimeReport(Report):
         sds_product_type_to_input_datasets_map = defaultdict(list)
         for dataset in dataset_docs:
             if dataset["_id"].startswith("OPERA_L2_RTC-S1"):
-                # for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
-                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["rtc_catalog"]:
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
                     sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
             else:
                 for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
