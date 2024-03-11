@@ -162,7 +162,7 @@ class ProductionTimeReport(Report):
                 ]
 
                 # ignore NULL production times for histogram generation
-                production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None]
+                production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None and t["production_time"] is not None]
 
                 production_time_summary_row = {
                     "opera_product_short_name": df_production_times_summary_row["opera_product_short_name"].iloc[0],
