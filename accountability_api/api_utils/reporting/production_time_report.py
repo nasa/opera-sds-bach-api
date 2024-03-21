@@ -111,7 +111,10 @@ class ProductionTimeReport(Report):
         # create initial data frame with raw report data
         product_type_to_production_times = defaultdict(list[dict])
         for product in product_docs:
-            product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+            if product["metadata"].get("InputProductReceivedTime"):
+                product_received_dt = datetime.fromisoformat(product["metadata"]["InputProductReceivedTime"].removesuffix("Z"))
+            else:  # for backwards compatibility with existing datasets
+                product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
             product_received_ts = product_received_dt.timestamp()
             input_received_ts = product_received_ts
 
