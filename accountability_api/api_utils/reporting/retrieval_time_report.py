@@ -1,6 +1,7 @@
 import base64
 import json
 import operator
+import re
 import tempfile
 import zipfile
 from collections import defaultdict
@@ -111,6 +112,7 @@ class RetrievalTimeReport(Report):
             return pd.DataFrame()
 
         dataset_id_to_dataset_map = RetrievalTimeReport.map_by_id(dataset_docs)
+        dataset_base_id_to_dataset_map = RetrievalTimeReport.map_by_base_id(dataset_docs)
 
         sds_product_type_to_input_datasets_map = defaultdict(list)
         for dataset in dataset_docs:
@@ -124,7 +126,7 @@ class RetrievalTimeReport(Report):
         # map L3_DSWX_HLS input products with ancillary information needed for report
         if sds_product_type_to_input_datasets_map.get("L3_DSWX_HLS"):
             RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(
-                dataset_id_to_dataset_map,
+                dataset_base_id_to_dataset_map,
                 utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
                 end
             )
@@ -139,7 +141,7 @@ class RetrievalTimeReport(Report):
         l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
             RetrievalTimeReport.augment_slc_products_with_slc_info(
-                dataset_id_to_dataset_map,
+                dataset_base_id_to_dataset_map,
                 utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
                 end
             )
@@ -219,6 +221,8 @@ class RetrievalTimeReport(Report):
 
                 if product.get("hls_spatial"):
                     public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                elif product.get("slc_spatial"):
+                    public_available_dt = datetime.fromisoformat(product["slc_spatial"]["production_datetime"].removesuffix("Z"))
                 elif product_id.startswith("OPERA_L2_RTC-S1"):
                     if product.get("latest_production_datetime"):
                         public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
@@ -384,6 +388,17 @@ class RetrievalTimeReport(Report):
                 continue
             granule["slc"] = slc_doc
 
+        slc_spatial_docs: list[dict] = query.get_docs(indexes=["slc_spatial_catalog-*"], start=start, end=end)
+        for slc_spatial_doc in slc_spatial_docs:
+            slc_doc_id: str
+            slc_doc_id = slc_spatial_doc["_id"]  # filename
+            product_name = slc_doc_id.rsplit("-", maxsplit=1)[0]  # remove `-SLC` suffix
+            dataset_id = granule_id = product_name
+            granule = dataset = dataset_id_to_dataset_map.get(dataset_id, {})
+            if not granule:
+                continue
+            granule["slc_spatial"] = slc_spatial_doc
+
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
         granule_to_products_map = {}
@@ -398,6 +413,16 @@ class RetrievalTimeReport(Report):
     @staticmethod
     def map_by_id(dataset_docs: list[dict]):
         dataset_id_to_datasets_map = {dataset["_id"]: dataset for dataset in dataset_docs}
+        return dataset_id_to_datasets_map
+
+    @staticmethod
+    def map_by_base_id(dataset_docs: list[dict]):
+        dataset_id_to_datasets_map = {}
+        for dataset in dataset_docs:
+            id_: str = dataset["_id"]
+            if re.search(r"-r\d+$", id_):  # remove revision number suffix
+                base_id = id_.rsplit("-", maxsplit=1)[0]
+                dataset_id_to_datasets_map[base_id] = dataset
         return dataset_id_to_datasets_map
 
     def get_filename_by_report_type(self, output_format, report_type):
