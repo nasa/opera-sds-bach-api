@@ -1,5 +1,7 @@
 from __future__ import division
 
+import traceback
+
 from flask import request, make_response, current_app, send_file
 from flask_restx import Namespace, Resource, reqparse, fields
 
@@ -140,8 +142,9 @@ class CreateReport(Resource):
         except Exception as e:
             current_app.logger.exception(f"error while generating report: {reportName}")
             return {
-                "message": f"cannot generate {reportName}",
+                "message": f"Cannot generate {reportName}",
                 "details": str(e),
+                "traceback": traceback.format_exc()
             }, 500
 
     @api.expect(reportModel)
