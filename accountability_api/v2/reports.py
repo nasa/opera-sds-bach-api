@@ -209,8 +209,6 @@ def handle_named_report_generation_exception(error: NamedReportGenerationExcepti
         "status": 500,
         "detail": "Please try again.",
 
-        "message": f"Cannot generate {error.report_name}",
-        "details": str(error),
         "traceback": traceback.format_exc(),
 
         "request": error.request
@@ -225,8 +223,6 @@ def handle_typed_report_generation_exception(error: TypedReportGenerationExcepti
         "status": 500,
         "detail": "Please try again.",
 
-        "message": f"Cannot generate {error.report_type}",
-        "details": str(error),
         "traceback": traceback.format_exc(),
 
         "request": error.request
@@ -241,8 +237,6 @@ def handle_bach_api_exception(error: BachApiException):
         "status": 500,
         "detail": "Please try again.",
 
-        "message": "Something went unexpectedly wrong",
-        "details": str(error),
         "traceback": traceback.format_exc(),
 
         "request": error.request
@@ -258,7 +252,5 @@ def handle_root_exception(error: Exception):
         "status": 500,
         "detail": "Please try again.",
 
-        "message": "Something went unexpectedly wrong",
-        "details": str(error),
         "traceback": traceback.format_exc(),
     }, 500
