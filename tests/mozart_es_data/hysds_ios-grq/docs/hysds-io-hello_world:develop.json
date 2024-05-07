@@ -1,9 +1,0 @@
-{
-    "enable_dedup": false,
-    "id": "hysds-io-hello_world:develop",
-    "job-specification": "job-hello_world:develop",
-    "job-version": "develop",
-    "label": "Hello World",
-    "params": [],
-    "resource": "hysds-io-specification"
-}

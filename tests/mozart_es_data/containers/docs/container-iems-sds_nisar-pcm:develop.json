@@ -1,6 +1,0 @@
-{
-    "digest": "sha256:64d957bc37cc3b670717d33cad0fe957d03cb3c165a7612066512fe5089c8f0f",
-    "id": "container-iems-sds_nisar-pcm:develop",
-    "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-iems-sds_nisar-pcm:develop.tar.gz",
-    "version": "develop"
-}
