@@ -14,7 +14,7 @@ API to support the Accountability UIs for OPERA with HySDS
 
 1. Create a python virtual environment.
     1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
-1. Activate the virtual environment and run `pip install -e .` from the project root to install the workspace dependencies.
+1. Activate the virtual environment and run `pip install -e .` and `pip install -e '.[test]'` from the project root to install the workspace dependencies.
 
 # Running locally
 
