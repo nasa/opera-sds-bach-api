@@ -471,8 +471,8 @@ class RetrievalTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Log"},
-            {"Date of Report": datetime_fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime_fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime_fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
             {"PublicAvailableDateTime": "datetime when the product was first made available to the public by the DAAC."},
             {"OperaDetectDateTime": "datetime when the OPERA system first became aware of the product."},
             {"ProductReceivedDateTime": "datetime when the product arrived in our system"}
@@ -482,8 +482,8 @@ class RetrievalTimeReport(Report):
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Summary"},
-            {"Date of Report": datetime_fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime_fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime_fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
+            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
         ]
         return header
 
