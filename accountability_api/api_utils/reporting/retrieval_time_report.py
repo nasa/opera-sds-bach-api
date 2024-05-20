@@ -25,6 +25,10 @@ pd.set_option("display.width", None)   # control the printed line length. `None`
 pd.set_option("display.max_colwidth", 10)  # Number of characters to print per column.
 
 
+def datetime_fromisoformat(date_string: str):
+    return datetime.fromisoformat(date_string.removesuffix("Z"))
+
+
 class RetrievalTimeReport(Report):
     def __init__(self, title, start_date, end_date, timestamp, **kwargs):
         super().__init__(title, start_date, end_date, timestamp, **kwargs)
@@ -198,21 +202,21 @@ class RetrievalTimeReport(Report):
                 if product_id.startswith("OPERA_L2_RTC-S1"):
                     # may or may not have been submitted for download
                     if product.get("latest_creation_timestamp"):
-                        product_received_dt = datetime.fromisoformat(product["latest_creation_timestamp"].removesuffix("Z"))
+                        product_received_dt = datetime_fromisoformat(product["latest_creation_timestamp"])
                     else:
-                        product_received_dt = datetime.fromisoformat(product["creation_timestamp"].removesuffix("Z"))
+                        product_received_dt = datetime_fromisoformat(product["creation_timestamp"])
                 else:
-                    product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                    product_received_dt = datetime_fromisoformat(product["metadata"]["ProductReceivedTime"])
                 product_received_ts = product_received_dt.timestamp()
                 current_app.logger.debug(f"{product_received_dt=!s}")
 
                 # get timestamps from catalog
                 if product.get("hls"):
-                    opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
+                    opera_detect_dt = datetime_fromisoformat(product["hls"]["query_datetime"])
                 elif product.get("slc"):
-                    opera_detect_dt = datetime.fromisoformat(product["slc"]["query_datetime"].removesuffix("Z"))
+                    opera_detect_dt = datetime_fromisoformat(product["slc"]["query_datetime"])
                 elif product_id.startswith("OPERA_L2_RTC-S1"):
-                    opera_detect_dt = datetime.fromisoformat(product["query_datetime"].removesuffix("Z"))
+                    opera_detect_dt = datetime_fromisoformat(product["query_datetime"])
                 else:  # possible in local dev
                     opera_detect_dt = product_received_dt
 
@@ -220,15 +224,21 @@ class RetrievalTimeReport(Report):
                 current_app.logger.debug(f"{opera_detect_dt=!s}")
 
                 if product.get("hls_spatial"):
-                    public_available_dt = datetime.fromisoformat(product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                    if product["hls_spatial"].get("provider_date"):
+                        public_available_dt = datetime_fromisoformat(product["hls_spatial"]["provider_date"])
+                    else:
+                        public_available_dt = datetime_fromisoformat(product["hls_spatial"]["production_datetime"])
                 elif product.get("slc_spatial"):
-                    public_available_dt = datetime.fromisoformat(product["slc_spatial"]["production_datetime"].removesuffix("Z"))
+                    if product["slc_spatial"].get("provider_date"):
+                        public_available_dt = datetime_fromisoformat(product["slc_spatial"]["provider_date"])
+                    else:
+                        public_available_dt = datetime_fromisoformat(product["slc_spatial"]["production_datetime"])
                 elif product_id.startswith("OPERA_L2_RTC-S1"):
                     if product.get("latest_production_datetime"):
-                        public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
-                        latest_public_available_dt = datetime.fromisoformat(product["latest_production_datetime"].removesuffix("Z"))
+                        public_available_dt = datetime_fromisoformat(product["production_datetime"])
+                        latest_public_available_dt = datetime_fromisoformat(product["latest_production_datetime"])
                     else:
-                        public_available_dt = datetime.fromisoformat(product["production_datetime"].removesuffix("Z"))
+                        public_available_dt = datetime_fromisoformat(product["production_datetime"])
                 else:  # possible in dev when skipping download job by direct file upload
                     public_available_dt = opera_detect_dt
                 public_available_ts = public_available_dt.timestamp()
