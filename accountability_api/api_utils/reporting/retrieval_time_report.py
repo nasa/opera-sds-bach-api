@@ -123,6 +123,9 @@ class RetrievalTimeReport(Report):
             if dataset["_id"].startswith("OPERA_L2_RTC-S1"):
                 for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
                     sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            elif dataset["granule_id"].startswith("OPERA_L2_CSLC-S1"):
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_CSLC_S1"]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
             else:
                 for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
                     sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
@@ -197,7 +200,10 @@ class RetrievalTimeReport(Report):
                 # gather important timestamps for subsequent aggregations
                 product_id = product.get("metadata", {}).get("id")
                 if not product_id:
-                    product_id = product["id"]
+                    if product.get("granule_id", "").startswith("OPERA_L2_CSLC-S1"):
+                        product_id = product["granule_id"]
+                    else:
+                        product_id = product["id"]
 
                 if product_id.startswith("OPERA_L2_RTC-S1"):
                     # may or may not have been submitted for download
@@ -205,6 +211,12 @@ class RetrievalTimeReport(Report):
                         product_received_dt = datetime_fromisoformat(product["latest_creation_timestamp"])
                     else:
                         product_received_dt = datetime_fromisoformat(product["creation_timestamp"])
+                elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                    product_received_dt = datetime_fromisoformat(product["creation_timestamp"])
+                    if product.get("download_datetime"):
+                        product_received_dt = datetime_fromisoformat(product["download_datetime"])
+                    if product.get("latest_download_job_ts"):
+                        product_received_dt = datetime_fromisoformat(product["latest_download_job_ts"])
                 else:
                     product_received_dt = datetime_fromisoformat(product["metadata"]["ProductReceivedTime"])
                 product_received_ts = product_received_dt.timestamp()
@@ -217,6 +229,8 @@ class RetrievalTimeReport(Report):
                     opera_detect_dt = datetime_fromisoformat(product["slc"]["query_datetime"])
                 elif product_id.startswith("OPERA_L2_RTC-S1"):
                     opera_detect_dt = datetime_fromisoformat(product["query_datetime"])
+                elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                    opera_detect_dt = datetime_fromisoformat(product["creation_timestamp"])
                 else:  # possible in local dev
                     opera_detect_dt = product_received_dt
 
@@ -247,7 +261,6 @@ class RetrievalTimeReport(Report):
                     if product.get("latest_production_datetime"):
                         latest_public_available_ts = latest_public_available_dt.timestamp()
 
-
                 retrieval_time = product_received_ts - public_available_ts
                 current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
 
@@ -258,6 +271,9 @@ class RetrievalTimeReport(Report):
                     if product_id.startswith("OPERA_L2_RTC-S1"):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
+                    elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                        input_product_name = product["granule_id"]
+                        input_product_type = "OPERA_L2_CSLC-S1"
                     else:
                         input_product_name = product["metadata"]["FileName"]
                         input_product_type = product["metadata"]["ProductType"]
@@ -279,6 +295,9 @@ class RetrievalTimeReport(Report):
                     if product_id.startswith("OPERA_L2_RTC-S1"):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
+                    elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                        input_product_name = product["granule_id"]
+                        input_product_type = "OPERA_L2_CSLC-S1"
                     else:
                         input_product_name = product["metadata"]["FileName"]
                         input_product_type = product["metadata"]["ProductType"]

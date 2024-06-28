@@ -21,7 +21,8 @@ PRODUCT_TYPE_TO_INDEX = {
     "L3_DSWX_HLS": ["grq_*_l3_dswx_hls", "grq_*_l3_dswx_hls-*"],
     "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
     "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
-    "L3_DSWX_S1": ["grq_*_l3_dswx_s1", "grq_*_l3_dswx_s1-*"]
+    "L3_DSWX_S1": ["grq_*_l3_dswx_s1", "grq_*_l3_dswx_s1-*"],
+    "L3_DISP_S1": ["grq_*_l3_disp_s1-*"]
 }
 """Map of product types to their Elasticsearch indexes."""
 
@@ -30,6 +31,7 @@ INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
     "L2_HLS_S30": ["L3_DSWX_HLS"],
     "L1_S1_SLC": ["L2_CSLC_S1", "L2_RTC_S1"],
     "L2_RTC_S1": ["L3_DSWX_S1"],
+    "L2_CSLC_S1": ["L3_DISP_S1"],
 }
 """Map of input product types to their respective SDS product type."""
 
@@ -43,7 +45,8 @@ INCOMING_SDP_PRODUCTS = {
     "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
     "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
     "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"],
-    "L2_RTC_S1": ["rtc_catalog-*"]
+    "L2_RTC_S1": ["rtc_catalog-*"],
+    "L2_CSLC_S1": ["cslc_catalog-*"]
 }
 
 # TODO chrisjrd: finalize.
@@ -54,21 +57,24 @@ GENERATED_PRODUCTS = {
     "DSWX_HLS": PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"],
     "L2_CSLC_S1": PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"],
     "L2_RTC_S1": PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"],
-    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"]
+    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"],
+    "L3_DISP_S1": PRODUCT_TYPE_TO_INDEX["L3_DISP_S1"]
 }
 
 OUTGOING_PRODUCTS_TO_DAAC = {
     "DSWX_HLS": PRODUCT_TYPE_TO_INDEX["L3_DSWX_HLS"],
     "L2_CSLC_S1": PRODUCT_TYPE_TO_INDEX["L2_CSLC_S1"],
     "L2_RTC_S1": PRODUCT_TYPE_TO_INDEX["L2_RTC_S1"],
-    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"]
+    "L3_DSWX_S1": PRODUCT_TYPE_TO_INDEX["L3_DSWX_S1"],
+    "L3_DISP_S1": PRODUCT_TYPE_TO_INDEX["L3_DISP_S1"]
 }
 
 TRANSFERABLE_PRODUCT_TYPES = [
     "L3_DSWx_HLS",
     "L2_CSLC_S1",
     "L2_RTC_S1",
-    "L3_DSWx_S1"
+    "L3_DSWx_S1",
+    "L3_DISP_S1"
 ]
 
 RSLC_CHILDREN = []
@@ -122,6 +128,9 @@ def sds_product_id_to_sds_product_type(sds_product_id: str):
     # example _id = OPERA_L3_DSWx_S1_
     if sds_product_id.startswith("OPERA_L3_DSWx-S1"):
         return "L3_DSWX_S1"
+    # example _id = OPERA_L3_DISP_S1_
+    if sds_product_id.startswith("OPERA_L3_DISP-S1"):
+        return "L3_DISP_S1"
     else:
         raise Exception(f"Unable to map {sds_product_id=} to an SDS product type")
 
