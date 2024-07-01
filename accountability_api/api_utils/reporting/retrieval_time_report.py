@@ -123,7 +123,7 @@ class RetrievalTimeReport(Report):
             if dataset["_id"].startswith("OPERA_L2_RTC-S1"):
                 for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
                     sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
-            elif dataset["granule_id"].startswith("OPERA_L2_CSLC-S1"):
+            elif dataset["_index"].startswith("cslc_catalog") and dataset["granule_id"].startswith("OPERA_L2_CSLC-S1"):
                 for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_CSLC_S1"]:
                     sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
             else:
@@ -272,7 +272,7 @@ class RetrievalTimeReport(Report):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
                     elif product_id.startswith("OPERA_L2_CSLC-S1"):
-                        input_product_name = product["granule_id"]
+                        input_product_name = product_id
                         input_product_type = "OPERA_L2_CSLC-S1"
                     else:
                         input_product_name = product["metadata"]["FileName"]
@@ -296,7 +296,7 @@ class RetrievalTimeReport(Report):
                         input_product_name = product["_id"]
                         input_product_type = "OPERA_L2_RTC-S1"
                     elif product_id.startswith("OPERA_L2_CSLC-S1"):
-                        input_product_name = product["granule_id"]
+                        input_product_name = product_id
                         input_product_type = "OPERA_L2_CSLC-S1"
                     else:
                         input_product_name = product["metadata"]["FileName"]
