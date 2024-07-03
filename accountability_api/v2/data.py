@@ -1,7 +1,11 @@
 import logging
+import tempfile
 from typing import List
 
+import pandas as pd
+
 from elasticsearch.exceptions import NotFoundError
+from flask import send_file
 from flask_restx import Namespace, Resource, reqparse
 from accountability_api.api_utils import query
 from accountability_api.api_utils import metadata as consts
@@ -107,6 +111,8 @@ parser.add_argument(
     required=False,
     help="Sensor."
 )
+parser.add_argument("mime", type=str, location="args")
+
 
 
 @api.route("/list")
@@ -258,7 +264,19 @@ class Data(Resource):
 
         docs = minimize_docs(docs)
 
-        return docs
+        report_df = pd.DataFrame(docs)
+
+        mimetype = args.get("mime")
+        if mimetype != "text/csv":
+            return report_df.to_dict(orient="records")
+        else:
+            report_csv = report_df.to_csv(index=False)
+
+            tmp_report_csv = tempfile.NamedTemporaryFile(suffix=".csv", dir=".", delete=True)
+            tmp_report_csv.write(report_csv.encode("utf-8"))
+            tmp_report_csv.flush()
+
+            return send_file(tmp_report_csv.name, as_attachment=True, download_name="data_summary.csv")
 
 
 def minimize_docs(docs: List) -> List:

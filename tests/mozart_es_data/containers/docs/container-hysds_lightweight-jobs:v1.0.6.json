@@ -1,6 +1,0 @@
-{
-    "digest": "sha256:3b8ee574bda025e6bb79998618d6b4dde71cc9d2ca45bbc46c0c9d161875b0b0",
-    "id": "container-hysds_lightweight-jobs:v1.0.6",
-    "url": "s3://s3-us-west-2.amazonaws.com/nisar-dev-cc-fwd-bporeh/container-hysds_lightweight-jobs:v1.0.6.tar.gz",
-    "version": "v1.0.6"
-}

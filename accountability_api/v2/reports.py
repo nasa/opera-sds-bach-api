@@ -1,5 +1,8 @@
 from __future__ import division
 
+import traceback
+from dataclasses import dataclass
+
 from flask import request, make_response, current_app, send_file
 from flask_restx import Namespace, Resource, reqparse, fields
 
@@ -14,6 +17,26 @@ report_types = {
     "DaacOutgoingProducts": "Daac Outgoing Products Report",
     "DataAccountabilityReport": "NISAR report combining GeneratedSdsProducts, DaacOutgoingProducts, and DaacOutgoingProducts reports",
 }
+
+
+@dataclass
+class BachApiException(Exception):
+    request: dict
+
+
+@dataclass
+class ReportGenerationException(BachApiException):
+    pass
+
+
+@dataclass
+class NamedReportGenerationException(ReportGenerationException):
+    report_name: str
+
+
+@dataclass
+class TypedReportGenerationException(ReportGenerationException):
+    report_type: str
 
 
 @api.route("/")
@@ -139,10 +162,10 @@ class CreateReport(Resource):
             return make_response(report)
         except Exception as e:
             current_app.logger.exception(f"error while generating report: {reportName}")
-            return {
-                "message": f"cannot generate {reportName}",
-                "details": str(e),
-            }, 500
+            raise NamedReportGenerationException(
+                report_name=reportName,
+                request={"reportName": reportName, "params": {**args}}
+            ) from e
 
     @api.expect(reportModel)
     @api.response(202, "Accepted: Report has been accepted for processing.")
@@ -161,10 +184,10 @@ class CreateReport(Resource):
             gen_report, json_data = self.__get_report()
         except Exception as e:
             current_app.logger.exception(f"error while generating report: {reportType}")
-            return {
-                "message": f"cannot generate {reportType}",
-                "details": str(e),
-            }, 500
+            raise TypedReportGenerationException(
+                report_type=reportType,
+                request={"reportType": reportType, "payload": payload}
+            ) from e
         if gen_report is None:
             return makeResponse(
                 None, status="Not Found", message="Report does not exist", code=404
@@ -176,3 +199,58 @@ class CreateReport(Resource):
             "Report has been accepted for processing.",
             result_json=json_data,
         )
+
+
+@api.errorhandler(NamedReportGenerationException)
+def handle_named_report_generation_exception(error: NamedReportGenerationException):
+    return {
+        "type": "https://opera.jpl.nasa.gov/probs/named-report",
+        "title": f"Cannot generate {error.report_name}",
+        "status": 500,
+        "detail": "Please try again.",
+
+        "traceback": traceback.format_exc(),
+
+        "request": error.request
+    }, 500
+
+
+@api.errorhandler(TypedReportGenerationException)
+def handle_typed_report_generation_exception(error: TypedReportGenerationException):
+    return {
+        "type": "https://opera.jpl.nasa.gov/probs/typed-report",
+        "title": f"Cannot generate {error.report_type}",
+        "status": 500,
+        "detail": "Please try again.",
+
+        "traceback": traceback.format_exc(),
+
+        "request": error.request
+    }, 500
+
+
+@api.errorhandler(BachApiException)
+def handle_bach_api_exception(error: BachApiException):
+    return {
+        "type": "https://opera.jpl.nasa.gov/probs/bach-api",
+        "title": "Something went unexpectedly wrong",
+        "status": 500,
+        "detail": "Please try again.",
+
+        "traceback": traceback.format_exc(),
+
+        "request": error.request
+    }, 500
+
+
+@api.errorhandler(Exception)
+def handle_root_exception(error: Exception):
+    return {
+        # Problem Details (RFC 7807)
+        "type": "https://opera.jpl.nasa.gov/probs/root",
+        "title": "Something went unexpectedly wrong",
+        "status": 500,
+        "detail": "Please try again.",
+
+        "traceback": traceback.format_exc(),
+    }, 500

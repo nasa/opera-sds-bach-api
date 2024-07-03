@@ -1,6 +1,7 @@
 import base64
 import json
 import operator
+import re
 import tempfile
 import zipfile
 from collections import defaultdict
@@ -22,6 +23,10 @@ pd.set_option("display.max_rows", None)  # control the number of rows printed
 pd.set_option("display.max_columns", None)  # Breakpoint for truncate view. `None` value means unlimited.
 pd.set_option("display.width", None)   # control the printed line length. `None` value will auto-detect the width.
 pd.set_option("display.max_colwidth", 10)  # Number of characters to print per column.
+
+
+def datetime_fromisoformat(date_string: str):
+    return datetime.fromisoformat(date_string.removesuffix("Z"))
 
 
 class RetrievalTimeReport(Report):
@@ -111,16 +116,24 @@ class RetrievalTimeReport(Report):
             return pd.DataFrame()
 
         dataset_id_to_dataset_map = RetrievalTimeReport.map_by_id(dataset_docs)
+        dataset_base_id_to_dataset_map = RetrievalTimeReport.map_by_base_id(dataset_docs)
 
         sds_product_type_to_input_datasets_map = defaultdict(list)
         for dataset in dataset_docs:
-            for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
-                sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            if dataset["_id"].startswith("OPERA_L2_RTC-S1"):
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_RTC_S1"]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            elif dataset["_index"].startswith("cslc_catalog") and dataset["granule_id"].startswith("OPERA_L2_CSLC-S1"):
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE["L2_CSLC_S1"]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
+            else:
+                for sds_product_type in metadata.INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE[dataset["dataset_type"]]:
+                    sds_product_type_to_input_datasets_map[sds_product_type].append(dataset)
 
         # map L3_DSWX_HLS input products with ancillary information needed for report
         if sds_product_type_to_input_datasets_map.get("L3_DSWX_HLS"):
             RetrievalTimeReport.augment_hls_products_with_hls_spatial_info(
-                dataset_id_to_dataset_map,
+                dataset_base_id_to_dataset_map,
                 utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
                 end
             )
@@ -135,20 +148,37 @@ class RetrievalTimeReport(Report):
         l2_rtc_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L2_RTC_S1")
         if l2_cslc_s1_input_product_docs or l2_rtc_s1_input_product_docs:
             RetrievalTimeReport.augment_slc_products_with_slc_info(
-                dataset_id_to_dataset_map,
+                dataset_base_id_to_dataset_map,
                 utils.from_dt_to_iso(utils.from_iso_to_dt(start) - timedelta(hours=24)),
                 end
             )
 
-        dataset_docs = list(dataset_id_to_dataset_map.values())
+        l3_dswx_s1_input_product_docs = sds_product_type_to_input_datasets_map.get("L3_DSWX_S1")
+        if l3_dswx_s1_input_product_docs:
+            # TODO chrisjrd: augment with something
+            pass
+
+        # TODO chrisjrd: group DSWx-S1 input RTC into burst sets
+        pass
+        burst_cycle_index_to_burst_map = {}
+        for dataset in dataset_docs:
+            product = dataset
+            if product["_id"].startswith("OPERA_L2_RTC-S1"):
+                if not burst_cycle_index_to_burst_map.get("mgrs_set_id_acquisition_ts_cycle_index"):
+                    burst_cycle_index_to_burst_map["mgrs_set_id_acquisition_ts_cycle_index"] = []
+                burst_cycle_index_to_burst_map["mgrs_set_id_acquisition_ts_cycle_index"].append(dataset)
+        for k in burst_cycle_index_to_burst_map:
+            burst_cycle_index_to_burst_map[k] = sorted(burst_cycle_index_to_burst_map[k], key=lambda burst: burst["creation_timestamp"], reverse=True)
+            burst_cycle_index_to_burst_map[k] = max(burst_cycle_index_to_burst_map[k], key=lambda burst: burst["creation_timestamp"])
 
         # create initial data frame with raw report data
+        dataset_docs = list(dataset_id_to_dataset_map.values())
         retrieval_times_seconds: list[dict] = []
         for dataset in dataset_docs:
             current_app.logger.debug(f'{dataset["_id"]=}')
             products = []
 
-            if dataset["metadata"].get("Files"):
+            if dataset.get("metadata", {}).get("Files"):
                 for product in dataset["metadata"]["Files"]:
                     nested_product = {"metadata": product}
 
@@ -168,29 +198,68 @@ class RetrievalTimeReport(Report):
 
             for product in products:
                 # gather important timestamps for subsequent aggregations
+                product_id = product.get("metadata", {}).get("id")
+                if not product_id:
+                    if product.get("granule_id", "").startswith("OPERA_L2_CSLC-S1"):
+                        product_id = product["granule_id"]
+                    else:
+                        product_id = product["id"]
 
-                product_received_dt = datetime.fromisoformat(
-                    product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                if product_id.startswith("OPERA_L2_RTC-S1"):
+                    # may or may not have been submitted for download
+                    if product.get("latest_creation_timestamp"):
+                        product_received_dt = datetime_fromisoformat(product["latest_creation_timestamp"])
+                    else:
+                        product_received_dt = datetime_fromisoformat(product["creation_timestamp"])
+                elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                    product_received_dt = datetime_fromisoformat(product["creation_timestamp"])
+                    if product.get("download_datetime"):
+                        product_received_dt = datetime_fromisoformat(product["download_datetime"])
+                    if product.get("latest_download_job_ts"):
+                        product_received_dt = datetime_fromisoformat(product["latest_download_job_ts"])
+                else:
+                    product_received_dt = datetime_fromisoformat(product["metadata"]["ProductReceivedTime"])
                 product_received_ts = product_received_dt.timestamp()
                 current_app.logger.debug(f"{product_received_dt=!s}")
 
+                # get timestamps from catalog
                 if product.get("hls"):
-                    opera_detect_dt = datetime.fromisoformat(product["hls"]["query_datetime"].removesuffix("Z"))
+                    opera_detect_dt = datetime_fromisoformat(product["hls"]["query_datetime"])
                 elif product.get("slc"):
-                    opera_detect_dt = datetime.fromisoformat(product["slc"]["query_datetime"].removesuffix("Z"))
-                else:  # possible in dev when skipping download job by direct file upload
+                    opera_detect_dt = datetime_fromisoformat(product["slc"]["query_datetime"])
+                elif product_id.startswith("OPERA_L2_RTC-S1"):
+                    opera_detect_dt = datetime_fromisoformat(product["query_datetime"])
+                elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                    opera_detect_dt = datetime_fromisoformat(product["creation_timestamp"])
+                else:  # possible in local dev
                     opera_detect_dt = product_received_dt
 
                 opera_detect_ts = opera_detect_dt.timestamp()
                 current_app.logger.debug(f"{opera_detect_dt=!s}")
 
                 if product.get("hls_spatial"):
-                    public_available_dt = datetime.fromisoformat(
-                        product["hls_spatial"]["production_datetime"].removesuffix("Z"))
+                    if product["hls_spatial"].get("provider_date"):
+                        public_available_dt = datetime_fromisoformat(product["hls_spatial"]["provider_date"])
+                    else:
+                        public_available_dt = datetime_fromisoformat(product["hls_spatial"]["production_datetime"])
+                elif product.get("slc_spatial"):
+                    if product["slc_spatial"].get("provider_date"):
+                        public_available_dt = datetime_fromisoformat(product["slc_spatial"]["provider_date"])
+                    else:
+                        public_available_dt = datetime_fromisoformat(product["slc_spatial"]["production_datetime"])
+                elif product_id.startswith("OPERA_L2_RTC-S1"):
+                    if product.get("latest_production_datetime"):
+                        public_available_dt = datetime_fromisoformat(product["production_datetime"])
+                        latest_public_available_dt = datetime_fromisoformat(product["latest_production_datetime"])
+                    else:
+                        public_available_dt = datetime_fromisoformat(product["production_datetime"])
                 else:  # possible in dev when skipping download job by direct file upload
                     public_available_dt = opera_detect_dt
                 public_available_ts = public_available_dt.timestamp()
                 current_app.logger.debug(f"{public_available_dt=!s}")
+                if product_id.startswith("OPERA_L2_RTC-S1"):
+                    if product.get("latest_production_datetime"):
+                        latest_public_available_ts = latest_public_available_dt.timestamp()
 
                 retrieval_time = product_received_ts - public_available_ts
                 current_app.logger.debug(f"{retrieval_time=:,.0f} (seconds)")  # add commas. remove decimals
@@ -199,19 +268,42 @@ class RetrievalTimeReport(Report):
 
                 retrieval_time_dicts = []
                 if report_type == "detailed":
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
+                        input_product_name = product["_id"]
+                        input_product_type = "OPERA_L2_RTC-S1"
+                    elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                        input_product_name = product_id
+                        input_product_type = "OPERA_L2_CSLC-S1"
+                    else:
+                        input_product_name = product["metadata"]["FileName"]
+                        input_product_type = product["metadata"]["ProductType"]
                     retrieval_time_dict = {
-                        "input_product_name": product["metadata"]["FileName"],
-                        "input_product_type": product["metadata"]["ProductType"],
+                        "input_product_name": input_product_name,
+                        "input_product_type": input_product_type,
                         "public_available_datetime": datetime.fromtimestamp(public_available_ts).isoformat(),
                         "opera_detect_datetime": datetime.fromtimestamp(opera_detect_ts).isoformat(),
                         "product_received_datetime": datetime.fromtimestamp(product_received_ts).isoformat(),
-                        "retrieval_time": to_duration_isoformat(retrieval_time)
+                        "retrieval_time": to_duration_isoformat(retrieval_time),
                     }
+
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
+                        if product.get("latest_production_datetime"):
+                            retrieval_time_dict.update({"latest_public_available_datetime": datetime.fromtimestamp(latest_public_available_ts).isoformat()})
+
                     retrieval_time_dicts.append(retrieval_time_dict)
                 elif report_type == "summary":
+                    if product_id.startswith("OPERA_L2_RTC-S1"):
+                        input_product_name = product["_id"]
+                        input_product_type = "OPERA_L2_RTC-S1"
+                    elif product_id.startswith("OPERA_L2_CSLC-S1"):
+                        input_product_name = product_id
+                        input_product_type = "OPERA_L2_CSLC-S1"
+                    else:
+                        input_product_name = product["metadata"]["FileName"]
+                        input_product_type = product["metadata"]["ProductType"]
                     retrieval_time_dict = {
-                        "opera_product_name": product["metadata"]["FileName"],
-                        "input_product_type": product["metadata"]["ProductType"],
+                        "opera_product_name": input_product_name,
+                        "input_product_type": input_product_type,
                         "retrieval_time": retrieval_time
                     }
                     retrieval_time_dicts.append(retrieval_time_dict)
@@ -325,6 +417,17 @@ class RetrievalTimeReport(Report):
                 continue
             granule["slc"] = slc_doc
 
+        slc_spatial_docs: list[dict] = query.get_docs(indexes=["slc_spatial_catalog-*"], start=start, end=end)
+        for slc_spatial_doc in slc_spatial_docs:
+            slc_doc_id: str
+            slc_doc_id = slc_spatial_doc["_id"]  # filename
+            product_name = slc_doc_id.rsplit("-", maxsplit=1)[0]  # remove `-SLC` suffix
+            dataset_id = granule_id = product_name
+            granule = dataset = dataset_id_to_dataset_map.get(dataset_id, {})
+            if not granule:
+                continue
+            granule["slc_spatial"] = slc_spatial_doc
+
     @staticmethod
     def map_by_granule(product_docs: list[dict]):
         granule_to_products_map = {}
@@ -339,6 +442,16 @@ class RetrievalTimeReport(Report):
     @staticmethod
     def map_by_id(dataset_docs: list[dict]):
         dataset_id_to_datasets_map = {dataset["_id"]: dataset for dataset in dataset_docs}
+        return dataset_id_to_datasets_map
+
+    @staticmethod
+    def map_by_base_id(dataset_docs: list[dict]):
+        dataset_id_to_datasets_map = {}
+        for dataset in dataset_docs:
+            id_: str = dataset["_id"]
+            if re.search(r"-r\d+$", id_):  # remove revision number suffix
+                base_id = id_.rsplit("-", maxsplit=1)[0]
+                dataset_id_to_datasets_map[base_id] = dataset
         return dataset_id_to_datasets_map
 
     def get_filename_by_report_type(self, output_format, report_type):

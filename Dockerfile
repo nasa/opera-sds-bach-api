@@ -1,6 +1,6 @@
 FROM hysds/pge-base:develop
 
-MAINTAINER Benjamin Poreh "benjamin.n.poreh@jpl.nasa.gov"
+MAINTAINER OPERA PCM 
 
 WORKDIR /home/ops
 # Clone wrapper code

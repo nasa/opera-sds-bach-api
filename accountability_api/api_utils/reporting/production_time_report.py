@@ -111,7 +111,10 @@ class ProductionTimeReport(Report):
         # create initial data frame with raw report data
         product_type_to_production_times = defaultdict(list[dict])
         for product in product_docs:
-            product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+            if product["metadata"].get("InputProductReceivedTime"):
+                product_received_dt = datetime.fromisoformat(product["metadata"]["InputProductReceivedTime"].removesuffix("Z"))
+            else:  # for backwards compatibility with existing datasets
+                product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
             product_received_ts = product_received_dt.timestamp()
             input_received_ts = product_received_ts
 
@@ -128,8 +131,8 @@ class ProductionTimeReport(Report):
                     "opera_product_name": product["metadata"]["FileName"],
                     "opera_product_short_name": product["metadata"]["ProductType"],
                     "input_received_datetime": datetime.fromtimestamp(input_received_ts).isoformat(),
-                    "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat() if daac_alerted_ts else daac_alerted_ts,
-                    "production_time": to_duration_isoformat(production_time_duration) if production_time_duration else production_time_duration
+                    "daac_alerted_datetime": datetime.fromtimestamp(daac_alerted_ts).isoformat() if daac_alerted_ts else "N/A",
+                    "production_time": to_duration_isoformat(production_time_duration) if production_time_duration else "N/A"
                 }
             elif report_type == "summary":
                 production_time_dict = {
@@ -162,23 +165,33 @@ class ProductionTimeReport(Report):
                 ]
 
                 # ignore NULL production times for histogram generation
-                production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None]
+                production_time_durations_hours = [t["production_time"] / 60 / 60 for t in production_times if t is not None and t["production_time"] is not None]
 
-                production_time_summary_row = {
-                    "opera_product_short_name": df_production_times_summary_row["opera_product_short_name"].iloc[0],
-                    "production_time_count": len(df_production_times_summary_row),
-                    "production_time_min": to_duration_isoformat(df_production_times_summary_row["production_time"].min()),
-                    "production_time_max": to_duration_isoformat(df_production_times_summary_row["production_time"].max()),
-                    "production_time_mean": to_duration_isoformat(df_production_times_summary_row["production_time"].mean()),
-                    "production_time_median": to_duration_isoformat(df_production_times_summary_row["production_time"].median())
-                }
-                if report_options["generate_histograms"]:
-                    histogram = create_histogram(
-                        series=production_time_durations_hours,
-                        title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
-                        metric="Production Time",
-                        unit="hours")
-                    production_time_summary_row.update({"histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")})
+                if not len(df_production_times_summary_row): # EDGE CASE: no data for the product type / summary row
+                    production_time_summary_row = {
+                        "opera_product_short_name": product_type,
+                        "production_time_count": "N/A",
+                        "production_time_min": "N/A",
+                        "production_time_max": "N/A",
+                        "production_time_mean": "N/A",
+                        "production_time_median": "N/A"
+                    }
+                else:
+                    production_time_summary_row = {
+                        "opera_product_short_name": df_production_times_summary_row["opera_product_short_name"].iloc[0],
+                        "production_time_count": len(df_production_times_summary_row),
+                        "production_time_min": to_duration_isoformat(df_production_times_summary_row["production_time"].min()),
+                        "production_time_max": to_duration_isoformat(df_production_times_summary_row["production_time"].max()),
+                        "production_time_mean": to_duration_isoformat(df_production_times_summary_row["production_time"].mean()),
+                        "production_time_median": to_duration_isoformat(df_production_times_summary_row["production_time"].median())
+                    }
+                    if report_options["generate_histograms"]:
+                        histogram = create_histogram(
+                            series=production_time_durations_hours,
+                            title=f'{df_production_times_summary_row["opera_product_short_name"].iloc[0]} Production Times',
+                            metric="Production Time",
+                            unit="hours")
+                        production_time_summary_row.update({"histogram": str(base64.b64encode(histogram.getbuffer().tobytes()), "utf-8")})
 
                 production_time_summary_rows.append(production_time_summary_row)
             df_production_times_summary = pd.DataFrame(production_time_summary_rows)
