@@ -4,6 +4,7 @@ from typing import Union, List, Dict, Tuple, Optional
 
 from elasticsearch.exceptions import NotFoundError
 from hysds_commons.elasticsearch_utils import ElasticsearchUtility
+from hysds_commons.opensearch_utils import OpenSearchUtility
 from more_itertools import always_iterable
 
 from accountability_api import es_connection
@@ -14,7 +15,7 @@ LOGGER = logging.getLogger()
 
 
 def run_query(
-    es: Optional[ElasticsearchUtility] = None,
+    es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
     body: Optional[Dict] = None,
     doc_type: Optional[str] = None,
     sort: Optional[List[str]] = None,
@@ -32,7 +33,7 @@ def run_query(
 
 
 def run_query_with_scroll(
-    es: Optional[ElasticsearchUtility] = None,
+    es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
     body: Optional[Dict] = None,
     q: Optional[str] = None,
     doc_type: Optional[str] = None,
@@ -403,7 +404,7 @@ def get_num_docs_in_index(
         start=None,
         end=None,
         time_key=None,
-        es: Optional[ElasticsearchUtility] = None,
+        es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
         **kwargs
 ):
     es = es or es_connection.get_grq_es()
