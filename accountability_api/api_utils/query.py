@@ -3,6 +3,7 @@ import traceback
 from typing import Union, List, Dict, Tuple, Optional
 
 from elasticsearch.exceptions import NotFoundError
+from hysds.celery import app
 from hysds_commons.elasticsearch_utils import ElasticsearchUtility
 from hysds_commons.opensearch_utils import OpenSearchUtility
 from more_itertools import always_iterable
@@ -12,6 +13,8 @@ from accountability_api.api_utils import JOBS_ES
 from accountability_api.api_utils import metadata as consts
 
 LOGGER = logging.getLogger()
+
+es_engine = app.conf.get("GRQ_ES_ENGINE")
 
 
 def run_query(
@@ -67,11 +70,12 @@ def run_query_with_scroll(
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll
     params = {
-        "doc_type": doc_type,
         "index": index,
         "size": size if size != -1 else max_size_wo_scroll,
         "scroll": scroll_timeout,
     }
+    if es_engine == "elasticsearch":
+        params["doc_type"] = doc_type
     if sort:
         params["sort"] = sort
         pass
