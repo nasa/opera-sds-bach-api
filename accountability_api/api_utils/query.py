@@ -3,7 +3,9 @@ import traceback
 from typing import Union, List, Dict, Tuple, Optional
 
 from elasticsearch.exceptions import NotFoundError
+from hysds.celery import app
 from hysds_commons.elasticsearch_utils import ElasticsearchUtility
+from hysds_commons.opensearch_utils import OpenSearchUtility
 from more_itertools import always_iterable
 
 from accountability_api import es_connection
@@ -12,9 +14,11 @@ from accountability_api.api_utils import metadata as consts
 
 LOGGER = logging.getLogger()
 
+es_engine = app.conf.get("GRQ_ES_ENGINE")
+
 
 def run_query(
-    es: Optional[ElasticsearchUtility] = None,
+    es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
     body: Optional[Dict] = None,
     doc_type: Optional[str] = None,
     sort: Optional[List[str]] = None,
@@ -32,7 +36,7 @@ def run_query(
 
 
 def run_query_with_scroll(
-    es: Optional[ElasticsearchUtility] = None,
+    es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
     body: Optional[Dict] = None,
     q: Optional[str] = None,
     doc_type: Optional[str] = None,
@@ -66,11 +70,12 @@ def run_query_with_scroll(
     scroll_timeout = "30s"  # 30second.
     max_size_wo_scroll = 10000  # for up to 10k, no need to scroll
     params = {
-        "doc_type": doc_type,
         "index": index,
         "size": size if size != -1 else max_size_wo_scroll,
         "scroll": scroll_timeout,
     }
+    if es_engine == "elasticsearch":
+        params["doc_type"] = doc_type
     if sort:
         params["sort"] = sort
         pass
@@ -403,7 +408,7 @@ def get_num_docs_in_index(
         start=None,
         end=None,
         time_key=None,
-        es: Optional[ElasticsearchUtility] = None,
+        es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
         **kwargs
 ):
     es = es or es_connection.get_grq_es()
