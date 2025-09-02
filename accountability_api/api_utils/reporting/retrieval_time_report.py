@@ -6,6 +6,7 @@ import tempfile
 import zipfile
 from collections import defaultdict
 from datetime import datetime, timedelta
+from datetime_utils import parse_fromisoformat_datetime
 from functools import reduce
 from pathlib import Path
 
@@ -26,7 +27,7 @@ pd.set_option("display.max_colwidth", 10)  # Number of characters to print per c
 
 
 def datetime_fromisoformat(date_string: str):
-    return datetime.fromisoformat(date_string.removesuffix("Z"))
+    return parse_fromisoformat_datetime(date_string.removesuffix("Z"))
 
 
 class RetrievalTimeReport(Report):
@@ -490,8 +491,8 @@ class RetrievalTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Log"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
+            {"Date of Report": parse_fromisoformat_datetime(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{parse_fromisoformat_datetime(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {parse_fromisoformat_datetime(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
             {"PublicAvailableDateTime": "datetime when the product was first made available to the public by the DAAC."},
             {"OperaDetectDateTime": "datetime when the OPERA system first became aware of the product."},
             {"ProductReceivedDateTime": "datetime when the product arrived in our system"}
@@ -501,8 +502,8 @@ class RetrievalTimeReport(Report):
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Retrieval Time Summary"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
+            {"Date of Report": parse_fromisoformat_datetime(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{parse_fromisoformat_datetime(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {parse_fromisoformat_datetime(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
         ]
         return header
 

@@ -2,7 +2,6 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict
 
-import dateutil.parser
 import math
 from jsonschema import validate, ValidationError, SchemaError
 from lxml import etree, objectify
@@ -14,7 +13,7 @@ LOGGER = logging.getLogger()
 
 def from_iso_to_dt(dt_str: str):
     """
-    Returns a datetime for the given ISO-like datetime string.
+    Returns a timezone-aware datetime for the given ISO-like datetime string.
 
     Supports datetime strings with month + day of the month, and day of the year.
 
@@ -27,7 +26,8 @@ def from_iso_to_dt(dt_str: str):
     * second must be zero-padded.
     * microsecond, if present, must be zero-padded to 6 digits maximum.
     """
-    return dateutil.parser.isoparse(dt_str).replace(tzinfo=None)
+    from datetime_utils import parse_iso_datetime
+    return parse_iso_datetime(dt_str)
 
 
 def from_dt_to_iso(dt: datetime, custom_format="%Y-%m-%dT%H:%M:%S.%fZ"):
