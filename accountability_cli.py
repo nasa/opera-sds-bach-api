@@ -10,8 +10,8 @@ from hysds.celery import app
 
 
 GRQ_URL = ":".join(app.conf["GRQ_ES_URL"].split(":")[0:-1])
-default_start = datetime.utcnow().isoformat()
-default_end = (datetime.utcnow() + timedelta(days=365 * 4)).isoformat()
+default_start = datetime.now(UTC).isoformat()
+default_end = (datetime.now(UTC) + timedelta(days=365 * 4)).isoformat()
 
 
 def get_json_metadata(response_text):

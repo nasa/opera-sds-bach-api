@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+from datetime import datetime, UTC
 from importlib import import_module
 
 from accountability_api.api_utils.reporting.report import Report
@@ -39,7 +39,7 @@ class ReportsGenerator:
             report_name,
             self._start,
             self._end,
-            datetime.utcnow().isoformat(timespec="milliseconds"),
+            datetime.now(UTC).isoformat(timespec="milliseconds"),
             **kwargs
         )
         if output_format is not None and output_format != self._output_format:
