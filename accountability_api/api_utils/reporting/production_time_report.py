@@ -5,6 +5,7 @@ import tempfile
 import zipfile
 from collections import defaultdict
 from datetime import datetime
+from datetime_utils import parse_fromisoformat_datetime
 from functools import reduce
 from pathlib import Path
 
@@ -112,9 +113,9 @@ class ProductionTimeReport(Report):
         product_type_to_production_times = defaultdict(list[dict])
         for product in product_docs:
             if product["metadata"].get("InputProductReceivedTime"):
-                product_received_dt = datetime.fromisoformat(product["metadata"]["InputProductReceivedTime"].removesuffix("Z"))
+                product_received_dt = parse_fromisoformat_datetime(product["metadata"]["InputProductReceivedTime"].removesuffix("Z"))
             else:  # for backwards compatibility with existing datasets
-                product_received_dt = datetime.fromisoformat(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
+                product_received_dt = parse_fromisoformat_datetime(product["metadata"]["ProductReceivedTime"].removesuffix("Z"))
             product_received_ts = product_received_dt.timestamp()
             input_received_ts = product_received_ts
 
@@ -123,7 +124,7 @@ class ProductionTimeReport(Report):
                 daac_alerted_ts = None
                 production_time_duration = None
             else:
-                daac_alerted_ts = datetime.fromisoformat(daac_cnm_s_timestamp.removesuffix("Z")).timestamp()
+                daac_alerted_ts = parse_fromisoformat_datetime(daac_cnm_s_timestamp.removesuffix("Z")).timestamp()
                 production_time_duration: float = daac_alerted_ts - input_received_ts
 
             if report_type == "detailed":
@@ -222,16 +223,16 @@ class ProductionTimeReport(Report):
     def get_header_detailed(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Log"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}-{datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
+            {"Date of Report": parse_fromisoformat_datetime(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{parse_fromisoformat_datetime(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}-{parse_fromisoformat_datetime(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'},
         ]
         return header
 
     def get_header_summary(self) -> list[dict[str, str]]:
         header = [
             {"Title": "OPERA Production Time Summary"},
-            {"Date of Report": datetime.fromisoformat(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
-            {"Period of Coverage (AcquisitionTime)": f'{datetime.fromisoformat(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {datetime.fromisoformat(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
+            {"Date of Report": parse_fromisoformat_datetime(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ")},
+            {"Period of Coverage (AcquisitionTime)": f'{parse_fromisoformat_datetime(self.start_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")} - {parse_fromisoformat_datetime(self.end_datetime).strftime("%Y-%m-%dT%H:%M:%SZ")}'}
         ]
         return header
 

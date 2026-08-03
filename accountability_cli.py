@@ -3,15 +3,15 @@ import requests
 import time
 import json
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from lxml import etree
 
 from hysds.celery import app
 
 
 GRQ_URL = ":".join(app.conf["GRQ_ES_URL"].split(":")[0:-1])
-default_start = datetime.utcnow().isoformat()
-default_end = (datetime.utcnow() + timedelta(days=365 * 4)).isoformat()
+default_start = datetime.now(timezone.utc).replace(tzinfo=None).isoformat()
+default_end = (datetime.now(timezone.utc) + timedelta(days=365 * 4)).replace(tzinfo=None).isoformat()
 
 
 def get_json_metadata(response_text):

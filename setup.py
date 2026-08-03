@@ -11,6 +11,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     zip_safe=False,
+    python_requires=">=3.8,<3.13",
     install_requires=[
         # periodically update the minimum versions of these with what's in the deployment environment
         "Flask>=2.2.5",
