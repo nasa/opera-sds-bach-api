@@ -1,4 +1,4 @@
-FROM hysds/pge-base:v5.5.0
+FROM hysds/pge-base:develop
 
 MAINTAINER OPERA PCM 
 
