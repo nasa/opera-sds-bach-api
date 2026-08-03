@@ -1,6 +1,6 @@
 import traceback
 
-import dateutil.parser
+from datetime_utils import parse_iso_datetime
 
 from accountability_api.api_utils import metadata as consts
 from accountability_api.api_utils import utils, query, processing
@@ -96,7 +96,7 @@ class IncomingFiles(Report):
         return {
             "root_name": root_name,
             "header": {
-                "time_of_report": dateutil.parser.isoparse(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                "time_of_report": parse_iso_datetime(self._creation_time).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "data_received_time_range": f"{self.start_datetime}Z - {self.end_datetime}Z",
                 "crid": self._crid,
                 "venue": self._venue,

@@ -1,7 +1,6 @@
 import re
 from datetime import datetime, UTC
 from importlib import import_module
-
 from accountability_api.api_utils.reporting.report import Report
 
 # from .observation_accountability_report import ObservationAccountabilityReport

@@ -3,7 +3,7 @@ import requests
 import time
 import json
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from lxml import etree
 
 from hysds.celery import app
