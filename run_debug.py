@@ -3,9 +3,17 @@ For running the app with an external debugger (IDE) attached.
 This only partially enables Flask development mode.
 For running the app with a fully enabled Flask development mode using the Flask CLI, see README.md.
 """
+from __future__ import unicode_literals
+from __future__ import division
+from __future__ import print_function
+from __future__ import absolute_import
+
+from future import standard_library
 
 import os
 import accountability_api
+
+standard_library.install_aliases()
 
 if __name__ == "__main__":
     env = os.environ.get("FLASK_ENV", "development")
