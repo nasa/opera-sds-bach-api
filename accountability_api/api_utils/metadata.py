@@ -22,9 +22,41 @@ PRODUCT_TYPE_TO_INDEX = {
     "L2_CSLC_S1": ["grq_*_l2_cslc_s1", "grq_*_l2_cslc_s1-*"],
     "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
     "L3_DSWX_S1": ["grq_*_l3_dswx_s1", "grq_*_l3_dswx_s1-*"],
-    "L3_DISP_S1": ["grq_*_l3_disp_s1-*"]
+    "L3_DISP_S1": ["grq_*_l3_disp_s1-*"],
+
+    # Products in production that bach-api previously had no entry for. Keys use
+    # the `dataset_type` value exactly as it appears in the datastore, because
+    # that is what the UI displays and what TRANSFERABLE_PRODUCT_TYPES is
+    # compared against. (The five keys above predate this and are upper-cased;
+    # see the note at the end of this block.)
+    "L3_DSWx_NI": ["grq_*_l3_dswx_ni", "grq_*_l3_dswx_ni-*"],
+    "L3_DIST_S1": ["grq_*_l3_dist_s1", "grq_*_l3_dist_s1-*"],
+    "L2_GCOV_NI": ["grq_*_l2_gcov_ni", "grq_*_l2_gcov_ni-*"],
+    "L2_CSLC_S1_STATIC": ["grq_*_l2_cslc_s1_static", "grq_*_l2_cslc_s1_static-*"],
+    "L2_RTC_S1_STATIC": ["grq_*_l2_rtc_s1_static", "grq_*_l2_rtc_s1_static-*"],
+    "L2_CSLC_S1_COMPRESSED": ["grq_*_l2_cslc_s1_compressed", "grq_*_l2_cslc_s1_compressed-*"],
+    "L4_TROPO": ["grq_*_l4_tropo", "grq_*_l4_tropo-*"]
 }
-"""Map of product types to their Elasticsearch indexes."""
+"""Map of product types to their Elasticsearch indexes.
+
+Index names are `grq_<version>_<type>-<YYYY.MM>`. The version segment is not
+uniform across product types -- v1.0, v1.1, v0.1, 1, 1.0 and 2.0 are all in use
+-- which is why every pattern wildcards it.
+
+The trailing `-*` matters: the bare pattern matches nothing on its own, since
+every product index carries a month suffix. Both forms are kept per type so an
+index without a suffix would still be found.
+
+The patterns are also deliberately anchored on a hyphen after the type, so
+`grq_*_l2_rtc_s1-*` does NOT capture `grq_*_l2_rtc_s1_static-*`, and
+`grq_*_l2_gcov_ni-*` does not capture `grq_*_l2_gcov_ni_batch-*`. Verified
+against the live index list: the per-type sums match the `dataset_type`
+aggregation exactly.
+
+NOTE: the first five keys are upper-cased (`L3_DSWX_HLS`) while the datastore
+reports `L3_DSWx_HLS`. That predates this change and is left alone here rather
+than renamed, because the keys are used as display labels and in URL paths.
+Worth reconciling separately."""
 
 INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
     "L2_HLS_L30": ["L3_DSWX_HLS"],
