@@ -14,7 +14,10 @@ INPUT_PRODUCT_TYPE_TO_INDEX = {
     "HLS_L30": ["grq_*_l2_hls_l30", "grq_*_l2_hls_l30-*"],
     "HLS_S30": ["grq_*_l2_hls_s30", "grq_*_l2_hls_s30-*"],
     "L1_S1_SLC": ["grq_*_l1_s1_slc", "grq_*_l1_s1_slc-*"],
-    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"]
+    "L2_RTC_S1": ["grq_*_l2_rtc_s1", "grq_*_l2_rtc_s1-*"],
+    # GCOV-NI is the input to DSWx-NI, the same way RTC-S1 is the input to
+    # DSWx-S1 and DIST-S1. It appears in both maps for that reason.
+    "L2_GCOV_NI": ["grq_*_l2_gcov_ni", "grq_*_l2_gcov_ni-*"]
 }
 
 PRODUCT_TYPE_TO_INDEX = {
@@ -62,8 +65,10 @@ INPUT_PRODUCT_TYPE_TO_SDS_PRODUCT_TYPE = {
     "L2_HLS_L30": ["L3_DSWX_HLS"],
     "L2_HLS_S30": ["L3_DSWX_HLS"],
     "L1_S1_SLC": ["L2_CSLC_S1", "L2_RTC_S1"],
-    "L2_RTC_S1": ["L3_DSWX_S1"],
+    # RTC-S1 now feeds DIST-S1 as well as DSWx-S1.
+    "L2_RTC_S1": ["L3_DSWX_S1", "L3_DIST_S1"],
     "L2_CSLC_S1": ["L3_DISP_S1"],
+    "L2_GCOV_NI": ["L3_DSWx_NI"],
 }
 """Map of input product types to their respective SDS product type."""
 
