@@ -166,20 +166,33 @@ def test_get_product_no_hits(mocker: MockerFixture, elasticsearch_no_hits):
 def test_get_num_docs_in_index(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
-    mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
-        "hits": {
-            "total": {"value": 3},
-            "hits": [
-                {"_source": {"metadata": {}}},
-                {"_source": {"metadata": {}}},
-                {"_source": {"metadata": {}}}
-            ]
-        }
-    })
+    get_count_mock: MagicMock = mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=3)
 
     # ACT
+    num_docs = query.get_num_docs_in_index("*")
+
     # ASSERT
-    assert query.get_num_docs_in_index("*") == 3
+    assert num_docs == 3
+    assert get_count_mock.call_count == 1
+    assert get_count_mock.call_args.kwargs["index"] == "*"
+
+
+def test_get_num_docs_in_index_is_not_capped_at_track_total_hits(mocker: MockerFixture, elasticsearch_utility_stub):
+    """Counts above the default `track_total_hits` ceiling must be reported exactly.
+
+    The previous scroll-and-count implementation derived its total from
+    `hits.total.value`, which Elasticsearch caps at 10,000 by default, so large
+    indexes were silently reported as exactly 10,000.
+    """
+    # ARRANGE
+    mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
+    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=338976)
+
+    # ACT
+    num_docs = query.get_num_docs_in_index("grq_*_l2_rtc_s1")
+
+    # ASSERT
+    assert num_docs == 338976
 
 
 def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty):
@@ -196,16 +209,7 @@ def test_get_docs_in_index(mocker: MockerFixture, elasticsearch_index_non_empty)
 def test_get_num_docs(mocker: MockerFixture, elasticsearch_utility_stub):
     # ARRANGE
     mocker.patch("accountability_api.api_utils.query.es_connection.get_grq_es", return_value=elasticsearch_utility_stub)
-    mocker.patch.object(elasticsearch_utility_stub, "search", return_value={
-        "hits": {
-            "total": {"value": 3},
-            "hits": [
-                {"_source": {"metadata": {}}},
-                {"_source": {"metadata": {}}},
-                {"_source": {"metadata": {}}}
-            ]
-        }
-    })
+    mocker.patch.object(elasticsearch_utility_stub, "get_count", return_value=3)
 
     # ACT
     index_alias_to_count = query.get_num_docs({"test_index_label": "test_index_name"})

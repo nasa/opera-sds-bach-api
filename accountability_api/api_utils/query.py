@@ -411,6 +411,26 @@ def get_num_docs_in_index(
         es: Optional[Union[ElasticsearchUtility, OpenSearchUtility]] = None,
         **kwargs
 ):
+    """Count the documents in ``index``, optionally restricted to a time range.
+
+    Uses the Elasticsearch/OpenSearch ``_count`` API, for two reasons.
+
+    Correctness: the previous implementation read ``hits.total.value`` from a
+    search response and then scrolled until it had accumulated that many hits.
+    Since Elasticsearch 7.0 ``hits.total.value`` is capped at ``track_total_hits``
+    (default 10,000) and reports ``"relation": "gte"`` beyond it. Nothing in this
+    project sets ``track_total_hits``, so any index holding more than 10,000
+    matching documents was silently reported as exactly 10,000. ``_count`` is not
+    subject to that ceiling and returns the true total.
+
+    Cost: counting by scrolling transferred every matching document, one
+    10,000-hit page per round trip, to produce a single integer. An index holding
+    ~340,000 documents cost ~34 sequential requests; ``_count`` costs one.
+
+    Note that the ``es`` parameter was previously accepted and then ignored --
+    the scrolled call did not forward it and re-resolved the client itself. It is
+    now honoured.
+    """
     es = es or es_connection.get_grq_es()
 
     query = {"query": {"bool": {"must": [], "filter": []}}}
@@ -423,11 +443,7 @@ def get_num_docs_in_index(
             query=query, time_key="creation_timestamp", start=start, stop=end
         )
     query["query"]["bool"]["must"].append({"term": {"_index": index}})
-    search_results = run_query_with_scroll(body=query, index=index, doc_type="_doc", _source=False)["hits"]["hits"]
-    result = 0
-    for search_result in search_results:
-        result += 1
-    return result
+    return es.get_count(index=index, body=query)
 
 
 def get_docs_in_index(index: str, size=-1, start=None, end=None, time_key=None, **kwargs) -> Tuple[List[Dict], int]:
