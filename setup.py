@@ -24,19 +24,27 @@ setup(
         "pandas>=2.1.0,== 2.*",
         "matplotlib>=3.7.2",
 
-        "aws-requests-auth==0.4.3"
+        "aws-requests-auth==0.4.3",
+
+        # HySDS packages are imported at runtime, not just under test:
+        #   accountability_api/es_connection.py     -> hysds_commons, hysds.celery
+        #   accountability_api/api_utils/query.py   -> hysds_commons, hysds.celery
+        #   accountability_api/api_utils/__init__.py -> hysds.celery
+        # `hysds` additionally requires `osaka` and `prov_es` by bare name, so the
+        # explicit URL pins are kept here to keep the install resolvable.
+        # `hysds_commons` is also what brings in `opensearch-py` (for the
+        # GRQ_ES_ENGINE="opensearch" path) and `future`.
+        "prov-es@https://github.com/hysds/prov_es/archive/refs/tags/v0.2.2.tar.gz",
+        "osaka@https://github.com/hysds/osaka/archive/refs/tags/v1.1.0.tar.gz",
+        "hysds-commons@https://github.com/hysds/hysds_commons/archive/refs/tags/v1.1.5.tar.gz",
+        "hysds@https://github.com/hysds/hysds/archive/refs/tags/v1.1.5.tar.gz"
     ],
     extras_require={
         'test': [
             "pytest>=7.4.2",
             "pytest-mock",
             "coverage",
-            "pytest-cov",
-
-            "prov-es@https://github.com/hysds/prov_es/archive/refs/tags/v0.2.2.tar.gz",
-            "osaka@https://github.com/hysds/osaka/archive/refs/tags/v1.1.0.tar.gz",
-            "hysds-commons@https://github.com/hysds/hysds_commons/archive/refs/tags/v1.1.5.tar.gz",
-            "hysds@https://github.com/hysds/hysds/archive/refs/tags/v1.1.5.tar.gz"
+            "pytest-cov"
         ]
     }
 )

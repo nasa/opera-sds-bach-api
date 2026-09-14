@@ -6,20 +6,23 @@ API to support the Accountability UIs for OPERA with HySDS
 ## Prerequisites
 
 1. Git.
-2. Python (see .python-version).
-4. A fork of the repo (for any contributions).
-5. A clone of the `opera-sds-bach-api` repo.
+2. Python (see `.python-version`).
+3. A fork of the repo (for any contributions).
+4. A clone of the `opera-sds-bach-api` repo.
 
 ## Installation
 
 1. Create a python virtual environment.
     1. RECOMMENDED: move `pip.conf` into the resulting `venv/` directory.
-1. Activate the virtual environment and run `pip install -e .` and `pip install -e '.[test]'` from the project root to install the workspace dependencies.
+1. Activate the virtual environment and run `pip install -e .` from the project root to install the
+   application and its dependencies. Add `pip install -e '.[test]'` as well if you intend to run the
+   test suite.
 
 # Running locally
 
 1. Run Elasticsearch (On Mozart. See [opera-sds-pcm project homepage](https://github.com/nasa/opera-sds-pcm)).
-1Under the project root, create a `celeryconfig.py` file. See snippet below. Update placeholders as needed.
+1. Under the project root, create a `celeryconfig.py` file. See the snippet below. Update placeholders
+   as needed. This file is gitignored and the application will not start without it.
 
    ```python
    # celeryconfig.py
@@ -33,6 +36,10 @@ API to support the Accountability UIs for OPERA with HySDS
    
    GRQ_ES_USER = "<user>"
    GRQ_ES_PWD = "<password>"
+
+   # "elasticsearch" (default) or "opensearch". Must match the engine the
+   # cluster actually runs; see accountability_api/es_connection.py.
+   GRQ_ES_ENGINE = "elasticsearch"
    ```
 1. Run either the following commands to start the development server. 
     * Flask development mode:
