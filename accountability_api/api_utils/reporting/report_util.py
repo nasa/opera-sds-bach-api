@@ -24,7 +24,8 @@ def create_histogram(*, series: list[float], title: str, metric: str, unit: str)
 
     # handle extreme edge case where singleton or empty series is passed
     if len(series) >= 2:
-        p90 = statistics.quantiles(series, n=100, method='inclusive')[90]
+        # Quantile cut points start at the first percentile (index zero).
+        p90 = statistics.quantiles(series, n=100, method='inclusive')[89]
         xticks = [min(*series), max(*series)] + [p90]
         ax.axvline(p90, color='k', linestyle='dashed', linewidth=1, alpha=0.5)
     elif len(series) == 1:
